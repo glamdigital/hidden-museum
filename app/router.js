@@ -83,7 +83,7 @@ define(["backbone", "jquery", "underscore",
 		        );
 	        } catch(err) {
 		        //desktop browser
-		        this.prefsTrail = 'p2b';
+		        this.prefsTrail = 'p1a';
 
                 //create a new session for the chosen trail
 	            var trail = this.allTrails.findWhere( {slug: this.prefsTrail} );

@@ -13,7 +13,8 @@
     "audio": "",
     "video": "d0intro.mp4",
     "beaconMajor": "",
-    "beaconHint": ""
+    "beaconHint": "",
+    "unlock_code": "1111"
   },
   {
     "id": "p1-2",
@@ -29,7 +30,8 @@
     "audio": "01_WW1_dance_helmet.mp3",
     "video": "",
     "beaconMajor": "",
-    "beaconHint": ""
+    "beaconHint": "",
+    "unlock_code": "2222"
   },
   {
     "id": "p1-3",
@@ -45,7 +47,8 @@
     "audio": "",
     "video": "d0intro.mp4",
     "beaconMajor": "",
-    "beaconHint": ""
+    "beaconHint": "",
+    "unlock_code": "3333"
   },
   {
     "id": "p1-4",
@@ -61,7 +64,8 @@
     "audio": "01_WW1_dance_helmet.mp3",
     "video": "",
     "beaconMajor": "",
-    "beaconHint": ""
+    "beaconHint": "",
+    "unlock_code": "4444"
   },
   {
     "id": "p2-1",
@@ -77,7 +81,8 @@
     "audio": "",
     "video": "d0intro.mp4",
     "beaconMajor": "",
-    "beaconHint": ""
+    "beaconHint": "",
+    "unlock_code": ""
   },
   {
     "id": "p2-2",
@@ -93,7 +98,8 @@
     "audio": "01_WW1_dance_helmet.mp3",
     "video": "",
     "beaconMajor": "",
-    "beaconHint": ""
+    "beaconHint": "",
+    "unlock_code": ""
   },
   {
     "id": "p2-3",
@@ -109,7 +115,8 @@
     "audio": "",
     "video": "d0intro.mp4",
     "beaconMajor": "",
-    "beaconHint": ""
+    "beaconHint": "",
+    "unlock_code": ""
   },
   {
     "id": "p2-4",
@@ -125,7 +132,8 @@
     "audio": "01_WW1_dance_helmet.mp3",
     "video": "",
     "beaconMajor": "",
-    "beaconHint": ""
+    "beaconHint": "",
+    "unlock_code": ""
   },
   {
     "id": "p3-1",
@@ -141,7 +149,8 @@
     "audio": "01_WW1_dance_helmet.mp3",
     "video": "",
     "beaconMajor": "",
-    "beaconHint": ""
+    "beaconHint": "",
+    "unlock_code": ""
   },
   {
     "id": "p3-2",
@@ -157,7 +166,8 @@
     "audio": "01_WW1_dance_helmet.mp3",
     "video": "",
     "beaconMajor": "",
-    "beaconHint": ""
+    "beaconHint": "",
+    "unlock_code": ""
   },
   {
     "id": "p3-3",
@@ -173,7 +183,8 @@
     "audio": "01_WW1_dance_helmet.mp3",
     "video": "",
     "beaconMajor": "",
-    "beaconHint": ""
+    "beaconHint": "",
+    "unlock_code": ""
   },
   {
     "id": "p3-4",
@@ -189,6 +200,7 @@
     "audio": "01_WW1_dance_helmet.mp3",
     "video": "",
     "beaconMajor": "",
-    "beaconHint": ""
+    "beaconHint": "",
+    "unlock_code": ""
   }
 ]
