@@ -1,0 +1,41 @@
+[
+    {
+        "type":"group",
+        "title":"Common",
+        "items":[
+
+            {
+                "type":"combo",
+                "items":[
+                    {
+                        "value":"p1a",
+                        "title":"MHoS - pull"
+                    },
+                    {
+                        "value":"p1b",
+                        "title":"MHoS - push"
+                    },
+                    {
+                        "value":"p2a",
+                        "title":"Natural History - select"
+                    },
+                    {
+                        "value":"p2b",
+                        "title":"Natural History - trail"
+                    },
+                    {
+                        "value":"p3a",
+                        "title":"Ashmolean - push"
+                    },
+                    {
+                        "value":"p1b",
+                        "title":"Ashmolean - pull"
+                    }
+                ],
+                "default":"ru",
+                "title":"Prototype Selection",
+                "name":"prototype"
+            }
+        ]
+    }
+]

@@ -25,7 +25,9 @@
     "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-jasmine": "^0.8.2",
     "grunt-convert": "^0.1.12",
-    "grunt-template-jasmine-requirejs": "^0.2.0"
+    "grunt-template-jasmine-requirejs": "^0.2.0",
+    "libxmljs": "^0.14.1",
+    "plist": "^1.1.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

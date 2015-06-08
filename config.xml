@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="uk.ac.ox.museums.prtrails" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>Pitt Rivers Trails</name>
+<widget id="uk.ac.ox.museums.hiddenmuseum" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>The Hidden Museum</name>
     <description>
-        Explore the Pitt Rivers museum
+        Hidden Museum research application
     </description>
     <author email="apps@maillist.ox.ac.uk" href="http://www.it.ox.ac.uk">
         Mobile and Web Applications Team - Oxford University

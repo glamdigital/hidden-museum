@@ -24,6 +24,7 @@ define(["backbone", "app/collections/topicsCollection"], function(Backbone, Topi
         //t.shareURL = response.shareURL;
         //t.video = response.video;
         t.fixed_order = response.fixed_order=="true" || response.fixed_order=="TRUE";
+
         return t;
     }
 

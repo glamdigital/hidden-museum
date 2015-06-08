@@ -24,14 +24,12 @@ require(['jquery','backbone', 'app/models/Trail', 'app/models/Topic', 'app/loggi
       Topic.loadItems( function() {
           Trail.loadTopics( function(coll) {
               var floorTracker = new FloorTracking(coll);
+
+	          //create the router - this start's backbone's history when it's ready.
               var router = new Router();
-              //start the app
-              Backbone.history.start();
 
               Logging.logToDom("Started the app");
           })
       } );
-
-
 
 });

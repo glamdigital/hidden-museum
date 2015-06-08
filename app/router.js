@@ -17,6 +17,9 @@ define(["backbone", "jquery", "underscore",
             error: function(coll, resp, opt) {
               console.log("error fetching trails: ");
               console.log(resp);
+            },
+            success: function(coll, resp, opt) {
+                Backbone.history.start();
             }
           });
 
@@ -39,59 +42,102 @@ define(["backbone", "jquery", "underscore",
         },
 
         home: function() {
-          var view = new TrailsView({
-            trails:this.allTrails
-          });
-          this.contentView.setView(view);
-          view.renderIfReady();
 
-            //set links
-            this.headerView.setPrevURL(null);
-            this.headerView.setNextURL(null);
-            this.headerView.setLogoURL('#');
-            this.headerView.render();
+          //
+          //var view = new TrailsView({
+          //  trails:this.allTrails
+          //});
+          //this.contentView.setView(view);
+          //view.renderIfReady();
+          //
+          //  //set links
+          //  this.headerView.setPrevURL(null);
+          //  this.headerView.setNextURL(null);
+          //  this.headerView.setLogoURL('#');
+          //  this.headerView.render();
 
-            FloorTracking.prompttoSwitch = false;
+	        this.prefsTrail = null;
+	        try {
+		        plugins.appPreferences.fetch(
+			        _.bind(function (result) {
+				        //success
+				        this.prefsTrail = result;
+				        console.log(this.prefsTrail);
+
+			            //create a new session for the chosen trail
+			            var trail = this.allTrails.findWhere( {slug: this.prefsTrail} );
+			            this.session = new Session(trail);
+
+			            FloorTracking.prompttoSwitch = false;
+
+				        //redirect to the 'component(/topic) view'
+				        Backbone.history.navigate('#/topic/component');
+			        }, this),
+			        _.bind(function (result) {
+				        //fail
+				        console.log(result);
+				        this.prefsTrail = 'p1a';
+			        }, this),
+			        'prototype'
+		        );
+	        } catch(err) {
+		        //desktop browser
+		        this.prefsTrail = 'p2b';
+
+                //create a new session for the chosen trail
+	            var trail = this.allTrails.findWhere( {slug: this.prefsTrail} );
+	            this.session = new Session(trail);
+
+	            FloorTracking.prompttoSwitch = false;
+
+		        //redirect to the 'component(/topic) view'
+		        Backbone.history.navigate('#/topic/component');
+	        }
+
         },
 
         trail: function(trailSlug) {
-            //create a new session for the chosen trail
-            var trail = this.allTrails.findWhere( {slug: trailSlug} );
-            this.session = new Session(trail);
+            //get trail from settings
+			console.log("Not expecting to go to '/trail' route.");
 
-            //create intro view
-            var view = new TrailIntroView({
-                trail: trail,
-                nextURL: this.session.getNextURL()
-            });
+            ////create intro view
+            //var view = new TrailIntroView({
+            //    trail: trail,
+            //    nextURL: this.session.getNextURL()
+            //});
 
-            this.contentView.setView(view);
-            view.render();
+            //
+            //this.contentView.setView(view);
+            //view.render();
+            //
+            ////set links
+            //this.headerView.setPrevURL('#');
+            //this.headerView.setNextURL(null);
+            //this.headerView.render();
 
-            //set links
-            this.headerView.setPrevURL('#');
-            this.headerView.setNextURL(null);
-            this.headerView.render();
-
-            FloorTracking.prompttoSwitch = true;
         },
 
         topic: function(topicSlug) {
             var topic = this.session.getTopic(topicSlug);
             var trail = this.session.getCurrentTrail();
-            var view = new TopicView({
-                topic: topic,
-                trail: trail
-            });
-            this.contentView.setView(view);
-            view.render();
 
-            //links
-            this.headerView.setPrevURL('#trail/' + trail.attributes.slug);
-            this.headerView.setNextURL(null);
-            this.headerView.render();
+	        var topicViewClass = trail.attributes.viewClass;
+	        require(['app/views/' + trail.attributes.start_view_class], _.bind(function(topicViewClass) {
+		        var view = new topicViewClass({
+	                topic: topic,
+	                trail: trail
+	            });
+	            this.contentView.setView(view);
+	            view.render();
 
-            FloorTracking.prompttoSwitch = true;
+	            //links
+	            this.headerView.setPrevURL('#trail/' + trail.attributes.slug);
+	            this.headerView.setNextURL(null);
+	            this.headerView.render();
+
+	            FloorTracking.prompttoSwitch = true;
+	        },this));
+
         },
 
         found_item: function(itemSlug) {
