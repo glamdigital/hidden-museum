@@ -83,7 +83,7 @@ define(["backbone", "jquery", "underscore",
 		        );
 	        } catch(err) {
 		        //desktop browser
-		        this.prefsTrail = 'p1a';
+		        this.prefsTrail = 'p1b';
 
                 //create a new session for the chosen trail
 	            var trail = this.allTrails.findWhere( {slug: this.prefsTrail} );
@@ -122,7 +122,6 @@ define(["backbone", "jquery", "underscore",
             var topic = this.session.getTopic(topicSlug);
             var trail = this.session.getCurrentTrail();
 
-	        var topicViewClass = trail.attributes.viewClass;
 	        require(['app/views/' + trail.attributes.start_view_class], _.bind(function(topicViewClass) {
 		        var view = new topicViewClass({
 	                topic: topic,

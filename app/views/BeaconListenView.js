@@ -1,8 +1,8 @@
 /**
  * Created by ahaith on 08/06/15.
  */
-define(["backbone", "hbs!app/templates/topic"],
-    function(Backbone, topicTemplate) {
+define(["backbone", "app/views/UserPromptView", "hbs!app/templates/beacon_listen"],
+    function(Backbone, UserPromptView, topicTemplate) {
 
         var BeaconListenView = Backbone.View.extend({
             template: topicTemplate,
@@ -21,7 +21,7 @@ define(["backbone", "hbs!app/templates/topic"],
                 this.topic = params.topic;
                 this.items = this.topic.getItemsForTrail(this.trail.attributes.slug);
 
-                this.beaconsDict = {}
+                this.beaconsDict = {};
                 //listen for events
                 for(var i=0; i<this.items.length; i++) {
                     var item = this.items.at(i);
@@ -38,10 +38,6 @@ define(["backbone", "hbs!app/templates/topic"],
                     alert("undefined beacon in dict from data: " + data);
                     return;
                 }
-                var $itemListEntry = $('#item-'+item.attributes.slug);
-                if($itemListEntry.length == 0) {
-                    alert("No item list entries found for item")
-                }
                 if(data.proximity === 'ProximityImmediate' || data.proximity == 'ProximityNear')
                 {
                     ////vibrate if this is a transition to near
@@ -49,12 +45,22 @@ define(["backbone", "hbs!app/templates/topic"],
                         navigator.notification.vibrate(500);
                     }
 
-                    //add class to item to make bg cycle
-                    $itemListEntry.addClass('nearby');
-                }
-                else {
-                    //remove class which makes bg cycle
-                    $itemListEntry.removeClass('nearby');
+                    //Add popup offering to go to the page
+					var promptView = new UserPromptView({
+						title: "Object detected",
+						subtitle: "View this object?",
+						no_string: "Not now",
+						yes_string: "View object",
+						noCallback: function() {
+							console.log("User chose no");
+						},
+						yesCallback: function () {
+							Backbone.history.navigate("#/item/" + item.attributes.slug);
+						},
+						vibrate: 500,
+						el: $('#prompt')
+					});
+	                promptView.render();
                 }
             }
 

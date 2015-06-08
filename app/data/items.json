@@ -12,7 +12,7 @@
     "map_image": "",
     "audio": "",
     "video": "d0intro.mp4",
-    "beaconMajor": "",
+    "beaconMajor": "1",
     "beaconHint": "",
     "unlock_code": "1111"
   },
@@ -29,7 +29,7 @@
     "map_image": "",
     "audio": "01_WW1_dance_helmet.mp3",
     "video": "",
-    "beaconMajor": "",
+    "beaconMajor": "2",
     "beaconHint": "",
     "unlock_code": "2222"
   },
@@ -46,7 +46,7 @@
     "map_image": "",
     "audio": "",
     "video": "d0intro.mp4",
-    "beaconMajor": "",
+    "beaconMajor": "3",
     "beaconHint": "",
     "unlock_code": "3333"
   },
@@ -63,7 +63,7 @@
     "map_image": "",
     "audio": "01_WW1_dance_helmet.mp3",
     "video": "",
-    "beaconMajor": "",
+    "beaconMajor": "4",
     "beaconHint": "",
     "unlock_code": "4444"
   },
@@ -80,7 +80,7 @@
     "map_image": "",
     "audio": "",
     "video": "d0intro.mp4",
-    "beaconMajor": "",
+    "beaconMajor": "5",
     "beaconHint": "",
     "unlock_code": ""
   },
@@ -97,7 +97,7 @@
     "map_image": "",
     "audio": "01_WW1_dance_helmet.mp3",
     "video": "",
-    "beaconMajor": "",
+    "beaconMajor": "6",
     "beaconHint": "",
     "unlock_code": ""
   },
@@ -114,7 +114,7 @@
     "map_image": "",
     "audio": "",
     "video": "d0intro.mp4",
-    "beaconMajor": "",
+    "beaconMajor": "7",
     "beaconHint": "",
     "unlock_code": ""
   },
@@ -131,7 +131,7 @@
     "map_image": "",
     "audio": "01_WW1_dance_helmet.mp3",
     "video": "",
-    "beaconMajor": "",
+    "beaconMajor": "8",
     "beaconHint": "",
     "unlock_code": ""
   },
