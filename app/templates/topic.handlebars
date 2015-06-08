@@ -1,0 +1,13 @@
+<h1>{{trail.title}} - {{topic.title}}</h1>
+<p class="description">{{topic.description}}</p>
+<div class="trails-list-container">
+    <ul>
+        {{#each items}}
+            <a href="#item/{{slug}}"><li id="item-{{slug}}">
+                <img class="item-thumbnail" src="img/{{image}}"/>
+                <div class="main-title title-smaller">{{title}}</div>
+                <div class="subtitle">{{location}}</div>
+            </li></a>
+        {{/each}}
+    </ul>
+</div>

@@ -1,0 +1,379 @@
+@import "compass/css3";
+$phone: "only screen and (max-width: 767px)";
+$tablet: "only screen and (min-width: 768px)";
+$landscape-test: "only screen and (orientation: landscape)";
+$portrait-test: "only screen and (orientation: portrait)";
+$landscape: "(orientation:landscape)";
+$portrait: "(orientation:portrait)";
+$standardFontFamily: "Helvetica Neue", "Droid Sans", sans-serif;
+$standardPadding: 5px;
+$corner-radius: 5px;
+$navBarWidth: 250px;
+$fontColor: black;
+$videoAspectRatio: 1.7777777778;
+$headerHeight: 60px;
+$headerPadding: 10px;
+
+
+@mixin rounded-corners {
+  border-radius: $corner-radius;
+}
+
+body {
+  font-family: $standardFontFamily;
+  font-size: 16px;
+  margin:0;
+}
+
+h1 {
+  margin: 0px 10px;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.video-holder {
+  @media #{$phone} and #{$landscape} {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+video {
+    width: 100%;
+    &.finished {
+//      Shrink down the video once it's finished in order to reveal the start button
+      @media #{$phone} and #{$landscape} {
+        height: 200px;
+        width: 200px * $videoAspectRatio;
+      }
+    }
+  }
+
+  @include transition-property(max-height);
+  @include transition-duration(0.25s);
+}
+
+.nav-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #000000;
+  color: white;
+  z-index: -1;
+  width: $navBarWidth;
+  height: 1000px;
+  font-size: smaller;
+  overflow-y: scroll;
+
+  h4 {
+    margin: 5px 0px;
+  }
+  ul {
+    list-style: none;
+  }
+}
+
+.nav-menu-button {
+  position: absolute;
+  padding: 0;
+  float: left;
+}
+
+a.nav-link {
+  font-weight: bold;
+  font-size: smaller;
+  color: lightgray;
+  &.current {
+    border-style: solid;
+    border-width: 1px;
+    border-color: blue;
+    border-radius: 3px;
+  }
+  &.found {
+    background-color: darkgreen;
+    border-radius: 3px;
+  }
+}
+
+.content {
+  top: $headerHeight + 2*$headerPadding;
+  left: 0;
+  position: fixed;
+  background-color: white;
+  color: black;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+//  overflow: scroll;
+
+  &.slideout{
+    left: $navBarWidth;
+  }
+  min-height: 1000px;
+
+  @include transition-property(left);
+  @include transition-duration(0.25s);
+}
+
+.header {
+    background-color: #f4f4f4;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    h1 {
+      font-size: medium;
+      text-align: center;
+      padding-top: 25px;
+      padding-bottom: 10px;
+      margin: 0;
+      border-bottom-style: solid;
+      border-bottom-color: #dddddd;
+      border-bottom-width: 1px;
+        @media #{$phone} and #{$landscape} {
+          text-align: left;
+          margin: 0px 30px 0px 70px;
+        }
+    }
+}
+
+.topic {
+  padding: $standardPadding;
+  width: 100%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  @media #{$phone} and #{$landscape} {
+    float: right;
+    width: 50%;
+  }
+  h2 {
+    margin: 5px 20px;
+    font-size: 1.2em;
+  }
+}
+
+h3 {
+  text-align: center;
+  margin: 5px 0px;
+  padding-bottom: 5px;
+
+}
+
+//Contains the image and instructions for the item the user is supposed to be searching for
+.search-item {
+  padding: $standardPadding;
+  float: left;
+  text-align: center;
+  width: 100%;
+
+  img {
+    @media #{$phone} and #{$landscape} {
+      width: 80%;
+      margin: 0 4%;
+    }
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
+    padding-right: 0;
+    width: 80%;
+    max-height: 40%;
+  }
+  .dev-control {
+    float: right;
+  }
+  @media #{$landscape} {
+    width: 45%;
+  }
+}
+
+.hint-container {
+  text-align: center;
+  .hint {
+    display: none;
+    &.revealed {
+      //Add the 'revealed' class once revealed, and the hint will be shown
+      display: block;
+    }
+  }
+}
+
+div.item-title {
+  h3.name {
+    text-align: center;
+    @media #{$phone} and #{$landscape} {
+      padding-bottom: 2px;
+    }
+    margin:0px;
+  }
+  h4 {
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+  }
+}
+
+.proximity-indicator {
+  background-color: #999999;
+  border-radius: 20px;
+  padding: 5px 10px;
+  margin: 13px 12px;
+  position: fixed;
+  left: 70%;
+  top: 90%;
+  &.far {
+    background-color: lightcoral;
+  }
+  &.near {
+    background-color: orange;
+  }
+  &.immediate {
+    background-color: lightgreen;
+  }
+}
+
+.found-item {
+  display: none;
+  padding: none;
+  clear: none;
+  text-align: center;
+  float: left;
+
+  @media #{$tablet} {
+    width: 100%;
+    clear: both;
+  }
+  img {
+    width: 80%;
+  }
+  h5 {
+    margin: 5px 0px;
+  }
+  &.finished {
+    max-width: 40%;
+    @media #{$portrait} {
+      max-width: 100%;
+    }
+
+  }
+  p.description {
+    overflow-y: scroll;
+    padding-bottom: 5px;
+
+  }
+
+  @include transition-property(max-width);
+  @include transition-duration(0.25s);
+
+  video {
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+    @media #{$phone} and #{$portrait} {
+      width: 90%;
+      height: 90% * $videoAspectRatio;
+    }
+    @media #{$tablet} and #{$landscape} {
+      width: 90%;
+      height: 90% * $videoAspectRatio;
+    }
+  }
+  h3 {
+    color: darkgreen;
+  }
+}
+
+
+.dev-control {
+  display: block;
+  font-size: x-small;
+}
+
+.question {
+  display: inline;
+  min-height: 0px;
+  margin: 0% 5%;
+  padding: 0px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.9em;
+  ul {
+    text-align: left;
+    list-style: none;
+    padding: 2px;
+    li {
+      div.response {
+        display: none;
+        font-size: small;
+        font-weight: normal;
+      }
+      padding-bottom: 10px;
+    }
+    height: 100%;
+    overflow: scroll;
+  }
+  .try-again {
+    display: none
+  }
+  .proceed {
+    display: none
+  }
+  @media #{$phone} and #{$landscape} {
+    max-width: 50%;
+//    float: right;
+  }
+}
+
+.choose-trail {
+  float: left;
+  padding-right: $standardPadding;
+}
+.start-trail {
+  display:none;
+}
+
+div.button {
+  &.center {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  a {
+    padding: 2*$standardPadding;
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 1px;
+    background-color: lightgrey;
+    text-decoration: none;
+    color: $fontColor;
+  }
+  margin: 10px;
+}
+
+.media-test {
+  display: none;
+  background-color: blue;
+  padding: 10px;
+  width: 20%;
+  margin: 10px;
+  &.phone {
+    @media #{$phone} {
+      display: inline;
+    }
+  }
+  &.tablet {
+    @media #{$tablet} {
+      display: inline;
+    }
+  }
+  &.landscape {
+    @media #{$landscape-test} {
+      display: inline;
+    }
+  }
+  &.portrait {
+    @media #{$portrait-test} {
+      display: inline;
+    }
+  }
+}

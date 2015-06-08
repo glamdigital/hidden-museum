@@ -1,0 +1,55 @@
+.meter {
+	height: 20px;  /* Can be anything */
+	position: relative;
+	background: #555;
+	-moz-border-radius: 25px;
+	-webkit-border-radius: 25px;
+	border-radius: 5px;
+	padding: 10px;
+	box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+
+  margin-bottom: 20px;
+
+      span.fillBar {
+        display: block;
+        height: 100%;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        background-color: #999;
+        box-shadow:
+          inset 0 2px 9px  rgba(255,255,255,0.3),
+          inset 0 -2px 6px rgba(0,0,0,0.4);
+        position: relative;
+        overflow: hidden;
+          &.immediate {
+            background-color: rgb(43,194,83);
+          }
+          &.near {
+            background-color: rgb(194, 156, 56);
+          }
+          &.far {
+            background-color: rgb(194, 47, 53);
+          }
+      }
+}
+
+.meter-group {
+  margin-bottom: 50px;
+}
+
+span.scaleLabel {
+  position: relative;
+  z-index: 10;
+  &.min {
+    float: left
+  }
+  &.max {
+    float: right
+  }
+  &.value {
+    margin-left: 50px;
+  }
+}
+

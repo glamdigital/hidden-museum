@@ -1,0 +1,22 @@
+[
+  {
+    "id": "first-world-war",
+    "title": "First World War Trail",
+    "description": "A WWI tour with a difference - consider how this conflict affected people around the world before, during and after 1914-18. You’ll discover the stories behind fascinating and poignant objects: from currency to engraved artillery shell cases, from musical instruments to weapons.",
+    "audio": "00_WW1_introduction.mp3",
+    "fixed_order": "TRUE",
+    "share_message": "I completed the First World War Trail at the Pitt Rivers Museum",
+    "share_image": "00_WW1_introduction.jpg",
+    "shareURL": "http://public.museums.ox.ac.uk/pitt-rivers"
+  },
+  {
+    "id": "amulets-charms",
+    "title": "Amulets & Charms Trail",
+    "description": "Lorem ipsum dolor…",
+    "audio": "",
+    "fixed_order": "TRUE",
+    "share_message": "I completed the Amulets and Charms Trail at the Pitt Rivers Museum",
+    "share_image": "ashtray_hint.jpg",
+    "shareURL": "http://www.prm.ox.ac.uk"
+  }
+]

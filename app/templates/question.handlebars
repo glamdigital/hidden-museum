@@ -1,0 +1,17 @@
+<h4>{{question}}</h4>
+<ul>
+  {{#each answers}}
+    <li>
+      <div class="answer {{#if isCorrect}}correct{{/if}} qId={{id}}">
+        <a href="#">{{text}}</a>
+        <div class="response {{#if isCorrect}}correct{{/if}} qId={{id}}">
+          {{#if isCorrect}}<span class='correct'>Correct. </span>
+          {{else}}<span class='incorrect'>No. </span>{{/if}}
+          {{response}}
+        </div>
+      </div>
+    </li>
+  {{/each}}
+</ul>
+<div class="try-again"><a href="#">Try Again</a></div>
+<div class="proceed"><a href="{{nextURL}}">Next Challenge</a></div>

@@ -1,0 +1,43 @@
+{
+  "name": "sensing-evolution",
+  "version": "1.0.0",
+  "description": "",
+  "main": " ",
+  "dependencies": {
+    "bower": "^1.3.12",
+    "cca": "^0.7.0",
+    "compass": "^0.1.0",
+    "cordova": "^5.0.0",
+    "grunt": "^0.4.5",
+    "grunt-contrib-compass": "^1.0.1",
+    "grunt-contrib-compress": "^0.13.0",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-contrib-qunit": "^0.5.2",
+    "grunt-contrib-requirejs": "^0.4.4",
+    "grunt-contrib-uglify": "^0.7.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-cordovacli": "^0.7.1",
+    "grunt-phonegap-build": "git://github.com/avgp/grunt-phonegap-build"
+  },
+  "devDependencies": {
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-jasmine": "^0.8.2",
+    "grunt-convert": "^0.1.12",
+    "grunt-template-jasmine-requirejs": "^0.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ox-it/sensing-evolution.git"
+  },
+  "author": "",
+  "license": " ",
+  "bugs": {
+    "url": "https://github.com/ox-it/sensing-evolution/issues"
+  },
+  "homepage": "https://github.com/ox-it/sensing-evolution"
+}

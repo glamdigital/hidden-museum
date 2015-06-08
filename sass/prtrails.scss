@@ -1,0 +1,181 @@
+$headerHeight: 60px;
+$headerPadding: 10px;
+$arrow-width: 60px;
+$audio-height: 30px;
+
+@mixin flip() {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
+
+
+.pr-header-container {
+  padding: $headerPadding 0px;
+  text-align: center;
+  background-color: white;
+  .pr-header {
+    z-index: 3;
+    height: $headerHeight;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    div {
+      height: $headerHeight;
+      display: inline-block;
+      a {
+        img {
+          height: 100%;
+          padding: 0px;
+          &.flip {
+            @include flip();
+          }
+        }
+      }
+      &.header-arrow {
+        width: $arrow-width;
+      }
+      &.header-logo {
+        padding: 0px 2%;
+      }
+    }
+  }
+}
+
+h1.finished-title {
+  margin: 20px 30px;
+}
+
+h3.finished-message {
+  margin: 20px 30px;
+}
+
+p.finished-call-to-action {
+  margin: 20px 20px;
+}
+
+table.social-links-table {
+  padding-top: 30px;
+  width: 100%;
+  text-align: center;
+  tr {
+    td {
+      a {
+        img {
+          height: 77px;
+          width: 77px;
+        }
+      }
+    }
+  }
+}
+
+.feedback-button {
+  width: 100%;
+  padding: 17px 50px ;
+  text-align: left;
+  background-color: black;
+//  border-radius: 10px;
+  a {
+    color: white;
+    text-decoration: none;
+  }
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+}
+
+div.black-bar {
+  width: auto;
+  background: black;
+  padding: 5px 12px;
+  color: white;
+  font-size: 1em;
+  line-height: 2.2em;
+  &.audio {
+    height: $audio-height;
+    img.audio-control-icon {
+      height: $audio-height;
+      width: $audio-height;
+      float: right;
+      padding: 0px 10px;
+      &.pause {
+        display: none;
+      }
+      &.restart {
+        display: none;
+      }
+      &.speaker {
+        padding-right: 20px;
+        float: left;
+      }
+    }
+  }
+  &.map-link {
+    height: 40px;
+  }
+}
+
+.map-container {
+  display: none;
+  position: fixed;
+  top:0;
+  left:0;
+  background-color: black;
+  width: 100%;
+  height: 400%;
+  text-align: center;
+  img.map-image {
+    max-width: 100%;
+    position: relative;
+  }
+}
+
+.prompt {
+  position: fixed;
+  background-color: transparent;
+  color: white;
+  text-align: center;
+  width: 100%;
+  z-index: 2;
+
+  .user-prompt {
+    padding: 10px 0px;
+    background-color: black;
+    &.title {
+      font-size: 1.1em;
+    }
+    &.subtitle {
+      font-size: 0.8em;
+      border-bottom: solid 1px grey;
+    }
+  }
+}
+
+.white-edge {
+  width: 100%;
+  height: 100px;
+//  background-color: white;
+  background: linear-gradient(transparent, white);
+  opacity: 0.8;
+
+}
+.button-holder {
+  background-color: black;
+  width: 100%;
+
+  .prompt-button {
+    width: 48%;
+    display: inline-block;
+    background-color: black;
+    font-weight: bold;
+    padding: 10px 0px;
+    &.no {
+      border-right: solid 1px grey;
+    }
+
+  }
+}

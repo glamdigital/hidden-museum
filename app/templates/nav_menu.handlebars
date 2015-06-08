@@ -1,0 +1,18 @@
+<h4>{{title}}</h4>
+<hr>
+
+<a href="#/" class="nav-link">Home</a>
+
+<hr>
+
+{{#each topics}}
+    {{title}}
+    <ul>
+    {{#each items}}
+        <li><a class="nav-link {{#if isCurrent}}current{{/if}} {{#if isFound}}found{{/if}}" href="#/item/{{slug}}">{{title}}</a></li>
+    {{/each}}
+    </ul>
+    <hr>
+{{/each}}
+<a href="#/dashboard">Beacon Ranging Dashboard</a>
+

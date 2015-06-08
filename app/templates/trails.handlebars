@@ -1,0 +1,16 @@
+<div class="trails-list-container">
+    <h1>TrailFinder</h1>
+    <h5>Choose a trail from the list below</h5>
+    <ul>
+    {{#each trails}}
+        <a href='#trail/{{slug}}'><li><div class="trails-list-item">{{title}}</div></li></a>
+    {{/each}}
+  </ul>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+
+<a href="#/dashboard">Dashboard</a>

@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="uk.ac.ox.museums.prtrails" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>Pitt Rivers Trails</name>
+    <description>
+        Explore the Pitt Rivers museum
+    </description>
+    <author email="apps@maillist.ox.ac.uk" href="http://www.it.ox.ac.uk">
+        Mobile and Web Applications Team - Oxford University
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+
+    <gap:plugin name="com.unarin.cordova.beacon" version="3.2.1" />
+    <gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
+    <gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
+    <gap:plugin name="org.apache.cordova.dialogs" version="0.2.10" />
+    <gap:plugin name="org.apache.cordova.vibration" version="0.3.11" />
+    <gap:plugin name="com.vladstirbu.cordova.instagram" version="0.4.1" />
+    <gap:plugin name="org.apache.cordova.vibration" version="0.3.11" />
+    <gap:plugin name="org.apache.cordova.media" version="0.2.13" />
+    <gap:plugin name="org.apache.cordova.device" version="0.2.12" />
+
+    <preference name="AllowInlineMediaPlayback" value="true" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="orientation" value="portrait" />
+
+    <feature name="http://api.phonegap.com/1.0/geolocation" />
+
+    <gap:config-file platform="ios" parent="UIStatusBarHidden">
+        <true/>
+    </gap:config-file>
+
+    <gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance">
+        <false/>
+    </gap:config-file>
+</widget>
