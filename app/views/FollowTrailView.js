@@ -4,7 +4,7 @@
 define(["backbone", "hbs!app/templates/topic"],
     function(Backbone, topicTemplate) {
 
-        var TopicView = Backbone.View.extend({
+        var FollowTrailView = Backbone.View.extend({
             template: topicTemplate,
 
             serialize: function() {
@@ -60,6 +60,6 @@ define(["backbone", "hbs!app/templates/topic"],
 
         });
 
-        return TopicView;
+        return FollowTrailView;
 
     });

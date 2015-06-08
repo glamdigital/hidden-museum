@@ -10,8 +10,8 @@
     "image": "00_WW1_introduction.jpg",
     "hint_image": "",
     "map_image": "",
-    "audio": "01_WW1_dance_helmet.mp3",
-    "hint": "",
+    "audio": "",
+    "video": "d0intro.mp4",
     "beaconMajor": "",
     "beaconHint": ""
   },
@@ -27,7 +27,7 @@
     "hint_image": "",
     "map_image": "",
     "audio": "01_WW1_dance_helmet.mp3",
-    "hint": "",
+    "video": "",
     "beaconMajor": "",
     "beaconHint": ""
   },
@@ -42,8 +42,8 @@
     "image": "00_WW1_introduction.jpg",
     "hint_image": "",
     "map_image": "",
-    "audio": "01_WW1_dance_helmet.mp3",
-    "hint": "",
+    "audio": "",
+    "video": "d0intro.mp4",
     "beaconMajor": "",
     "beaconHint": ""
   },
@@ -59,7 +59,7 @@
     "hint_image": "",
     "map_image": "",
     "audio": "01_WW1_dance_helmet.mp3",
-    "hint": "",
+    "video": "",
     "beaconMajor": "",
     "beaconHint": ""
   },
@@ -74,8 +74,8 @@
     "image": "00_WW1_introduction.jpg",
     "hint_image": "",
     "map_image": "",
-    "audio": "01_WW1_dance_helmet.mp3",
-    "hint": "",
+    "audio": "",
+    "video": "d0intro.mp4",
     "beaconMajor": "",
     "beaconHint": ""
   },
@@ -91,7 +91,7 @@
     "hint_image": "",
     "map_image": "",
     "audio": "01_WW1_dance_helmet.mp3",
-    "hint": "",
+    "video": "",
     "beaconMajor": "",
     "beaconHint": ""
   },
@@ -106,8 +106,8 @@
     "image": "00_WW1_introduction.jpg",
     "hint_image": "",
     "map_image": "",
-    "audio": "01_WW1_dance_helmet.mp3",
-    "hint": "",
+    "audio": "",
+    "video": "d0intro.mp4",
     "beaconMajor": "",
     "beaconHint": ""
   },
@@ -123,7 +123,7 @@
     "hint_image": "",
     "map_image": "",
     "audio": "01_WW1_dance_helmet.mp3",
-    "hint": "",
+    "video": "",
     "beaconMajor": "",
     "beaconHint": ""
   },
@@ -139,7 +139,7 @@
     "hint_image": "",
     "map_image": "",
     "audio": "01_WW1_dance_helmet.mp3",
-    "hint": "",
+    "video": "",
     "beaconMajor": "",
     "beaconHint": ""
   },
@@ -155,7 +155,7 @@
     "hint_image": "",
     "map_image": "",
     "audio": "01_WW1_dance_helmet.mp3",
-    "hint": "",
+    "video": "",
     "beaconMajor": "",
     "beaconHint": ""
   },
@@ -171,7 +171,7 @@
     "hint_image": "",
     "map_image": "",
     "audio": "01_WW1_dance_helmet.mp3",
-    "hint": "",
+    "video": "",
     "beaconMajor": "",
     "beaconHint": ""
   },
@@ -187,7 +187,7 @@
     "hint_image": "",
     "map_image": "",
     "audio": "01_WW1_dance_helmet.mp3",
-    "hint": "",
+    "video": "",
     "beaconMajor": "",
     "beaconHint": ""
   }

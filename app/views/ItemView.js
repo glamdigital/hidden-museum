@@ -79,7 +79,7 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
         }
 
       //set header next link to found
-      this.headerView.setNextURL(this.nextURL);
+      //this.headerView.setNextURL(this.nextURL);
       this.headerView.render();
 
 

@@ -2,6 +2,7 @@ define(["backbone", "jquery", "underscore",
           "app/collections/TrailsCollection",
           "app/views/TrailsView", "app/views/TrailIntroView", "app/views/TopicView", "app/views/ItemView", "app/views/FinishedView",
           "app/views/ContentView", "app/views/HeaderView", "app/models/Session", "app/views/DashboardView",
+		  "app/views/BeaconListenView", "app/views/CodeEntryView", "app/views/FollowTrailView",
           "app/floor_tracking"],
   function(Backbone, $, _,
             TrailsCollection,
@@ -131,7 +132,7 @@ define(["backbone", "jquery", "underscore",
 	            view.render();
 
 	            //links
-	            this.headerView.setPrevURL('#trail/' + trail.attributes.slug);
+	            this.headerView.setPrevURL(null);
 	            this.headerView.setNextURL(null);
 	            this.headerView.render();
 
@@ -144,7 +145,8 @@ define(["backbone", "jquery", "underscore",
             this.item(itemSlug, true);
 
             //links
-            this.headerView.setNextURL(this.session.getNextURL());
+            this.headerView.setPrevURL('#/topic/component');
+            this.headerView.setNextURL(null);
             this.headerView.render();
 
             FloorTracking.prompttoSwitch = true;
@@ -172,7 +174,7 @@ define(["backbone", "jquery", "underscore",
 
             //links
             this.headerView.setPrevURL('#topic/' + currentTopic.attributes.slug);
-            this.headerView.setNextURL('#found/' + item.attributes.slug);
+            this.headerView.setNextURL(null);
             this.headerView.render();
 
             FloorTracking.prompttoSwitch = false;

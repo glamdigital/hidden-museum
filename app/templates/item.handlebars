@@ -16,10 +16,18 @@
 </div>
 
 <div class="found-item">
-    <img class="item-image" src="img/{{image}}">
-    {{#if audio}}
-        <div class="audio-controls"></div>
+
+    {{#if video}}
+        <video id='video' class='found center-vertically' width="100%" height="auto" webkit-playsinline preload="auto" controls>
+            <source src="video/{{video}}" type="video/mp4">
+        </video>
+    {{else}}
+        <img class="item-image" src="img/{{image}}">
+        {{#if audio}}
+            <div class="audio-controls"></div>
+        {{/if}}
     {{/if}}
+
     <h5>Location: {{location}}</h5>
     <p class="description">{{description}}</p>
 </div>
