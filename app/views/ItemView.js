@@ -54,6 +54,7 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
         case "ProximityNear":
           //update proximity indicator
           $('.proximity-indicator').removeClass('immediate far').addClass('near').html('Near');
+          this.findObject();
           break;
         case "ProximityFar":
           //update proximity indicator
@@ -78,8 +79,10 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
             navigator.notification.vibrate(500);
         }
 
-      //set header next link to found
-      //this.headerView.setNextURL(this.nextURL);
+      //set header next link to found, only for Trail trails
+	    if(this.trail.attributes.isTrail) {
+		    this.headerView.setNextURL(this.nextURL);
+	    }
       this.headerView.render();
 
 

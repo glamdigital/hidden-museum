@@ -5,7 +5,8 @@
     "description": "Audio guide at the Museum of History of Science. Guide items are triggered by entering a numerical code into the app.",
     "audio": "",
     "fixed_order": "TRUE",
-    "start_view_class": "CodeEntryView"
+    "start_view_class": "CodeEntryView",
+    "is_trail": "FALSE"
   },
   {
     "id": "p1b",
@@ -13,7 +14,8 @@
     "description": "Audio guide at the Museum of History of Science. Guide items are triggered by iBeacons.",
     "audio": "",
     "fixed_order": "TRUE",
-    "start_view_class": "BeaconListenView"
+    "start_view_class": "BeaconListenView",
+    "is_trail": "FALSE"
   },
   {
     "id": "p2a",
@@ -21,7 +23,8 @@
     "description": "Sensing Evolution trail at Museum of Natural History. Items are chosen by users.",
     "audio": "",
     "fixed_order": "TRUE",
-    "start_view_class": "TopicView"
+    "start_view_class": "TopicView",
+    "is_trail": "FALSE"
   },
   {
     "id": "p2b",
@@ -29,7 +32,8 @@
     "description": "Sensing Evolution trail at Museum of Natural History. Users are directed to items on a trail",
     "audio": "",
     "fixed_order": "TRUE",
-    "start_view_class": "FollowTrailView"
+    "start_view_class": "FollowTrailView",
+    "is_trail": "TRUE"
   },
   {
     "id": "p3a",
@@ -37,7 +41,8 @@
     "description": "Ashmolean pull trail.",
     "audio": "",
     "fixed_order": "TRUE",
-    "start_view_class": "TopicView"
+    "start_view_class": "TopicView",
+    "is_trail": "FALSE"
   },
   {
     "id": "p3b",
@@ -45,6 +50,7 @@
     "description": "Ashmolean push trail.",
     "audio": "",
     "fixed_order": "TRUE",
-    "start_view_class": "TopicView"
+    "start_view_class": "TopicView",
+    "is_trail": "FALSE"
   }
 ]

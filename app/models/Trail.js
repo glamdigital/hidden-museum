@@ -25,6 +25,8 @@ define(["backbone", "app/collections/topicsCollection"], function(Backbone, Topi
         //t.video = response.video;
         t.fixed_order = response.fixed_order=="true" || response.fixed_order=="TRUE";
 
+	    t.isTrail = response.is_trail == "TRUE";
+
         return t;
     }
 

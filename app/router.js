@@ -63,49 +63,58 @@ define(["backbone", "jquery", "underscore",
 			        _.bind(function (result) {
 				        //success
 				        this.prefsTrail = result;
-				        console.log(this.prefsTrail);
 
-			            //create a new session for the chosen trail
-			            var trail = this.allTrails.findWhere( {slug: this.prefsTrail} );
-			            this.session = new Session(trail);
-
-			            FloorTracking.prompttoSwitch = false;
-
-				        //redirect to the 'component(/topic) view'
-				        Backbone.history.navigate('#/topic/component');
+						this.goToTrail(this.prefsTrail);
 			        }, this),
 			        _.bind(function (result) {
 				        //fail
 				        console.log(result);
 				        this.prefsTrail = 'p1a';
+
+				        this.goToTrail(this.prefsTrail);
+
 			        }, this),
 			        'prototype'
 		        );
 	        } catch(err) {
 		        //desktop browser
-		        this.prefsTrail = 'p1b';
+		        this.prefsTrail = 'p2b';
 
+				this.goToTrail(this.prefsTrail);
+	        }
+
+        },
+	    goToTrail: function(slug) {
                 //create a new session for the chosen trail
 	            var trail = this.allTrails.findWhere( {slug: this.prefsTrail} );
 	            this.session = new Session(trail);
 
 	            FloorTracking.prompttoSwitch = false;
 
+		        //choose start page
+		        // first item for a trail. 'topic' view for anything else.
 		        //redirect to the 'component(/topic) view'
-		        Backbone.history.navigate('#/topic/component');
-	        }
+		        if(trail.attributes.isTrail) {
+			        Backbone.history.navigate(this.session.getNextURL())
+		        }
+		        else {
+			        Backbone.history.navigate('#/topic/component');
+		        }
 
-        },
+	    },
 
         trail: function(trailSlug) {
+
+
             //get trail from settings
-			console.log("Not expecting to go to '/trail' route.");
+            //console.log("Not expecting to go to '/trail' route.");
 
             ////create intro view
             //var view = new TrailIntroView({
             //    trail: trail,
             //    nextURL: this.session.getNextURL()
             //});
+
 
             //
             //this.contentView.setView(view);
@@ -144,7 +153,9 @@ define(["backbone", "jquery", "underscore",
             this.item(itemSlug, true);
 
             //links
-            this.headerView.setPrevURL('#/topic/component');
+	        if(!trail.attributes.isTrail) {
+                this.headerView.setPrevURL('#/topic/component');
+	        }
             this.headerView.setNextURL(null);
             this.headerView.render();
 
@@ -172,7 +183,9 @@ define(["backbone", "jquery", "underscore",
             view.render();
 
             //links
-            this.headerView.setPrevURL('#topic/' + currentTopic.attributes.slug);
+	        if(!currentTrail.attributes.isTrail) {
+		        this.headerView.setPrevURL('#topic/' + currentTopic.attributes.slug);
+	        }
             this.headerView.setNextURL(null);
             this.headerView.render();
 
