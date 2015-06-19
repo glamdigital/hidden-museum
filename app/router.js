@@ -79,7 +79,7 @@ define(["backbone", "jquery", "underscore",
 		        );
 	        } catch(err) {
 		        //desktop browser?
-		        this.prefsTrail = 'p2b';
+		        this.prefsTrail = 'p3a';
 		        alert(err);
 				this.goToTrail(this.prefsTrail);
 	        }

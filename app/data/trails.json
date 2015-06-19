@@ -42,7 +42,7 @@
     "audio": "",
     "fixed_order": "TRUE",
     "start_view_class": "TopicView",
-    "is_trail": "FALSE"
+    "is_trail": "TRUE"
   },
   {
     "id": "p3b",
@@ -51,6 +51,6 @@
     "audio": "",
     "fixed_order": "TRUE",
     "start_view_class": "TopicView",
-    "is_trail": "FALSE"
+    "is_trail": "TRUE"
   }
 ]
