@@ -2,12 +2,13 @@ define(["backbone", "jquery", "underscore",
           "app/collections/TrailsCollection",
           "app/views/TrailsView", "app/views/TrailIntroView", "app/views/TopicView", "app/views/ItemView", "app/views/FinishedView",
           "app/views/ContentView", "app/views/HeaderView", "app/models/Session", "app/views/DashboardView",
-		  "app/views/BeaconListenView", "app/views/CodeEntryView", "app/views/FollowTrailView",
+		  "app/views/BeaconListenView", "app/views/CodeEntryView", "app/views/QRCodeEntryView", "app/views/FollowTrailView",
           "app/floor_tracking"],
   function(Backbone, $, _,
             TrailsCollection,
             TrailsView, TrailIntroView, TopicView, ItemView, FinishedView,
             ContentView, HeaderView, Session, DashboardView,
+            BeaconListenView, CodeEntryView, QRCodeEntryView, FollowTrailView,
             FloorTracking) {
 
     var SEVRouter = Backbone.Router.extend({
@@ -47,7 +48,7 @@ define(["backbone", "jquery", "underscore",
           //
           //var view = new TrailsView({
           //  trails:this.allTrails
-          //});
+          //});§
           //this.contentView.setView(view);
           //view.renderIfReady();
           //
@@ -77,9 +78,9 @@ define(["backbone", "jquery", "underscore",
 			        'prototype'
 		        );
 	        } catch(err) {
-		        //desktop browser
+		        //desktop browser?
 		        this.prefsTrail = 'p2b';
-
+		        alert(err);
 				this.goToTrail(this.prefsTrail);
 	        }
 
@@ -153,9 +154,9 @@ define(["backbone", "jquery", "underscore",
             this.item(itemSlug, true);
 
             //links
-	        if(!trail.attributes.isTrail) {
-                this.headerView.setPrevURL('#/topic/component');
-	        }
+            //if(!trail.attributes.isTrail) {
+            //    this.headerView.setPrevURL('#/topic/component');
+            //}
             this.headerView.setNextURL(null);
             this.headerView.render();
 

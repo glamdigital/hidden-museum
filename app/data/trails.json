@@ -3,7 +3,7 @@
     "id": "p1a",
     "title": "MoHS - pull",
     "description": "Audio guide at the Museum of History of Science. Guide items are triggered by entering a numerical code into the app.",
-    "audio": "",
+    "audio": "MHS_00_intro.mp3",
     "fixed_order": "TRUE",
     "start_view_class": "CodeEntryView",
     "is_trail": "FALSE"
@@ -12,7 +12,7 @@
     "id": "p1b",
     "title": "MoHS - push",
     "description": "Audio guide at the Museum of History of Science. Guide items are triggered by iBeacons.",
-    "audio": "",
+    "audio": "MHS_00_intro.mp3",
     "fixed_order": "TRUE",
     "start_view_class": "BeaconListenView",
     "is_trail": "FALSE"

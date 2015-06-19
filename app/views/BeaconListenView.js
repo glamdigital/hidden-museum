@@ -41,21 +41,21 @@ define(["backbone", "app/views/UserPromptView", "hbs!app/templates/beacon_listen
                 if(data.proximity === 'ProximityImmediate' || data.proximity == 'ProximityNear')
                 {
                     ////vibrate if this is a transition to near
-                    if(navigator.notification && !$itemListentry.hasClass('nearby')) {
-                        navigator.notification.vibrate(500);
-                    }
+                    //if(navigator.notification && !$itemListentry.hasClass('nearby')) {
+                    //    navigator.notification.vibrate(500);
+                    //}
 
                     //Add popup offering to go to the page
 					var promptView = new UserPromptView({
 						title: "Object detected",
-						subtitle: "View this object?",
+						subtitle: item.attributes.title,
 						no_string: "Not now",
 						yes_string: "View object",
 						noCallback: function() {
 							console.log("User chose no");
 						},
 						yesCallback: function () {
-							Backbone.history.navigate("#/item/" + item.attributes.slug);
+							Backbone.history.navigate("#/found/" + item.attributes.slug);
 						},
 						vibrate: 500,
 						el: $('#prompt')

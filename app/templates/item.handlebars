@@ -2,10 +2,10 @@
     <h3 class="name">{{title}}</h3>
 </div>
 
-<div class="hint-container">
-    <smaller>({{beaconHint}} beacon)</smaller>
-    <h5>Location: {{location}}</h5>
-</div>
+<!--<div class="hint-container">-->
+    <!--<smaller>({{beaconHint}} beacon)</smaller>-->
+    <!--<h5>Location: {{location}}</h5>-->
+<!--</div>-->
 
 <div class="search-item">
     Can you find?<br>
@@ -19,7 +19,7 @@
 <div class="found-item">
 
     {{#if video}}
-        <video id='video' class='found center-vertically' width="100%" height="auto" webkit-playsinline preload="auto" controls>
+        <video id='video' class='found center-vertically' width="100%" height="auto" webkit-playsinline preload="auto" poster="img/{{image}}"controls>
             <source src="video/{{video}}" type="video/mp4">
         </video>
     {{else}}
@@ -29,7 +29,7 @@
         {{/if}}
     {{/if}}
 
-    <h5>Location: {{location}}</h5>
+    <!--<h5>Location: {{location}}</h5>-->
     <p class="description">{{description}}</p>
 </div>
 

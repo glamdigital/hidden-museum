@@ -32,7 +32,7 @@ define(["backbone", "jquery", "hbs!app/templates/code_entry"],
 		        var item = this.topic.getItems().findWhere({unlock_code:input});
 		        if(item) {
 			        //go to the page for the item
-			        Backbone.history.navigate('#/item/' + item.attributes.slug);
+			        Backbone.history.navigate('#/found/' + item.attributes.slug);
 		        }
 	        }
 
