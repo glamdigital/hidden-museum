@@ -19,7 +19,7 @@ define(['backbone', 'hbs!app/templates/audio_controls'],
         initialize: function(params) {
             this.audio = params.audio;
             this.caption = params.caption;
-	        this.duration = params.duration.toMSS();
+	        this.duration = parseInt(params.duration).toMSS();
             //use Media plugin, for Android playback
             if(typeof(Media) !== 'undefined') {
                 this.media_obj = new Media(this.getAudioURL(),
