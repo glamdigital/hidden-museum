@@ -42,6 +42,9 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
           this.findObject();
         }
 
+	    //listen for video finished
+	    $('video').on('ended', this.onVideoEnded.bind(this));
+
     },
 
     didRangeBeacon: function(data) {
@@ -136,6 +139,15 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
         var content = $('#content');
         content.toggleClass('slideout');
     },
+
+    onVideoEnded: function(ev)
+    {
+		if(this.trail.attributes.showImgAfterVideo)
+		{
+			//show the video poster again. Calling load() appears to be the simplest way to achieve this.
+			$('video')[0].load();
+		}
+    }
 
     //allQuestions: allQuestions
   }
