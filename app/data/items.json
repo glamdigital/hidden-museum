@@ -113,7 +113,7 @@
     "hint_image": "Darwin.jpg",
     "map_image": "Darwin.jpg",
     "audio": "i1darwin.m4a",
-    "video": "i1darwin.mp4",
+    "video": "",
     "beaconMajor": "12518",
     "beaconHint": "",
     "unlock_code": ""
@@ -147,7 +147,7 @@
     "hint_image": "Horse.jpg",
     "map_image": "Horse.jpg",
     "audio": "i6horse.m4a",
-    "video": "i6horse.mp4",
+    "video": "",
     "beaconMajor": "61866",
     "beaconHint": "",
     "unlock_code": ""

@@ -37,7 +37,8 @@ define(['backbone', 'hbs!app/templates/audio_controls'],
             }
             return path;
         },
-       playAudio: function(ev) {
+
+        playAudio: function(ev) {
             if(this.media_obj) {
                 this.media_obj.play();
             }
@@ -71,6 +72,8 @@ define(['backbone', 'hbs!app/templates/audio_controls'],
 
         cleanup: function() {
             if(this.media_obj) {
+	            console.log('releasing media object');
+	            this.media_obj.stop();
                 this.media_obj.release();
             }
         }

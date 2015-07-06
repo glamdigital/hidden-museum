@@ -41,7 +41,7 @@
     "description": "Ashmolean pull trail.",
     "audio": "",
     "fixed_order": "TRUE",
-    "start_view_class": "TopicView",
+    "start_view_class": "FollowTrailView",
     "is_trail": "TRUE"
   },
   {
@@ -50,7 +50,7 @@
     "description": "Ashmolean push trail.",
     "audio": "",
     "fixed_order": "TRUE",
-    "start_view_class": "TopicView",
+    "start_view_class": "FollowTrailView",
     "is_trail": "TRUE"
   }
 ]
