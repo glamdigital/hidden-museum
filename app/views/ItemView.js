@@ -147,6 +147,10 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
 			//show the video poster again. Calling load() appears to be the simplest way to achieve this.
 			$('video')[0].load();
 		}
+    },
+
+    cleanup: function() {
+	    this.audioControlsView.remove();
     }
 
     //allQuestions: allQuestions
