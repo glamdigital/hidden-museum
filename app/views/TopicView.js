@@ -29,6 +29,14 @@ define(["backbone", "hbs!app/templates/topic"],
                 }
             },
 
+	        afterRender: function() {
+	            //hide items by default
+	            if(this.trail.attributes.hideByDefault)
+	            {
+		            $('.topic-item').addClass("hide-if-not-near");
+	            }
+	        },
+
             didRangeBeacon: function(data) {
                 var item = this.beaconsDict[data.major.toString()];
                 if(item==undefined) {
@@ -42,7 +50,7 @@ define(["backbone", "hbs!app/templates/topic"],
                 if(data.proximity === 'ProximityImmediate' || data.proximity == 'ProximityNear')
                 {
                     ////vibrate if this is a transition to near
-                    if(navigator.notification && !$itemListentry.hasClass('nearby')) {
+                    if(navigator.notification && !$itemListEntry.hasClass('nearby')) {
                         navigator.notification.vibrate(500);
                     }
 

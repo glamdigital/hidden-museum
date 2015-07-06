@@ -32,9 +32,15 @@ div.trails-list-container {
         text-align: left;
         white-space: nowrap;
         text-overflow: ellipsis;
-        &.nearby {
-          @include animation(1.4s cyclebg ease-in-out infinite);
+
+        //optionally hide items unless the user is near them
+        &.hide-if-not-near {
+          display: none;
+          &.nearby {
+            display: block;
+          }
         }
+
         &.audio {
           margin-top: 20px;
           padding: 5px 0;

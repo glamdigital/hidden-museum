@@ -27,6 +27,9 @@ define(["backbone", "app/collections/topicsCollection"], function(Backbone, Topi
 
 	    t.isTrail = response.is_trail == "TRUE";
 
+	    //for topic view, whether items should be hidden by default
+	    t.hideByDefault = response.hide_items_by_default == "TRUE";
+
         return t;
     }
 

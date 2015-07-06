@@ -12,6 +12,7 @@
     "map_image": "MHS_01_lodestone.jpeg",
     "audio": "MHS_01_lodestone.mp3",
     "video": "",
+    "poster": "",
     "beaconMajor": "23019",
     "beaconHint": "",
     "unlock_code": "1111"
@@ -29,6 +30,7 @@
     "map_image": "MHS_02_penicillin.png",
     "audio": "MHS_02_penicillin.mp3",
     "video": "",
+    "poster": "",
     "beaconMajor": "59655",
     "beaconHint": "",
     "unlock_code": "2222"
@@ -46,6 +48,7 @@
     "map_image": "MHS_03_photo.png",
     "audio": "MHS_03_photo.mp3",
     "video": "",
+    "poster": "",
     "beaconMajor": "22691",
     "beaconHint": "",
     "unlock_code": "3333"
@@ -63,6 +66,7 @@
     "map_image": "MHS_04_camera.png",
     "audio": "MHS_04_camera.mp3",
     "video": "",
+    "poster": "",
     "beaconMajor": "30098",
     "beaconHint": "",
     "unlock_code": "4444"
@@ -80,6 +84,7 @@
     "map_image": "MHS_05_blackboard.png",
     "audio": "MHS_05_blackboard.mp3",
     "video": "",
+    "poster": "",
     "beaconMajor": "12518",
     "beaconHint": "",
     "unlock_code": "5555"
@@ -97,6 +102,7 @@
     "map_image": "MHS_06_finds.png",
     "audio": "MHS_06_finds.mp3",
     "video": "",
+    "poster": "",
     "beaconMajor": "18670",
     "beaconHint": "",
     "unlock_code": "6666"
@@ -114,6 +120,7 @@
     "map_image": "Darwin.jpg",
     "audio": "i1darwin.m4a",
     "video": "",
+    "poster": "i1darwin.jpg",
     "beaconMajor": "12518",
     "beaconHint": "",
     "unlock_code": ""
@@ -131,6 +138,7 @@
     "map_image": "Lucy.jpg",
     "audio": "i2ourplace.m4a",
     "video": "i2ourplace.mp4",
+    "poster": "i2ourplace.jpg",
     "beaconMajor": "21925",
     "beaconHint": "",
     "unlock_code": ""
@@ -148,6 +156,7 @@
     "map_image": "Horse.jpg",
     "audio": "i6horse.m4a",
     "video": "",
+    "poster": "i6horse.jpg",
     "beaconMajor": "61866",
     "beaconHint": "",
     "unlock_code": ""
@@ -165,6 +174,7 @@
     "map_image": "Snowy-Owl.jpg",
     "audio": "i7naturalselection.m4a",
     "video": "i7naturalselection.mp4",
+    "poster": "i7naturalselection.jpg",
     "beaconMajor": "50197",
     "beaconHint": "",
     "unlock_code": ""
@@ -182,6 +192,7 @@
     "map_image": "MIMO_1_ShoemakersPot.jpg",
     "audio": "",
     "video": "MiMO_1_Confrontation.mp4",
+    "poster": "MIMO_1_ShoemakersPot.jpg",
     "beaconMajor": "12518",
     "beaconHint": "",
     "unlock_code": ""
@@ -199,6 +210,7 @@
     "map_image": "MIMO_2_Symposium.jpg",
     "audio": "",
     "video": "MiMO_2_LedaisPregnant.mp4",
+    "poster": "MIMO_2_Symposium.jpg",
     "beaconMajor": "21925",
     "beaconHint": "",
     "unlock_code": ""
@@ -216,6 +228,7 @@
     "map_image": "MIMO_3_Wedding.jpg",
     "audio": "",
     "video": "MiMO_3_AnotherBloodyWedding.mp4",
+    "poster": "MIMO_3_Wedding.jpg",
     "beaconMajor": "61866",
     "beaconHint": "",
     "unlock_code": ""
@@ -233,6 +246,7 @@
     "map_image": "MIMO_4_GorgonDrinkingVessel.jpg",
     "audio": "",
     "video": "MiMO_4_GodofGoodTimes.mp4",
+    "poster": "MIMO_4_GorgonDrinkingVessel.jpg",
     "beaconMajor": "50197",
     "beaconHint": "",
     "unlock_code": ""
