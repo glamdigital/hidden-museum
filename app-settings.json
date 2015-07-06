@@ -20,15 +20,11 @@
                         "title":"Natural History - select"
                     },
                     {
-                        "value":"p2b",
-                        "title":"Natural History - trail"
-                    },
-                    {
                         "value":"p3a",
                         "title":"Ashmolean - push"
                     },
                     {
-                        "value":"p1b",
+                        "value":"p3b",
                         "title":"Ashmolean - pull"
                     }
                 ],

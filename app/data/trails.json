@@ -30,16 +30,6 @@
     "hide_items_by_default": "FALSE"
   },
   {
-    "id": "p2b",
-    "title": "NaturalHistory - trail",
-    "description": "Sensing Evolution trail at Museum of Natural History. Users are directed to items on a trail",
-    "audio": "",
-    "fixed_order": "TRUE",
-    "start_view_class": "FollowTrailView",
-    "is_trail": "TRUE",
-    "hide_items_by_default": ""
-  },
-  {
     "id": "p3a",
     "title": "Ashmolean - pull",
     "description": "Ashmolean pull trail.",
