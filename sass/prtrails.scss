@@ -179,3 +179,16 @@ div.black-bar {
 
   }
 }
+
+div.code-input {
+  text-align: center;
+  input {
+    border: 1px solid;
+    font-size: 1.5em;
+    border-radius: 2px;
+  }
+  img {
+    margin-top: 100px;
+    width: 85%;
+  }
+}

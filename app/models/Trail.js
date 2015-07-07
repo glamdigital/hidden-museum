@@ -31,6 +31,8 @@ define(["backbone", "app/collections/topicsCollection"], function(Backbone, Topi
 	    t.hideByDefault = response.hide_items_by_default == "TRUE";
 
 	    t.showImgAfterVideo = response.show_img_after_video == "TRUE";
+
+	    t.useQRCodes = response.use_qr_codes == "TRUE";
         return t;
     }
 

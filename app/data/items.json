@@ -16,7 +16,7 @@
     "poster": "",
     "beaconMajor": "23019",
     "beaconHint": "",
-    "unlock_code": "1111"
+    "unlock_code": "36"
   },
   {
     "id": "p1-2",
@@ -35,7 +35,7 @@
     "poster": "",
     "beaconMajor": "59655",
     "beaconHint": "",
-    "unlock_code": "2222"
+    "unlock_code": "37"
   },
   {
     "id": "p1-3",
@@ -54,7 +54,7 @@
     "poster": "",
     "beaconMajor": "22691",
     "beaconHint": "",
-    "unlock_code": "3333"
+    "unlock_code": "38"
   },
   {
     "id": "p1-4",
@@ -73,7 +73,7 @@
     "poster": "",
     "beaconMajor": "30098",
     "beaconHint": "",
-    "unlock_code": "4444"
+    "unlock_code": "39"
   },
   {
     "id": "p1-5",
@@ -92,7 +92,7 @@
     "poster": "",
     "beaconMajor": "12518",
     "beaconHint": "",
-    "unlock_code": "5555"
+    "unlock_code": "40"
   },
   {
     "id": "p1-6",
@@ -111,7 +111,7 @@
     "poster": "",
     "beaconMajor": "18670",
     "beaconHint": "",
-    "unlock_code": "6666"
+    "unlock_code": "41"
   },
   {
     "id": "p2-1",
@@ -199,14 +199,14 @@
     "trail2": "p3b",
     "image": "MIMO_1_ShoemakersPot.jpg",
     "hint_image": "MIMO_1_ShoemakersPot.jpg",
-    "map_image": "MIMO_1_ShoemakersPot.jpg",
+    "map_image": "",
     "audio": "",
     "audio_duration": "",
     "video": "MiMO_1_Confrontation.mp4",
     "poster": "MIMO_1_ShoemakersPot.jpg",
     "beaconMajor": "12518",
     "beaconHint": "",
-    "unlock_code": ""
+    "unlock_code": "confrontation"
   },
   {
     "id": "p3-2",
@@ -218,14 +218,14 @@
     "trail2": "p3b",
     "image": "MIMO_2_Symposium.jpg",
     "hint_image": "MIMO_2_Symposium.jpg",
-    "map_image": "MIMO_2_Symposium.jpg",
+    "map_image": "",
     "audio": "",
     "audio_duration": "",
     "video": "MiMO_2_LedaisPregnant.mp4",
     "poster": "MIMO_2_Symposium.jpg",
     "beaconMajor": "21925",
     "beaconHint": "",
-    "unlock_code": ""
+    "unlock_code": "ledaispregnant"
   },
   {
     "id": "p3-3",
@@ -237,14 +237,14 @@
     "trail2": "p3b",
     "image": "MIMO_3_Wedding.jpg",
     "hint_image": "MIMO_3_Wedding.jpg",
-    "map_image": "MIMO_3_Wedding.jpg",
+    "map_image": "",
     "audio": "",
     "audio_duration": "",
     "video": "MiMO_3_AnotherBloodyWedding.mp4",
     "poster": "MIMO_3_Wedding.jpg",
     "beaconMajor": "61866",
     "beaconHint": "",
-    "unlock_code": ""
+    "unlock_code": "anotherbloodywedding"
   },
   {
     "id": "p3-4",
@@ -256,13 +256,13 @@
     "trail2": "p3b",
     "image": "MIMO_4_GorgonDrinkingVessel.jpg",
     "hint_image": "MIMO_4_GorgonDrinkingVessel.jpg",
-    "map_image": "MIMO_4_GorgonDrinkingVessel.jpg",
+    "map_image": "",
     "audio": "",
     "audio_duration": "",
     "video": "MiMO_4_GodofGoodTimes.mp4",
     "poster": "MIMO_4_GorgonDrinkingVessel.jpg",
     "beaconMajor": "50197",
     "beaconHint": "",
-    "unlock_code": ""
+    "unlock_code": "godofgoodtimes"
   }
 ]

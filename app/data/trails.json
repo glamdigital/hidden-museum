@@ -7,8 +7,10 @@
     "fixed_order": "TRUE",
     "start_view_class": "CodeEntryView",
     "is_trail": "FALSE",
+    "use_qr_codes": "",
     "hide_items_by_default": "",
-    "show_img_after_video": ""
+    "show_img_after_video": "",
+    "trail_image": "MHoS_map.png"
   },
   {
     "id": "p1b",
@@ -18,8 +20,10 @@
     "fixed_order": "TRUE",
     "start_view_class": "TopicView",
     "is_trail": "FALSE",
+    "use_qr_codes": "",
     "hide_items_by_default": "TRUE",
-    "show_img_after_video": ""
+    "show_img_after_video": "",
+    "trail_image": "MHoS_map.png"
   },
   {
     "id": "p2a",
@@ -29,8 +33,10 @@
     "fixed_order": "TRUE",
     "start_view_class": "TopicView",
     "is_trail": "FALSE",
+    "use_qr_codes": "",
     "hide_items_by_default": "FALSE",
-    "show_img_after_video": ""
+    "show_img_after_video": "",
+    "trail_image": ""
   },
   {
     "id": "p3a",
@@ -40,8 +46,10 @@
     "fixed_order": "TRUE",
     "start_view_class": "FollowTrailView",
     "is_trail": "TRUE",
+    "use_qr_codes": "TRUE",
     "hide_items_by_default": "",
-    "show_img_after_video": "TRUE"
+    "show_img_after_video": "TRUE",
+    "trail_image": ""
   },
   {
     "id": "p3b",
@@ -51,7 +59,9 @@
     "fixed_order": "TRUE",
     "start_view_class": "FollowTrailView",
     "is_trail": "TRUE",
+    "use_qr_codes": "",
     "hide_items_by_default": "",
-    "show_img_after_video": "TRUE"
+    "show_img_after_video": "TRUE",
+    "trail_image": ""
   }
 ]

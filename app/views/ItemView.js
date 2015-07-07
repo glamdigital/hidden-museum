@@ -13,6 +13,7 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
       output.nextURL = this.nextURL;
       output.trailTitle = this.trail.attributes.title;
       output.topicTitle = this.topic.attributes.title;
+      output.useQR = this.trail.attributes.useQRCodes;
       return output;
     },
 
@@ -21,10 +22,12 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
       this.nextURL = params.nextURL;
       this.trail = params.trail;
       this.topic = params.topic;
-      //listen for events
-      this.eventId = 'beaconRange:' + this.item.attributes.beaconMajor;
-      this.listenTo(Backbone, this.eventId, this.didRangeBeacon);
-      Logging.logToDom("Listening for event: " + this.eventId);
+	    if(!this.trail.attributes.useQRCodes) {
+		    //listen for events
+		    this.eventId = 'beaconRange:' + this.item.attributes.beaconMajor;
+		    this.listenTo(Backbone, this.eventId, this.didRangeBeacon);
+            Logging.logToDom("Listening for event: " + this.eventId);
+	    }
       this.foundAtInit = params.found;
       this.headerView = params.headerView;
     },
@@ -103,20 +106,21 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
 
     //For browser simulation of 'finding' the object. Click on the picture
     events: {
-      "click img.item-image" : "onClickImage",
+      //"click img.item-image" : "onClickImage",
       "click .show-hint" : "showHint",
       "click #nav-menu-button" : "toggleNavMenu",
       "click .map-link" : "showMap",
-      "click .map-container" : "hideMap"
+      "click .map-container" : "hideMap",
+      "click .scan-qr": "scanQRCode"
     },
 
     onClickImage: function(ev) {
-      Backbone.trigger(this.eventId, { proximity:"ProximityImmediate" });
+       Backbone.trigger(this.eventId, { proximity:"ProximityImmediate" });
     },
     showHint: function(ev) {
         ev.preventDefault();
-      $('.show-hint').hide();
-      $('.hint').show();
+       $('.show-hint').hide();
+       $('.hint').show();
     },
 
     showMap: function(ev) {
@@ -149,8 +153,29 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
 		}
     },
 
+    scanQRCode: function(ev) {
+      ev.preventDefault();
+	  cordova.plugins.barcodeScanner.scan(
+		  function(result) {
+			  console.log("Got barcode");
+			  console.log("result.text");
+			  if(result.text.toString() == this.item.attributes.unlock_code)
+			  {
+
+				  this.findObject();
+			  }
+			  else
+			  {
+				  $('.qr-feedback').html("Code Not Recognised");
+			  }
+		  }.bind(this)
+	  )
+    },
+
     cleanup: function() {
-	    this.audioControlsView.remove();
+	    if(this.audioControlsView) {
+		    this.audioControlsView.remove();
+	    }
     }
 
     //allQuestions: allQuestions
