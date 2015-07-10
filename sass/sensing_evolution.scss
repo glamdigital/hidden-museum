@@ -237,13 +237,14 @@ div.item-title {
   clear: none;
   text-align: center;
   float: left;
+  width:100%;
 
   @media #{$tablet} {
     width: 100%;
     clear: both;
   }
   img {
-    width: 80%;
+    max-width: 80%;
   }
   h5 {
     margin: 5px 0px;
