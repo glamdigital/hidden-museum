@@ -57,10 +57,11 @@ define(["backbone", "app/collections/ItemsCollection"], function(Backbone, Items
             j++;
         }
 
-        t.fixed_order=false;
+        var fixed_order=false;
         if(response.fixed_order=="true" || response.fixed_order=="TRUE") {
-            t.fixed_order=true;
+            fixed_order=true;
         }
+	    t.fixed_order = fixed_order;
 
       return t;
     },
