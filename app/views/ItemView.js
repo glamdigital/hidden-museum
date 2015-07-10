@@ -102,6 +102,8 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
 
         //enable user prompting to switch floor
         FloorTracking.prompttoSwitch = true;
+
+	    $('video').on('play', this.makeFullScreen);
     },
 
     //For browser simulation of 'finding' the object. Click on the picture
@@ -111,7 +113,14 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
       "click #nav-menu-button" : "toggleNavMenu",
       "click .map-link" : "showMap",
       "click .map-container" : "hideMap",
-      "click .scan-qr": "scanQRCode"
+      "click .scan-qr": "scanQRCode",
+      "click video": "makeFullScreen",
+      "play video": "makeFullScreen"
+    },
+
+    makeFullScreen: function(ev) {
+	    $('video')[0].webkitEnterFullscreen();
+	    $('video')[0].play();
     },
 
     onClickImage: function(ev) {
