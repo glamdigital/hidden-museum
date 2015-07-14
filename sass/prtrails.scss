@@ -27,16 +27,19 @@ $audio-height: 30px;
       height: $headerHeight;
       display: inline-block;
       a {
-        img {
-          height: 100%;
-          padding: 0px;
-          &.flip {
-            @include flip();
-          }
-        }
+        font-size: 1.4em;
+        text-decoration: none;
       }
       &.header-arrow {
         width: $arrow-width;
+      }
+      &.header-arrow-left {
+        position:absolute;
+        left:$headerPadding;
+      }
+      &.header-arrow-left {
+        position:absolute;
+        right:$headerPadding;
       }
       &.header-logo {
         padding: 0px 2%;
