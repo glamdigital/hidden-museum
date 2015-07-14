@@ -155,6 +155,9 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
 
     onVideoEnded: function(ev)
     {
+	    //come out of fullscreenvideo
+	    $('video')[0].webkitExitFullscreen();
+
 		if(this.trail.attributes.showImgAfterVideo)
 		{
 			//show the video poster again. Calling load() appears to be the simplest way to achieve this.
