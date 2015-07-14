@@ -14,6 +14,10 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
       output.trailTitle = this.trail.attributes.title;
       output.topicTitle = this.topic.attributes.title;
       output.useQR = this.trail.attributes.useQRCodes;
+
+	    //show skip button for beacon trail
+      output.showskip = this.trail.attributes.isTrail && !output.useQR
+
       return output;
     },
 
@@ -115,7 +119,17 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
       "click .map-container" : "hideMap",
       "click .scan-qr": "scanQRCode",
       "click video": "makeFullScreen",
-      "play video": "makeFullScreen"
+      "play video": "makeFullScreen",
+      "click .skip-item": "skipItem",
+    },
+
+    skipItem: function(ev) {
+	    //give the user a confirmation
+		navigator.notification.confirm("Are you sure you want to skip this item?",
+										function() {
+											this.findObject();
+										}.bind(this));
+
     },
 
     makeFullScreen: function(ev) {
@@ -155,6 +169,9 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
 
     onVideoEnded: function(ev)
     {
+	    //come out of fullscreenvideo
+	    $('video')[0].webkitExitFullscreen();
+
 		if(this.trail.attributes.showImgAfterVideo)
 		{
 			//show the video poster again. Calling load() appears to be the simplest way to achieve this.

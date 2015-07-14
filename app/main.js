@@ -8,6 +8,7 @@ require(['jquery','backbone', 'app/models/Trail', 'app/models/Topic', 'app/loggi
     //TODO move this to config
     var Location_UUID_beacons = 'D191E31B-4298-41B5-BFE7-3382B57B9D81'; //beacons
     var Location_UUID_ios = '8492E75F-4FD6-469D-B132-043FE94921D8'; //ios
+    var Location_UUID_default = 'B9407F30-F5F8-466E-AFF9-25556B57FE6D'; //ios
 
     var onReady = function() {
       Logging.logToDom("Device Ready");
