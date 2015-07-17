@@ -2,6 +2,7 @@ $headerHeight: 60px;
 $headerPadding: 10px;
 $arrow-width: 60px;
 $audio-height: 30px;
+$statusBar-height: 20px;
 
 @mixin flip() {
   -moz-transform: scaleX(-1);
@@ -33,13 +34,15 @@ $audio-height: 30px;
       &.header-arrow {
         width: $arrow-width;
       }
-      &.header-arrow-left {
+      &.arrow-left {
         position:absolute;
         left:$headerPadding;
+        top:$statusBar-height + 10px;
       }
-      &.header-arrow-left {
+      &.arrow-right {
         position:absolute;
         right:$headerPadding;
+        top:$statusBar-height + 10px;
       }
       &.header-logo {
         padding: 0px 2%;
