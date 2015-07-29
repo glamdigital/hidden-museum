@@ -18,6 +18,8 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
 	    //show skip button for beacon trail
       output.showskip = this.trail.attributes.isTrail && !output.useQR
 
+
+
       return output;
     },
 
@@ -34,6 +36,13 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
 	    }
       this.foundAtInit = params.found;
       this.headerView = params.headerView;
+
+	    
+      this.pauseTimes = params.item.attributes.pauseTimes;
+
+	    for(var i=0; i<this.pauseTimes.length; i++) {
+		    this.pauseTimes[i].hit = false;
+	    }
     },
 
     afterRender: function() {
@@ -51,7 +60,8 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
 
 	    //listen for video finished
 	    $('video').on('ended', this.onVideoEnded.bind(this));
-
+		$('video').on('timeupdate', this.checkShouldPause.bind(this));
+        $('video').on('seeked', this.resetPauses.bind(this));
     },
 
     didRangeBeacon: function(data) {
@@ -177,6 +187,32 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
 			//show the video poster again. Calling load() appears to be the simplest way to achieve this.
 			$('video')[0].load();
 		}
+    },
+
+    checkShouldPause: function(ev)
+    {
+	    //if we're at a time we should pause at, then pause
+	    for(var i=0; i<this.pauseTimes.length; i++) {
+		    var vid = $('video')[0];
+		    var pause = this.pauseTimes[i];
+		    console.log("Should pause? hit = " + pause.hit + " - pauseTime = " + pause.time + ". currentTime = " + vid.currentTime);
+		    if(!pause.hit && pause.time < vid.currentTime) {
+			    console.log("Paused!");
+			    vid.pause();
+			    pause.hit = true;
+		    }
+	    }
+    },
+
+    resetPauses: function(ev)
+    {
+        for(var i=0; i<this.pauseTimes.length; i++) {
+	        var vid = $('video')[0];
+	        var pause = this.pauseTimes[i];
+	        if(vid.currentTime < pause.time) {
+		        pause.hit = false;
+	        }
+        }
     },
 
     scanQRCode: function(ev) {

@@ -34,6 +34,23 @@ define(["backbone", "underscore", "app/collections/QuestionsCollection"], functi
         }
         i++;
       }
+
+      //get all pause points
+      foundEmpty = false;
+	    i=1;
+	    response.pauseTimes = [];
+	    while(!foundEmpty) {
+	      var pauseTimeKey = "pause" + i;
+	      if(response[pauseTimeKey]) {
+		      response.pauseTimes.push(
+			      { time: response[pauseTimeKey] }
+		      );
+	      } else {
+		      foundEmpty = true;
+	      }
+	      i++;
+      }
+
       return item;
     }
 
