@@ -82,6 +82,7 @@ define(['backbone', 'hbs!app/templates/audio_controls'],
         restartAudio: function(ev) {
             if(this.media_obj) {
                 this.media_obj.seekTo(0);
+	            $('#media-elapsed').html('0:00');
             }
             else if(this.media) {
                 this.media.currentTime = 0;
