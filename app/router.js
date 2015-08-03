@@ -70,7 +70,7 @@ define(["backbone", "jquery", "underscore",
 			        _.bind(function (result) {
 				        //fail
 				        console.log(result);
-				        this.prefsTrail = 'p1a';
+				        this.prefsTrail = 'p2a';
 
 				        this.goToTrail(this.prefsTrail);
 
@@ -79,7 +79,7 @@ define(["backbone", "jquery", "underscore",
 		        );
 	        } catch(err) {
 		        //desktop browser?
-		        this.prefsTrail = 'p3b';
+		        this.prefsTrail = 'p4';
 		        alert(err);
 				this.goToTrail(this.prefsTrail);
 	        }
@@ -99,7 +99,17 @@ define(["backbone", "jquery", "underscore",
 			        Backbone.history.navigate(this.session.getNextURL())
 		        }
 		        else {
-			        Backbone.history.navigate('#/topic/component');
+			        //go to only topic if only one topic, else go to main
+			        topics = trail.getTopics();
+
+			        if(topics.length >= 2 ) {
+				        Backbone.history.navigate('#/trail/' + trail.attributes.slug);
+			        }
+			        else if (topics.length == 1) {
+			            Backbone.history.navigate('#/topic/component');
+			        } else {
+				        console.log("No topics for trail: " + trail.attributes.slug);
+			        }
 		        }
 
 	    },
@@ -110,21 +120,24 @@ define(["backbone", "jquery", "underscore",
             //get trail from settings
             //console.log("Not expecting to go to '/trail' route.");
 
+	        //we already have a session with the right trail, so trailSlug is redundant in the route.
+	        var trail = this.session.getCurrentTrail();
+
             ////create intro view
-            //var view = new TrailIntroView({
-            //    trail: trail,
-            //    nextURL: this.session.getNextURL()
-            //});
+            var view = new TrailIntroView({
+                trail: trail,
+                nextURL: this.session.getNextURL()
+            });
 
 
-            //
-            //this.contentView.setView(view);
-            //view.render();
-            //
-            ////set links
-            //this.headerView.setPrevURL('#');
-            //this.headerView.setNextURL(null);
-            //this.headerView.render();
+
+            this.contentView.setView(view);
+            view.render();
+
+            //set links
+            this.headerView.setPrevURL('#');
+            this.headerView.setNextURL(null);
+            this.headerView.render();
 
         },
 

@@ -7,15 +7,16 @@ define(['app/logging', 'backbone', 'underscore', 'app/models/trail', 'app/views/
         var FloorTracking = Backbone.Model.extend(
             {
             initialize : function(topics) {
-                //subscribe to relevant beacon events
-                topics.each( function(topic) {
-                    for(var i=0; i<topic.attributes.entryPointBeaconIDs.length; i++)
-                    var beaconID = topic.attributes.entryPointBeaconIDs[i]
-                    var eventId = 'beaconRange:' + beaconID;
-                    this.listenTo(Backbone, eventId, this.beaconRanged);
-                    this.beaconsDict[beaconID.toString()] = topic;
-                }, this);
-                this.promptsSuppressed = false;
+                ////subscribe to relevant beacon events
+                //topics.each( function(topic) {
+                //    for(var i=0; i<topic.attributes.entryPointBeaconIDs.length; i++) {
+	             //       var beaconID = topic.attributes.entryPointBeaconIDs[i]
+	             //       var eventId = 'beaconRange:' + beaconID;
+	             //       this.listenTo(Backbone, eventId, this.beaconRanged);
+	             //       this.beaconsDict[beaconID.toString()] = topic;
+                //    }
+                //}, this);
+                //this.promptsSuppressed = false;
 
             },
 

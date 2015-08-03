@@ -63,5 +63,18 @@
     "hide_items_by_default": "",
     "show_img_after_video": "TRUE",
     "trail_image": ""
+  },
+  {
+    "id": "p4",
+    "title": "MOHS - media types",
+    "description": "Museum of History of Science - content type comparison",
+    "audio": "",
+    "fixed_order": "TRUE",
+    "start_view_class": "TopicView",
+    "is_trail": "FALSE",
+    "use_qr_codes": "",
+    "hide_items_by_default": "",
+    "show_img_after_video": "",
+    "trail_image": ""
   }
 ]
