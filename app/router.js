@@ -103,6 +103,7 @@ define(["backbone", "jquery", "underscore",
 			        topics = trail.getTopics();
 
 			        if(topics.length >= 2 ) {
+				        this.multiple_topics = true;
 				        Backbone.history.navigate('#/trail/' + trail.attributes.slug);
 			        }
 			        else if (topics.length == 1) {
@@ -135,7 +136,7 @@ define(["backbone", "jquery", "underscore",
             view.render();
 
             //set links
-            this.headerView.setPrevURL('#');
+            this.headerView.setPrevURL(null);
             this.headerView.setNextURL(null);
             this.headerView.render();
 
@@ -148,13 +149,14 @@ define(["backbone", "jquery", "underscore",
 	        require(['app/views/' + trail.attributes.start_view_class], _.bind(function(topicViewClass) {
 		        var view = new topicViewClass({
 	                topic: topic,
-	                trail: trail
+	                trail: trail,
 	            });
 	            this.contentView.setView(view);
 	            view.render();
 
 	            //links
-	            this.headerView.setPrevURL(null);
+		        //back button only present if more than one topic
+	            this.headerView.setPrevURL(this.multiple_topics ? '#/trail/' + trail.attributes.slug : null);
 	            this.headerView.setNextURL(null);
 	            this.headerView.render();
 

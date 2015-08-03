@@ -1,5 +1,5 @@
-define(["backbone", "hbs!app/templates/topic"],
-    function(Backbone, topicTemplate) {
+define(["backbone", "underscore", "hbs!app/templates/topic"],
+    function(Backbone, _, topicTemplate) {
 
         var TopicView = Backbone.View.extend({
             template: topicTemplate,
@@ -9,7 +9,7 @@ define(["backbone", "hbs!app/templates/topic"],
                 var out = {};
                 out.trail = this.trail.toJSON();
                 out.topic = this.topic.toJSON();
-                out.items = this.items.toJSON();
+                out.items = _.shuffle(this.items.toJSON());
                 return out;
             },
 
