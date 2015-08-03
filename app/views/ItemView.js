@@ -97,7 +97,7 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
 
       //vibrate
         if(navigator.notification) {
-            navigator.notification.vibrate(500);
+            //navigator.notification.vibrate(500);
         }
 
       //set header next link to found, only for Trail trails
