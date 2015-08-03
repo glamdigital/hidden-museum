@@ -9,14 +9,14 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
                 var out = {};
                 out.trail = this.trail.toJSON();
                 out.topic = this.topic.toJSON();
-                out.items = _.shuffle(this.items.toJSON());
+                out.items = this.items.toJSON();
                 return out;
             },
 
             initialize: function(params) {
                 this.trail = params.trail;
                 this.topic = params.topic;
-                this.items = this.topic.getItemsForTrail(this.trail.attributes.slug);
+                this.items = this.topic.shuffledItems;
 
                 this.beaconsDict = {}
                 //listen for events
