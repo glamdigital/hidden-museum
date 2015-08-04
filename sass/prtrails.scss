@@ -1,6 +1,6 @@
 $headerHeight: 40px;
 $headerPadding: 10px;
-$arrow-width: 60px;
+$arrow-width: 90px;
 $audio-height: 30px;
 $statusBar-height: 20px;
 
@@ -38,11 +38,13 @@ $statusBar-height: 20px;
         position:absolute;
         left:$headerPadding;
         top:$statusBar-height + 10px;
+        text-align:left;
       }
       &.arrow-right {
         position:absolute;
         right:$headerPadding;
         top:$statusBar-height + 10px;
+        text-align:right;
       }
       &.header-logo {
         padding: 0px 2%;
