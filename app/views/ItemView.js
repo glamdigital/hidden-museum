@@ -108,11 +108,21 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
 
 
         //fix the height of the description box, for correct overflow scrolling
-        var windowHeight = $(window).height();
-        var $description = $('p.description');
-        var descPos = $description.offset();
-        var descHeight = windowHeight - descPos.top - 10;
-        $description.height(descHeight);
+        //var windowHeight = $(window).height();
+        //var $description = $('p.description');
+        //var descPos = $description.offset();
+        //var descHeight = windowHeight - descPos.top - 10;
+        //$description.height(descHeight);
+        //
+
+	    if(!this.item.attributes.video && !this.item.attributes.audio) {
+		    //fix height of entire screen, for overflow scrolling
+		    var windowHeight = $(window).height();
+		    var $found = $('.found-item');
+		    var descPos = $found.offset();
+		    var descHeight = windowHeight - descPos.top - 10;
+		    $('div.found-item').height(descHeight);
+	    }
 
         //enable user prompting to switch floor
         FloorTracking.prompttoSwitch = true;

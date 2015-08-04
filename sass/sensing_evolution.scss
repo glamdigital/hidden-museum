@@ -11,7 +11,7 @@ $corner-radius: 5px;
 $navBarWidth: 250px;
 $fontColor: black;
 $videoAspectRatio: 1.7777777778;
-$headerHeight: 60px;
+$headerHeight: 40px;
 $headerPadding: 10px;
 
 
@@ -238,6 +238,8 @@ div.item-title {
   text-align: center;
   float: left;
   width:100%;
+  overflow-y: scroll;
+  font-size: 1.1em;
 
   @media #{$tablet} {
     width: 100%;
