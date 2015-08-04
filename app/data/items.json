@@ -317,7 +317,7 @@
   {
     "id": "astrolabe-text",
     "title": "Text",
-    "description": "Full text description",
+    "description": "<b><larger>Geared Astrolabe (inv. 48213)\n</larger></b><br>\n<i>\"Meanings going beyond all meanings...\"</i><br><br>\nThis unique astrolabe has been split into its two halves to reveal in the mirror the geared calendar mechanism normally hidden inside. Made in Isfahan in 1221/2 by Muhammad ibn Abu Bakr, it is the oldest gearing to survive in a complete state.\n<br>\nThe presence of the internal gear train makes the astrolabe thicker than normal. Rather than leaving the wide rim blank it has been decorated with silver-inlaid pictorial representations of the signs of the zodiac, alternating with warrior figures.\n<br>\nThe combination of astronomical mechanism and elaborate ornament indicates that this was an extremely important commission. The inscription running round the circumference of the back plate proclaims the instrument's significance and profundity: \n<br>\n'This is an astrolabic disc, which can show you: a crescent moon, which progressively waxes and then returns to its waning phase; the celestial bodies of the sun and moon, when they are in opposition or in conjunction; and the points on their paths in a given year or month or at this moment. This disc is the product of the endeavour of someone learned in the technical arts, which are based on precision and scientific proof. Behold the disc! It will show you many of the wonders that prove the wisdom of the Merciful; its different motions are by virtue of a single mover, and it has meanings going beyond all meanings.'",
     "location": "",
     "component": "astrolabe",
     "trail1": "p4",
