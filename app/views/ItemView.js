@@ -122,6 +122,7 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
 		    var descPos = $found.offset();
 		    var descHeight = windowHeight - descPos.top - 10;
 		    $('div.found-item').height(descHeight);
+		    $('div.found-item').css('overflow-y', 'scroll');
 	    }
 
         //enable user prompting to switch floor
