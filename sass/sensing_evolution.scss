@@ -279,7 +279,7 @@ div.item-title {
 
   }
   p.description {
-    padding-bottom: 5px;
+    padding: 5px;
   }
 
   @include transition-property(max-width);
