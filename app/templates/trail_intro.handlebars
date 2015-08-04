@@ -4,7 +4,10 @@
     <ul>
         {{#each topics}}
             <a href="#topic/{{slug}}"><li id="{{slug}}" class="topic-list-item">
-                <img class="item-thumbnail" src="img/{{image}}" />
+                <i class="fa fa-chevron-right"></i>
+                <div class="item-thumbnail-container">
+                    <img class="item-thumbnail" src="img/{{image}}" />
+                </div>
                 <div class="main-title">{{title}}</div>
                 <div class="subtitle">{{description}}</div>
             </li></a>

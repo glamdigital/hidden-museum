@@ -28,7 +28,7 @@ div.trails-list-container {
         margin: 5px 0px;
         width: 100%;
         height: $item-height;
-        padding: 15px 0;
+        padding: 16px 0;
         text-align: left;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -81,11 +81,26 @@ div.trails-list-container {
           border-left: 20px solid #444444;
           background-color: #222222;
         }
+        .item-thumbnail-container {
+          height: $item-height + 16px;
+          width: $item-height + 16px;
+          float: left;
+          position: relative;
+          top: -8px;
+          overflow: hidden;
+          margin: 0px 8px;
+          text-align: center;
 
+        }
         img.item-thumbnail {
           height: $item-height + 16px;
-          margin: 0px 5px;
+        }
+        i.fa {
           float: right;
+          text-align: center;
+          line-height: $item-height + 16px;
+          height: $item-height + 16px;
+          width: $item-height;
           position: relative;
           top: -8px;
         }
