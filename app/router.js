@@ -116,7 +116,9 @@ define(["backbone", "jquery", "underscore",
 	    },
 
         trail: function(trailSlug) {
-
+            //create a new session for the chosen trail - shuffle the items when going back to the topic select view
+            var trail = this.allTrails.findWhere( {slug: this.prefsTrail} );
+            this.session = new Session(trail);
 
             //get trail from settings
             //console.log("Not expecting to go to '/trail' route.");
