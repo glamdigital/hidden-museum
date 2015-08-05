@@ -3,12 +3,14 @@ define(["backbone", "jquery", "underscore",
           "app/views/TrailsView", "app/views/TrailIntroView", "app/views/TopicView", "app/views/ItemView", "app/views/FinishedView",
           "app/views/ContentView", "app/views/HeaderView", "app/models/Session", "app/views/DashboardView",
 		  "app/views/BeaconListenView", "app/views/CodeEntryView", "app/views/QRCodeEntryView", "app/views/FollowTrailView",
+		  "app/views/interactive/ScanView",
           "app/floor_tracking"],
   function(Backbone, $, _,
             TrailsCollection,
             TrailsView, TrailIntroView, TopicView, ItemView, FinishedView,
             ContentView, HeaderView, Session, DashboardView,
             BeaconListenView, CodeEntryView, QRCodeEntryView, FollowTrailView,
+            ScanView,
             FloorTracking) {
 
     var SEVRouter = Backbone.Router.extend({
@@ -40,7 +42,9 @@ define(["backbone", "jquery", "underscore",
             "found/:item": "found_item",
             "finished/:trail": "finished",
             "restart": "restart",
-            "dashboard": "dashboard"
+            "dashboard": "dashboard",
+
+	        "scan": "scan",
         },
 
         home: function() {
@@ -242,7 +246,12 @@ define(["backbone", "jquery", "underscore",
             dashboardView.render();
 
             FloorTracking.prompttoSwitch = false;
-        }
+        },
+	    scan: function() {
+		    var scanView = new ScanView();
+		    this.contentView.setView(scanView);
+		    scanView.render();
+	    }
     });
 
     return SEVRouter;
