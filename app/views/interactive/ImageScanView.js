@@ -3,59 +3,78 @@ define(['backbone', 'hbs!app/templates/interactive/image_scanning'],
 
 		var initRecognition = function() {
 
-			//start the MS4Plugin
-			MS4Plugin.sync(
-					//success
-					function() {
-						console.log("successfully synced recognition images");
-						//open the museum bundle
-						MS4Plugin.open(
+			var doSync = function(onSuccess) {
+				MS4Plugin.sync(onSuccess, function(error) { console.log("error"); });
+			};
+
+			var doOpen = function(onSuccess) {
+				MS4Plugin.open(onSuccess, function(error) { console.log("error"); }, 'museum');
+			};
+
+			//open the museum bundle
+			//TODO check whether this needs to be done each time, or just once
+			MS4Plugin.open(
+				//success
+				function() {
+					console.log("successfully opened bundle");
+
+					var scanOptions = {
+						'scanType': 'auto',
+						'image': true
+					};
+
+					var scanFlags = {
+						//possible options listed below taken from plugin source code
+
+						//useDeviceOrientation: true,
+						//noPartialMatching: true,
+						//smallTargetSupport: true,
+						//returnQueryFrame: true,
+					};
+
+					//start scanning
+					MS4Plugin.scan(
+						//success
+						function(result) {
+							console.log("scan successful! " + result.value);
+							console.log(result);
+							//alert("Recognised item: " + result.value);
+							Backbone.history.navigate('#/item/' + result.value);
+							MS4Plugin.dismiss();
+						},
+						//error
+						function(err) {
+							console.log("error scanning");
+							console.log("err");
+						},
+						scanOptions,
+						scanFlags
+					);
+
+					if(!MS4Plugin.hiddenmuseum_synced) {
+						//initialise sync after a small delay so that the scanner is fully open
+						MS4Plugin.sync(
 							//success
 							function() {
-								console.log("successfully opened bundle");
-
-								var scanOptions = {
-									'image': true
-								};
-
-								var scanFlags = {
-									//useDeviceOrientation: true,
-									//noPartialMatching: true,
-									//smallTargetSupport: true,
-									//returnQueryFrame: true,
-								};
-
-								//start scanning
-								MS4Plugin.scan(
-									//success
-									function() {
-										console.log("scan successful!");
-									},
-									//error
-									function(err) {
-										console.log("error scanning");
-										console.log("err");
-									},
-									scanOptions,
-									scanFlags
-								);
-
+								console.log("image recognition sync successful.");
+								MS4Plugin.hiddenmuseum_synced = true;
 							},
 							//error
 							function(err) {
-								console.log("error opening bundle");
+								console.warn("image recognition sync failed");
 								console.log(err);
-							},
-							'museum'
+							}
 						)
-					},
-					//error
-					function(err) {
-						console.log("error syncing recognition images");
-						console.log(err);
 					}
-				);
 
+				},
+				//error
+				function(err) {
+					console.log("error opening bundle");
+					console.log(err);
+				},
+				'museum'
+			);
 
 		};
 
@@ -75,7 +94,7 @@ define(['backbone', 'hbs!app/templates/interactive/image_scanning'],
 			},
 
 			cleanup: function() {
-
+				MS4Plugin.dismiss();
 			}
 		});
 

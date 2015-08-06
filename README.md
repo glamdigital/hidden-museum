@@ -10,35 +10,44 @@ Assuming that `npm` is installed:
 
     bower install
 
-### Building via phonegap cloud build
+###Generate settings bundle
+In order to generate the settings bundle to enable picking of trail in iOS settings, run the following command.
 
-    grunt cloudbuild:<authToken>
+```
+node plugins/me.apla.cordova.app-preferences/bin/build-app-settings.js
+```
+This takes settings from app-settings.json and creates a settings bundle platforms/ios. This bundle must be added to the xcode project's Resources folder.
 
-Your auth token can be found on the 'Client Applications' panel of Phonegap's 'Edit Account' page
+###Integrating image recognition library
+The Moodstocks image recognition must be integrated as follows:
+ - Download the framework from the moodstocks website.
+ - Drag the Moodstocks Framework into the Frameworks folder of XCode.
+ - Modify Classes/webViewDidFinishLoad to look like the following
+```
+- (void)webViewDidFinishLoad:(UIWebView*)theWebView
+{
+    // Black base color for background matches the native apps
+    theWebView.backgroundColor = [UIColor clearColor];
+    theWebView.opaque = NO;
 
+    return [super webViewDidFinishLoad:theWebView];
+}
+```
+ - Modify Plugins/MS4Plugin.m to include the appropriate API key and secret.
+
+### Building and running
+
+```
+grunt localbuild:ios
+cordova run ios []--device]
+```
 
 ### Importing data
 
-The data for the app comes from the spreadsheet SensingEvolutionData.xlsx.
+The data for the app comes from the spreadsheet HiddenMuseumData on Google docs.
 
-This sheet should be exported to .csv into a folder named SensingEvolutionData.
-
->Note: When importing the xlsx into Numbers, some extra empty columns and rows are generated on the smaller tables.
-
->It's necessary to either remove these rows, or else clean up the exported csv. OpenOffice doesn't suffer from this problem, but can only export one sheet at a time.
-
-
+This sheet should be exported to .csv into a folder named HiddenMuseumData.
 
 The following task then converts the data to the json format read by the app
 
     grunt convertData
-
-
-### Testing
-
-Tests are configured using jasmine.
-
-Add spec files to test/specs/*Specs.js and can be run in the PhantomJS headless browser with the following Grunt task:
-
-    grunt test
-    

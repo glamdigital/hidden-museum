@@ -3,7 +3,7 @@ define(["backbone", "jquery", "underscore",
           "app/views/TrailsView", "app/views/TrailIntroView", "app/views/TopicView", "app/views/ItemView", "app/views/FinishedView",
           "app/views/ContentView", "app/views/HeaderView", "app/models/Session", "app/views/DashboardView",
 		  "app/views/BeaconListenView", "app/views/CodeEntryView", "app/views/QRCodeEntryView", "app/views/FollowTrailView",
-		  "app/views/interactive/ScanView",
+		  "app/views/interactive/ImageScanView",
           "app/floor_tracking"],
   function(Backbone, $, _,
             TrailsCollection,
@@ -251,6 +251,11 @@ define(["backbone", "jquery", "underscore",
 		    var scanView = new ScanView();
 		    this.contentView.setView(scanView);
 		    scanView.render();
+
+            //set links
+            this.headerView.setPrevURL('#');
+            this.headerView.setNextURL(null);
+            this.headerView.render();
 	    }
     });
 
