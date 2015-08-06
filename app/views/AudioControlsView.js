@@ -27,10 +27,10 @@ define(['backbone', 'hbs!app/templates/audio_controls'],
                     function () {},
                     //failure
                     function (err) {
-                        alert("Failed to create audio object:" + err.code + " " + err.message );
+                        console.log("Failed to create audio object:" + err.code + " " + err.message );
                     }
                 );
-            } else { alert("Media plugin not available!");}
+            } else { console.log("Media plugin not available!");}
 
 	        this.updateInterval = setInterval(this.updateElapsed.bind(this), 1000);
         },
