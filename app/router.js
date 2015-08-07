@@ -83,7 +83,7 @@ define(["backbone", "jquery", "underscore",
 		        );
 	        } catch(err) {
 		        //desktop browser?
-		        this.prefsTrail = 'p4';
+		        this.prefsTrail = 'p5';
 		        alert(err);
 				this.goToTrail(this.prefsTrail);
 	        }
@@ -95,6 +95,8 @@ define(["backbone", "jquery", "underscore",
 	            this.session = new Session(trail);
 
 	            FloorTracking.prompttoSwitch = false;
+
+		        console.log("starting new trail");
 
 		        //choose start page
 		        // first item for a trail. 'topic' view for anything else.
@@ -162,7 +164,7 @@ define(["backbone", "jquery", "underscore",
 
 	            //links
 		        //back button only present if more than one topic
-	            this.headerView.setPrevURL(this.multiple_topics ? '#/trail/' + trail.attributes.slug : null);
+	            this.headerView.setPrevURL(this.multiple_topics ? '#/trail/' + trail.attributes.slug : '#');
 	            this.headerView.setNextURL(null);
 	            this.headerView.render();
 
@@ -250,7 +252,7 @@ define(["backbone", "jquery", "underscore",
 	    scan: function() {
 		    var scanView = new ScanView();
 		    this.contentView.setView(scanView);
-		    scanView.render();
+		    setTimeout(scanView.render, 500);
 
             //set links
             this.headerView.setPrevURL('#');

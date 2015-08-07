@@ -83,7 +83,7 @@
     "description": "Museum of History of Science - image recognition",
     "audio": "",
     "fixed_order": "TRUE",
-    "start_view_class": "ImageScanView",
+    "start_view_class": "interactive/ImageScanView",
     "is_trail": "FALSE",
     "use_qr_codes": "",
     "hide_items_by_default": "",

@@ -39,8 +39,8 @@ define(['backbone', 'hbs!app/templates/interactive/image_scanning'],
 							console.log("scan successful! " + result.value);
 							console.log(result);
 							//alert("Recognised item: " + result.value);
-							Backbone.history.navigate('#/item/' + result.value);
-							MS4Plugin.dismiss();
+							Backbone.history.navigate('#/found/' + result.value);
+							//MS4Plugin.dismiss();
 						},
 						//error
 						function(err) {
