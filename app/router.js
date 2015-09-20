@@ -3,13 +3,13 @@ define(["backbone", "jquery", "underscore",
           "app/views/TrailsView", "app/views/TrailIntroView", "app/views/TopicView", "app/views/ItemView", "app/views/FinishedView",
           "app/views/ContentView", "app/views/HeaderView", "app/models/Session", "app/views/DashboardView",
 		  "app/views/BeaconListenView", "app/views/CodeEntryView", "app/views/QRCodeEntryView", "app/views/FollowTrailView",
-          "app/floor_tracking"],
+          "app/floor_tracking", "app/views/SextantView"],
   function(Backbone, $, _,
             TrailsCollection,
             TrailsView, TrailIntroView, TopicView, ItemView, FinishedView,
             ContentView, HeaderView, Session, DashboardView,
             BeaconListenView, CodeEntryView, QRCodeEntryView, FollowTrailView,
-            FloorTracking) {
+            FloorTracking, SextantView) {
 
     var SEVRouter = Backbone.Router.extend({
         initialize: function() {
@@ -40,7 +40,8 @@ define(["backbone", "jquery", "underscore",
             "found/:item": "found_item",
             "finished/:trail": "finished",
             "restart": "restart",
-            "dashboard": "dashboard"
+            "dashboard": "dashboard",
+            "sextant": "sextant"
         },
 
         home: function() {
@@ -79,7 +80,7 @@ define(["backbone", "jquery", "underscore",
 		        );
 	        } catch(err) {
 		        //desktop browser?
-		        this.prefsTrail = 'p4';
+		        this.prefsTrail = 'p6';
 		        alert(err);
 				this.goToTrail(this.prefsTrail);
 	        }
@@ -89,7 +90,6 @@ define(["backbone", "jquery", "underscore",
                 //create a new session for the chosen trail
 	            var trail = this.allTrails.findWhere( {slug: this.prefsTrail} );
 	            this.session = new Session(trail);
-
 	            FloorTracking.prompttoSwitch = false;
 
 		        //choose start page
@@ -158,7 +158,7 @@ define(["backbone", "jquery", "underscore",
 
 	            //links
 		        //back button only present if more than one topic
-	            this.headerView.setPrevURL(this.multiple_topics ? '#/trail/' + trail.attributes.slug : null);
+	            this.headerView.setPrevURL(this.multiple_topics ? '#/trail/' + trail.attributes.slug : '#');
 	            this.headerView.setNextURL(null);
 	            this.headerView.render();
 
@@ -242,6 +242,11 @@ define(["backbone", "jquery", "underscore",
             dashboardView.render();
 
             FloorTracking.prompttoSwitch = false;
+        },
+        sextant: function() {
+            var sextantView = new SextantView();
+            this.contentView.setView(sextantView);
+            sextantView.render();
         }
     });
 
