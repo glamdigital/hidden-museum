@@ -264,7 +264,7 @@ module.exports = function(grunt) {
 
 	//grunt localbuild:<ios|android>
   grunt.registerTask('localbuild', "Runs the appropriate pre-build steps then invokes cordova's build command", function(arg) {
-      if (!arg) { arg='build_ios'; }
+      if (!arg) { arg='ios'; }
       //use different package step for android
       //if(arg.indexOf('android') >=0 ) {
       //    grunt.task.run('packageLocalAndroid');
