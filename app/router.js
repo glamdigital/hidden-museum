@@ -3,14 +3,14 @@ define(["backbone", "jquery", "underscore",
           "app/views/TrailsView", "app/views/TrailIntroView", "app/views/TopicView", "app/views/ItemView", "app/views/FinishedView",
           "app/views/ContentView", "app/views/HeaderView", "app/models/Session", "app/views/DashboardView",
 		  "app/views/BeaconListenView", "app/views/CodeEntryView", "app/views/QRCodeEntryView", "app/views/FollowTrailView",
-		  "app/views/interactive/ImageScanView",
+		  "app/views/interactive/ImageScanView", "app/views/interactive/ImageScannedView",
           "app/floor_tracking"],
   function(Backbone, $, _,
             TrailsCollection,
             TrailsView, TrailIntroView, TopicView, ItemView, FinishedView,
             ContentView, HeaderView, Session, DashboardView,
             BeaconListenView, CodeEntryView, QRCodeEntryView, FollowTrailView,
-            ScanView,
+            ImageScanView, ImageScannedView,
             FloorTracking) {
 
     var SEVRouter = Backbone.Router.extend({
@@ -38,11 +38,15 @@ define(["backbone", "jquery", "underscore",
             "home": "home",
             "trail/:trail": "trail",
             "topic/:topic": "topic",
-            "item/:item": "item",
             "found/:item": "found_item",
             "finished/:trail": "finished",
             "restart": "restart",
             "dashboard": "dashboard",
+	        //custom routes
+	        "scan/:item": "item_scan",    //scan for the specific item
+	        "scanned/:item": "item_scanned",    //after the item has been found
+	        "interact/:item": "sextant",   //interactive view for item
+            "item/:item": "item",
 
 	        "scan": "scan",
         },
@@ -84,7 +88,7 @@ define(["backbone", "jquery", "underscore",
 	        } catch(err) {
 		        //desktop browser?
 		        this.prefsTrail = 'p5';
-		        alert(err);
+		        //alert(err);
 				this.goToTrail(this.prefsTrail);
 	        }
 
@@ -113,7 +117,8 @@ define(["backbone", "jquery", "underscore",
 				        Backbone.history.navigate('#/trail/' + trail.attributes.slug);
 			        }
 			        else if (topics.length == 1) {
-			            Backbone.history.navigate('#/topic/component');
+				        var topicSlug = topics.first().attributes.slug;
+			            Backbone.history.navigate('#/topic/' + topicSlug);
 			        } else {
 				        console.log("No topics for trail: " + trail.attributes.slug);
 			        }
@@ -250,7 +255,7 @@ define(["backbone", "jquery", "underscore",
             FloorTracking.prompttoSwitch = false;
         },
 	    scan: function() {
-		    var scanView = new ScanView();
+		    var scanView = new ImageScanView();
 		    this.contentView.setView(scanView);
 		    setTimeout(scanView.render, 500);
 
@@ -258,6 +263,26 @@ define(["backbone", "jquery", "underscore",
             this.headerView.setPrevURL('#');
             this.headerView.setNextURL(null);
             this.headerView.render();
+	    },
+	    item_scan: function(item_slug) {
+		    var item = this.session.getItem(item_slug);
+
+		    var scanView = new ImageScanView( { item: item } );
+		    this.contentView.setView(scanView);
+		    //setTimeout(scanView.render, 1000);
+			scanView.render();
+
+		    //set links
+		    this.headerView.setPrevURL('#');
+            this.headerView.setNextURL(null);
+            this.headerView.render();
+	    },
+	    item_scanned: function(item_slug) {
+		    var item = this.session.getItem(item_slug);
+
+		    var scannedView = new ImageScannedView( { item: item } );
+		    this.contentView.setView(scannedView);
+		    scannedView.render();
 	    }
     });
 

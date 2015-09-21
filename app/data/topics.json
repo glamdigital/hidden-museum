@@ -9,11 +9,12 @@
     "trail4": "p2b",
     "trail5": "p3a",
     "trail6": "p3b",
-    "trail7": "p5",
+    "trail7": "",
     "image": "",
     "fixed_order": "TRUE",
     "entryPointBeaconId1": "64823",
-    "entryPointBeaconId2": ""
+    "entryPointBeaconId2": "",
+    "findImmediately": "TRUE"
   },
   {
     "id": "astrolabe",
@@ -26,11 +27,11 @@
     "trail5": "",
     "trail6": "",
     "trail7": "",
-    "trail8": "",
     "image": "astrolabe.jpg",
     "fixed_order": "FALSE",
     "entryPointBeaconId1": "",
-    "entryPointBeaconId2": ""
+    "entryPointBeaconId2": "",
+    "findImmediately": "TRUE"
   },
   {
     "id": "camera",
@@ -43,11 +44,11 @@
     "trail5": "",
     "trail6": "",
     "trail7": "",
-    "trail8": "",
     "image": "camera_obscura.jpeg",
     "fixed_order": "FALSE",
     "entryPointBeaconId1": "",
-    "entryPointBeaconId2": ""
+    "entryPointBeaconId2": "",
+    "findImmediately": "TRUE"
   },
   {
     "id": "armillary",
@@ -60,10 +61,27 @@
     "trail5": "",
     "trail6": "",
     "trail7": "",
-    "trail8": "",
     "image": "sphere.jpg",
     "fixed_order": "FALSE",
     "entryPointBeaconId1": "",
-    "entryPointBeaconId2": ""
+    "entryPointBeaconId2": "",
+    "findImmediately": "TRUE"
+  },
+  {
+    "id": "interactive",
+    "title": "Interactive Examples",
+    "description": "",
+    "trail1": "p5",
+    "trail2": "",
+    "trail3": "",
+    "trail4": "",
+    "trail5": "",
+    "trail6": "",
+    "trail7": "",
+    "image": "",
+    "fixed_order": "TRUE",
+    "entryPointBeaconId1": "",
+    "entryPointBeaconId2": "",
+    "findImmediately": "FALSE"
   }
 ]

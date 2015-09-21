@@ -1,7 +1,8 @@
 define(['backbone', 'hbs!app/templates/interactive/image_scanning'],
 	function(Backbone, imageScanningTemplate) {
 
-		var initRecognition = function() {
+		//'targets' is a dictionary mapping matching images
+		var initRecognition = function(item_slug) {
 
 			var doSync = function(onSuccess) {
 				MS4Plugin.sync(onSuccess, function(error) { console.log("error"); });
@@ -38,9 +39,13 @@ define(['backbone', 'hbs!app/templates/interactive/image_scanning'],
 						function(result) {
 							console.log("scan successful! " + result.value);
 							console.log(result);
-							//alert("Recognised item: " + result.value);
-							Backbone.history.navigate('#/found/' + result.value);
-							//MS4Plugin.dismiss();
+
+							//match if slug is a subset of the moodstocks image id
+							var match = result.value.indexOf(item_slug) >= 0;
+							//if(item_slug == result.value) {
+							if(match) {
+								Backbone.history.navigate('#/scanned/' + item_slug);
+							}
 						},
 						//error
 						function(err) {
@@ -82,7 +87,7 @@ define(['backbone', 'hbs!app/templates/interactive/image_scanning'],
 			template: imageScanningTemplate,
 
 			initialize: function(params) {
-
+				this.item = params.item;
 			},
 
 			serialize: function() {
@@ -90,11 +95,14 @@ define(['backbone', 'hbs!app/templates/interactive/image_scanning'],
 			},
 
 			afterRender: function() {
-				initRecognition();
+				initRecognition(this.item.attributes.slug);
 			},
 
 			cleanup: function() {
-				MS4Plugin.dismiss();
+				if(typeof(MS4Plugin) !== 'undefined')
+				{
+					MS4Plugin.dismiss();
+				}
 			}
 		});
 

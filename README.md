@@ -51,3 +51,16 @@ This sheet should be exported to .csv into a folder named HiddenMuseumData.
 The following task then converts the data to the json format read by the app
 
     grunt convertData
+
+
+### Cordova plugins
+The app requires the following plugins:
+ - com.moodstocks.phonegap 1.1.0 "MS4Plugin"
+ - cordova-plugin-camera 1.2.1-dev "Camera"
+ - cordova-plugin-media 1.0.2-dev "Media"
+ - me.apla.cordova.app-preferences 0.4.5 "AppPreferences"
+ - org.apache.cordova.device 0.3.0 "Device"
+ - org.apache.cordova.dialogs 0.3.0 "Notification"
+ - org.apache.cordova.file 1.3.3 "File"
+ - org.apache.cordova.media 0.2.16 "Media"
+ - org.apache.cordova.vibration 0.3.13 "Vibration"

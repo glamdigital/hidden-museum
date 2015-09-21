@@ -19,7 +19,9 @@
     "poster": "",
     "beaconMajor": "23019",
     "beaconHint": "",
-    "unlock_code": "36"
+    "unlock_code": "36",
+    "scanForVideo": "",
+    "interactView": ""
   },
   {
     "id": "p1-2",
@@ -41,7 +43,9 @@
     "poster": "",
     "beaconMajor": "59655",
     "beaconHint": "",
-    "unlock_code": "37"
+    "unlock_code": "37",
+    "scanForVideo": "",
+    "interactView": ""
   },
   {
     "id": "p1-3",
@@ -63,7 +67,9 @@
     "poster": "",
     "beaconMajor": "22691",
     "beaconHint": "",
-    "unlock_code": "38"
+    "unlock_code": "38",
+    "scanForVideo": "",
+    "interactView": ""
   },
   {
     "id": "p1-4",
@@ -85,7 +91,9 @@
     "poster": "",
     "beaconMajor": "30098",
     "beaconHint": "",
-    "unlock_code": "39"
+    "unlock_code": "39",
+    "scanForVideo": "",
+    "interactView": ""
   },
   {
     "id": "p1-5",
@@ -107,7 +115,9 @@
     "poster": "",
     "beaconMajor": "12616",
     "beaconHint": "",
-    "unlock_code": "40"
+    "unlock_code": "40",
+    "scanForVideo": "",
+    "interactView": ""
   },
   {
     "id": "p1-6",
@@ -129,7 +139,9 @@
     "poster": "",
     "beaconMajor": "18670",
     "beaconHint": "",
-    "unlock_code": "41"
+    "unlock_code": "41",
+    "scanForVideo": "",
+    "interactView": ""
   },
   {
     "id": "p2-1",
@@ -151,7 +163,9 @@
     "poster": "",
     "beaconMajor": "12518",
     "beaconHint": "",
-    "unlock_code": ""
+    "unlock_code": "",
+    "scanForVideo": "",
+    "interactView": ""
   },
   {
     "id": "p2-2",
@@ -173,7 +187,9 @@
     "poster": "",
     "beaconMajor": "21925",
     "beaconHint": "",
-    "unlock_code": ""
+    "unlock_code": "",
+    "scanForVideo": "",
+    "interactView": ""
   },
   {
     "id": "p2-3",
@@ -195,7 +211,9 @@
     "poster": "",
     "beaconMajor": "61866",
     "beaconHint": "",
-    "unlock_code": ""
+    "unlock_code": "",
+    "scanForVideo": "",
+    "interactView": ""
   },
   {
     "id": "p2-4",
@@ -217,7 +235,9 @@
     "poster": "",
     "beaconMajor": "50197",
     "beaconHint": "",
-    "unlock_code": ""
+    "unlock_code": "",
+    "scanForVideo": "",
+    "interactView": ""
   },
   {
     "id": "p3-1",
@@ -239,7 +259,9 @@
     "poster": "MIMO_1_ShoemakersPot.jpg",
     "beaconMajor": "12518",
     "beaconHint": "",
-    "unlock_code": "confrontation"
+    "unlock_code": "confrontation",
+    "scanForVideo": "",
+    "interactView": ""
   },
   {
     "id": "p3-2",
@@ -261,7 +283,9 @@
     "poster": "MIMO_4_GorgonDrinkingVessel.jpg",
     "beaconMajor": "50197",
     "beaconHint": "",
-    "unlock_code": "godofgoodtimes"
+    "unlock_code": "godofgoodtimes",
+    "scanForVideo": "",
+    "interactView": ""
   },
   {
     "id": "p3-3",
@@ -283,7 +307,9 @@
     "poster": "MIMO_3_Wedding.jpg",
     "beaconMajor": "61866",
     "beaconHint": "",
-    "unlock_code": "anotherbloodywedding"
+    "unlock_code": "anotherbloodywedding",
+    "scanForVideo": "",
+    "interactView": ""
   },
   {
     "id": "astrolabe-audio",
@@ -305,7 +331,9 @@
     "poster": "",
     "beaconMajor": "",
     "beaconHint": "",
-    "unlock_code": ""
+    "unlock_code": "",
+    "scanForVideo": "",
+    "interactView": ""
   },
   {
     "id": "astrolabe-video",
@@ -327,7 +355,9 @@
     "poster": "Megalosaurus.jpg",
     "beaconMajor": "",
     "beaconHint": "",
-    "unlock_code": ""
+    "unlock_code": "",
+    "scanForVideo": "",
+    "interactView": ""
   },
   {
     "id": "astrolabe-text",
@@ -349,7 +379,9 @@
     "poster": "",
     "beaconMajor": "",
     "beaconHint": "",
-    "unlock_code": ""
+    "unlock_code": "",
+    "scanForVideo": "",
+    "interactView": ""
   },
   {
     "id": "camera-video",
@@ -371,7 +403,9 @@
     "poster": "",
     "beaconMajor": "",
     "beaconHint": "",
-    "unlock_code": ""
+    "unlock_code": "",
+    "scanForVideo": "",
+    "interactView": ""
   },
   {
     "id": "camera-video-pause",
@@ -393,7 +427,9 @@
     "poster": "",
     "beaconMajor": "",
     "beaconHint": "",
-    "unlock_code": ""
+    "unlock_code": "",
+    "scanForVideo": "",
+    "interactView": ""
   },
   {
     "id": "armillary-video",
@@ -415,7 +451,9 @@
     "poster": "",
     "beaconMajor": "",
     "beaconHint": "",
-    "unlock_code": ""
+    "unlock_code": "",
+    "scanForVideo": "",
+    "interactView": ""
   },
   {
     "id": "armillary-video-pauses",
@@ -437,6 +475,80 @@
     "poster": "",
     "beaconMajor": "",
     "beaconHint": "",
-    "unlock_code": ""
+    "unlock_code": "",
+    "scanForVideo": "",
+    "interactView": ""
+  },
+  {
+    "id": "blackboard-interact",
+    "title": "Einstein's Blackboard",
+    "description": "Einstein's Blackboard is a blackboard[1] which physicist Albert Einstein (1879–1955) used on 16 May 1931 during his lectures while visiting the University of Oxford in England.[2] The blackboard is one of the most iconic objects in the collection of the Museum of the History of Science in Oxford.",
+    "location": "",
+    "component": "interactive",
+    "trail1": "p5",
+    "trail2": "",
+    "trail3": "",
+    "image": "MHS_05_blackboard.png",
+    "hint_image": "MHS_05_blackboard.png",
+    "map_image": "MHS_05_blackboard.png",
+    "audio": "",
+    "audio_duration": "",
+    "video": "Armillary sphere edit.mp4",
+    "pause1": "",
+    "pause2": "",
+    "poster": "",
+    "beaconMajor": "",
+    "beaconHint": "",
+    "unlock_code": "",
+    "scanForVideo": "TRUE",
+    "interactView": ""
+  },
+  {
+    "id": "moon-interact",
+    "title": "The Dark Side of the Moon",
+    "description": "The Dark Side of the Moon is the eighth studio album by the English progressive rock band Pink Floyd, released on 1 March 1973.",
+    "location": "",
+    "component": "interactive",
+    "trail1": "p5",
+    "trail2": "",
+    "trail3": "",
+    "image": "Moon4.jpg",
+    "hint_image": "Moon4.jpg",
+    "map_image": "Moon4.jpg",
+    "audio": "",
+    "audio_duration": "",
+    "video": "Armillary sphere edit.mp4",
+    "pause1": "",
+    "pause2": "",
+    "poster": "",
+    "beaconMajor": "",
+    "beaconHint": "",
+    "unlock_code": "",
+    "scanForVideo": "TRUE",
+    "interactView": ""
+  },
+  {
+    "id": "sextant-interact",
+    "title": "Sextant",
+    "description": "A sextant is a doubly reflecting navigation instrument used to measure the angle between any two visible objects. The principle of the instrument was first implemented around 1730 by John Hadley (1682–1744) and Thomas Godfrey (1704–1749) but it was also found later in the unpublished writings of Isaac Newton (1643–1727).",
+    "location": "",
+    "component": "interactive",
+    "trail1": "p5",
+    "trail2": "",
+    "trail3": "",
+    "image": "octant.jpeg",
+    "hint_image": "octant.jpeg",
+    "map_image": "octant.jpeg",
+    "audio": "",
+    "audio_duration": "",
+    "video": "",
+    "pause1": "",
+    "pause2": "",
+    "poster": "",
+    "beaconMajor": "",
+    "beaconHint": "",
+    "unlock_code": "",
+    "scanForVideo": "",
+    "interactView": "SextantView"
   }
 ]
