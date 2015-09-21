@@ -20,7 +20,7 @@ define(["backbone", "hbs!app/templates/image_capture"],
             var dragEnabled = false; //enable preview box drag across the screen
             var toBack = true; //send preview box to the back of the webview
             var rect = {x: 0, y: 175, width: 380, height:280};
-            cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
+            //cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
             $('#content').css("background-color", "transparent");       
         },
         startButtonHandler: function(ev) {
@@ -28,7 +28,7 @@ define(["backbone", "hbs!app/templates/image_capture"],
             if (!this.isTrackingOrientation) {
                 //set the starting position to the currentPosition                             
                 $target.text("stop");
-                this.takeHorizonImage(ev);
+                //this.takeHorizonImage(ev);
                 this.startTrackingOrientation(ev);
                 this.displayNextInstructions();
             }
@@ -71,7 +71,7 @@ define(["backbone", "hbs!app/templates/image_capture"],
 
         },
         displayNextInstructions: function() {
-            $("#instructions").innerHTML = "Now, raise the camera until the fire alarm is aligned with the window sill and press Stop";
+            $("#instructions")[0].innerHTML = "<p>Now, raise the camera until the fire alarm is aligned with the window sill and press Stop</p>";
         }
     });
 

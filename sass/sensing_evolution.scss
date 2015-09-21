@@ -419,6 +419,9 @@ div.button {
     border-bottom: 1px solid #ccc;
     background: #333;
     color: white;
+    p {
+      text-align: center;
+    }
   }
   #captured-image {
     position: absolute;
