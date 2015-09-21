@@ -20,6 +20,7 @@ $headerPadding: 10px;
 }
 
 html {
+  background-color: transparent;
   box-sizing: border-box;
 }
 *, *:before, *:after {
@@ -411,7 +412,6 @@ div.button {
   position: absolute;
   height: 100%;
   width: 100%;
-  background: black;
   #instructions {
     padding: $standardPadding;
     height:120px;
@@ -419,8 +419,14 @@ div.button {
     border-bottom: 1px solid #ccc;
     background: white;
   }
+  #captured-image {
+    position: absolute;
+    top:120px;
+    width:50%;
+    height:300px;
+  }
   #feedback {
-    padding: $standardPadding;
+    padding: 0 $standardPadding;
     position: fixed;
     bottom: 70px;
     height: 180px;
