@@ -30,6 +30,7 @@ define(["backbone", "hbs!app/templates/image_capture"],
                 $target.text("stop");
                 this.takeHorizonImage(ev);
                 this.startTrackingOrientation(ev);
+                this.displayNextInstructions();
             }
             else {
                 this.stopTrackingOrientation(ev);
@@ -68,6 +69,9 @@ define(["backbone", "hbs!app/templates/image_capture"],
              });
             cordova.plugins.camerapreview.takePicture({maxWidth:640, maxHeight:640});
 
+        },
+        displayNextInstructions: function() {
+            $("#instructions").innerHTML = "Now, raise the camera until the fire alarm is aligned with the window sill and press Stop";
         }
     });
 

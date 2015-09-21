@@ -417,13 +417,20 @@ div.button {
     height:120px;
     width: 100%;
     border-bottom: 1px solid #ccc;
-    background: white;
+    background: #333;
+    color: white;
   }
   #captured-image {
     position: absolute;
     top:120px;
     width:50%;
     height:300px;
+    #alignment-indicator {
+      position: relative;
+      top: 50%;
+      width: 100%;
+      border-top: 1px solid red;
+    }
   }
   #feedback {
     padding: 0 $standardPadding;
