@@ -1,6 +1,33 @@
 define(["backbone", "hbs!app/templates/interactive/sextant"],
     function(Backbone, sextantTemplate) {
 
+        //sextant arm
+        armPivot = {x:0.0, y:-0.36};  //rotation centre for the arm as proportion of width, from geometric centre
+
+	    spinAngle = 0;
+
+	    setSextantArmAngle = function (deg) {
+		    var rad = deg * Math.PI / 180;
+		    var r00 = Math.cos(rad);
+		    var r11 = r00;
+		    var r01 = -Math.sin(rad);
+		    var r10 = -1 * r01;
+		    var width = $('#sextant-arm').width();
+		    var x = armPivot.x * width;
+		    var y = armPivot.y * width;
+		    var tx = x - r00*x - r01*y;
+		    var ty = y - r10*x -r11*y;
+
+		    var matrix = "matrix(" + r00 + "," + r10 + "," + r01 + "," + r11 + "," + tx + "," + ty + ")";
+		    $('#sextant-arm').css("transform", matrix);
+	    };
+
+	    spinSextantArm = function(angle) {
+		    spinAngle += 0.5;
+		    setSextantArmAngle(spinAngle);
+		    setTimeout(spinSextantArm, 2);
+	    };
+
     var SextantView = Backbone.View.extend({
         template: sextantTemplate,
 
@@ -23,8 +50,12 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
             var dragEnabled = false; //enable preview box drag across the screen
             var toBack = true; //send preview box to the back of the webview
             var rect = {x: 0, y: 175, width: 380, height:280};
-            cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
-            $('#content').css("background-color", "transparent");       
+	        if(typeof(cordova) !== 'undefined') {
+		        cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
+	        }
+            $('#content').css("background-color", "transparent");
+
+
         },
         toggleButtonHandler: function(ev) {
             var $target = $(ev.target);
@@ -57,10 +88,12 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
             }
             sextantView.currentDeviceOrientation = ev.originalEvent;
             sextantView.updateOrientationIndicator();
+
         },
         updateOrientationIndicator: function() {
             var $valueIndicator = $('#value-indicator')[0];
             var angle = this.currentDeviceOrientation.beta - this.startingDeviceOrientation.beta;
+	        setSextantArmAngle(-angle);
             var $valueIndicatorOffset = $($valueIndicator).offset();
             var $parent = $('#value-indicator')[0].offsetParent;
             var $parentOffset = $($parent).offset();
@@ -79,7 +112,8 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
         },
 	    cleanup: function() {
 		    cordova.plugins.camerapreview.stopCamera();
-	    }
+	    },
+
     });
 
     return SextantView;

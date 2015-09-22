@@ -449,6 +449,16 @@ div.button {
       border-top: 1px solid black;
     }
 
+    #sextant {
+      position: absolute;
+      top: 5%;
+      width: 40%;
+      z-index: 500;
+      img {
+        position: absolute;
+        width: 100%;
+      }
+    }
   }
   #controls {
     padding: $standardPadding;
