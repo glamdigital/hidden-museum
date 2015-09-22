@@ -111,7 +111,7 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
         updateOrientationIndicator: function() {
             var $valueIndicator = $('#value-indicator')[0];
             var angle = this.currentDeviceOrientation.beta - this.startingDeviceOrientation.beta;
-	        setSextantArmAngle(-angle);
+	        setSextantArmAngle(-angle/2);
             var $valueIndicatorOffset = $($valueIndicator).offset();
             var $parent = $('#value-indicator')[0].offsetParent;
             var $parentOffset = $($parent).offset();
