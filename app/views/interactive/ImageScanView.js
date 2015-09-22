@@ -44,6 +44,10 @@ define(['backbone', 'hbs!app/templates/interactive/image_scanning'],
 							var match = result.value.indexOf(item_slug) >= 0;
 							//if(item_slug == result.value) {
 							if(match) {
+								//vibrate
+						        if(navigator.notification) {
+						            navigator.notification.vibrate(200);
+						        }
 								Backbone.history.navigate('#/scanned/' + item_slug);
 							}
 						},
