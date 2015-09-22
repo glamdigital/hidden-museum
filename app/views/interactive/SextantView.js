@@ -42,10 +42,13 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
         },
 
         initialize: function(params) {
-            this.isTrackingOrientation = false;
+            this.step = 0;
             this.currentDeviceOrientation = {alpha:0, beta:0, gamma:0};
             this.startingDeviceOrientation = {alpha:0, beta:0, gamma:0};
-            this.instructions = ["<ol><li>hold the phone at arm's length</li><li>line up the bottom of the window across the room with the line on the screen</li><li>press the start button</li></ol>", "<p>Now, raise the camera until the fire alarm is aligned with the window sill and press Stop</p>"];
+            this.instructions = ["<p>Turn your back to the display case. Hold the phone straight up in front of you and press the start button</p>", 
+                "<p>Now, tilt the camera up to the ceiling until the fire alarm nearest you is aligned with the red line</p>",
+                "<p>While this shows you a simulated latitude, in reality the sextant shows you an angle and you'd consult charts to determine your latitude</p>"];
+            this.instructionsColors = ['#ebddc1', '#ced19f', '#c8ad91'];
             var tapEnabled = true; //enable tap take picture
             var dragEnabled = false; //enable preview box drag across the screen
             var toBack = true; //send preview box to the back of the webview
@@ -57,19 +60,34 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
 
 
         },
+        restart: function() {
+             $('#captured-image').css("background-image", "none");
+             this.displayInstructions(0);
+        },
         toggleButtonHandler: function(ev) {
             var $target = $(ev.target);
-            if (!this.isTrackingOrientation) {
-                //set the starting position to the currentPosition                             
-                $target.text("stop");
-                this.takeHorizonImage(ev);
-                this.startTrackingOrientation(ev);
-                this.displayInstructions(1);
-            }
-            else {
-                this.stopTrackingOrientation(ev);
-                this.displayInstructions(0);
-                $target.text("start");
+            switch (this.step) {
+                case 0: {
+                    this.step = 1;                           
+                    $target.text("stop");
+                    this.takeHorizonImage(ev);
+                    this.startTrackingOrientation(ev);
+                    this.displayInstructions();
+                    break;
+                }        
+                case 1: {
+                    this.step = 2;
+                    this.stopTrackingOrientation(ev);
+                    this.displayInstructions();
+                    $target.text("start again");
+                    break;
+                }
+                case 2: {
+                    this.step = 0;
+                    this.restart();
+                    this.displayInstructions();
+                    $target.text("start");
+                }
             }
         },
         startTrackingOrientation: function(ev) {
@@ -107,8 +125,10 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
             cordova.plugins.camerapreview.takePicture({maxWidth:640, maxHeight:640});
 
         },
-        displayInstructions: function(i) {
-            $("#instructions")[0].innerHTML = this.instructions[i];
+        displayInstructions: function() {
+            var instructionsDiv = $('#instructions')[0];
+            instructionsDiv.innerHTML = this.instructions[this.step];
+            $(instructionsDiv).css('background-color', this.instructionsColors[this.step]); 
         },
 	    cleanup: function() {
 		    cordova.plugins.camerapreview.stopCamera();
