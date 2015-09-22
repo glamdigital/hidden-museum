@@ -1,8 +1,8 @@
-define(["backbone", "hbs!app/templates/image_capture"],
-    function(Backbone, imageCaptureTemplate) {
+define(["backbone", "hbs!app/templates/interactive/sextant"],
+    function(Backbone, sextantTemplate) {
 
     var SextantView = Backbone.View.extend({
-        template: imageCaptureTemplate,
+        template: sextantTemplate,
 
         events: {
           "click .toggle": "toggleButtonHandler"

@@ -4,7 +4,9 @@ define(["backbone", "jquery", "underscore",
           "app/views/ContentView", "app/views/HeaderView", "app/models/Session", "app/views/DashboardView",
 		  "app/views/BeaconListenView", "app/views/CodeEntryView", "app/views/QRCodeEntryView", "app/views/FollowTrailView",
 		  "app/views/interactive/ImageScanView", "app/views/interactive/ImageScannedView",
-          "app/floor_tracking", "app/views/SextantView"],
+          "app/floor_tracking",
+		  //"app/views/SextantView"
+		],
   function(Backbone, $, _,
             TrailsCollection,
             TrailsView, TrailIntroView, TopicView, ItemView, FinishedView,
@@ -45,7 +47,7 @@ define(["backbone", "jquery", "underscore",
 	        //custom routes
 	        "scan/:item": "item_scan",    //scan for the specific item
 	        "scanned/:item": "item_scanned",    //after the item has been found
-	        "interact/:item": "sextant",   //interactive view for item
+	        "interact/:item": "interact",   //interactive view for item
             "item/:item": "item",
 
 	        "scan": "scan",
@@ -287,7 +289,7 @@ define(["backbone", "jquery", "underscore",
 		    var item = this.session.getItem(item_slug);
 
 		    var interactViewName = item.attributes.interactView;
-		    require(["app/views/interactive/" + interactViewName], _.bind(function(InteractView) {
+		    require(["app/views/" + interactViewName], _.bind(function(InteractView) {
 			    var interactView = new InteractView();
 			    this.contentView.setView(interactView);
 			    interactView.render();
