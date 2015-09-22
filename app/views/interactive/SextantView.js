@@ -76,7 +76,10 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
         },
         displayInstructions: function(i) {
             $("#instructions")[0].innerHTML = this.instructions[i];
-        }
+        },
+	    cleanup: function() {
+		    cordova.plugins.camerapreview.stopCamera();
+	    }
     });
 
     return SextantView;
