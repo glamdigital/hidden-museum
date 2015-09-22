@@ -115,7 +115,8 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
         //$description.height(descHeight);
         //
 
-	    if(!this.item.attributes.video && !this.item.attributes.audio) {
+	    var hasVideo = this.item.attributes.video && !this.item.attributes.scan_for_video;
+	    if(!hasVideo && !this.item.attributes.audio) {
 		    //fix height of entire screen, for overflow scrolling
 		    var windowHeight = $(window).height();
 		    var $found = $('.found-item');

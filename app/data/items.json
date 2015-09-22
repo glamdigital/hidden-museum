@@ -482,7 +482,7 @@
   {
     "id": "blackboard-interact",
     "title": "Einstein's Blackboard",
-    "description": "Einstein's Blackboard is a blackboard[1] which physicist Albert Einstein (1879–1955) used on 16 May 1931 during his lectures while visiting the University of Oxford in England.[2] The blackboard is one of the most iconic objects in the collection of the Museum of the History of Science in Oxford.",
+    "description": "Einstein's Blackboard is a blackboard[1] which physicist Albert Einstein (1879–1955) used on 16 May 1931 during his lectures while visiting the University of Oxford in England.[2] The blackboard is one of the most iconic objects in the collection of the Museum of the History of Science in Oxford.[3]\n\nThe lecture in which the blackboard was used was the second of three, delivered at Rhodes House in South Parks Road. Einstein's visit to give the Rhodes Lectures, and also to receive an honorary Doctor of Science degree from Oxford University on 23 May 1931, was hosted by the physicist Frederick Lindemann.[4] Einstein's first lecture was on relativity, the second on cosmological theory, and the third one was on unified field theory.\n\nThe board itself was rescued by E. J. Bowen at the end of the lecture and donated by the Warden of Rhodes House, Sir Francis James Wylie.[5][6] The blackboard included equations concerning the diameter, expansion, and age of the universe. \"L.J.\" on the blackboard indicates \"light years\" in German. However, the results were never published by Einstein subsequently.\n\nThe blackboard is considered a \"mutant\" object or artefact in that it is very different from most of the objects in the collection of the museum (mainly scientific instruments such as astrolabes).[7][8]\n\nEinstein returned to Oxford to lecture again in 1933.[9]",
     "location": "",
     "component": "interactive",
     "trail1": "p5",
@@ -506,7 +506,7 @@
   {
     "id": "moon-interact",
     "title": "The Dark Side of the Moon",
-    "description": "The Dark Side of the Moon is the eighth studio album by the English progressive rock band Pink Floyd, released on 1 March 1973.",
+    "description": "The Dark Side of the Moon is the eighth studio album by the English progressive rock band Pink Floyd, released on 1 March 1973. It built on ideas explored in the band's earlier recordings and live shows, but lacks the extended instrumental excursions that characterised their work following the departure in 1968 of founder member, principal composer, and lyricist, Syd Barrett. The themes on The Dark Side of the Moon include conflict, greed, the passage of time, and mental illness, the latter partly inspired by Barrett's deteriorating mental state.\n\nDeveloped during live performances, an early version of the suite was premiered several months before studio recording began; new material was recorded in two sessions in 1972 and 1973 at Abbey Road Studios in London. The group used some of the most advanced recording techniques of the time, including multitrack recording and tape loops. Analogue synthesizers were given prominence in several tracks, and a series of recorded interviews with the band's road crew and others provided the philosophical quotations used throughout. Engineer Alan Parsons was responsible for some of the album's most notable sonic aspects and the recruitment of non-lexical singer Clare Torry. The album's iconic sleeve, designed by Storm Thorgerson, features a prism that represents the band's stage lighting, the record's lyrical themes, and keyboardist Richard Wright's request for a \"simple and bold\" design.",
     "location": "",
     "component": "interactive",
     "trail1": "p5",
@@ -530,7 +530,7 @@
   {
     "id": "sextant-interact",
     "title": "Sextant",
-    "description": "A sextant is a doubly reflecting navigation instrument used to measure the angle between any two visible objects. The principle of the instrument was first implemented around 1730 by John Hadley (1682–1744) and Thomas Godfrey (1704–1749) but it was also found later in the unpublished writings of Isaac Newton (1643–1727).",
+    "description": "A sextant is a doubly reflecting navigation instrument used to measure the angle between any two visible objects. The principle of the instrument was first implemented around 1730 by John Hadley (1682–1744) and Thomas Godfrey (1704–1749) but it was also found later in the unpublished writings of Isaac Newton (1643–1727). The history of these and related instruments, and their forerunners, may be found in the article on reflecting instruments.\n\nThe primary use of a sextant is to determine the angle between an astronomical object and the horizon for the purposes of celestial navigation. The determination of this angle, the altitude, is known as sighting (or shooting) the object, or taking a sight. The angle, and the time when it was measured, can be used to calculate a position line on a nautical or aeronautical chart. Common uses of the sextant include sighting the sun at solar noon or Polaris at night (in the Northern Hemisphere) to determine latitude. Sighting the height of a landmark can give a measure of distance off and, held horizontally, a sextant can measure angles between objects for a position on a chart.[1] A sextant can also be used to measure the lunar distance between the moon and another celestial object (such as a star or planet) in order to determine Greenwich Mean Time and hence longitude.",
     "location": "",
     "component": "interactive",
     "trail1": "p5",
@@ -549,6 +549,6 @@
     "beaconHint": "",
     "unlock_code": "",
     "scanForVideo": "",
-    "interactView": "SextantView"
+    "interactView": "interactive/SextantView"
   }
 ]
