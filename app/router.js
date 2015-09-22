@@ -5,7 +5,7 @@ define(["backbone", "jquery", "underscore",
 		  "app/views/BeaconListenView", "app/views/CodeEntryView", "app/views/QRCodeEntryView", "app/views/FollowTrailView",
 		  "app/views/interactive/ImageScanView", "app/views/interactive/ImageScannedView",
           "app/floor_tracking",
-		  //"app/views/SextantView"
+		  "app/views/interactive/SextantView"
 		],
   function(Backbone, $, _,
             TrailsCollection,
@@ -13,7 +13,9 @@ define(["backbone", "jquery", "underscore",
             ContentView, HeaderView, Session, DashboardView,
             BeaconListenView, CodeEntryView, QRCodeEntryView, FollowTrailView,
             ImageScanView, ImageScannedView,
-            FloorTracking, SextantView) {
+            FloorTracking
+            ,SextantView
+        ) {
 
     var SEVRouter = Backbone.Router.extend({
         initialize: function() {
@@ -288,12 +290,17 @@ define(["backbone", "jquery", "underscore",
 	    interact: function(item_slug) {
 		    var item = this.session.getItem(item_slug);
 
-		    var interactViewName = item.attributes.interactView;
-		    require(["app/views/" + interactViewName], _.bind(function(InteractView) {
-			    var interactView = new InteractView();
-			    this.contentView.setView(interactView);
-			    interactView.render();
-		    }));
+		    // Not working on device...
+		    //var interactViewName = item.attributes.interactView;
+		    //require(["app/views/" + interactViewName], _.bind(function(InteractView) {
+			 //   var interactView = new InteractView();
+			 //   this.contentView.setView(interactView);
+			 //   interactView.render();
+		    //}));
+
+		    var interactView = new SextantView();
+		    this.contentView.setView(interactView);
+		    interactView.render();
 	    }
     });
 
