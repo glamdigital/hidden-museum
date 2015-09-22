@@ -103,6 +103,8 @@ div.black-bar {
   color: white;
   font-size: 1em;
   line-height: 2.2em;
+  text-decoration: none;
+
   &.audio {
     height: $audio-height;
     img.audio-control-icon {

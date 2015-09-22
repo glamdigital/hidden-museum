@@ -16,9 +16,9 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
       output.useQR = this.trail.attributes.useQRCodes;
 
 	    //show skip button for beacon trail
-      output.showskip = this.trail.attributes.isTrail && !output.useQR
+      output.showskip = this.trail.attributes.isTrail && !output.useQR;
 
-
+      output.show_video = this.item.attributes.video && !this.item.attributes.scan_for_video;
 
       return output;
     },
