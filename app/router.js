@@ -283,6 +283,16 @@ define(["backbone", "jquery", "underscore",
 		    var scannedView = new ImageScannedView( { item: item } );
 		    this.contentView.setView(scannedView);
 		    scannedView.render();
+	    },
+	    interact: function(item_slug) {
+		    var item = this.session.getItem(item_slug);
+
+		    var interactViewName = item.attributes.interactView;
+		    require(["app/views/interactive/" + interactViewName], _.bind(function(InteractView) {
+			    var interactView = new InteractView();
+			    this.contentView.setView(interactView);
+			    interactView.render();
+		    }));
 	    }
     });
 
