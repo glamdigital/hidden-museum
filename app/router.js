@@ -4,14 +4,14 @@ define(["backbone", "jquery", "underscore",
           "app/views/ContentView", "app/views/HeaderView", "app/models/Session", "app/views/DashboardView",
 		  "app/views/BeaconListenView", "app/views/CodeEntryView", "app/views/QRCodeEntryView", "app/views/FollowTrailView",
 		  "app/views/interactive/ImageScanView", "app/views/interactive/ImageScannedView",
-          "app/floor_tracking"],
+          "app/floor_tracking", "app/views/SextantView"],
   function(Backbone, $, _,
             TrailsCollection,
             TrailsView, TrailIntroView, TopicView, ItemView, FinishedView,
             ContentView, HeaderView, Session, DashboardView,
             BeaconListenView, CodeEntryView, QRCodeEntryView, FollowTrailView,
             ImageScanView, ImageScannedView,
-            FloorTracking) {
+            FloorTracking, SextantView) {
 
     var SEVRouter = Backbone.Router.extend({
         initialize: function() {
@@ -97,7 +97,6 @@ define(["backbone", "jquery", "underscore",
                 //create a new session for the chosen trail
 	            var trail = this.allTrails.findWhere( {slug: this.prefsTrail} );
 	            this.session = new Session(trail);
-
 	            FloorTracking.prompttoSwitch = false;
 
 		        console.log("starting new trail");
