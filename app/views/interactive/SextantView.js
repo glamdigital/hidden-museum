@@ -47,10 +47,10 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
             this.isTrackingOrientation = false;
             this.currentDeviceOrientation = {alpha:0, beta:0, gamma:0};
             this.startingDeviceOrientation = {alpha:0, beta:0, gamma:0};
-            this.instructions = ["<p>Turn your back to the display case. Hold the phone straight up in front of you and press the start button</p>", 
-                "<p>Now, tilt the camera up to the ceiling until the fire alarm nearest you is aligned with the red line</p>",
-                "<p>While this shows you a simulated latitude, in reality the sextant shows you an angle and you'd consult charts to determine your latitude</p>"];
-            this.instructionsColors = ['#ebddc1', '#ced19f', '#c8ad91'];
+            this.instructions = ["<ol><li>Face the center of the room</li><li>Hold the phone straight up in front of you </li><li>Press the Start button</li></ol>", 
+                "<p>Now, tilt the camera up to the ceiling until the fire alarm nearest you is aligned with the red line and press the button again</p>",
+                "<p>This mimics a reading of the Pole Star, where the angle is the same as your latitude. For the Sun or other bodies you would need an almanac to get a latitude from the angle</p>"];
+            this.instructionsColors = ['url(../img/parchment-tan.jpg)', 'url(../img/parchment-green.jpg)', 'url(../img/parchment-red.jpg)'];
             var tapEnabled = true; //enable tap take picture
             var dragEnabled = false; //enable preview box drag across the screen
             var toBack = true; //send preview box to the back of the webview
@@ -147,7 +147,7 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
         displayInstructions: function() {
             var instructionsDiv = $('#instructions')[0];
             instructionsDiv.innerHTML = this.instructions[this.step];
-            $(instructionsDiv).css('background-color', this.instructionsColors[this.step]); 
+            $(instructionsDiv).css('background-image', this.instructionsColors[this.step]); 
         },
 	    cleanup: function() {
 		    cordova.plugins.camerapreview.stopCamera();
