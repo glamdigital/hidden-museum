@@ -427,6 +427,9 @@ div.button {
     top:120px;
     width:50%;
     height:240px;
+    background-size: 380px;
+    background-position-y: -185px;
+    z-index: 1000;
     #alignment-indicator {
       position: relative;
       top: 50%;

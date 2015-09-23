@@ -119,11 +119,17 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
             $($valueIndicator).offset({left: $valueIndicatorOffset.left, top: $parentOffset.top + $($parent).height() - $($parent).height()*angle/100});
         },
         takeHorizonImage: function(ev) {
-            cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
-                $('#captured-image').css("background", "url("+result[1]+")");
-             });
-            cordova.plugins.camerapreview.takePicture({maxWidth:640, maxHeight:640});
-
+			//capture the screen, rather than taking an actual photo, since this is much faster.
+	        navigator.screenshot.save(function(error,res){
+			  if(error){
+			    console.error(error);
+			  }else{
+			    console.log('ok',res.filePath);
+                $('#captured-image').css("background", "url("+res.filePath+")");
+                $('#captured-image').css("background-size", "380px");
+                $('#captured-image').css("background-position-y", "-185px");
+			  }
+			});
         },
         displayInstructions: function() {
             var instructionsDiv = $('#instructions')[0];

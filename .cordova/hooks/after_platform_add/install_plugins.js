@@ -15,7 +15,8 @@ var pluginlist = [
 	"org.apache.cordova.dialogs",
 	"org.apache.cordova.file",
 	"org.apache.cordova.media",
-	"org.apache.cordova.vibration"
+	"org.apache.cordova.vibration",
+	"https://github.com/gitawego/cordova-screenshot.git",
 ];
 
 // no need to configure below
