@@ -416,14 +416,17 @@ div.button {
     padding: $standardPadding;
     height:120px;
     width: 100%;
-    background-color: #ebddc1;
     background-image: url(../img/parchment-tan.jpg);
+    background-color: #edddc1;
     background-size: 375px;
+    font-size: 1.1em;
+    line-height: 1.4em;
+    ol {
+      margin:0;
+    }
     p {
       margin: 0;
-      padding: $standardPadding;
       text-align: center;
-      font-size: 1.1em;
     }
   }
   #captured-image {
