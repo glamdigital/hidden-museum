@@ -22,7 +22,7 @@ define(["backbone", "underscore", "hbs!app/templates/interactive/image_scanned"]
 
 				afterRender: function() {
 					$('video').on('ended', this.onVideoEnded.bind(this));
-					this.makeFullScreen();
+					setTimeout(this.makeFullScreen, 10);
 				},
 
 				events: {
