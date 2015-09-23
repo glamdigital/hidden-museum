@@ -7,7 +7,8 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
 	    spinAngle = 0;
 
 	    setSextantArmAngle = function (deg) {
-		    var rad = deg * Math.PI / 180;
+            var armAngle = deg/2
+		    var rad = armAngle * Math.PI / 180;
 		    var r00 = Math.cos(rad);
 		    var r11 = r00;
 		    var r01 = -Math.sin(rad);
@@ -43,6 +44,7 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
 
         initialize: function(params) {
             this.step = 0;
+            this.isTrackingOrientation = false;
             this.currentDeviceOrientation = {alpha:0, beta:0, gamma:0};
             this.startingDeviceOrientation = {alpha:0, beta:0, gamma:0};
             this.instructions = ["<p>Turn your back to the display case. Hold the phone straight up in front of you and press the start button</p>", 
@@ -57,12 +59,16 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
 		        cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
 	        }
             $('#content').css("background-color", "transparent");
-
-
         },
-        restart: function() {
-             $('#captured-image').css("background-image", "none");
-             this.displayInstructions(0);
+        afterRender: function() {
+            this.setup();
+        },
+        setup: function() {
+            $('#captured-image').css("background-image", "none");
+            this.displayInstructions(0);
+            setSextantArmAngle(0);
+            this.setLatitudeIndicator(0);
+            $(window).on('deviceorientation', this, this.deviceOrientationHandler);
         },
         toggleButtonHandler: function(ev) {
             var $target = $(ev.target);
@@ -84,16 +90,16 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
                 }
                 case 2: {
                     this.step = 0;
-                    this.restart();
+                    this.setup();
                     this.displayInstructions();
                     $target.text("start");
                 }
             }
         },
-        startTrackingOrientation: function(ev) {
+        startTrackingOrientation: function(ev) {           
             this.startingDeviceOrientation = null;
-            $(window).on('deviceorientation', this, this.deviceOrientationHandler); 
             this.isTrackingOrientation = true;
+            console.log(this.startingDeviceOrientation);             
         },
         stopTrackingOrientation: function(ev) {
             this.isTrackingOrientation = false;
@@ -101,17 +107,22 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
         },
         deviceOrientationHandler: function(ev) {
             var sextantView = ev.data;
-            if (!sextantView.startingDeviceOrientation) {
-                sextantView.startingDeviceOrientation = ev.originalEvent;
+            if (sextantView.isTrackingOrientation == true) {               
+                if (sextantView.startingDeviceOrientation == null) {
+                    sextantView.startingDeviceOrientation = ev.originalEvent;
+                }
+                sextantView.currentDeviceOrientation = ev.originalEvent;
+                sextantView.updateOrientationIndicator();
             }
-            sextantView.currentDeviceOrientation = ev.originalEvent;
-            sextantView.updateOrientationIndicator();
-
         },
-        updateOrientationIndicator: function() {
-            var $valueIndicator = $('#value-indicator')[0];
+        updateOrientationIndicator: function() {            
             var angle = this.currentDeviceOrientation.beta - this.startingDeviceOrientation.beta;
-	        setSextantArmAngle(-angle/2);
+            console.log("current: " + this.currentDeviceOrientation.beta + " starting: "+ this.startingDeviceOrientation.beta + " angle: " + angle);
+	        setSextantArmAngle(angle);
+            this.setLatitudeIndicator(angle);
+        },
+        setLatitudeIndicator: function(angle) {
+            var $valueIndicator = $('#value-indicator')[0];
             var $valueIndicatorOffset = $($valueIndicator).offset();
             var $parent = $('#value-indicator')[0].offsetParent;
             var $parentOffset = $($parent).offset();
@@ -119,17 +130,19 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
             $($valueIndicator).offset({left: $valueIndicatorOffset.left, top: $parentOffset.top + $($parent).height() - $($parent).height()*angle/100});
         },
         takeHorizonImage: function(ev) {
-			//capture the screen, rather than taking an actual photo, since this is much faster.
-	        navigator.screenshot.save(function(error,res){
-			  if(error){
-			    console.error(error);
-			  }else{
-			    console.log('ok',res.filePath);
-                $('#captured-image').css("background", "url("+res.filePath+")");
-                $('#captured-image').css("background-size", "380px");
-                $('#captured-image').css("background-position-y", "-185px");
-			  }
-			});
+		//capture the screen, rather than taking an actual photo, since this is much faster.
+	          if(typeof(navigator.screenshot) !== 'undefined') {
+		          navigator.screenshot.save(function (error, res) {
+			          if (error) {
+				          console.error(error);
+			          } else {
+				          console.log('ok', res.filePath);
+				          $('#captured-image').css("background", "url(" + res.filePath + ")");
+				          $('#captured-image').css("background-size", "380px");
+				          $('#captured-image').css("background-position-y", "-185px");
+			          }
+		          });
+	          }
         },
         displayInstructions: function() {
             var instructionsDiv = $('#instructions')[0];
