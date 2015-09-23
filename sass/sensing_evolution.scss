@@ -442,10 +442,14 @@ div.button {
     width: 100%;
     border-top: 1px solid #ccc;
     background-image: url(../img/navigation-map.jpg);
-    background-position: center -20px;
+    background-position: -10px -20px;
     background-size: 496px 360px;
     #value-indicator {
       border-top: 1px solid black;
+      position:absolute;
+      text-align: right;
+      padding-right: $standardPadding * 2;
+      width:100%;
     }
 
     #sextant {
