@@ -214,7 +214,18 @@ div.code-input {
 div.scan-container {
   background: white;
   opacity: 0.4;
+  height: 1000px;
   .scan-instructions {
     margin: 5px 20px;
+  }
+  .preview {
+    height: 310px;
+    margin-top: 30px;
+    background-image: url(../img/moon-sketch.jpg);
+    background-size: 556px 310px;
+    background-position-x: -40px;
+  }
+  img {
+    width: 100%;
   }
 }
