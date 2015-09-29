@@ -47,7 +47,7 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
             this.isTrackingOrientation = false;
             this.currentDeviceOrientation = {alpha:0, beta:0, gamma:0};
             this.startingDeviceOrientation = {alpha:0, beta:0, gamma:0};
-            this.instructions = ["<ol><li>Face the center of the room</li><li>Hold the phone straight up in front of you </li><li>Press the Start button</li></ol>", 
+            this.instructions = ["<ol><li>Face the centre of the room</li><li>Hold the phone straight up in front of you so that the red line becomes like the horizon</li><li>Press the Start button</li></ol>", 
                 "<p>Now, tilt the camera toward the ceiling until the fire alarm nearest you is aligned with the red line and press the button again</p>",
                 "<p>This mimics a reading of the Pole Star, where the angle is the same as your latitude. For the Sun or other bodies you would need an almanac to get a latitude from the angle</p>"];
             this.instructionsColors = ['url(img/parchment-tan.jpg)', 'url(img/parchment-green.jpg)', 'url(img/parchment-red.jpg)'];
