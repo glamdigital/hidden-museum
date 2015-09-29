@@ -229,3 +229,20 @@ div.scan-container {
     width: 100%;
   }
 }
+
+.scanned-view {
+  background: url(../img/moon/back/moon-back.jpg);
+  background-size: 500px;
+  background-position-x: -80px;
+  height: 1000px;
+
+  .item-title {
+    background: white;
+    opacity: 0.8;
+    padding: 10px 20px 20px 20px;
+  }
+
+  video {
+    display: none;
+  }
+}

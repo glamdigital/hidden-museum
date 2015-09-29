@@ -475,13 +475,19 @@ div.button {
       }
     }
   }
+}
+
   #controls {
     padding: $standardPadding;
     position: fixed;
     bottom: 0;
+    left: 0;
     height: 90px;
     width: 100%;
     background: #333;
+    &.image-recognised {
+      background: white;
+    }
     .button {
       display: block;
       margin: 0 auto;
@@ -498,4 +504,3 @@ div.button {
     }
 
   }
-}

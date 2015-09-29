@@ -4,6 +4,8 @@
 define(["backbone", "underscore", "hbs!app/templates/interactive/image_scanned"],
 		function(Backbone, _, itemTemplate) {
 
+			App = window.App || {};
+
 			var ItemScannedView = Backbone.View.extend({
 				template: itemTemplate,
 
@@ -22,17 +24,19 @@ define(["backbone", "underscore", "hbs!app/templates/interactive/image_scanned"]
 
 				afterRender: function() {
 					$('video').on('ended', this.onVideoEnded.bind(this));
-					setTimeout(this.makeFullScreen, 10);
 				},
 
 				events: {
 					"click video": "makeFullScreen",
-					"play video": "makeFullScreen"
+					"play video": "makeFullScreen",
+					"click #play-video": "makeFullScreen"
 				},
 
 				makeFullScreen: function(ev) {
+					$('video').show();
 					$('video')[0].webkitEnterFullscreen();
 					$('video')[0].play();
+					$('.scanned-view').css('background', 'white');
 				},
 
 				onVideoEnded: function(ev) {
