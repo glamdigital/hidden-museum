@@ -108,11 +108,13 @@ define(['backbone', 'hbs!app/templates/interactive/image_scanning'],
 			},
 
 			serialize: function() {
-
+				return this.item.toJSON();
 			},
 
 			afterRender: function() {
-				initRecognition(this.item.attributes.slug);
+				if(typeof(MS4Plugin) !== 'undefined') {
+					initRecognition(this.item.attributes.slug);
+				}
 			},
 
 			cleanup: function() {

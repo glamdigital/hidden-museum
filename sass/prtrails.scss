@@ -14,6 +14,10 @@ $statusBar-height: 20px;
 }
 
 
+a {
+  text-decoration: none;
+}
+
 .pr-header-container {
   padding: $headerPadding 0px;
   text-align: center;
@@ -205,4 +209,12 @@ div.code-input {
 
 .item-image {
   max-height: 300px;
+}
+
+div.scan-container {
+  background: white;
+  opacity: 0.4;
+  .scan-instructions {
+    margin: 5px 20px;
+  }
 }
