@@ -413,7 +413,7 @@ div.button {
   height: 100%;
   width: 100%;
   #instructions {
-    padding: $standardPadding*2  $standardPadding $standardPadding;
+    padding: $standardPadding;
     height:120px;
     width: 100%;
     background-image: url(../img/parchment-tan.jpg);
@@ -425,7 +425,7 @@ div.button {
       margin: 0;
     }
     p {
-      margin: 0;
+      margin: $standardPadding 0 0;
       text-align: center;
     }
   }
