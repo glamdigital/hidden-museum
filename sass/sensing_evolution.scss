@@ -455,7 +455,9 @@ div.button {
     background-position: -10px -20px;
     background-size: 496px 360px;
     #value-indicator {
-      border-top: 1px solid black;
+      border-top: 1px solid red;
+      color: black;
+      text-shadow: 1px 1px #aaa;
       position:absolute;
       text-align: right;
       padding-right: $standardPadding * 2;

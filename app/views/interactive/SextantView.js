@@ -68,6 +68,7 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
             this.displayInstructions(0);
             setSextantArmAngle(0);
             this.setLatitudeIndicator(0);
+            this.hideLatitudeIndicator();        
             $(window).on('deviceorientation', this, this.deviceOrientationHandler);
         },
         toggleButtonHandler: function(ev) {
@@ -77,6 +78,7 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
                     this.step = 1;                           
                     $target.text("Stop");
                     this.takeHorizonImage(ev);
+                    this.showLatitudeIndicator();
                     this.startTrackingOrientation(ev);
                     this.displayInstructions();
                     break;
@@ -98,8 +100,7 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
         },
         startTrackingOrientation: function(ev) {           
             this.startingDeviceOrientation = null;
-            this.isTrackingOrientation = true;
-            console.log(this.startingDeviceOrientation);             
+            this.isTrackingOrientation = true;            
         },
         stopTrackingOrientation: function(ev) {
             this.isTrackingOrientation = false;
@@ -117,9 +118,14 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
         },
         updateOrientationIndicator: function() {            
             var angle = this.currentDeviceOrientation.beta - this.startingDeviceOrientation.beta;
-            console.log("current: " + this.currentDeviceOrientation.beta + " starting: "+ this.startingDeviceOrientation.beta + " angle: " + angle);
-	        setSextantArmAngle(angle);
+ 	        setSextantArmAngle(angle);
             this.setLatitudeIndicator(angle);
+        },
+        showLatitudeIndicator: function() {
+            $('#value-indicator').show();
+        },
+        hideLatitudeIndicator: function() {
+            $('#value-indicator').hide();
         },
         setLatitudeIndicator: function(angle) {
             var $valueIndicator = $('#value-indicator')[0];
