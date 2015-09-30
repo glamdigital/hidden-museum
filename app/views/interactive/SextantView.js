@@ -47,6 +47,7 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
             this.isTrackingOrientation = false;
             this.currentDeviceOrientation = {alpha:0, beta:0, gamma:0};
             this.startingDeviceOrientation = {alpha:0, beta:0, gamma:0};
+            this.angle = 0;
             this.instructions = ["<ol><li>Face the centre of the room</li><li>Hold the phone straight up in front of you so the red line is like the horizon</li><li>Press the Start button</li></ol>", 
                 "<p>Now, tilt the camera toward the ceiling until the fire alarm nearest you is aligned with the red line and press the button again</p>",
                 "<p>This mimics a reading of the Pole Star, where the angle is the same as your latitude. For the Sun or other bodies you would need an almanac to get a latitude from the angle</p>"];
@@ -63,13 +64,15 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
         afterRender: function() {
             this.setup();
         },
-        setup: function() {
-            $('#captured-image').css("background-image", "none");
+        setup: function() {        
             this.displayInstructions(0);
             setSextantArmAngle(0);
             this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", 0);
             this.hideLatitudeIndicator(); 
-            this.hideReferenceLatitude()       
+            this.hideReferenceLatitude();
+            this.hideMessage();
+            this.showHorizonIndicator();
+            this.angle = 0;       
             $(window).on('deviceorientation', this, this.deviceOrientationHandler);
         },
         toggleButtonHandler: function(ev) {
@@ -87,10 +90,12 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
                 case 1: {
                     this.step = 2;
                     this.stopTrackingOrientation(ev);
-                    this.displayInstructions();
-                    this.setLatitudeIndicatorText($('#value-indicator')[0], "");
+                    this.showMessage();
+                    this.hideLatitudeIndicator();
+                    this.hideHorizonIndicator();
                     this.showReferenceLatitude();
                     this.setLatitudeIndicator($('#reference-indicator')[0],"Oxford", 51.7519);
+                    $('#captured-image').css("background-image", "none");
                     $target.text("Reset");
                     break;
                 }
@@ -122,9 +127,15 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
             }
         },
         updateOrientationIndicator: function() {            
-            var angle = this.currentDeviceOrientation.beta - this.startingDeviceOrientation.beta;
- 	        setSextantArmAngle(angle);
-            this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", angle);
+            this.angle = this.currentDeviceOrientation.beta - this.startingDeviceOrientation.beta;
+            if (this.angle > 82) {
+                this.angle = 82;
+            }
+            else if (this.angle < 0) {
+                this.angle = 0;
+            }
+ 	        setSextantArmAngle(this.angle);
+            this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", this.angle);
         },
         showLatitudeIndicator: function() {
             $('#value-indicator').show();
@@ -147,8 +158,8 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
             var topProportion = 0.81;
 
             var y  = parentHeight - parentHeight*mercN/(Math.PI * topProportion);
-            this.setLatitudeIndicatorText($indicator, label + ": " + angle.toPrecision(5).toString() + "&deg; North");
             $($indicator).offset({left: $($indicator).offset().left, top: parentTop + y});
+            this.setLatitudeIndicatorText($indicator, label + ": " + angle.toPrecision(5).toString() + "&deg; North");
         },
         setLatitudeIndicatorText: function($indicator, text) {
             $indicator.innerHTML = text;
@@ -158,6 +169,12 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
         },
         hideReferenceLatitude: function() {
              $('#reference-indicator').hide();
+        },
+        showHorizonIndicator: function() {
+             $('#alignment-indicator').show();
+        },
+        hideHorizonIndicator: function() {
+             $('#alignment-indicator').hide();
         },
         takeHorizonImage: function(ev) {
 		//capture the screen, rather than taking an actual photo, since this is much faster.
@@ -175,9 +192,17 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
 	          }
         },
         displayInstructions: function() {
-            var instructionsDiv = $('#instructions')[0];
-            instructionsDiv.innerHTML = this.instructions[this.step];
-            $(instructionsDiv).css('background-image', this.instructionsColors[this.step]); 
+            var $instructionsDiv = $('#instructions')[0];
+            $instructionsDiv.innerHTML = this.instructions[this.step];
+            $($instructionsDiv).css('background-image', this.instructionsColors[this.step]); 
+        },
+        showMessage: function() {
+            $('#message').show();
+            $('#message')[0].innerHTML = '<p>The angle you measured was ' + this.angle.toPrecision(5).toString() + '&deg;. Navigators could use this measurement to calculate their latitude, or north/south position. For example, your angle of ' + this.angle.toPrecision(5).toString() + '&deg; might be converted to a latitude of 51&deg; North, which is the latitude of Oxford. The equator is 0° North and the North Pole is 90° North.</p><p>To line up the object with the horizon you tilted the phone. On a sextant the object and horizon are lined up by moving the main arm to tilt the mirror.</p>';
+        },
+        hideMessage: function() {
+            var $messageDiv = $('#message')[0];
+            $('#message').hide();
         },
 	    cleanup: function() {
 		    cordova.plugins.camerapreview.stopCamera();

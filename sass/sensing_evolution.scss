@@ -422,10 +422,11 @@ div.button {
     font-size: 1.1em;
     line-height: 1.4em;
     ol {
+      padding-top: $standardPadding;
       margin: 0;
     }
     p {
-      margin: $standardPadding 0 0;
+      padding-top: $standardPadding;
       text-align: center;
     }
   }
@@ -443,6 +444,22 @@ div.button {
       width: 100%;
       border-top: 1px solid red;
     }
+  }
+  #message {
+    padding: $standardPadding;
+    position: absolute;
+    top:0;
+    height:340px;
+    width:100%;
+    background-image: url(../img/parchment-tan.jpg);
+    background-color: #edddc1;
+    background-size: 375px;
+    font-size: 1.1em;
+    line-height: 1.4em;
+    p {
+      padding-top: $standardPadding;
+      text-align: center;
+    }   
   }
   #feedback {
     padding: 0 $standardPadding;
