@@ -19,7 +19,6 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
       output.showskip = this.trail.attributes.isTrail && !output.useQR;
 
       output.show_video = this.item.attributes.video && !this.item.attributes.scan_for_video;
-
       return output;
     },
 
@@ -43,6 +42,7 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
 	    for(var i=0; i<this.pauseTimes.length; i++) {
 		    this.pauseTimes[i].hit = false;
 	    }
+
     },
 
     afterRender: function() {

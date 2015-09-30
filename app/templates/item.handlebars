@@ -45,10 +45,10 @@
     <p class="description">{{{description}}}</p>
 
     {{#if scan_for_video}}
-        <a href="#scan/{{slug}}"><div class="black-bar">Find This Object</div></a>
+        <a href="#scan/{{slug}}"><div class="button center">{{interactPrompt}}</div></a>
     {{/if}}
     {{#if interactView}}
-        <a href="#interact/{{slug}}"><div class="black-bar">Try it</div></a>
+        <a href="#interact/{{slug}}"><div class="button center">{{interactPrompt}}</div></a>
     {{/if}}
 </div>
 

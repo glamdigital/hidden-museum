@@ -367,15 +367,15 @@ div.button {
     margin-left: auto;
     margin-right: auto;
     display: block;
-  }
-  a {
     padding: 2*$standardPadding;
     border-style: solid;
-    border-radius: 5px;
+    border-radius: 10px;
     border-width: 1px;
-    background-color: lightgrey;
+    border-color: #333;
+    background-color: #923841;
     text-decoration: none;
-    color: $fontColor;
+    color: white;
+    width:90%;
   }
   margin: 10px;
 }
