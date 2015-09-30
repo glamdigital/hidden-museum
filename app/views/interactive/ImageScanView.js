@@ -1,6 +1,8 @@
 define(['backbone', 'hbs!app/templates/interactive/image_scanning'],
 	function(Backbone, imageScanningTemplate) {
 
+		App = window.App || {};
+
 		//'targets' is a dictionary mapping matching images
 		initRecognition = function(item_slug) {
 
@@ -41,13 +43,34 @@ define(['backbone', 'hbs!app/templates/interactive/image_scanning'],
 					        if(navigator.notification) {
 					            navigator.notification.vibrate(200);
 					        }
-							Backbone.history.navigate('#/scanned/' + item_slug);
+
+							//Screenshot here doesn't capture the moodstocks camera view.
+
+							////capture the current state of the screen
+							//if(typeof(navigator.screenshot) !== 'undefined')
+							//{
+							//	//todo hide the other bits of DOM first
+							//	navigator.screenshot.save(_.bind(function(error, res) {
+							//		if(error) {
+							//			console.error(error);
+							//		} else {
+							//			console.log('ok', res.filePath);
+							//			//store the captured image somewhere accessible
+							//			App.capturedItemPath = res.filePath;
+							//		}
+							//	}, this));
+							//}
+
+							//move to the 'scanned' view after a short delay
+							setTimeout(_.bind(function() {
+								Backbone.history.navigate('#/scanned/' + item_slug);
+							}, this), 1000);
 						}
 					},
 					//error
 					function(err) {
 						console.log("error scanning");
-						console.log("err");
+						console.log(err);
 					},
 					scanOptions,
 					scanFlags
