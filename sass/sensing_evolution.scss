@@ -422,10 +422,11 @@ div.button {
     font-size: 1.1em;
     line-height: 1.4em;
     ol {
+      padding-top: $standardPadding;
       margin: 0;
     }
     p {
-      margin: $standardPadding 0 0;
+      padding-top: $standardPadding;
       text-align: center;
     }
   }
@@ -444,6 +445,22 @@ div.button {
       border-top: 1px solid red;
     }
   }
+  #message {
+    padding: $standardPadding;
+    position: absolute;
+    top:0;
+    height:340px;
+    width:100%;
+    background-image: url(../img/parchment-tan.jpg);
+    background-color: #edddc1;
+    background-size: 375px;
+    font-size: 1.1em;
+    line-height: 1.4em;
+    p {
+      padding-top: $standardPadding;
+      text-align: center;
+    }   
+  }
   #feedback {
     padding: 0 $standardPadding;
     position: fixed;
@@ -452,8 +469,8 @@ div.button {
     width: 100%;
     border-top: 1px solid #ccc;
     background-image: url(../img/navigation-map.jpg);
-    background-position: -10px -20px;
-    background-size: 496px 360px;
+    background-position: -10px 0px;
+    background-size: auto 180px;
     #value-indicator {
       border-top: 1px solid red;
       color: black;
@@ -463,7 +480,6 @@ div.button {
       padding-right: $standardPadding * 2;
       width:100%;
     }
-
     #sextant {
       position: absolute;
       top: 5%;
@@ -474,9 +490,16 @@ div.button {
         width: 100%;
       }
     }
+    #reference-indicator {
+      border-top: 1px solid black;
+      color: black;
+      text-shadow: 1px 1px #aaa;
+      position:absolute;
+      text-align: right;
+      padding-right: $standardPadding * 2;
+      width:100%;    
+    }
   }
-}
-
   #controls {
     padding: $standardPadding;
     position: fixed;
@@ -500,7 +523,7 @@ div.button {
       background: #923841;
       color: white;
       font-size: 1.4em;
-
     }
 
   }
+}
