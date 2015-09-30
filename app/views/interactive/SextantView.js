@@ -67,8 +67,9 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
             $('#captured-image').css("background-image", "none");
             this.displayInstructions(0);
             setSextantArmAngle(0);
-            this.setLatitudeIndicator(0);
-            this.hideLatitudeIndicator();        
+            this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", 0);
+            this.hideLatitudeIndicator(); 
+            this.hideReferenceLatitude()       
             $(window).on('deviceorientation', this, this.deviceOrientationHandler);
         },
         toggleButtonHandler: function(ev) {
@@ -87,6 +88,9 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
                     this.step = 2;
                     this.stopTrackingOrientation(ev);
                     this.displayInstructions();
+                    this.setLatitudeIndicatorText($('#value-indicator')[0], "");
+                    this.showReferenceLatitude();
+                    this.setLatitudeIndicator($('#reference-indicator')[0],"Oxford", 51.7519);
                     $target.text("Reset");
                     break;
                 }
@@ -94,6 +98,7 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
                     this.step = 0;
                     this.setup();
                     this.displayInstructions();
+                    this.hideReferenceLatitude();
                     $target.text("Start");
                 }
             }
@@ -119,7 +124,7 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
         updateOrientationIndicator: function() {            
             var angle = this.currentDeviceOrientation.beta - this.startingDeviceOrientation.beta;
  	        setSextantArmAngle(angle);
-            this.setLatitudeIndicator(angle);
+            this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", angle);
         },
         showLatitudeIndicator: function() {
             $('#value-indicator').show();
@@ -127,13 +132,32 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
         hideLatitudeIndicator: function() {
             $('#value-indicator').hide();
         },
-        setLatitudeIndicator: function(angle) {
-            var $valueIndicator = $('#value-indicator')[0];
-            var $valueIndicatorOffset = $($valueIndicator).offset();
-            var $parent = $('#value-indicator')[0].offsetParent;
-            var $parentOffset = $($parent).offset();
-            $valueIndicator.innerHTML = "latitude: " + angle.toPrecision(7).toString() + "&deg;";
-            $($valueIndicator).offset({left: $valueIndicatorOffset.left, top: $parentOffset.top + $($parent).height() - $($parent).height()*angle/100});
+        setLatitudeIndicator: function($indicator, label, angle) {
+ 
+            var $parent = $($indicator).parent();
+            var parentHeight = 180;//$($parent).height();
+            var parentTop = $($parent).offset().top;
+            // convert from degrees to radians
+            var latRad = angle*Math.PI/180;
+
+            // get y value
+            var mercN = Math.log(Math.tan((Math.PI/4)+(latRad/2)));
+
+            //adjustment factor due to the map ending at ~80deg north
+            var topProportion = 0.81;
+
+            var y  = parentHeight - parentHeight*mercN/(Math.PI * topProportion);
+            this.setLatitudeIndicatorText($indicator, label + ": " + angle.toPrecision(5).toString() + "&deg; North");
+            $($indicator).offset({left: $($indicator).offset().left, top: parentTop + y});
+        },
+        setLatitudeIndicatorText: function($indicator, text) {
+            $indicator.innerHTML = text;
+        },
+        showReferenceLatitude: function() {
+             $('#reference-indicator').show();
+        },
+        hideReferenceLatitude: function() {
+             $('#reference-indicator').hide();
         },
         takeHorizonImage: function(ev) {
 		//capture the screen, rather than taking an actual photo, since this is much faster.
