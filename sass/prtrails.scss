@@ -101,6 +101,7 @@ table.social-links-table {
 }
 
 div.black-bar {
+  border-radius: 5px;
   width: auto;
   background: black;
   padding: 5px 12px;
@@ -219,11 +220,11 @@ div.scan-container {
     margin: 5px 20px;
   }
   .preview {
-    height: 310px;
-    margin-top: 30px;
-    background-image: url(../img/moon-sketch.jpg);
-    background-size: 556px 310px;
-    background-position-x: -40px;
+    height: 1000px;
+    background-image: url(../img/moon-sketch.png);
+    background-size: 500px;
+    background-position-x: -70px;
+    background-position-y: -120px;
   }
   img {
     width: 100%;
@@ -233,7 +234,7 @@ div.scan-container {
 .scanned-view {
   background: url(../img/moon/back/moon-back.jpg);
   background-size: 500px;
-  background-position-x: -80px;
+  background-position-x: -70px;
   height: 1000px;
 
   .item-title {
