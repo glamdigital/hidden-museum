@@ -91,7 +91,8 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
                     this.step = 2;
                     this.stopTrackingOrientation(ev);
                     this.showMessage();
-                    this.hideLatitudeIndicator();
+                   // this.hideLatitudeIndicator();
+                    this.setLatitudeIndicatorText($('#value-indicator')[0], "");
                     this.hideHorizonIndicator();
                     this.showReferenceLatitude();
                     this.setLatitudeIndicator($('#reference-indicator')[0],"Oxford", 51.7519);
@@ -198,7 +199,7 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
         },
         showMessage: function() {
             $('#message').show();
-            $('#message')[0].innerHTML = '<p>The angle you measured was ' + this.angle.toPrecision(5).toString() + '&deg;. Navigators could use this measurement to calculate their latitude, or north/south position. For example, your angle of ' + this.angle.toPrecision(5).toString() + '&deg; might be converted to a latitude of 51&deg; North, which is the latitude of Oxford. The equator is 0° North and the North Pole is 90° North.</p><p>To line up the object with the horizon you tilted the phone. On a sextant the object and horizon are lined up by moving the main arm to tilt the mirror.</p>';
+            $('#message')[0].innerHTML = "<p>The angle you measured was "  + this.angle.toPrecision(4).toString() + "&deg;. If the object you lined up had been the Pole Star, the angle would be the same as your latitude. The Pole Star is 90&deg; above the horizon at the North Pole, which has a latitude of 90&deg; North. The star appears right on the horizon at the equator, at 0&deg;. Oxford is 51.7&deg; North. Usually navigators measured the Sun and other stars and calculated latitude using reference books called almanacs.</p><p>To line up the object with the horizon you tilted the phone. On a sextant you'd move the main arm to tilt a mirror.</p>";
         },
         hideMessage: function() {
             var $messageDiv = $('#message')[0];

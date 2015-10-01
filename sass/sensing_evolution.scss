@@ -426,7 +426,8 @@ div.button {
       margin: 0;
     }
     p {
-      padding-top: $standardPadding;
+      margin:0;
+      padding-top: $standardPadding+3px;
       text-align: center;
     }
   }
@@ -457,7 +458,8 @@ div.button {
     font-size: 1.1em;
     line-height: 1.4em;
     p {
-      padding-top: $standardPadding;
+      margin:0;
+      padding-bottom: $standardPadding + 3px;
       text-align: center;
     }   
   }
@@ -467,7 +469,6 @@ div.button {
     bottom: 90px;
     height: 180px;
     width: 100%;
-    border-top: 1px solid #ccc;
     background-image: url(../img/navigation-map.jpg);
     background-position: -10px 0px;
     background-size: auto 180px;
