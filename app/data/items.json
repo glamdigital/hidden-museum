@@ -547,7 +547,7 @@
     "scannedText": "",
     "location": "",
     "component": "interactive",
-    "trail1": "p6",
+    "trail1": "p5",
     "trail2": "",
     "trail3": "",
     "image": "MHS_05_blackboard.png",
@@ -555,7 +555,7 @@
     "map_image": "MHS_05_blackboard.png",
     "audio": "",
     "audio_duration": "",
-    "video": "Armillary sphere edit.mp4",
+    "video": "blackboard.mp4",
     "pause1": "",
     "pause2": "",
     "poster": "",
@@ -568,8 +568,8 @@
   },
   {
     "id": "moon-interact",
-    "title": "The Dark Side of the Moon",
-    "description": "This Moon globe, called Selenographia, was made in the late 18th century by artist John Russell. It shows the lunar surface as it was known at the time. What do you expect to see on the back of the globe? Explore the dark side [button]",
+    "title": "Moon Globe",
+    "description": "This Moon globe, called Selenographia, was made in the late 18th century by artist John Russell. It shows the lunar surface as it was known at the time. What do you expect to see on the back of the globe?",
     "Instructions": "<p>Move around the right hand side of the case towards the back of the globe and line up the outline on screen with the globe.</p>",
     "scannedText": "<p>What do you notice about its surface?</p> <br>Press play to find out more...",
     "location": "",
@@ -577,9 +577,9 @@
     "trail1": "p5",
     "trail2": "",
     "trail3": "",
-    "image": "Moon4.jpg",
-    "hint_image": "Moon4.jpg",
-    "map_image": "Moon4.jpg",
+    "image": "selenographia.jpg",
+    "hint_image": "selenographia.jpg",
+    "map_image": "selenographia.jpg",
     "audio": "",
     "audio_duration": "",
     "video": "Selenographia.mp4",
@@ -596,8 +596,8 @@
   {
     "id": "sextant-interact",
     "title": "Sextant",
-    "description": "The sextant has been used in navigation since the 18th century. It reads the angle above the horizon of a celestial body, such as the Sun or Pole Star, using reflecting mirrors to line one up with the other. From this angle it is possible to determine latitude – your north/south position on the globe.",
-    "Instructions": "<ol><li>Face the centre of the room</li><li>Hold the phone straight up in front of you so that the red line becomes like the horizon</li><li>Press the Start button</li></ol><p>Now, tilt the camera toward the ceiling until the smoke alarm nearest you is aligned with the red line and press the button again</p><p>The angle you measured was x°. Navigators could use this measurement to calculate their latitude, or north/south position. For example, your angle of x° might be converted to a latitude of 51° North, which is the latitude of Oxford. The equator is 0° North and the North Pole is 90° North.\n<br>To line up the object with the horizon you tilted the phone. On a sextant the object and horizon are lined up by moving the main arm to tilt the mirror.</p>",
+    "description": "The sextant has been used in navigation since the 18th century. It reads the angle above the horizon of a celestial body, such as the Sun or a star, using reflecting mirrors to line one up with the other. From this angle it is possible to determine latitude – your north/south position on the globe.",
+    "Instructions": "<ol><li>Face the centre of the room</li><li>Hold the phone straight up in front of you so that the red line becomes like the horizon</li><li>Press the Start button</li></ol><p>Now, tilt the camera toward the ceiling until the smoke alarm nearest you is aligned with the red line and press the button again</p><p>The angle you measured was x°. Navigators could use this measurement to calculate their latitude, or north/south position, often by looking it up in a book called an almanac. The North Pole is 90° North and the equator is 0°. In Oxford, the latitude is 51° North.\n<br>To line up the object with the horizon you tilted the phone. On a sextant the object and horizon are lined up by moving the main arm to tilt the mirror.</p>",
     "scannedText": "",
     "location": "",
     "component": "interactive",
@@ -618,6 +618,6 @@
     "unlock_code": "",
     "scanForVideo": "",
     "interactView": "interactive/SextantView",
-    "interactPrompt": ""
+    "interactPrompt": "Try it"
   }
 ]
