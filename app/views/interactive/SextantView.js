@@ -168,8 +168,17 @@ define([
  	        //setSextantArmAngle(this.angle);
             //this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", this.angle);
 
-            var skyOffset = this.angle * SKY_BACKGROUND_SCROLL_RATE;
-            $('#sky').css('background-position-y', skyOffset + 'px');
+            var skyOffsetY = this.angle * SKY_BACKGROUND_SCROLL_RATE;
+            $('#sky').css('background-position-y', skyOffsetY + 'px');
+
+
+            //Attempt to scan left/right a little. Doesn't work well, as roll adds to gamma.
+            // If we can use something like FullTilt to transform the orientations so that they are based around
+            // device being upright, rather than device being flat, this may be worth reinstating.
+            // Applying such a transform would also hopefully alleviate the 'pop' at alpha ~= 90 when the device is rolled slightly
+
+            //var skyOffsetX = this.currentDeviceOrientation.gamma * SKY_BACKGROUND_SCROLL_RATE + 500;
+            //$('#sky').css('background-position-x', skyOffsetX + 'px');
         },
         showLatitudeIndicator: function() {
             $('#value-indicator').show();

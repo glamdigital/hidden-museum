@@ -464,6 +464,8 @@ div.item-title {
     clear:right;
     background-image: url(../img/stars.jpg);
     background-size: 1000px;
+    background-position-y: 0px;
+    background-position-x: 500px;
     height: $sextant-captured-image-height;
     width: 25%;
     float: right;
