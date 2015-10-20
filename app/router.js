@@ -5,7 +5,8 @@ define(["backbone", "jquery", "underscore",
 		  "app/views/BeaconListenView", "app/views/CodeEntryView", "app/views/QRCodeEntryView", "app/views/FollowTrailView",
 		  "app/views/interactive/ImageScanView", "app/views/interactive/ImageScannedView",
           "app/floor_tracking",
-		  "app/views/interactive/SextantView"
+		  "app/views/interactive/SextantView",
+          "app/views/interactive/AlmanacView"
 		],
   function(Backbone, $, _,
             TrailsCollection,
@@ -13,8 +14,8 @@ define(["backbone", "jquery", "underscore",
             ContentView, HeaderView, Session, DashboardView,
             BeaconListenView, CodeEntryView, QRCodeEntryView, FollowTrailView,
             ImageScanView, ImageScannedView,
-            FloorTracking
-            ,SextantView
+            FloorTracking,
+            SextantView, AlmanacView
         ) {
 
     var SEVRouter = Backbone.Router.extend({
@@ -49,7 +50,7 @@ define(["backbone", "jquery", "underscore",
 	        //custom routes
 	        "scan/:item": "item_scan",    //scan for the specific item
 	        "scanned/:item": "item_scanned",    //after the item has been found
-	        "interact/:item": "interact",   //interactive view for item
+	        "interact/:item/:index": "interact",   //interactive view for item
             "item/:item": "item",
 
 	        "scan": "scan",
@@ -287,18 +288,17 @@ define(["backbone", "jquery", "underscore",
 		    this.contentView.setView(scannedView);
 		    scannedView.render();
 	    },
-	    interact: function(item_slug) {
-		    var item = this.session.getItem(item_slug);
-
-		    // Not working on device...
-		    //var interactViewName = item.attributes.interactView;
-		    //require(["app/views/" + interactViewName], _.bind(function(InteractView) {
-			 //   var interactView = new InteractView();
-			 //   this.contentView.setView(interactView);
-			 //   interactView.render();
-		    //}));
-
-		    var interactView = new SextantView();
+	    interact: function(item_slug, index) {
+            var interactView;
+            switch (item_slug) {
+                case 'sextant-interact': {
+                    switch (index) {
+                        case '0': interactView = new SextantView();break;
+                        case '1': interactView = new AlmanacView();break;
+                    }
+                    break;
+                }
+            }
 		    this.contentView.setView(interactView);
 		    interactView.render();
 	    }
