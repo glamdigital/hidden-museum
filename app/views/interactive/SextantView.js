@@ -1,5 +1,10 @@
-define(["backbone", "app/models/interactive/SextantModel", "hbs!app/templates/interactive/sextant"],
-    function(Backbone, SextantModel, sextantTemplate) {
+define([
+        "backbone",
+        "app/models/interactive/SextantModel",
+        "app/views/interactive/SextantReadingView",
+        "hbs!app/templates/interactive/sextant",
+    ],
+    function(Backbone, SextantModel, SextantReadingView, sextantTemplate) {
 
         //sextant arm
         armPivot = {x:0.0, y:-0.36};  //rotation centre for the arm as proportion of width, from geometric centre
@@ -64,9 +69,18 @@ define(["backbone", "app/models/interactive/SextantModel", "hbs!app/templates/in
 
             //create Sextant Model
             this.model = new SextantModel();
+
         },
         afterRender: function() {
             this.setup();
+
+            //create the view for the reading
+            this.readingView = new SextantReadingView({
+                el: '#sextant-reading',
+                model: this.model
+            });
+            this.readingView.render();
+
         },
         setup: function() {        
             this.displayInstructions(0);
