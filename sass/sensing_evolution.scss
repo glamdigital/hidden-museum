@@ -476,12 +476,11 @@ div.item-title {
     }   
   }
   #feedback {
-    padding: 0 $standardPadding;
     position: fixed;
     bottom: 90px;
     height: 180px;
     width: 100%;
-    background-image: url(../img/navigation-map.jpg);
+    background: white;
     background-position: -10px 0px;
     background-size: auto 180px;
     #value-indicator {
@@ -494,13 +493,16 @@ div.item-title {
       width:100%;
     }
     #sextant {
-      position: absolute;
       top: 5%;
-      width: 40%;
+      width: 100%;
       z-index: 500;
       img {
         position: absolute;
         width: 100%;
+      }
+      canvas#sextant-reading {
+        width: 100%;
+        top: 220px;
       }
     }
     #reference-indicator {
@@ -515,30 +517,31 @@ div.item-title {
   }
 }
 
-  #controls {
-    padding: $standardPadding;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    height: 90px;
-    width: 100%;
-    background: #333;
-    &.image-recognised {
-      background: white;
-    }
-    .button {
-      display: block;
-      margin: 0 auto;
-      text-align: center;
-      line-height: 40px;
-      margin-top: 8px;
-      //width:80px;
-      //height:80px;
-      //border-radius: 50%;
-      //border: 2px solid #111;
-      background: #923841;
-      color: white;
-      font-size: 1.4em;
-    }
-
+#controls {
+  padding: $standardPadding;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 90px;
+  width: 100%;
+  background: #333;
+  &.image-recognised {
+    background: white;
   }
+  .button {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 40px;
+    margin-top: 8px;
+    //width:80px;
+    //height:80px;
+    //border-radius: 50%;
+    //border: 2px solid #111;
+    background: #923841;
+    color: white;
+    font-size: 1.4em;
+  }
+
+}
+

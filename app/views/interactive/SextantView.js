@@ -1,10 +1,13 @@
 define([
         "backbone",
+        "fulltilt",
         "app/models/interactive/SextantModel",
         "app/views/interactive/SextantReadingView",
         "hbs!app/templates/interactive/sextant",
     ],
-    function(Backbone, SextantModel, SextantReadingView, sextantTemplate) {
+    function(Backbone, FullTilt, SextantModel, SextantReadingView, sextantTemplate) {
+
+
 
         //sextant arm
         armPivot = {x:0.0, y:-0.36};  //rotation centre for the arm as proportion of width, from geometric centre
@@ -147,17 +150,19 @@ define([
         },
         updateOrientationIndicator: function() {            
             this.angle = this.currentDeviceOrientation.beta - this.startingDeviceOrientation.beta;
+
+            //limit to 82 degrees north as this is the furthest the map can show.
             if (this.angle > 82) {
                 this.angle = 82;
             }
-            else if (this.angle < 0) {
-                this.angle = 0;
-            }
+            //else if (this.angle < 0) {
+            //    this.angle = 0;
+            //}
 
             //set the angle on the model
-            this.model.set({angle: angle});
+            this.model.set({angle: this.angle});
 
- 	        setSextantArmAngle(this.angle);
+ 	        //setSextantArmAngle(this.angle);
             this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", this.angle);
         },
         showLatitudeIndicator: function() {
