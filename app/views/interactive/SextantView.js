@@ -139,6 +139,10 @@ define(["backbone", "app/models/interactive/SextantModel", "hbs!app/templates/in
             else if (this.angle < 0) {
                 this.angle = 0;
             }
+
+            //set the angle on the model
+            this.model.set({angle: angle});
+
  	        setSextantArmAngle(this.angle);
             this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", this.angle);
         },
