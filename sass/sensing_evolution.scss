@@ -13,6 +13,7 @@ $fontColor: black;
 $videoAspectRatio: 1.7777777778;
 $headerHeight: 40px;
 $headerPadding: 10px;
+$sextant-captured-image-height: 220px;
 
 
 @mixin rounded-corners {
@@ -446,11 +447,12 @@ div.item-title {
   #captured-image {
     position: absolute;
     top:120px;
-    width:50%;
-    height:220px;
+    width:37.5%;
+    height:$sextant-captured-image-height;
     background-size: 380px;
     background-position-y: -185px;
     z-index: 1000;
+    display:inline;
     #alignment-indicator {
       position: relative;
       top: 50%;
@@ -458,6 +460,15 @@ div.item-title {
       border-top: 1px solid red;
     }
   }
+  #sky {
+    clear:right;
+    background-image: url(../img/stars.jpg);
+    background-size: 1000px;
+    height: $sextant-captured-image-height;
+    width: 25%;
+    float: right;
+  }
+
   #message {
     padding: $standardPadding;
     position: absolute;

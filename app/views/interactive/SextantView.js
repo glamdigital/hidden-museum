@@ -14,6 +14,8 @@ define([
 
 	    spinAngle = 0;
 
+        SKY_BACKGROUND_SCROLL_RATE = 1000/90;
+
 	    setSextantArmAngle = function (deg) {
             var armAngle = deg/2
 		    var rad = armAngle * Math.PI / 180;
@@ -88,6 +90,7 @@ define([
         setup: function() {        
             this.displayInstructions(0);
             setSextantArmAngle(0);
+            this.model.set({angle: 0});
             this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", 0);
             this.hideLatitudeIndicator(); 
             this.hideReferenceLatitude();
@@ -163,7 +166,10 @@ define([
             this.model.set({angle: this.angle});
 
  	        //setSextantArmAngle(this.angle);
-            this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", this.angle);
+            //this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", this.angle);
+
+            var skyOffset = this.angle * SKY_BACKGROUND_SCROLL_RATE;
+            $('#sky').css('background-position-y', skyOffset + 'px');
         },
         showLatitudeIndicator: function() {
             $('#value-indicator').show();

@@ -76,7 +76,7 @@ define(["backbone", "app/models/interactive/SextantModel", "hbs!app/templates/in
                 height = SEXTANT_MARK_HEIGHT;
                 ctx.font="30px Arial";
                 ctx.fillStyle="#FFFFFF";
-                ctx.fillText(num, 0, 0);
+                ctx.fillText(-num*2, 0, 0);
             }
 
             //draw notches
