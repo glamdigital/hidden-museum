@@ -2,7 +2,7 @@
  * Created by ahaith on 20/10/2015.
  */
 define(["backbone"], function(Backbone) {
-    var SextantModel = Backbone.model.extend({
+    var SextantModel = Backbone.Model.extend({
         defaults: {
             angle: 0,
             mode: 'sun',
