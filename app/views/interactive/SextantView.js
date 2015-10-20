@@ -1,5 +1,5 @@
-define(["backbone", "hbs!app/templates/interactive/sextant"],
-    function(Backbone, sextantTemplate) {
+define(["backbone", "app/models/interactive/SextantModel", "hbs!app/templates/interactive/sextant"],
+    function(Backbone, SextantModel, sextantTemplate) {
 
         //sextant arm
         armPivot = {x:0.0, y:-0.36};  //rotation centre for the arm as proportion of width, from geometric centre
@@ -60,6 +60,10 @@ define(["backbone", "hbs!app/templates/interactive/sextant"],
 		        cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
 	        }
             $('#content').css("background-color", "transparent");
+
+
+            //create Sextant Model
+            this.model = new SextantModel();
         },
         afterRender: function() {
             this.setup();
