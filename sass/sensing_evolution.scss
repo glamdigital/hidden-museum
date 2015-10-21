@@ -463,12 +463,12 @@ div.item-title {
     }
   #sky {
     clear:right;
-    background-image: url(../img/stars.jpg);
-    background-size: 1000px;
-    background-position-y: 0px;
-    background-position-x: 500px;
+    background-image: url(../img/sun_sky.png);
+    background-size: 200px;
+    background-position-y: 551px;     //to get the sea level in center initially
+    background-position-x: -46px;     //to get the sun centered left-right
     height: $sextant-captured-image-height;
-    width: 25%;
+    width: 100%;
     float: right;
   }
 
