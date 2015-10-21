@@ -11,7 +11,7 @@ $corner-radius: 5px;
 $navBarWidth: 250px;
 $fontColor: black;
 $videoAspectRatio: 1.7777777778;
-$headerHeight: 40px;
+$headerHeight: 25px;
 $headerPadding: 10px;
 $tabHeight: 40px;
 $sextant-captured-image-height: 220px;
@@ -442,18 +442,18 @@ div.item-title {
         padding-top: $standardPadding+3px;
         text-align: center;
       }
-      height:120px;
+      height:140px;
       width: 100%;
     }
     #captured-image {
       position: absolute;
       top:120px;
-    width:37.5%;
-    height:$sextant-captured-image-height;
+      width:37.5%;
+      height:$sextant-captured-image-height;
       background-size: 380px;
       background-position-y: -185px;
       z-index: 1000;
-    display:inline;
+      display:inline;
       #alignment-indicator {
         position: relative;
         top: 50%;
@@ -494,7 +494,7 @@ div.item-title {
       bottom: 0;
       height: 270px;
       width: 100%;
-    background: white;
+      background: white;
       background-position: center top;
       background-size: auto 270px;
       #value-indicator {
