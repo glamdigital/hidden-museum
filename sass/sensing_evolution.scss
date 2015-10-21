@@ -14,6 +14,7 @@ $videoAspectRatio: 1.7777777778;
 $headerHeight: 40px;
 $headerPadding: 10px;
 $tabHeight: 40px;
+$sextant-captured-image-height: 220px;
 
 
 @mixin rounded-corners {
@@ -447,11 +448,12 @@ div.item-title {
     #captured-image {
       position: absolute;
       top:120px;
-      width:50%;
-      height:220px;
+    width:37.5%;
+    height:$sextant-captured-image-height;
       background-size: 380px;
       background-position-y: -185px;
       z-index: 1000;
+    display:inline;
       #alignment-indicator {
         position: relative;
         top: 50%;
@@ -459,6 +461,17 @@ div.item-title {
         border-top: 1px solid red;
       }
     }
+  #sky {
+    clear:right;
+    background-image: url(../img/stars.jpg);
+    background-size: 1000px;
+    background-position-y: 0px;
+    background-position-x: 500px;
+    height: $sextant-captured-image-height;
+    width: 25%;
+    float: right;
+  }
+
     #message {
       padding: $standardPadding;
       position: absolute;
@@ -477,12 +490,11 @@ div.item-title {
       }   
     }
     #feedback {
-      padding: 0 $standardPadding;
       position: fixed;
       bottom: 0;
       height: 270px;
       width: 100%;
-      background-image: url(../img/navigation-map.jpg);
+    background: white;
       background-position: center top;
       background-size: auto 270px;
       #value-indicator {
@@ -495,14 +507,17 @@ div.item-title {
         padding-right: $standardPadding * 2;
         width:100%;
       }
-      #sextant-animation {
-        position: absolute;
+      #sextant {
         top: 5%;
-        width: 40%;
+      width: 100%;
         z-index: 500;
         img {
           position: absolute;
           width: 100%;
+        }
+        canvas#sextant-reading {
+          width: 100%;
+          top: 220px;
         }
       }
       #reference-indicator {
@@ -517,31 +532,31 @@ div.item-title {
       }
     }
 
-    #controls {
-      padding: $standardPadding;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      height: 90px;
-      width: 100%;
-      background: #333;
-      &.image-recognised {
-        background: white;
-      }
-      .button {
-        display: block;
-        margin: 0 auto;
-        text-align: center;
-        line-height: 40px;
-        margin-top: 8px;
-        //width:80px;
-        //height:80px;
-        //border-radius: 50%;
-        //border: 2px solid #111;
-        background: #923841;
-        color: white;
-        font-size: 1.4em;
-      }
+#controls {
+  padding: $standardPadding;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 90px;
+  width: 100%;
+  background: #333;
+  &.image-recognised {
+    background: white;
+  }
+  .button {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 40px;
+    margin-top: 8px;
+    //width:80px;
+    //height:80px;
+    //border-radius: 50%;
+    //border: 2px solid #111;
+    background: #923841;
+    color: white;
+    font-size: 1.4em;
+  }
     }
 
     #tabs {
@@ -573,6 +588,26 @@ div.item-title {
       #message {
         display:none;
       }
+      #feedback {
+        padding: 0 $standardPadding;
+        position: fixed;
+        bottom: 0;
+        height: 270px;
+        width: 100%;
+        background-image: url(../img/navigation-map.jpg);
+        background-position: center top;
+        background-size: auto 270px;
+      }
+      #value-indicator {
+        border-top: 2px solid red;
+        color: black;
+        text-shadow: 2px 2px #edddc1;
+        font-size: 1.3em;
+        position:absolute;
+        text-align: right;
+        padding-right: $standardPadding * 2;
+        width:100%;
+      }
       #tabs {
         #sun {
           background-image: url(../img/parchment-tan.jpg);
@@ -587,3 +622,4 @@ div.item-title {
     }
   }
 }
+
