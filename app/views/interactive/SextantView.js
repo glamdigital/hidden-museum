@@ -58,8 +58,8 @@ define([
             this.currentDeviceOrientation = {alpha:0, beta:0, gamma:0};
             this.startingDeviceOrientation = {alpha:0, beta:0, gamma:0};
             this.angle = 0;
-            this.instructions = ["<ol><li>Face the centre of the room</li><li>Hold the phone straight up in front of you so the red line is like the horizon</li><li>Press the 'set horizon' button</li></ol>",
-                "<p>Now, tilt the camera toward the ceiling until the smoke alarm nearest you is aligned with the red line and press the button again</p>",
+            this.instructions = ["<ol><li>Hold the phone straight up in front of you so the red line is level with with the sea horizon</li><li>Press the 'Set Horizon' button</li></ol>",
+                "<ol><li>Slowly tilt the camera towards the ceiling and watch for an image of the sun</li><li>Line up the sun with the horizon line</li><li>Press the 'Capture the Angle of the Sun' button</li></ol>",
                 "<p>This mimics a reading of the Pole Star, where the angle is the same as your latitude. For the Sun or other bodies you would need an almanac to get a latitude from the angle</p>"];
             this.instructionsColors = ['url(img/parchment-tan.jpg)', 'url(img/parchment-green.jpg)', 'url(img/parchment-red.jpg)'];
             var tapEnabled = true; //enable tap take picture
@@ -200,7 +200,7 @@ define([
             //$('#message')[0].innerHTML = "<p>The angle you measured was "  + this.angle.toPrecision(4).toString() + "&deg;. If the object you lined up had been the Pole Star, the angle would be the same as your latitude. The Pole Star is 90&deg; above the horizon at the North Pole, which has a latitude of 90&deg; North. The star appears right on the horizon at the equator, at 0&deg;. Oxford is 51.7&deg; North. Usually navigators measured the Sun and other stars and calculated latitude using reference books called almanacs.</p><p>To line up the object with the horizon you tilted the phone. On a sextant you'd move the main arm to tilt a mirror.</p>";
             //$('#message')[0].innerHTML = "<p>The angle you measured was " + this.angle.toPrecision(4).toString() + "&deg;. Navigators could use this measurement to calculate their latitude, or north/south position, often by looking it up in a book called an almanac. The North Pole is 90&deg North and the equator is 0&deg. Oxford's latitude is 51.7&deg North." +
             //"<br><br>To line up the object with the horizon you tilted the phone. On a sextant the object and horizon are lined up by moving the main arm to tilt the mirror.</p>";
-            $('#message')[0].innerHTML = "<p>Angle = " + this.model.getLatitude() + "</p>"
+            $('#message')[0].innerHTML = "<p>You have measured that the noon sun is " + this.model.getLatitude() + "&deg; above the horizon. You could also measure other known celestial objects, such as the Pole Star</p><p>To calculate latitude from this measurement, navigators would consult a reference book called an almanac.</p><p>Press the 'Calculate latitude' button to get simulate this calculation.</p>"
         },
         hideMessage: function() {
             var $messageDiv = $('#message')[0];
