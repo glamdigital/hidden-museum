@@ -71,10 +71,6 @@ define([
 	        }
             $('#content').css("background-color", "transparent");
             this.startTrackingOrientation();
-
-            //create Sextant Model
-            this.model = new SextantModel();
-
         },
         afterRender: function() {
             this.setup();

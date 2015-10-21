@@ -5,8 +5,7 @@ define(["backbone", "jquery", "underscore",
 		  "app/views/BeaconListenView", "app/views/CodeEntryView", "app/views/QRCodeEntryView", "app/views/FollowTrailView",
 		  "app/views/interactive/ImageScanView", "app/views/interactive/ImageScannedView",
           "app/floor_tracking",
-		  "app/views/interactive/SextantView",
-          "app/views/interactive/AlmanacView"
+		  "app/views/interactive/SextantView", "app/views/interactive/AlmanacView", "app/models/interactive/SextantModel"
 		],
   function(Backbone, $, _,
             TrailsCollection,
@@ -15,7 +14,7 @@ define(["backbone", "jquery", "underscore",
             BeaconListenView, CodeEntryView, QRCodeEntryView, FollowTrailView,
             ImageScanView, ImageScannedView,
             FloorTracking,
-            SextantView, AlmanacView
+            SextantView, AlmanacView, SextantModel
         ) {
 
     var SEVRouter = Backbone.Router.extend({
@@ -31,6 +30,7 @@ define(["backbone", "jquery", "underscore",
                 Backbone.history.start();
             }
           });
+          this.sextantModel = new SextantModel();
 
             //create the container content-view
             this.contentView = new ContentView({el:$('#content')});
@@ -294,8 +294,8 @@ define(["backbone", "jquery", "underscore",
             switch (item_slug) {
                 case 'sextant-interact': {
                     switch (index) {
-                        case '0': interactView = new SextantView({ item: item });break;
-                        case '1': interactView = new AlmanacView({ item: item });break;
+                        case '0': interactView = new SextantView({ item: item, model:this.sextantModel });break;
+                        case '1': interactView = new AlmanacView({ item: item, model:this.sextantModel });break;
                     }
                     break;
                 }

@@ -16,8 +16,8 @@ define(["backbone", "moment"], function(Backbone, moment) {
                 //Calculation based on information here http://astronavigationdemystified.com/latitude-from-the-midday-sun/
 
                 //calculated declination - angle up to the sun as a function of time of year
-                //var refDate = moment();
-                var refDate = moment(LAT_CALCULATION_DATE);
+                var refDate = moment();
+                //var refDate = moment(LAT_CALCULATION_DATE);
 
                 var year = refDate.year();
 
