@@ -15,9 +15,10 @@ define([
         SKY_BACKGROUND_OFFSET = 555;
         MIN_ANGLE = -20;
         DEFAULT_HORIZON = -10;
+        MIN_CAPTURE_SUN_ANGLE = 25;
 
 	    setSextantArmAngle = function (deg) {
-            var armAngle = deg/2
+            var armAngle = deg/2;
 		    var rad = armAngle * Math.PI / 180;
 		    var r00 = Math.cos(rad);
 		    var r11 = r00;
@@ -100,7 +101,8 @@ define([
             switch (this.step) {
                 case 0: {
                     this.step = 1;                           
-                    $target.text("Set Angle of Sun");
+                    $target.text("Capture the Angle of the Sun");
+                    $target.hide();
                     this.takeHorizonImage(ev);
                     this.hasSetHorizon = true;
                     //this.startTrackingOrientation(ev);
@@ -157,6 +159,12 @@ define([
 
                 //set the angle on the model
                 this.model.set({angle: this.angle});
+
+                if(this.angle > MIN_CAPTURE_SUN_ANGLE) {
+                    $button = $('#controls').find('.button');
+                    $button.show();
+                }
+
             }
 
  	        //setSextantArmAngle(this.angle);
