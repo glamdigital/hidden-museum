@@ -12,7 +12,7 @@ define([
 	    spinAngle = 0;
 
         SKY_BACKGROUND_SCROLL_RATE = 1000/90;
-        SKY_BACKGROUND_OFFSET = 547;
+        SKY_BACKGROUND_OFFSET = 555;
         MIN_ANGLE = -20;
 
 	    setSextantArmAngle = function (deg) {
@@ -70,6 +70,7 @@ define([
 		        cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
 	        }
             $('#content').css("background-color", "transparent");
+            this.startingDeviceOrientation = { beta: 90 };
             this.startTrackingOrientation();
         },
         afterRender: function() {
@@ -90,7 +91,7 @@ define([
             this.hideMessage();
             this.showHorizonIndicator();
             this.angle = 0;       
-            $(window).on('deviceorientation', this, this.deviceOrientationHandler);
+            $(window).on('deviceorientation', this, _.bind(this.deviceOrientationHandler, this));
         },
         toggleButtonHandler: function(ev) {
             var $target = $(ev.target);
@@ -102,7 +103,7 @@ define([
 
                     //this.startTrackingOrientation(ev);
                     //grab the current orientation as the initial orientation
-                    this.startingDeviceOrientation = this.currentDeviceOrientation;
+                    //this.startingDeviceOrientation = this.currentDeviceOrientation;
 
                     this.displayInstructions();
                     break;
@@ -123,21 +124,20 @@ define([
             }
         },
         startTrackingOrientation: function(ev) {           
-            this.startingDeviceOrientation = null;
+            //this.startingDeviceOrientation = null;
             this.isTrackingOrientation = true;            
         },
         stopTrackingOrientation: function(ev) {
             this.isTrackingOrientation = false;
-            $(window).off('deviceorientation', this.deviceOrientationHandler);
+            $(window).off('deviceorientation', _.bind(this.deviceOrientationHandler, this));
         },
         deviceOrientationHandler: function(ev) {
-            var sextantView = ev.data;
-            if (sextantView.isTrackingOrientation == true) {               
-                if (sextantView.startingDeviceOrientation == null) {
-                    sextantView.startingDeviceOrientation = ev.originalEvent;
+            if (this.isTrackingOrientation == true) {
+                if (this.startingDeviceOrientation == null) {
+                    this.startingDeviceOrientation = ev.originalEvent;
                 }
-                sextantView.currentDeviceOrientation = ev.originalEvent;
-                sextantView.updateOrientationIndicator();
+                this.currentDeviceOrientation = ev.originalEvent;
+                this.updateOrientationIndicator();
             }
         },
         updateOrientationIndicator: function() {            
