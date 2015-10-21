@@ -20,7 +20,6 @@ define(["backbone", "app/models/interactive/SextantModel", "hbs!app/templates/in
                                     'sun':"instructions for the Sun",
                                     'pole star':"instructions for the Pole Star"
                                 }
-            this.model = new SextantModel();
             this.model.on('change', this.render, this);
         },
         afterRender: function() {

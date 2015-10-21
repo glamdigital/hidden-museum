@@ -69,10 +69,6 @@ define([
 	        }
             $('#content').css("background-color", "transparent");
 
-
-            //create Sextant Model
-            this.model = new SextantModel();
-
         },
         afterRender: function() {
             this.setup();
