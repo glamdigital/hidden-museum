@@ -103,7 +103,7 @@ define([
 
                     //this.startTrackingOrientation(ev);
                     //grab the current orientation as the initial orientation
-                    this.startingDeviceOrientation = this.currentDeviceOrientation;
+                    //this.startingDeviceOrientation = this.currentDeviceOrientation;
 
                     this.displayInstructions();
                     break;

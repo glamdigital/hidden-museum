@@ -3,7 +3,7 @@
  */
 define(["backbone", "moment"], function(Backbone, moment) {
 
-    LAT_CALCULATION_DATE = '2015-6-20'; //summer solstice
+    LAT_CALCULATION_DATE = '2015-06-20'; //summer solstice
 
     var SextantModel = Backbone.Model.extend({
         defaults: {
@@ -22,7 +22,7 @@ define(["backbone", "moment"], function(Backbone, moment) {
                 var year = refDate.year();
 
                 //this is based on the spring equinox being 21st March (it was in 2015). Future years may be inaccurate.
-                var solstice = moment(year + "-3-21");
+                var solstice = moment(year + "-03-21");
                 var daysSinceSpringEquinox= refDate.diff(solstice, 'days');
 
                 //calculate approximate declination of sun on this date
