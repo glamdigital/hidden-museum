@@ -479,16 +479,17 @@ div.item-title {
     #feedback {
       padding: 0 $standardPadding;
       position: fixed;
-      bottom: 90px;
-      height: 180px;
+      bottom: 0;
+      height: 270px;
       width: 100%;
       background-image: url(../img/navigation-map.jpg);
-      background-position: -10px 0px;
-      background-size: auto 180px;
+      background-position: center top;
+      background-size: auto 270px;
       #value-indicator {
-        border-top: 1px solid red;
+        border-top: 2px solid red;
         color: black;
-        text-shadow: 1px 1px #aaa;
+        text-shadow: 2px 2px #edddc1;
+        font-size: 1.3em;
         position:absolute;
         text-align: right;
         padding-right: $standardPadding * 2;
@@ -507,7 +508,8 @@ div.item-title {
       #reference-indicator {
         border-top: 1px solid black;
         color: black;
-        text-shadow: 1px 1px #aaa;
+        text-shadow: 1px 1px #ccc;
+        font-size: 1.3em;
         position:absolute;
         text-align: right;
         padding-right: $standardPadding * 2;

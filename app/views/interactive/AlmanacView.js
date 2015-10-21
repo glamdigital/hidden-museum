@@ -56,7 +56,7 @@ define(["backbone", "app/models/interactive/SextantModel", "hbs!app/templates/in
         setLatitudeIndicator: function($indicator, label, angle) {
  
             var $parent = $($indicator).parent();
-            var parentHeight = 180;//$($parent).height();
+            var parentHeight = 270;//$($parent).height();
             var parentTop = $($parent).offset().top;
             // convert from degrees to radians
             var latRad = angle*Math.PI/180;
