@@ -1,10 +1,20 @@
-define(["backbone", "app/models/interactive/SextantModel", "hbs!app/templates/interactive/sextant"],
-    function(Backbone, SextantModel, sextantTemplate) {
+define([
+        "backbone",
+        "fulltilt",
+        "app/models/interactive/SextantModel",
+        "app/views/interactive/SextantReadingView",
+        "hbs!app/templates/interactive/sextant",
+    ],
+    function(Backbone, FullTilt, SextantModel, SextantReadingView, sextantTemplate) {
+
+
 
         //sextant arm
         armPivot = {x:0.0, y:-0.36};  //rotation centre for the arm as proportion of width, from geometric centre
 
 	    spinAngle = 0;
+
+        SKY_BACKGROUND_SCROLL_RATE = 1000/90;
 
 	    setSextantArmAngle = function (deg) {
             var armAngle = deg/2
@@ -64,13 +74,23 @@ define(["backbone", "app/models/interactive/SextantModel", "hbs!app/templates/in
 
             //create Sextant Model
             this.model = new SextantModel();
+
         },
         afterRender: function() {
             this.setup();
+
+            //create the view for the reading
+            this.readingView = new SextantReadingView({
+                el: '#sextant-reading',
+                model: this.model
+            });
+            this.readingView.render();
+
         },
         setup: function() {        
             this.displayInstructions(0);
             setSextantArmAngle(0);
+            this.model.set({angle: 0});
             this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", 0);
             this.hideLatitudeIndicator(); 
             this.hideReferenceLatitude();
@@ -133,18 +153,32 @@ define(["backbone", "app/models/interactive/SextantModel", "hbs!app/templates/in
         },
         updateOrientationIndicator: function() {            
             this.angle = this.currentDeviceOrientation.beta - this.startingDeviceOrientation.beta;
+
+            //limit to 82 degrees north as this is the furthest the map can show.
             if (this.angle > 82) {
                 this.angle = 82;
             }
-            else if (this.angle < 0) {
-                this.angle = 0;
-            }
+            //else if (this.angle < 0) {
+            //    this.angle = 0;
+            //}
 
             //set the angle on the model
-            this.model.set({angle: angle});
+            this.model.set({angle: this.angle});
 
- 	        setSextantArmAngle(this.angle);
-            this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", this.angle);
+ 	        //setSextantArmAngle(this.angle);
+            //this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", this.angle);
+
+            var skyOffsetY = this.angle * SKY_BACKGROUND_SCROLL_RATE;
+            $('#sky').css('background-position-y', skyOffsetY + 'px');
+
+
+            //Attempt to scan left/right a little. Doesn't work well, as roll adds to gamma.
+            // If we can use something like FullTilt to transform the orientations so that they are based around
+            // device being upright, rather than device being flat, this may be worth reinstating.
+            // Applying such a transform would also hopefully alleviate the 'pop' at alpha ~= 90 when the device is rolled slightly
+
+            //var skyOffsetX = this.currentDeviceOrientation.gamma * SKY_BACKGROUND_SCROLL_RATE + 500;
+            //$('#sky').css('background-position-x', skyOffsetX + 'px');
         },
         showLatitudeIndicator: function() {
             $('#value-indicator').show();
