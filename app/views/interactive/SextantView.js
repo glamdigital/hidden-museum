@@ -14,6 +14,7 @@ define([
         SKY_BACKGROUND_SCROLL_RATE = 1000/90;
         SKY_BACKGROUND_OFFSET = 555;
         MIN_ANGLE = -20;
+        DEFAULT_HORIZON = -10;
 
 	    setSextantArmAngle = function (deg) {
             var armAngle = deg/2
@@ -71,7 +72,7 @@ define([
 		        cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
 	        }
             $('#content').css("background-color", "transparent");
-            this.startingDeviceOrientation = { beta: 90 };
+            this.startingDeviceOrientation = { beta: 90 + DEFAULT_HORIZON };
             this.startTrackingOrientation();
         },
         afterRender: function() {
@@ -161,7 +162,14 @@ define([
  	        //setSextantArmAngle(this.angle);
             //this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", this.angle);
 
+
+
             var skyAngle = this.currentDeviceOrientation.beta - this.startingDeviceOrientation.beta;
+
+            if(skyAngle < MIN_ANGLE) {
+                skyAngle = MIN_ANGLE;
+            }
+
             var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE + SKY_BACKGROUND_OFFSET;
             $('#sky').css('background-position-y', skyOffsetY + 'px');
 

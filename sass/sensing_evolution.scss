@@ -14,7 +14,7 @@ $videoAspectRatio: 1.7777777778;
 $headerHeight: 25px;
 $headerPadding: 10px;
 $tabHeight: 40px;
-$sextant-captured-image-height: 213px;
+$sextant-captured-image-height: 222px;
 
 
 @mixin rounded-corners {
@@ -448,7 +448,7 @@ div.item-title {
     #captured-image {
       position: absolute;
       top:138.5px;
-      width:37.5%;
+      width:50%;
       height:$sextant-captured-image-height;
       background-size: 380px;
       background-position-y: -185px;
@@ -497,6 +497,7 @@ div.item-title {
       background: white;
       background-position: center top;
       background-size: auto 270px;
+      z-index: 1000;
       #value-indicator {
         border-top: 2px solid red;
         color: black;
@@ -540,6 +541,7 @@ div.item-title {
   height: 90px;
   width: 100%;
   background: #333;
+  z-index: 1001;  //just above canvas for reading
   &.image-recognised {
     background: white;
   }
