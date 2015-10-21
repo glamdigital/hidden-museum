@@ -55,6 +55,7 @@ define([
             this.item = params.item;
             this.step = 0;
             this.isTrackingOrientation = false;
+            this.hasSetHorizon = false;
             this.currentDeviceOrientation = {alpha:0, beta:0, gamma:0};
             this.startingDeviceOrientation = {alpha:0, beta:0, gamma:0};
             this.angle = 0;
@@ -100,10 +101,11 @@ define([
                     this.step = 1;                           
                     $target.text("Set Angle of Sun");
                     this.takeHorizonImage(ev);
-
+                    this.hasSetHorizon = true;
                     //this.startTrackingOrientation(ev);
                     //grab the current orientation as the initial orientation
                     //this.startingDeviceOrientation = this.currentDeviceOrientation;
+                    this.horizonOrientation = this.currentDeviceOrientation;
 
                     this.displayInstructions();
                     break;
@@ -140,24 +142,27 @@ define([
                 this.updateOrientationIndicator();
             }
         },
-        updateOrientationIndicator: function() {            
-            this.angle = this.currentDeviceOrientation.beta - this.startingDeviceOrientation.beta;
+        updateOrientationIndicator: function() {
+            if(this.hasSetHorizon) {
+                this.angle = this.currentDeviceOrientation.beta - this.horizonOrientation.beta;
 
-            //limit to 82 degrees north as this is the furthest the map can show.
-            if (this.angle > 82) {
-                this.angle = 82;
-            }
-            else if (this.angle < MIN_ANGLE) {
-                this.angle = MIN_ANGLE;
-            }
+                //limit to 82 degrees north as this is the furthest the map can show.
+                if (this.angle > 82) {
+                    this.angle = 82;
+                }
+                else if (this.angle < MIN_ANGLE) {
+                    this.angle = MIN_ANGLE;
+                }
 
-            //set the angle on the model
-            this.model.set({angle: this.angle});
+                //set the angle on the model
+                this.model.set({angle: this.angle});
+            }
 
  	        //setSextantArmAngle(this.angle);
             //this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", this.angle);
 
-            var skyOffsetY = this.angle * SKY_BACKGROUND_SCROLL_RATE + SKY_BACKGROUND_OFFSET;
+            var skyAngle = this.currentDeviceOrientation.beta - this.startingDeviceOrientation.beta;
+            var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE + SKY_BACKGROUND_OFFSET;
             $('#sky').css('background-position-y', skyOffsetY + 'px');
 
 

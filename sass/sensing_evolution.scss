@@ -14,7 +14,7 @@ $videoAspectRatio: 1.7777777778;
 $headerHeight: 25px;
 $headerPadding: 10px;
 $tabHeight: 40px;
-$sextant-captured-image-height: 220px;
+$sextant-captured-image-height: 213px;
 
 
 @mixin rounded-corners {
@@ -427,7 +427,7 @@ div.item-title {
   width: 100%;
   &#sextant {
     #instructions {
-      padding: $standardPadding;
+      padding: 2px;
       background-image: url(../img/parchment-tan.jpg);
       background-color: #edddc1;
       background-size: 375px;
@@ -447,7 +447,7 @@ div.item-title {
     }
     #captured-image {
       position: absolute;
-      top:120px;
+      top:138.5px;
       width:37.5%;
       height:$sextant-captured-image-height;
       background-size: 380px;
@@ -476,7 +476,7 @@ div.item-title {
       padding: $standardPadding;
       position: absolute;
       top:0;
-      height:340px;
+      height:355px;
       width:100%;
       background-image: url(../img/parchment-tan.jpg);
       background-color: #edddc1;
@@ -575,7 +575,7 @@ div.item-title {
       #instructions {
         position: absolute;
         top: $tabHeight;
-        height: 300px;
+        height: 315px;
         width: 100%;
         background-position: 0 -1*$tabHeight;
         &.pole-star {
