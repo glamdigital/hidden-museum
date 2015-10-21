@@ -290,11 +290,12 @@ define(["backbone", "jquery", "underscore",
 	    },
 	    interact: function(item_slug, index) {
             var interactView;
+            var item = this.session.getItem(item_slug);
             switch (item_slug) {
                 case 'sextant-interact': {
                     switch (index) {
-                        case '0': interactView = new SextantView();break;
-                        case '1': interactView = new AlmanacView();break;
+                        case '0': interactView = new SextantView({ item: item });break;
+                        case '1': interactView = new AlmanacView({ item: item });break;
                     }
                     break;
                 }
