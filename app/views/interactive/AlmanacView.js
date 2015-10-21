@@ -17,8 +17,8 @@ define(["backbone", "app/models/interactive/SextantModel", "hbs!app/templates/in
         initialize: function(params) {
             this.tab = 1;
             this.instructions = { 
-                                    'sun':"instructions for the Sun",
-                                    'pole star':"instructions for the Pole Star"
+                                    'sun':"<p>Assuming you are in the Northern Hemisphere, your measurement for the noon day Sun today shows that you are " + this.model.getLatitude().toPrecision(5).toString() + "&deg; North of the Equator.</p>",
+                                    'pole star':"<p>In the Northern Hemisphere, the height of the Pole Star above the horizon is coincidentally always the same as your latitude because it is directly above the North Pole.</p>"
                                 }
             this.model.on('change', this.render, this);
         },
@@ -82,7 +82,11 @@ define(["backbone", "app/models/interactive/SextantModel", "hbs!app/templates/in
  
         displayInstructions: function() {
             var $instructionsDiv = $('#instructions')[0];
-            $instructionsDiv.innerHTML = this.instructions[this.model.attributes.mode];
+            switch (this.model.attributes.mode) {
+                case 'sun': $instructionsDiv.innerHTML = "<p>Assuming you are in the Northern Hemisphere, your measurement for the noon day Sun today shows that you are " + this.model.getLatitude().toPrecision(5).toString() + "&deg; North of the Equator.</p>";break;
+                case 'pole star': $instructionsDiv.innerHTML = "<p>In the Northern Hemisphere, the height of the Pole Star above the horizon is coincidentally always the same as your latitude because it is directly above the North Pole.</p>";break;
+            //$instructionsDiv.innerHTML = this.instructions[this.model.attributes.mode];
+            }
         },
         showMessage: function() {
             $('#message').show();
