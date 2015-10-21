@@ -13,6 +13,7 @@ $fontColor: black;
 $videoAspectRatio: 1.7777777778;
 $headerHeight: 40px;
 $headerPadding: 10px;
+$tabHeight: 40px;
 
 
 @mixin rounded-corners {
@@ -513,42 +514,74 @@ div.item-title {
         width:100%;    
       }
     }
-  }
 
-  #controls {
-    padding: $standardPadding;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    height: 90px;
-    width: 100%;
-    background: #333;
-    &.image-recognised {
-      background: white;
-    }
-    .button {
-      display: block;
-      margin: 0 auto;
-      text-align: center;
-      line-height: 40px;
-      margin-top: 8px;
-      //width:80px;
-      //height:80px;
-      //border-radius: 50%;
-      //border: 2px solid #111;
-      background: #923841;
-      color: white;
-      font-size: 1.4em;
-    }
-  }
-
-  &.view-1 {
-    #instructions {
-      height: 340px;
+    #controls {
+      padding: $standardPadding;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 90px;
       width: 100%;
+      background: #333;
+      &.image-recognised {
+        background: white;
+      }
+      .button {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+        line-height: 40px;
+        margin-top: 8px;
+        //width:80px;
+        //height:80px;
+        //border-radius: 50%;
+        //border: 2px solid #111;
+        background: #923841;
+        color: white;
+        font-size: 1.4em;
+      }
     }
-    #message {
-      display:none;
+
+    #tabs {
+      width: 100%;
+      .tab {
+        display: block;
+        float: left;
+        width:50%;
+        height: $tabHeight;
+        text-align: center;
+        line-height: $tabHeight;
+      }
+    }
+
+    &.view-1 {
+      #instructions {
+        position: absolute;
+        top: $tabHeight;
+        height: 300px;
+        width: 100%;
+        background-position: 0 -1*$tabHeight;
+        &.pole-star {
+          background-image: url(../img/parchment-tan-dark.jpg); 
+          background-size: 375px;
+          background-position: 0 -1*$tabHeight;
+          color: white;
+        }
+      }
+      #message {
+        display:none;
+      }
+      #tabs {
+        #sun {
+          background-image: url(../img/parchment-tan.jpg);
+          background-size: 375px;
+        }
+        #pole-star {
+          background-image: url(../img/parchment-tan-dark.jpg);
+          background-size: 375px;
+          color: white;
+        }
+      }
     }
   }
 }

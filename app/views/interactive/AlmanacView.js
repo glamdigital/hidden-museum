@@ -21,14 +21,14 @@ define(["backbone", "app/models/interactive/SextantModel", "hbs!app/templates/in
                                     'pole star':"instructions for the Pole Star"
                                 }
             this.model = new SextantModel();
-            this.listenTo(this.model, "change", this.render);
-        },
-        render: function() {
-            this.displayInstructions();
-            this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", this.model.getLatitude());
+            this.model.on('change', this.render, this);
         },
         afterRender: function() {
-            this.setup();
+            switch (this.model.attributes.mode) {
+                case "sun": $('#instructions').removeClass("pole-star");break;       
+                case "pole star": $('#instructions').addClass("pole-star");break;
+            }           
+            this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", this.model.getLatitude());
         },
         setup: function() {        
       
@@ -84,7 +84,6 @@ define(["backbone", "app/models/interactive/SextantModel", "hbs!app/templates/in
         displayInstructions: function() {
             var $instructionsDiv = $('#instructions')[0];
             $instructionsDiv.innerHTML = this.instructions[this.model.attributes.mode];
-            $($instructionsDiv).css('background-image', this.instructionsColors[this.step]); 
         },
         showMessage: function() {
             $('#message').show();
