@@ -1,13 +1,10 @@
 define([
         "backbone",
-        "fulltilt",
         "app/models/interactive/SextantModel",
         "app/views/interactive/SextantReadingView",
         "hbs!app/templates/interactive/sextant",
     ],
-    function(Backbone, FullTilt, SextantModel, SextantReadingView, sextantTemplate) {
-
-
+    function(Backbone, SextantModel, SextantReadingView, sextantTemplate) {
 
         //sextant arm
         armPivot = {x:0.0, y:-0.36};  //rotation centre for the arm as proportion of width, from geometric centre
@@ -53,6 +50,7 @@ define([
         },
 
         initialize: function(params) {
+            this.item = params.item;
             this.step = 0;
             this.isTrackingOrientation = false;
             this.currentDeviceOrientation = {alpha:0, beta:0, gamma:0};
@@ -91,9 +89,6 @@ define([
             this.displayInstructions(0);
             setSextantArmAngle(0);
             this.model.set({angle: 0});
-            this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", 0);
-            this.hideLatitudeIndicator(); 
-            this.hideReferenceLatitude();
             this.hideMessage();
             this.showHorizonIndicator();
             this.angle = 0;       
@@ -104,9 +99,8 @@ define([
             switch (this.step) {
                 case 0: {
                     this.step = 1;                           
-                    $target.text("Set Ceiling Point");
+                    $target.text("Set Angle of Sun");
                     this.takeHorizonImage(ev);
-                    this.showLatitudeIndicator();
                     this.startTrackingOrientation(ev);
                     this.displayInstructions();
                     break;
@@ -115,21 +109,14 @@ define([
                     this.step = 2;
                     this.stopTrackingOrientation(ev);
                     this.showMessage();
-                   // this.hideLatitudeIndicator();
-                    this.setLatitudeIndicatorText($('#value-indicator')[0], "");
                     this.hideHorizonIndicator();
-                    this.showReferenceLatitude();
-                    this.setLatitudeIndicator($('#reference-indicator')[0],"Oxford", 51.7519);
                     $('#captured-image').css("background-image", "none");
-                    $target.text("Start Again");
+                    $target.text("Calculate Latitude");
                     break;
                 }
                 case 2: {
                     this.step = 0;
-                    this.setup();
-                    this.displayInstructions();
-                    this.hideReferenceLatitude();
-                    $target.text("Set Horizon Point");
+                    Backbone.history.navigate('#/interact/' + this.item.attributes.slug + "/1");
                 }
             }
         },
@@ -180,39 +167,6 @@ define([
             //var skyOffsetX = this.currentDeviceOrientation.gamma * SKY_BACKGROUND_SCROLL_RATE + 500;
             //$('#sky').css('background-position-x', skyOffsetX + 'px');
         },
-        showLatitudeIndicator: function() {
-            $('#value-indicator').show();
-        },
-        hideLatitudeIndicator: function() {
-            $('#value-indicator').hide();
-        },
-        setLatitudeIndicator: function($indicator, label, angle) {
- 
-            var $parent = $($indicator).parent();
-            var parentHeight = 180;//$($parent).height();
-            var parentTop = $($parent).offset().top;
-            // convert from degrees to radians
-            var latRad = angle*Math.PI/180;
-
-            // get y value
-            var mercN = Math.log(Math.tan((Math.PI/4)+(latRad/2)));
-
-            //adjustment factor due to the map ending at ~80deg north
-            var topProportion = 0.81;
-
-            var y  = parentHeight - parentHeight*mercN/(Math.PI * topProportion);
-            $($indicator).offset({left: $($indicator).offset().left, top: parentTop + y});
-            this.setLatitudeIndicatorText($indicator, label + ": " + angle.toPrecision(5).toString() + "&deg; North");
-        },
-        setLatitudeIndicatorText: function($indicator, text) {
-            $indicator.innerHTML = text;
-        },
-        showReferenceLatitude: function() {
-             $('#reference-indicator').show();
-        },
-        hideReferenceLatitude: function() {
-             $('#reference-indicator').hide();
-        },
         showHorizonIndicator: function() {
              $('#alignment-indicator').show();
         },
@@ -250,7 +204,9 @@ define([
             $('#message').hide();
         },
 	    cleanup: function() {
-		    cordova.plugins.camerapreview.stopCamera();
+		    if (typeof(cordova) != "undefined") {
+                cordova.plugins.camerapreview.stopCamera();
+            }
 	    },
 
     });
