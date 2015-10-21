@@ -1,4 +1,4 @@
-$headerHeight: 40px;
+$headerHeight: 25px;
 $headerPadding: 10px;
 $arrow-width: 90px;
 $audio-height: 30px;
@@ -32,7 +32,7 @@ a {
       height: $headerHeight;
       display: inline-block;
       a {
-        font-size: 1.4em;
+        font-size: 1.2em;
         text-decoration: none;
       }
       &.header-arrow {
@@ -41,13 +41,13 @@ a {
       &.arrow-left {
         position:absolute;
         left:$headerPadding;
-        top:$statusBar-height + 10px;
+        top:$statusBar-height;
         text-align:left;
       }
       &.arrow-right {
         position:absolute;
         right:$headerPadding;
-        top:$statusBar-height + 10px;
+        top:$statusBar-height;
         text-align:right;
       }
       &.header-logo {
