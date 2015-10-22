@@ -9,7 +9,9 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
                 var out = {};
                 //out.trail = this.trail.toJSON();
                 out.topic = this.topic.toJSON();
-                out.items = this.items.toJSON();
+                //out.items = this.items.toJSON();
+                out.audio_items = new Backbone.Collection(this.items.where({type: 'audio'})).toJSON();
+                out.interact_items = new Backbone.Collection(this.items.filter(function(item){ return item.attributes.type !== 'audio'; })).toJSON();
                 return out;
             },
 
@@ -22,6 +24,7 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
             },
 
 	        afterRender: function() {
+
 	        },
 
             //didRangeBeacon: function(data) {

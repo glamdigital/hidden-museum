@@ -56,12 +56,15 @@ define([  "backbone",
               console.log(resp);
             },
             success: function(coll, resp, opt) {
+                  //global obj to store some session state
+                  window.session = {
+                      currentTrail: window.allTrails.first(),
+                      currentTopic: window.allTopics.first()
+                  };
                 Backbone.history.start();
             }
           });
 
-          //global obj to store some session state
-          window.session = {};
 
           this.sextantModel = new SextantModel();
 
@@ -83,7 +86,7 @@ define([  "backbone",
 	        //custom routes
 	        "scan/:item": "item_scan",    //scan for the specific item
 	        "scanned/:item": "item_scanned",    //after the item has been found
-	        "interact/:item/:index": "interact",   //interactive view for item
+	        "interact/:item/:type/:index": "interact",   //interactive view for item
             "item/:item": "item",
 
 	        "scan": "scan",
@@ -121,7 +124,7 @@ define([  "backbone",
             view.render();
 
             //set links
-            this.headerView.setPrevURL(null);
+            this.headerView.setPrevURL('#');
             this.headerView.setNextURL(null);
             this.headerView.render();
 
@@ -227,11 +230,15 @@ define([  "backbone",
 		    this.contentView.setView(scannedView);
 		    scannedView.render();
 	    },
-	    interact: function(item_slug, index) {
+	    interact: function(item_slug, interact_type, index) {
             var interactView;
             var item = window.allItems.findWhere({slug: item_slug});
 
-            switch (item_slug) {
+            //set prev link
+            this.headerView.setPrevURL('#/topic/' + window.session.currentTopic.attributes.slug);
+            this.headerView.render();
+
+            switch (interact_type) {
                 case 'sextant-interact': {
                     switch (index) {
                         case '0': interactView = new SextantView({ item: item, model:this.sextantModel });break;
