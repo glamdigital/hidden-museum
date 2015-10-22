@@ -1,0 +1,26 @@
+[
+  {
+    "id": "upper_gallery",
+    "title": "Upper Gallery",
+    "description": "",
+    "map": "",
+    "entryPointBeaconID1": "",
+    "entryPointBeaconID2": ""
+  },
+  {
+    "id": "entrance_gallery",
+    "title": "Entrance Gallery",
+    "description": "",
+    "map": "",
+    "entryPointBeaconID1": "",
+    "entryPointBeaconID2": ""
+  },
+  {
+    "id": "basement_gallery",
+    "title": "Basement Gallery",
+    "description": "",
+    "map": "",
+    "entryPointBeaconID1": "",
+    "entryPointBeaconID2": ""
+  }
+]

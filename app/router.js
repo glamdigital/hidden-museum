@@ -9,7 +9,6 @@ define([  "backbone",
           "app/views/FinishedView",
           "app/views/ContentView",
           "app/views/HeaderView",
-          //"app/models/Session",
           "app/views/DashboardView",
 		  "app/views/BeaconListenView",
           "app/views/CodeEntryView",
@@ -31,7 +30,6 @@ define([  "backbone",
             FinishedView,
             ContentView,
             HeaderView,
-            //Session,
             DashboardView,
             BeaconListenView,
             CodeEntryView,
@@ -47,6 +45,9 @@ define([  "backbone",
 
     var SEVRouter = Backbone.Router.extend({
         initialize: function() {
+
+
+
           //initialize the collections
           window.allTrails = new TrailsCollection();
           window.allTrails.fetch({
@@ -58,6 +59,10 @@ define([  "backbone",
                 Backbone.history.start();
             }
           });
+
+          //global obj to store some session state
+          window.session = {};
+
           this.sextantModel = new SextantModel();
 
             //create the container content-view
@@ -100,57 +105,17 @@ define([  "backbone",
             this.headerView.render();
 
         },
-	    //goToTrail: function(slug) {
-         //       //create a new session for the chosen trail
-	    //        var trail = window.allTrails.findWhere( {slug: slug} );
-	    //        //this.session = new Session(trail);
-	    //        FloorTracking.prompttoSwitch = false;
-        //
-		 //       console.log("starting new trail");
-        //
-		 //       //choose start page
-		 //       // first item for a trail. 'topic' view for anything else.
-		 //       //redirect to the 'component(/topic) view'
-		 //       //if(trail.attributes.isTrail) {
-			//     //   Backbone.history.navigate(this.session.getNextURL())
-		 //       //}
-		 //       else {
-			//        //go to only topic if only one topic, else go to main
-			//        topics = trail.getTopics();
-        //
-			//        if(topics.length >= 2 ) {
-			//	        this.multiple_topics = true;
-			//	        Backbone.history.navigate('#/trail/' + trail.attributes.slug);
-			//        }
-			//        else if (topics.length == 1) {
-			//	        var topicSlug = topics.first().attributes.slug;
-			//            Backbone.history.navigate('#/topic/' + topicSlug);
-			//        } else {
-			//	        console.log("No topics for trail: " + trail.attributes.slug);
-			//        }
-		 //       }
-        //
-	    //},
 
         trail: function(trailSlug) {
-            //create a new session for the chosen trail - shuffle the items when going back to the topic select view
             var trail = window.allTrails.findWhere( {slug: trailSlug} );
-            //this.session = new Session(trail);
 
-            //get trail from settings
-            //console.log("Not expecting to go to '/trail' route.");
-
-	        //we already have a session with the right trail, so trailSlug is redundant in the route.
-	        //var trail = this.session.getCurrentTrail();
+            window.session.currentTrail = trail;
 
             ////create intro view
             var view = new TrailIntroView({
                 trail: trail,
-                //nextURL: this.session.getNextURL()
                 nextURL: "#"
             });
-
-
 
             this.contentView.setView(view);
             view.render();
@@ -163,10 +128,9 @@ define([  "backbone",
         },
 
         topic: function(topicSlug) {
-            //var topic = this.session.getTopic(topicSlug);
-            //var trail = this.session.getCurrentTrail();
             var topic = window.allTopics.findWhere({slug: topicSlug});
 
+            window.session.currentTopic = topic;
             var view = new TopicView({
                 topic: topic,
             });
@@ -175,7 +139,7 @@ define([  "backbone",
 
             //links
             //back button only present if more than one topic
-            this.headerView.setPrevURL(this.multiple_topics ? '#/trail/' + trail.attributes.slug : '#');
+            this.headerView.setPrevURL('#/trail/' + window.session.currentTrail.attributes.slug);
             this.headerView.setNextURL(null);
             this.headerView.render();
 
@@ -199,18 +163,10 @@ define([  "backbone",
             //default 'found' to false if not specified
             found = typeof found !== 'undefined' ? found : false;
 
-            //var item = this.session.getItem(itemSlug);
             var item = window.allItems.findWhere({slug: itemSlug});
             //Inform the session that we've visited this item
-            //this.session.visitItem(itemSlug);
-            //var nextURL = this.session.getNextURL();
-            //var currentTrail = this.session.getCurrentTrail();
-            //var currentTopic = this.session.getCurrentTopic();
             var view = new ItemView({
                 item: item,
-                //trail: currentTrail,
-                //topic: currentTopic,
-                //nextURL: nextURL,
                 found: found,
                 headerView: this.headerView
             });
@@ -218,38 +174,17 @@ define([  "backbone",
             view.render();
 
             //links
-	        if(!currentTrail.attributes.isTrail) {
-		        this.headerView.setPrevURL('#topic/' + currentTopic.attributes.slug);
-	        }
+            this.headerView.setPrevURL('#/topic/' + window.session.currentTopic.attributes.slug);
             this.headerView.setNextURL(null);
             this.headerView.render();
 
             FloorTracking.prompttoSwitch = false;
         },
         finished: function() {
-            ////var trail = this.session.getCurrentTrail();
-            //var view = new FinishedView({trail:trail});
-            //this.contentView.setView(view);
-            //view.render();
-            ////TODO mark with the session that it's finished.
-            ////TODO re-render the nav menu
-            //
-            ////links
-            //this.headerView.setPrevURL('#');
-            //this.headerView.setNextURL(null);
-            //this.headerView.render();
-            //
-            //FloorTracking.prompttoSwitch = false;
             console.error('Finished not implemented.');
         },
         restart: function() {
-            //restart the current trail
-            //trail = this.session.getCurrentTrail();
-            //this.session = new Session(trail.attributes.slug);
-            //Backbone.history.navigate(this.session.getNextURL());
-
             console.error("Restart trail not implemented");
-            FloorTracking.prompttoSwitch = false;
         },
         dashboard: function() {
             var dashboardView = new DashboardView( [
@@ -273,7 +208,6 @@ define([  "backbone",
             this.headerView.render();
 	    },
 	    item_scan: function(item_slug) {
-		    //var item = this.session.getItem(item_slug);
 		    var item = window.allItems.findWhere({slug: item_slug});
 
 		    var scanView = new ImageScanView( { item: item } );
@@ -295,7 +229,6 @@ define([  "backbone",
 	    },
 	    interact: function(item_slug, index) {
             var interactView;
-            //var item = this.session.getItem(item_slug);
             var item = window.allItems.findWhere({slug: item_slug});
 
             switch (item_slug) {

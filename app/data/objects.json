@@ -1,0 +1,90 @@
+[
+  {
+    "id": "navigation",
+    "title": "Navigation",
+    "description": "",
+    "gallery": "upper_gallery",
+    "photograph": "",
+    "sketch": "",
+    "beaconID": "",
+    "mapX": "",
+    "mapY": ""
+  },
+  {
+    "id": "astrolabe",
+    "title": "Astrolabe",
+    "description": "",
+    "gallery": "upper_gallery",
+    "photograph": "",
+    "sketch": "",
+    "beaconID": "",
+    "mapX": "",
+    "mapY": ""
+  },
+  {
+    "id": "moon_globe",
+    "title": "Selenographia",
+    "description": "Moon Globe",
+    "gallery": "entrance_gallery",
+    "photograph": "",
+    "sketch": "",
+    "beaconID": "",
+    "mapX": "",
+    "mapY": ""
+  },
+  {
+    "id": "item_e2",
+    "title": "Something else",
+    "description": "",
+    "gallery": "entrance_gallery",
+    "photograph": "",
+    "sketch": "",
+    "beaconID": "",
+    "mapX": "",
+    "mapY": ""
+  },
+  {
+    "id": "item_e3",
+    "title": "Another object",
+    "description": "",
+    "gallery": "entrance_gallery",
+    "photograph": "",
+    "sketch": "",
+    "beaconID": "",
+    "mapX": "",
+    "mapY": ""
+  },
+  {
+    "id": "blackboard",
+    "title": "Einstein's Blackboard",
+    "description": "lorem ipsum",
+    "gallery": "basement_gallery",
+    "photograph": "",
+    "sketch": "",
+    "beaconID": "",
+    "mapX": "",
+    "mapY": ""
+  },
+  {
+    "id": "marconi",
+    "title": "Marconi's thing",
+    "description": "",
+    "gallery": "basement_gallery",
+    "photograph": "",
+    "sketch": "",
+    "beaconID": "",
+    "mapX": "",
+    "mapY": ""
+  },
+  {
+    "id": "lodestone",
+    "title": "Lodestone",
+    "description": "",
+    "gallery": "basement_gallery",
+    "photograph": "",
+    "sketch": "",
+    "beaconID": "",
+    "mapX": "",
+    "mapY": ""
+  }
+]

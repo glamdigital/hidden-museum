@@ -10,29 +10,16 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
     serialize: function() {
       var output = this.item.toJSON();
 
-      output.nextURL = this.nextURL;
-      output.trailTitle = this.trail.attributes.title;
-      output.topicTitle = this.topic.attributes.title;
-      output.useQR = this.trail.attributes.useQRCodes;
-
-	    //show skip button for beacon trail
-      output.showskip = this.trail.attributes.isTrail && !output.useQR;
-
-      output.show_video = this.item.attributes.video && !this.item.attributes.scan_for_video;
       return output;
     },
 
     initialize: function(params) {
       this.item = params.item;
       this.nextURL = params.nextURL;
-      this.trail = params.trail;
-      this.topic = params.topic;
-	    if(!this.trail.attributes.useQRCodes) {
-		    //listen for events
-		    this.eventId = 'beaconRange:' + this.item.attributes.beaconMajor;
-		    this.listenTo(Backbone, this.eventId, this.didRangeBeacon);
-            Logging.logToDom("Listening for event: " + this.eventId);
-	    }
+      //listen for events
+      this.eventId = 'beaconRange:' + this.item.attributes.beaconMajor;
+      this.listenTo(Backbone, this.eventId, this.didRangeBeacon);
+      Logging.logToDom("Listening for event: " + this.eventId);
       this.foundAtInit = params.found;
       this.headerView = params.headerView;
 
@@ -100,10 +87,6 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
             //navigator.notification.vibrate(500);
         }
 
-      //set header next link to found, only for Trail trails
-	    if(this.trail.attributes.isTrail) {
-		    this.headerView.setNextURL(this.nextURL);
-	    }
       this.headerView.render();
 
 
@@ -194,11 +177,6 @@ define(["backbone", "underscore", "hbs!app/templates/item", "app/logging", "app/
 	    //come out of fullscreenvideo
 	    $('video')[0].webkitExitFullscreen();
 
-		if(this.trail.attributes.showImgAfterVideo)
-		{
-			//show the video poster again. Calling load() appears to be the simplest way to achieve this.
-			$('video')[0].load();
-		}
     },
 
     checkShouldPause: function(ev)

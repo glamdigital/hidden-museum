@@ -19,22 +19,9 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
                 this.items = this.topic.items;
 
                 this.beaconsDict = {}
-                ////listen for events
-                //for(var i=0; i<this.items.length; i++) {
-                //    var item = this.items.at(i);
-                //    var eventID = 'beaconRange:' + item.attributes.beaconMajor;
-                //    //this.listenTo(Backbone, eventID, this.didRangeBeacon);
-                //    console.log("listening for event: " + eventID);
-                //    this.beaconsDict[item.attributes.beaconMajor.toString()] = item;
-                //}
             },
 
 	        afterRender: function() {
-	            //hide items by default
-	            //if(this.trail.attributes.hideByDefault)
-	            //{
-		         //   $('.topic-item').addClass("hide-if-not-near");
-	            //}
 	        },
 
             //didRangeBeacon: function(data) {
