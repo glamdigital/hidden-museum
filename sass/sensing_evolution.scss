@@ -445,32 +445,48 @@ div.item-title {
       height:140px;
       width: 100%;
     }
-    #captured-image {
-      position: absolute;
-      top:138.5px;
-      width:50%;
-      height:$sextant-captured-image-height;
-      background-size: 380px;
-      background-position-y: -185px;
-      z-index: 1000;
-      display:inline;
-      #alignment-indicator {
-        position: relative;
-        top: 50%;
+    #viewfinder {
+      //clip-path: url(#clipping);
+      width: 100%;
+      height: $sextant-captured-image-height;
+      //mask-type: luminance;
+      -webkit-mask-source-type: luminance;
+      mask-image: url(../img/circle_mask.png);
+      -webkit-mask-image: url(../img/circle_mask.png);
+      -webkit-mask-position-x: 50%;
+      -webkit-mask-size:$sextant-captured-image-height;
+      -webkit-mask-repeat: no-repeat;
+
+
+
+      clip-path: circle(60px at center);
+      #captured-image {
+        position: absolute;
+        top: 138.5px;
+        width: 50%;
+        height: $sextant-captured-image-height;
+        background-size: 380px;
+        background-position-y: -240px;
+        z-index: 1000;
+        display: inline;
+        #alignment-indicator {
+          position: relative;
+          top: 50%;
+          width: 100%;
+          border-top: 1px solid red;
+        }
+      }
+      #sky {
+        clear: right;
+        background-image: url(../img/sun_sky.png);
+        background-size: 500px;
+        background-position-y: 555px; //to get the sea level in center initially
+        background-position-x: -205px; //to get the sun centered left-right
+        height: $sextant-captured-image-height;
         width: 100%;
-        border-top: 1px solid red;
+        float: right;
       }
     }
-  #sky {
-    clear:right;
-    background-image: url(../img/sun_sky.png);
-    background-size: 500px;
-    background-position-y: 555px;     //to get the sea level in center initially
-    background-position-x: -125px;     //to get the sun centered left-right
-    height: $sextant-captured-image-height;
-    width: 100%;
-    float: right;
-  }
 
     #message {
       padding: $standardPadding;
@@ -532,6 +548,19 @@ div.item-title {
         width:100%;    
       }
     }
+
+.ring {
+  //ring
+  height: $sextant-captured-image-height;
+  width: $sextant-captured-image-height;
+  margin-left: auto;
+  margin-right: auto;
+  border: 20px solid darkgoldenrod;
+  border-radius: $sextant-captured-image-height / 2;
+  z-index: 10000;
+  position: absolute;
+  left: 20.5%;
+}
 
 #controls {
   padding: $standardPadding;
