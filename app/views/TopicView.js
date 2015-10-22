@@ -7,61 +7,61 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
             serialize: function() {
                 //serialize trail, topic and items
                 var out = {};
-                out.trail = this.trail.toJSON();
+                //out.trail = this.trail.toJSON();
                 out.topic = this.topic.toJSON();
                 out.items = this.items.toJSON();
                 return out;
             },
 
             initialize: function(params) {
-                this.trail = params.trail;
+                //this.trail = params.trail;
                 this.topic = params.topic;
-                this.items = this.topic.shuffledItems;
+                this.items = this.topic.items;
 
                 this.beaconsDict = {}
-                //listen for events
-                for(var i=0; i<this.items.length; i++) {
-                    var item = this.items.at(i);
-                    var eventID = 'beaconRange:' + item.attributes.beaconMajor;
-                    this.listenTo(Backbone, eventID, this.didRangeBeacon);
-                    console.log("listening for event: " + eventID);
-                    this.beaconsDict[item.attributes.beaconMajor.toString()] = item;
-                }
+                ////listen for events
+                //for(var i=0; i<this.items.length; i++) {
+                //    var item = this.items.at(i);
+                //    var eventID = 'beaconRange:' + item.attributes.beaconMajor;
+                //    //this.listenTo(Backbone, eventID, this.didRangeBeacon);
+                //    console.log("listening for event: " + eventID);
+                //    this.beaconsDict[item.attributes.beaconMajor.toString()] = item;
+                //}
             },
 
 	        afterRender: function() {
 	            //hide items by default
-	            if(this.trail.attributes.hideByDefault)
-	            {
-		            $('.topic-item').addClass("hide-if-not-near");
-	            }
+	            //if(this.trail.attributes.hideByDefault)
+	            //{
+		         //   $('.topic-item').addClass("hide-if-not-near");
+	            //}
 	        },
 
-            didRangeBeacon: function(data) {
-                var item = this.beaconsDict[data.major.toString()];
-                if(item==undefined) {
-                    alert("undefined beacon in dict from data: " + data);
-                    return;
-                }
-                var $itemListEntry = $('#item-'+item.attributes.slug);
-                if($itemListEntry.length == 0) {
-                    alert("No item list entries found for item")
-                }
-                if(data.proximity === 'ProximityImmediate' || data.proximity == 'ProximityNear')
-                {
-                    ////vibrate if this is a transition to near
-                    if(navigator.notification && !$itemListEntry.hasClass('nearby')) {
-                        navigator.notification.vibrate(500);
-                    }
-
-                    //add class to item to make bg cycle
-                    $itemListEntry.addClass('nearby');
-                }
-                else {
-                    //remove class which makes bg cycle
-                    $itemListEntry.removeClass('nearby');
-                }
-            }
+            //didRangeBeacon: function(data) {
+            //    var item = this.beaconsDict[data.major.toString()];
+            //    if(item==undefined) {
+            //        alert("undefined beacon in dict from data: " + data);
+            //        return;
+            //    }
+            //    var $itemListEntry = $('#item-'+item.attributes.slug);
+            //    if($itemListEntry.length == 0) {
+            //        alert("No item list entries found for item")
+            //    }
+            //    if(data.proximity === 'ProximityImmediate' || data.proximity == 'ProximityNear')
+            //    {
+            //        ////vibrate if this is a transition to near
+            //        if(navigator.notification && !$itemListEntry.hasClass('nearby')) {
+            //            navigator.notification.vibrate(500);
+            //        }
+            //
+            //        //add class to item to make bg cycle
+            //        $itemListEntry.addClass('nearby');
+            //    }
+            //    else {
+            //        //remove class which makes bg cycle
+            //        $itemListEntry.removeClass('nearby');
+            //    }
+            //}
 
         });
 

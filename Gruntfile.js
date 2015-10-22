@@ -148,6 +148,18 @@ module.exports = function(grunt) {
         src: ['HiddenMuseumData/HiddenMuseumData - Items.csv'],
         dest: 'app/data/items.json'
       },
+      trails: {
+        src: ['HiddenMuseumData/HiddenMuseumData - Galleries.csv'],
+        dest: 'app/data/galleries.json'
+      },
+      topics: {
+        src: ['HiddenMuseumData/HiddenMuseumData - Objects.csv'],
+        dest: 'app/data/objects.json'
+      },
+      items: {
+        src: ['HiddenMuseumData/HiddenMuseumData - Content.csv'],
+        dest: 'app/data/contentitems.json'
+      },
     },
     jasmine: {
         testTask: {
