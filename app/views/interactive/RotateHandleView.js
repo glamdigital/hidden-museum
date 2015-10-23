@@ -1,7 +1,17 @@
 /**
  * Created by ahaith on 22/10/2015.
  */
-define(["backbone", "move", "victor", "hbs!app/templates/interactive/handle"], function(Backbone, move, Victor, handleTemplate){
+define([
+            "backbone",
+            "move",
+            "victor",
+            "hbs!app/templates/interactive/handle"
+        ], function(
+            Backbone,
+            move,
+            Victor,
+            handleTemplate
+        ){
 
 
 
@@ -30,8 +40,7 @@ define(["backbone", "move", "victor", "hbs!app/templates/interactive/handle"], f
         },
 
         afterRender: function() {
-            //set angle based on model
-            this.setAngle(this.model.attributes.angle);
+            //determine pivot coordinates
             var $img = this.$el.find('img');
             $img.on('load', _.bind(function() {
                 this.pivot = new Victor(
@@ -40,10 +49,13 @@ define(["backbone", "move", "victor", "hbs!app/templates/interactive/handle"], f
                 );
                 console.log("Pivot = ", this.pivot);
             }, this));
+            //set angle based on model
+            this.setAngle(this.model.attributes.angle);
         },
 
         setAngle: function(angle) {
-            move('img')
+            var $img = this.$el.find('img');
+            move($img[0])
                 .rotate(angle)
                 .duration(0)
                 .end();
@@ -52,9 +64,9 @@ define(["backbone", "move", "victor", "hbs!app/templates/interactive/handle"], f
         },
 
         events: {
-            "touchstart img": "handleTouchStart",
-            "touchmove img": "handleTouchMove",
-            "touchend img": "handleTouchEnd"
+            "touchstart .clock-face": "handleTouchStart",
+            "touchmove .clock-face": "handleTouchMove",
+            "touchend .clock-face": "handleTouchEnd"
         },
 
         handleTouchStart: function(ev) {
@@ -83,8 +95,11 @@ define(["backbone", "move", "victor", "hbs!app/templates/interactive/handle"], f
                     touch.pageY
                 );
                 this.hasTouch = true;
+                ev.stopPropagation();
+                return true;
             } else {
                 this.hasTouch = false;
+                return false;
             }
         },
 
@@ -100,7 +115,6 @@ define(["backbone", "move", "victor", "hbs!app/templates/interactive/handle"], f
                 );
 
                 var delta = touchPos.clone().subtract(this.touchPrevPos);
-
 
                 //calculate how far we've moved perpendicular to the pivot
                 var pivotToPrevTouch = this.touchPrevPos.clone().subtract(this.pivot);
@@ -123,7 +137,10 @@ define(["backbone", "move", "victor", "hbs!app/templates/interactive/handle"], f
 
 
                 this.touchPrevPos = touchPos;
+                ev.stopPropagation();
+                return true;
             }
+            return false;
 
 
         },
