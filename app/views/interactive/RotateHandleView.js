@@ -23,12 +23,11 @@ define([
             this.onModelChange = params.onModelChange;
             this.image = params.image;
             this.model.set({
-                handleWidth: 20,
-                handleMinHeight: 0,
-                handleMaxHeight: 80,
                 angle: 0
             });
-            //this.listenTo(this.model, 'change', _.bind(this.onModelChange, this));
+            this.listenTo(this.model, 'change', _.bind(function(){
+                this.setAngle(this.model.attributes.angle);
+            }, this));
 
         },
 
@@ -53,20 +52,21 @@ define([
             this.setAngle(this.model.attributes.angle);
         },
 
-        setAngle: function(angle) {
+        setAngle: function(angle, duration) {
+            duration = duration || 0;
             var $img = this.$el.find('img');
             move($img[0])
                 .rotate(angle)
-                .duration(0)
+                .duration(duration)
                 .end();
 
             //console.log("Set angle to ", angle);
         },
 
         events: {
-            "touchstart .clock-face": "handleTouchStart",
-            "touchmove .clock-face": "handleTouchMove",
-            "touchend .clock-face": "handleTouchEnd"
+            "touchstart img": "handleTouchStart",
+            "touchmove img": "handleTouchMove",
+            "touchend img": "handleTouchEnd"
         },
 
         handleTouchStart: function(ev) {
@@ -86,8 +86,8 @@ define([
             touchLocalPos.rotateDeg(-this.model.attributes.angle);
 
             var withinWidth = Math.abs(touchLocalPos.x) < this.model.attributes.handleWidth;
-            var withinHeight = -touchLocalPos.y > this.model.attributes.handleMinHeight;
-            withinHeight = withinHeight && touchLocalPos.y < this.model.attributes.handleMaxHeight;
+            var withinHeight = -touchLocalPos.y > 0;
+            withinHeight = withinHeight && -touchLocalPos.y < this.model.attributes.handleMinHeight;
 
             if(withinWidth && withinHeight) {
                 this.touchPrevPos = new Victor(
@@ -96,10 +96,10 @@ define([
                 );
                 this.hasTouch = true;
                 ev.stopPropagation();
-                return true;
+                return false;
             } else {
                 this.hasTouch = false;
-                return false;
+                return true;
             }
         },
 
@@ -116,11 +116,9 @@ define([
 
                 var delta = touchPos.clone().subtract(this.touchPrevPos);
 
-                //calculate how far we've moved perpendicular to the pivot
+                //calculate how far we've moved around to the pivot
                 var pivotToPrevTouch = this.touchPrevPos.clone().subtract(this.pivot);
                 var pivotToTouch = touchPos.clone().subtract(this.pivot);
-
-
                 var angleChange = pivotToTouch.horizontalAngleDeg() - pivotToPrevTouch.horizontalAngleDeg();
 
                 //account for where angle flips from -180 to +180
@@ -138,9 +136,10 @@ define([
 
                 this.touchPrevPos = touchPos;
                 ev.stopPropagation();
+                return false;
+            } else {
                 return true;
             }
-            return false;
 
 
         },
