@@ -81,9 +81,9 @@
   },
   {
     "id": "t2_3",
-    "title": "Astrolabe audio 1",
+    "title": "Clock",
     "object": "astrolabe",
-    "type": "audio",
+    "type": "clock-interact",
     "image": "",
     "audio": "",
     "audio_duration": "",

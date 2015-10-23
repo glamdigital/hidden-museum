@@ -19,7 +19,8 @@ define([  "backbone",
           "app/floor_tracking",
 		  "app/views/interactive/SextantView",
           "app/views/interactive/AlmanacView",
-          "app/models/interactive/SextantModel"
+          "app/models/interactive/SextantModel",
+          "app/views/interactive/clock/ClockView",
 		],
   function(Backbone, $, _,
             TrailsCollection,
@@ -40,7 +41,8 @@ define([  "backbone",
             FloorTracking,
             SextantView,
             AlmanacView,
-            SextantModel
+            SextantModel,
+            ClockView
         ) {
 
     var SEVRouter = Backbone.Router.extend({
@@ -243,6 +245,12 @@ define([  "backbone",
                     switch (index) {
                         case '0': interactView = new SextantView({ item: item, model:this.sextantModel });break;
                         case '1': interactView = new AlmanacView({ item: item, model:this.sextantModel });break;
+                    }
+                    break;
+                }
+                case 'clock-interact': {
+                    switch(index) {
+                        case '0': interactView = new ClockView({ item: item }); break;
                     }
                     break;
                 }
