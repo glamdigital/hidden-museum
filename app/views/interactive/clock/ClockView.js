@@ -19,13 +19,17 @@ define([
         template: clockTemplate,
 
         initialize: function(params) {
-            var time = moment();
+            var time = moment().hours(0).minutes(0).seconds(0);
             this.model = new Backbone.Model({
                 time: time,
 
                 //time to angle
                 get24HrAngle_H: function() {
-                    return 360 * this.time.hours() + this.time.minutes()/60;
+                    //console.log(this.time.format("HH:mm "), this.time.hours(), " hours. ", this.time.minutes(), " mins");
+                    var totalHours = this.time.hours() + this.time.minutes()/60;
+                    //console.log(totalHours);
+                    var totalRevolutions = totalHours/12;
+                    return 360 * totalRevolutions;
                 },
                 get24HrAngle_M: function() {
                     return 360 * ( 12* this.time.hours() + this.time.minutes());
@@ -36,10 +40,11 @@ define([
 
                 //angle to time
                 from24HrAngle_H: function(angle) {
-                    this.time.hours( 12*angle/360 );
+                    return this.time.hours( 12*angle/360 );
                 },
                 from24HrAngle_M: function(angle) {
-                    this.time.minutes( 60*angle/360 );
+                    this.time.hours(0);
+                    return this.time.minutes( 60*angle/360 );
                 },
                 from10HrAngle: function(angle) {
                     //
@@ -55,9 +60,11 @@ define([
                 handleWidth: 10,
             });
             //update time when this changes
-            this.listenTo(this.twentyFourHourMinuteHandModel, 'change', _.bind(function() {
-                this.model.attributes.from24HrAngle_M(this.twentyFourHourMinuteHandModel.attributes.angle);
-            }, this));
+            this.listenTo(this.twentyFourHourMinuteHandModel, 'change', _.throttle(_.bind(function() {
+                var time = this.model.attributes.from24HrAngle_M(this.twentyFourHourMinuteHandModel.attributes.angle);
+                this.model.set({time: time});
+                this.model.trigger('change', this.model);
+            }, this), 10));
             //create view;
             this.twentyFourHourClockMinuteHandView = new RotateHandleView({
                 el: $('#twenty-four_min'),
@@ -73,9 +80,9 @@ define([
                 handleWidth: 10,
             });
             //update time when this changes
-            this.listenTo(this.twentyFourHourHourHandModel, 'change', _.bind(function() {
-                this.model.attributes.from24HrAngle_H(this.twentyFourHourHourHandModel.attributes.angle);
-            }, this));
+            //this.listenTo(this.twentyFourHourHourHandModel, 'change', _.bind(function() {
+            //    this.model.attributes.from24HrAngle_H(this.twentyFourHourHourHandModel.attributes.angle);
+            //}, this));
             //create view
             this.twentyFourHourClockHourHandView = new RotateHandleView({
                 el: $('#twenty-four_hour'),
@@ -103,13 +110,14 @@ define([
 
             //
             ////update clocks based on time changes
-            //this.listenTo(this.model, _.bind(function() {
-            //    this.twentyFourHourHourHandModel.set({angle: this.model.get24HrAngle_H()});
-            //    this.twentyFourHourMinuteHandModel.set({angle: this.model.get24HrAngle_M()});
-            //    this.tenHourClockModel.set({angle: this.model.get10HrAngle()});
-            //}, this));
-            //
-            //
+            this.listenTo(this.model, 'change', _.bind(function() {
+                var angle24hr_hourhand = this.model.attributes.get24HrAngle_H();
+                this.twentyFourHourHourHandModel.set({angle: angle24hr_hourhand });
+                //this.twentyFourHourMinuteHandModel.set({angle: this.model.attributes.get24HrAngle_M()});
+                //this.tenHourClockModel.set({angle: this.model.attributes.get10HrAngle()});
+            }, this));
+
+
             //listen for touch events and propagate to each clock hand in turn
             this.$el.on('touchstart', _.bind(function(ev) {
                 if(this.tenHourClockView.handleTouchStart(ev)) {

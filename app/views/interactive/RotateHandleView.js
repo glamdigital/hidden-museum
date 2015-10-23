@@ -121,12 +121,13 @@ define([
                 var pivotToTouch = touchPos.clone().subtract(this.pivot);
                 var angleChange = pivotToTouch.horizontalAngleDeg() - pivotToPrevTouch.horizontalAngleDeg();
 
+
                 //account for where angle flips from -180 to +180
-                if (angleChange > 350) {
+                if (angleChange > 180) {
                     angleChange -= 360;
                 }
-                else if (angleChange < -350) {
-                    angleChange += 350;
+                else if (angleChange < -180) {
+                    angleChange += 360;
                 }
 
                 this.model.set({angle: this.model.attributes.angle + angleChange});
