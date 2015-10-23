@@ -16,7 +16,9 @@ define([
 
         initialize: function(params) {
             this.time = new Backbone.Model({
-                time: 0
+                time: 0,
+                handleMinHeight: 50,
+                handleWidth: 10,
             });
         },
 
@@ -27,7 +29,7 @@ define([
                 el: $('#24hr'),
                 model: this.time,
                 onModelChange : function() { console.log("angle changed"); },
-                image: "img/circle_mask.png"
+                image: "img/minute_hand.png"
             });
             this.twentyFourHourClockView.render();
         }

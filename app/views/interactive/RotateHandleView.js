@@ -12,7 +12,12 @@ define(["backbone", "move", "victor", "hbs!app/templates/interactive/handle"], f
             //listen to model changes and update angle
             this.onModelChange = params.onModelChange;
             this.image = params.image;
-            this.model.set({angle: 0});
+            this.model.set({
+                handleWidth: 20,
+                handleMinHeight: 0,
+                handleMaxHeight: 80,
+                angle: 0
+            });
             //this.listenTo(this.model, 'change', _.bind(this.onModelChange, this));
 
         },
@@ -53,44 +58,72 @@ define(["backbone", "move", "victor", "hbs!app/templates/interactive/handle"], f
         },
 
         handleTouchStart: function(ev) {
-            this.touchPrevPos = new Victor(
-                 ev.originalEvent.changedTouches[0].pageX,
-                ev.originalEvent.changedTouches[0].pageY
+            //just consider touch 0
+            //This may behave unpredictably for multiple touches
+            var touch = ev.originalEvent.changedTouches[0];
+
+            //Calculate position of the touch relative to the image's own frame of reference
+            //pos within element
+            var touchLocalPos = new Victor(
+                touch.clientX,
+                touch.clientY
             );
+            //pos relative to centre of element
+            touchLocalPos.subtract(this.pivot);
+            //pos relative to rotation
+            touchLocalPos.rotateDeg(-this.model.attributes.angle);
+
+            var withinWidth = Math.abs(touchLocalPos.x) < this.model.attributes.handleWidth;
+            var withinHeight = -touchLocalPos.y > this.model.attributes.handleMinHeight;
+            withinHeight = withinHeight && touchLocalPos.y < this.model.attributes.handleMaxHeight;
+
+            if(withinWidth && withinHeight) {
+                this.touchPrevPos = new Victor(
+                    touch.pageX,
+                    touch.pageY
+                );
+                this.hasTouch = true;
+            } else {
+                this.hasTouch = false;
+            }
         },
 
 
         handleTouchMove: function(ev) {
-            //Rotate by the absolute distance moved, pick direction based on
-            touchPos = new Victor(
-                ev.originalEvent.changedTouches[0].pageX,
-                ev.originalEvent.changedTouches[0].pageY
-            );
+            //multitouch will cause problems, but dealing with this is beyond scope for now
+            if(this.hasTouch) {
 
-            var delta = touchPos.clone().subtract(this.touchPrevPos);
+                //Rotate by the absolute distance moved, pick direction based on
+                touchPos = new Victor(
+                    ev.originalEvent.changedTouches[0].pageX,
+                    ev.originalEvent.changedTouches[0].pageY
+                );
 
-
-            //calculate how far we've moved perpendicular to the pivot
-            var pivotToPrevTouch = this.touchPrevPos.clone().subtract(this.pivot);
-            var pivotToTouch = touchPos.clone().subtract(this.pivot);
+                var delta = touchPos.clone().subtract(this.touchPrevPos);
 
 
-            var angleChange = pivotToTouch.horizontalAngleDeg() - pivotToPrevTouch.horizontalAngleDeg();
+                //calculate how far we've moved perpendicular to the pivot
+                var pivotToPrevTouch = this.touchPrevPos.clone().subtract(this.pivot);
+                var pivotToTouch = touchPos.clone().subtract(this.pivot);
 
-            //account for where angle flips from -180 to +180
-            if(angleChange > 350) {
-                angleChange -= 360;
+
+                var angleChange = pivotToTouch.horizontalAngleDeg() - pivotToPrevTouch.horizontalAngleDeg();
+
+                //account for where angle flips from -180 to +180
+                if (angleChange > 350) {
+                    angleChange -= 360;
+                }
+                else if (angleChange < -350) {
+                    angleChange += 350;
+                }
+
+                this.model.set({angle: this.model.attributes.angle + angleChange});
+
+                this.setAngle(this.model.attributes.angle);
+
+
+                this.touchPrevPos = touchPos;
             }
-            else if(angleChange < -350) {
-                angleChange += 350;
-            }
-
-            this.model.set({angle: this.model.attributes.angle + angleChange});
-
-            this.setAngle(this.model.attributes.angle);
-
-
-            this.touchPrevPos = touchPos;
 
 
         },
