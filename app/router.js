@@ -2,6 +2,7 @@ define([  "backbone",
           "jquery",
           "underscore",
           "app/collections/TrailsCollection",
+          "app/views/HomeView",
           "app/views/TrailsView",
           "app/views/TrailIntroView",
           "app/views/TopicView",
@@ -23,6 +24,7 @@ define([  "backbone",
 		],
   function(Backbone, $, _,
             TrailsCollection,
+            HomeView,
             TrailsView,
             TrailIntroView,
             TopicView,
@@ -77,6 +79,7 @@ define([  "backbone",
         routes: {
             "": "home",
             "home": "home",
+            "trails": "trails",
             "trail/:trail": "trail",
             "topic/:topic": "topic",
             "found/:item": "found_item",
@@ -91,22 +94,34 @@ define([  "backbone",
 
 	        "scan": "scan",
         },
-
+        
         home: function() {
-
-
-          var view = new TrailsView({
-            trails:window.allTrails
-          });
-          this.contentView.setView(view);
-          view.renderIfReady();
-
+            var homeView = new HomeView({
+              
+            });
+            
+            this.contentView.setView(homeView);
+            homeView.renderIfReady();
+            
             //set links
             this.headerView.setPrevURL(null);
             this.headerView.setNextURL(null);
             this.headerView.setLogoURL('#');
             this.headerView.render();
+        },
 
+        trails: function() {
+            var view = new TrailsView({
+              trails:window.allTrails
+            });
+            this.contentView.setView(view);
+            view.renderIfReady();
+            
+            //set links
+            this.headerView.setPrevURL(null);
+            this.headerView.setNextURL(null);
+            this.headerView.setLogoURL('#');
+            this.headerView.render();
         },
 
         trail: function(trailSlug) {
