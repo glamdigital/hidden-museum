@@ -46,7 +46,6 @@ define([
                     $img.offset().left + $img.width()/2,
                     $img.offset().top + $img.height()/2
                 );
-                console.log("Pivot = ", this.pivot);
             }, this));
             //set angle based on model
             this.setAngle(this.model.attributes.angle);
@@ -60,7 +59,6 @@ define([
                 .duration(duration)
                 .end();
 
-            //console.log("Set angle to ", angle);
         },
 
         events: {
@@ -95,12 +93,15 @@ define([
                     touch.pageY
                 );
                 this.hasTouch = true;
+                var pivotToTouch = this.touchPrevPos.clone().subtract(this.pivot);
+                this.startAngle =  pivotToTouch.horizontalAngleDeg() - pivotToTouch.horizontalAngleDeg();
                 ev.stopPropagation();
                 return false;
             } else {
                 this.hasTouch = false;
                 return true;
             }
+
         },
 
 
@@ -130,7 +131,9 @@ define([
                     angleChange += 360;
                 }
 
+
                 this.model.set({angle: this.model.attributes.angle + angleChange});
+                this.model.trigger('force-change', this.model);
 
                 this.setAngle(this.model.attributes.angle);
 

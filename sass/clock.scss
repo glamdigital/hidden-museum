@@ -19,3 +19,17 @@
 #twenty-four_hour {
   width: 50%;
 }
+
+#digital-clock {
+  position: absolute;
+  left: 50%;
+  .decrease-time {
+    display: inline;
+  }
+  .time {
+    display: inline;
+  }
+  .increase-time {
+    display: inline;
+  }
+}
