@@ -29,7 +29,7 @@
     {{#if useQR}}
         <p class="qr-found">You found it!</p>
     {{/if}}
-    {{#if video}}
+    {{#if show_video}}
         <video id='video' class='found center-vertically' width="100%" height="auto" webkit-playsinline preload="auto" poster="img/{{image}}"controls>
             <source src="video/{{video}}" type="video/mp4">
         </video>
@@ -43,6 +43,13 @@
 
     <!--<h5>Location: {{location}}</h5>-->
     <p class="description">{{{description}}}</p>
+
+    {{#if scan_for_video}}
+        <a href="#scan/{{slug}}"><div class="button center">{{interactPrompt}}<i class="fa fa-chevron-right"></i></div></a>
+    {{/if}}
+    {{#if interactView}}
+        <a href="#interact/{{slug}}"><div class="button center">{{interactPrompt}}</div></a>
+    {{/if}}
 </div>
 
 <div class="question">

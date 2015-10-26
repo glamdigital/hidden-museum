@@ -51,6 +51,12 @@ define(["backbone", "underscore", "app/collections/QuestionsCollection"], functi
 	      i++;
       }
 
+      var scan_for_video=false;
+      if(response.scanForVideo=="true" || response.scanForVideo=="TRUE") {
+          scan_for_video=true;
+      }
+      item.scan_for_video= scan_for_video;
+
       return item;
     }
 

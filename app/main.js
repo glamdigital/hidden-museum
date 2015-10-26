@@ -36,7 +36,7 @@ require(['jquery','backbone', 'app/models/Trail', 'app/models/Topic', 'app/loggi
     //trigger device ready immediately in browser
 	  if(typeof(cordova) == 'undefined')
 	  {
-		  alert("forcing ready");
+		  //alert("forcing ready");
 		  onReady();
 	  }
 

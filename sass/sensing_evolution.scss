@@ -19,6 +19,19 @@ $headerPadding: 10px;
   border-radius: $corner-radius;
 }
 
+html {
+  background-color: transparent;
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none; /* Disable selection/copy in UIWebView */
+}
+
 body {
   font-family: $standardFontFamily;
   font-size: 16px;
@@ -99,7 +112,7 @@ a.nav-link {
   top: $headerHeight + 2*$headerPadding;
   left: 0;
   position: fixed;
-  background-color: white;
+  background-color: transparent;
   color: black;
   z-index: 2;
   width: 100%;
@@ -309,6 +322,7 @@ div.item-title {
   font-size: x-small;
 }
 
+
 .question {
   display: inline;
   min-height: 0px;
@@ -352,21 +366,28 @@ div.item-title {
   display:none;
 }
 
-div.button {
+.button {
   &.center {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
     display: block;
-  }
-  a {
     padding: 2*$standardPadding;
     border-style: solid;
     border-radius: 5px;
-    border-width: 1px;
-    background-color: lightgrey;
+    border-width: 5px;
+    border-color: #333;
+    background-color: #923841;
     text-decoration: none;
-    color: $fontColor;
+    color: white;
+    width:90%;
+
+    border-top: 5px solid #ffaaaa;
+    border-left: 5px solid #ffcccc;
+    border-right: 5px solid #220000;
+    border-bottom: 5px solid #550000;
+
+
   }
   margin: 10px;
 }
@@ -398,3 +419,126 @@ div.button {
     }
   }
 }
+
+#image-capture {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  #instructions {
+    padding: $standardPadding;
+    height:120px;
+    width: 100%;
+    background-image: url(../img/parchment-tan.jpg);
+    background-color: #edddc1;
+    background-size: 375px;
+    font-size: 1.1em;
+    line-height: 1.4em;
+    ol {
+      padding-top: $standardPadding;
+      margin: 0;
+    }
+    p {
+      margin:0;
+      padding-top: $standardPadding+3px;
+      text-align: center;
+    }
+  }
+  #captured-image {
+    position: absolute;
+    top:120px;
+    width:50%;
+    height:220px;
+    background-size: 380px;
+    background-position-y: -185px;
+    z-index: 1000;
+    #alignment-indicator {
+      position: relative;
+      top: 50%;
+      width: 100%;
+      border-top: 1px solid red;
+    }
+  }
+  #message {
+    padding: $standardPadding;
+    position: absolute;
+    top:0;
+    height:340px;
+    width:100%;
+    background-image: url(../img/parchment-tan.jpg);
+    background-color: #edddc1;
+    background-size: 375px;
+    font-size: 1.1em;
+    line-height: 1.4em;
+    p {
+      margin:0;
+      padding-bottom: $standardPadding + 3px;
+      text-align: center;
+    }   
+  }
+  #feedback {
+    padding: 0 $standardPadding;
+    position: fixed;
+    bottom: 90px;
+    height: 180px;
+    width: 100%;
+    background-image: url(../img/navigation-map.jpg);
+    background-position: -10px 0px;
+    background-size: auto 180px;
+    #value-indicator {
+      border-top: 1px solid red;
+      color: black;
+      text-shadow: 1px 1px #aaa;
+      position:absolute;
+      text-align: right;
+      padding-right: $standardPadding * 2;
+      width:100%;
+    }
+    #sextant {
+      position: absolute;
+      top: 5%;
+      width: 40%;
+      z-index: 500;
+      img {
+        position: absolute;
+        width: 100%;
+      }
+    }
+    #reference-indicator {
+      border-top: 1px solid black;
+      color: black;
+      text-shadow: 1px 1px #aaa;
+      position:absolute;
+      text-align: right;
+      padding-right: $standardPadding * 2;
+      width:100%;    
+    }
+  }
+}
+
+  #controls {
+    padding: $standardPadding;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 90px;
+    width: 100%;
+    background: #333;
+    &.image-recognised {
+      background: white;
+    }
+    .button {
+      display: block;
+      margin: 0 auto;
+      text-align: center;
+      line-height: 40px;
+      margin-top: 8px;
+      //width:80px;
+      //height:80px;
+      //border-radius: 50%;
+      //border: 2px solid #111;
+      background: #923841;
+      color: white;
+      font-size: 1.4em;
+    }
+
+  }

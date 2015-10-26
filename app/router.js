@@ -3,13 +3,19 @@ define(["backbone", "jquery", "underscore",
           "app/views/TrailsView", "app/views/TrailIntroView", "app/views/TopicView", "app/views/ItemView", "app/views/FinishedView",
           "app/views/ContentView", "app/views/HeaderView", "app/models/Session", "app/views/DashboardView",
 		  "app/views/BeaconListenView", "app/views/CodeEntryView", "app/views/QRCodeEntryView", "app/views/FollowTrailView",
-          "app/floor_tracking"],
+		  "app/views/interactive/ImageScanView", "app/views/interactive/ImageScannedView",
+          "app/floor_tracking",
+		  "app/views/interactive/SextantView"
+		],
   function(Backbone, $, _,
             TrailsCollection,
             TrailsView, TrailIntroView, TopicView, ItemView, FinishedView,
             ContentView, HeaderView, Session, DashboardView,
             BeaconListenView, CodeEntryView, QRCodeEntryView, FollowTrailView,
-            FloorTracking) {
+            ImageScanView, ImageScannedView,
+            FloorTracking
+            ,SextantView
+        ) {
 
     var SEVRouter = Backbone.Router.extend({
         initialize: function() {
@@ -36,11 +42,17 @@ define(["backbone", "jquery", "underscore",
             "home": "home",
             "trail/:trail": "trail",
             "topic/:topic": "topic",
-            "item/:item": "item",
             "found/:item": "found_item",
             "finished/:trail": "finished",
             "restart": "restart",
-            "dashboard": "dashboard"
+            "dashboard": "dashboard",
+	        //custom routes
+	        "scan/:item": "item_scan",    //scan for the specific item
+	        "scanned/:item": "item_scanned",    //after the item has been found
+	        "interact/:item": "interact",   //interactive view for item
+            "item/:item": "item",
+
+	        "scan": "scan",
         },
 
         home: function() {
@@ -79,8 +91,8 @@ define(["backbone", "jquery", "underscore",
 		        );
 	        } catch(err) {
 		        //desktop browser?
-		        this.prefsTrail = 'p4';
-		        alert(err);
+		        this.prefsTrail = 'p5';
+		        //alert(err);
 				this.goToTrail(this.prefsTrail);
 	        }
 
@@ -89,8 +101,9 @@ define(["backbone", "jquery", "underscore",
                 //create a new session for the chosen trail
 	            var trail = this.allTrails.findWhere( {slug: this.prefsTrail} );
 	            this.session = new Session(trail);
-
 	            FloorTracking.prompttoSwitch = false;
+
+		        console.log("starting new trail");
 
 		        //choose start page
 		        // first item for a trail. 'topic' view for anything else.
@@ -107,7 +120,8 @@ define(["backbone", "jquery", "underscore",
 				        Backbone.history.navigate('#/trail/' + trail.attributes.slug);
 			        }
 			        else if (topics.length == 1) {
-			            Backbone.history.navigate('#/topic/component');
+				        var topicSlug = topics.first().attributes.slug;
+			            Backbone.history.navigate('#/topic/' + topicSlug);
 			        } else {
 				        console.log("No topics for trail: " + trail.attributes.slug);
 			        }
@@ -158,7 +172,7 @@ define(["backbone", "jquery", "underscore",
 
 	            //links
 		        //back button only present if more than one topic
-	            this.headerView.setPrevURL(this.multiple_topics ? '#/trail/' + trail.attributes.slug : null);
+	            this.headerView.setPrevURL(this.multiple_topics ? '#/trail/' + trail.attributes.slug : '#');
 	            this.headerView.setNextURL(null);
 	            this.headerView.render();
 
@@ -242,7 +256,52 @@ define(["backbone", "jquery", "underscore",
             dashboardView.render();
 
             FloorTracking.prompttoSwitch = false;
-        }
+        },
+	    scan: function() {
+		    var scanView = new ImageScanView();
+		    this.contentView.setView(scanView);
+		    setTimeout(scanView.render, 500);
+
+            //set links
+            this.headerView.setPrevURL('#');
+            this.headerView.setNextURL(null);
+            this.headerView.render();
+	    },
+	    item_scan: function(item_slug) {
+		    var item = this.session.getItem(item_slug);
+
+		    var scanView = new ImageScanView( { item: item } );
+		    this.contentView.setView(scanView);
+		    //setTimeout(scanView.render, 1000);
+			scanView.render();
+
+		    //set links
+		    this.headerView.setPrevURL('#');
+            this.headerView.setNextURL(null);
+            this.headerView.render();
+	    },
+	    item_scanned: function(item_slug) {
+		    var item = this.session.getItem(item_slug);
+
+		    var scannedView = new ImageScannedView( { item: item } );
+		    this.contentView.setView(scannedView);
+		    scannedView.render();
+	    },
+	    interact: function(item_slug) {
+		    var item = this.session.getItem(item_slug);
+
+		    // Not working on device...
+		    //var interactViewName = item.attributes.interactView;
+		    //require(["app/views/" + interactViewName], _.bind(function(InteractView) {
+			 //   var interactView = new InteractView();
+			 //   this.contentView.setView(interactView);
+			 //   interactView.render();
+		    //}));
+
+		    var interactView = new SextantView();
+		    this.contentView.setView(interactView);
+		    interactView.render();
+	    }
     });
 
     return SEVRouter;
