@@ -79,7 +79,7 @@ define([  "backbone",
         routes: {
             "": "home",
             "home": "home",
-            "galleries": "galleries",
+            "trails": "trails",
             "trail/:trail": "trail",
             "topic/:topic": "topic",
             "found/:item": "found_item",
@@ -110,7 +110,7 @@ define([  "backbone",
             this.headerView.render();
         },
 
-        galleries: function() {
+        trails: function() {
             var view = new TrailsView({
               trails:window.allTrails
             });
