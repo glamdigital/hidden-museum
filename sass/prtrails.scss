@@ -2,7 +2,6 @@ $headerHeight: 25px;
 $headerPadding: 10px;
 $arrow-width: 90px;
 $audio-height: 30px;
-$statusBar-height: 20px;
 
 @mixin flip() {
   -moz-transform: scaleX(-1);
@@ -30,10 +29,12 @@ a {
     margin-right: auto;
     div {
       height: $headerHeight;
+      line-height: $headerHeight;
       display: inline-block;
       a {
         font-size: 1.2em;
         text-decoration: none;
+        vertical-align: middle;
       }
       &.header-arrow {
         width: $arrow-width;
@@ -41,17 +42,12 @@ a {
       &.arrow-left {
         position:absolute;
         left:$headerPadding;
-        top:$statusBar-height;
         text-align:left;
       }
-      &.arrow-right {
+      &.header-home {
         position:absolute;
         right:$headerPadding;
-        top:$statusBar-height;
         text-align:right;
-      }
-      &.header-logo {
-        padding: 0px 2%;
       }
     }
   }
