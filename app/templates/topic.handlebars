@@ -1,13 +1,13 @@
 <h1>{{topic.title}}</h1>
-<div class="trails-list-container">
+<div class="topics-container">
     <ul>
         {{#each audio_items}}
             <li class="topic-item">Audio: {{title}}</li>
         {{/each}}
-
+        
         {{#each interact_items}}
             <a href="#/interact/{{slug}}/{{type}}/0"><li id="item-{{slug}}" class="topic-item">
-            	<i class="fa fa-chevron-right"></i>
+                <i class="fa fa-chevron-right"></i>
                 <div class="main-title title-smaller">{{{title}}}</div>
                 <div class="subtitle">{{location}}</div>
             </li></a>

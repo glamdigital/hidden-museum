@@ -5,7 +5,8 @@
     "description": "",
     "map": "",
     "entryPointBeaconID1": "",
-    "entryPointBeaconID2": ""
+    "entryPointBeaconID2": "",
+    "photograph": ""
   },
   {
     "id": "entrance_gallery",
@@ -13,7 +14,8 @@
     "description": "",
     "map": "",
     "entryPointBeaconID1": "",
-    "entryPointBeaconID2": ""
+    "entryPointBeaconID2": "",
+    "photograph": ""
   },
   {
     "id": "basement_gallery",
@@ -21,6 +23,7 @@
     "description": "",
     "map": "",
     "entryPointBeaconID1": "",
-    "entryPointBeaconID2": ""
+    "entryPointBeaconID2": "",
+    "photograph": ""
   }
 ]
