@@ -1,11 +1,11 @@
 //topics screen - a.k.a Object screen / content select screen
-$topic-header-height: 128px;
-$iphone6-height: 667px;
+
+@import "_common.scss";
 
 .object-container{
   .header {
     width:100%;
-    height: $topic-header-height;
+    height: $topicHeaderHeight;
     background-size: cover;
     .title {
       padding:30px 20px 10px 20px;
@@ -14,7 +14,7 @@ $iphone6-height: 667px;
       color: white;
       text-align: left;
       position: relative;
-      top: $topic-header-height *0.4;
+      top: $topicHeaderHeight *0.4;
       border: none;
       display: inline-block;
     }
@@ -22,9 +22,9 @@ $iphone6-height: 667px;
       float: right;
       font-size: 2em;
       margin: 10px;
-      color: grey;
+      color: $navTextColor;
       position: relative;
-      top: $topic-header-height * 0.6;
+      top: $topicHeaderHeight * 0.6;
     }
   }
   .map-link {
@@ -36,7 +36,7 @@ $iphone6-height: 667px;
     border: 1px solid black;
     border-radius: 2px;
     a {
-      color: black;
+      color: $contentTextColor;
     }
   }
   ul {
@@ -62,7 +62,7 @@ $iphone6-height: 667px;
       }
       a {
         text-decoration: none;
-        color: black;
+        color: $contentTextColor;
       }
     }
   }
@@ -75,15 +75,15 @@ $iphone6-height: 667px;
     border: 1px solid black;
     border-radius: 6px;
     a {
-      color: black;
+      color: $contentTextColor;
     }
   }
 }
 
 .overlay {
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,1);
   width: 100%;
-  height: $iphone6-height;
+  height: $iphone6Height;
   display: none;
   position: fixed;
   top: 0px;
@@ -94,7 +94,7 @@ $iphone6-height: 667px;
     i.close-overlay {
       font-size: 3em;
       float: right;
-      color: white;
+      color: $navTextColor;
     }
     img {
       position: relative;

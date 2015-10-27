@@ -1,7 +1,4 @@
-$headerHeight: 25px;
-$headerPadding: 10px;
-$arrow-width: 90px;
-$audio-height: 30px;
+@import "_common.scss";
 
 @mixin flip() {
   -moz-transform: scaleX(-1);
@@ -35,9 +32,10 @@ a {
         font-size: 1.2em;
         text-decoration: none;
         vertical-align: middle;
+        color: $navTextColor;
       }
       &.header-arrow {
-        width: $arrow-width;
+        width: $arrowWidth;
       }
       &.arrow-left {
         position:absolute;
@@ -107,10 +105,10 @@ div.black-bar {
   text-decoration: none;
 
   &.audio {
-    height: $audio-height;
+    height: $audioHeight;
     img.audio-control-icon {
-      height: $audio-height;
-      width: $audio-height;
+      height: $audioHeight;
+      width: $audioHeight;
       float: right;
       padding: 0px 10px;
       &.pause {
