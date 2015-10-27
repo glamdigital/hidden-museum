@@ -139,7 +139,7 @@ define([  "backbone",
             view.render();
 
             //set links
-            this.headerView.setPrevURL('#');
+            this.headerView.setPrevURL('#/trails');
             this.headerView.setNextURL(null);
             this.headerView.render();
 
