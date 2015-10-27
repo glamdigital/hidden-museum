@@ -29,7 +29,9 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
 
             events: {
                 "click .show-map-button": "showMap",
-                "click .close-overlay": "hideMap",
+                "click .close-map-overlay": "hideMap",
+                "click .show-image-button": "showImage",
+                "click .close-image-overlay": "hideImage"
             },
 
             showMap: function(ev) {
@@ -40,6 +42,15 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
                 ev.preventDefault();
                 $('.object-map').hide();
             },
+
+            showImage: function(ev) {
+                ev.preventDefault();
+                $('.object-full-image').show();
+            },
+            hideImage: function(ev) {
+                ev.preventDefault();
+                $('.object-full-image').hide();
+            }
             //didRangeBeacon: function(data) {
             //    var item = this.beaconsDict[data.major.toString()];
             //    if(item==undefined) {

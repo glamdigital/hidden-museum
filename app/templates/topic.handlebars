@@ -1,6 +1,7 @@
 <div class="object-container">
     <div class="header" style="background-image: url(../img/{{topic.photograph_cropped}})">
         <div class="title">{{topic.title}}</div>
+        <div class="zoom"><i class="fa fa-arrows-alt show-image-button"></i></div>
     </div>
     <div class="map-link">
         <a href="#" class="show-map-button">Find it on the Floor Plan</a>
@@ -22,9 +23,9 @@
 </div>
 <div class="object-map overlay overlay-image">
     <i class="fa fa-times-circle-o close-overlay close-map-overlay"></i>
-    <img src="img/{{topic.map}}">
+    <img class="map" src="img/{{topic.map}}">
 </div>
 <div class="object-full-image overlay overlay-image">
     <i class="fa fa-times-circle-o close-overlay close-image-overlay"></i>
-    <img src="img/{{topic.photograph}}">
+    <img class="photograph" src="img/{{topic.photograph}}">
 </div>

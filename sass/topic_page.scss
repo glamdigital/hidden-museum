@@ -1,11 +1,12 @@
 //topics screen - a.k.a Object screen / content select screen
-$topic-header-height: 156px;
+$topic-header-height: 128px;
 $iphone6-height: 667px;
 
 .object-container{
   .header {
     width:100%;
     height: $topic-header-height;
+    background-size: cover;
     .title {
       padding:30px 20px 10px 20px;
       font-size: 20px;
@@ -13,9 +14,17 @@ $iphone6-height: 667px;
       color: white;
       text-align: left;
       position: relative;
-      top: $topic-header-height /2;
+      top: $topic-header-height *0.4;
       border: none;
       display: inline-block;
+    }
+    .zoom {
+      float: right;
+      font-size: 2em;
+      margin: 10px;
+      color: grey;
+      position: relative;
+      top: $topic-header-height * 0.6;
     }
   }
   .map-link {
@@ -90,8 +99,9 @@ $iphone6-height: 667px;
     img {
       position: relative;
       top: 60px;
-      &:before {
-        content: "<i class='fa fa-times-circle-o'></i>"
+      width: 100%;
+      &.photograph {
+        top: 0px;
       }
     }
   }
