@@ -71,8 +71,28 @@ $iphone6-height: 667px;
   }
 }
 
-
 .overlay {
   background: rgba(0,0,0,0.8);
   width: 100%;
+  height: $iphone6-height;
+  display: none;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 10000;
+  &.overlay-image {
+    text-align: center;
+    i.close-overlay {
+      font-size: 3em;
+      float: right;
+      color: white;
+    }
+    img {
+      position: relative;
+      top: 60px;
+      &:before {
+        content: "<i class='fa fa-times-circle-o'></i>"
+      }
+    }
+  }
 }

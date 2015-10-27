@@ -27,6 +27,19 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
 
 	        },
 
+            events: {
+                "click .show-map-button": "showMap",
+                "click .close-overlay": "hideMap",
+            },
+
+            showMap: function(ev) {
+                ev.preventDefault();
+                $('.object-map').show();
+            },
+            hideMap: function(ev) {
+                ev.preventDefault();
+                $('.object-map').hide();
+            },
             //didRangeBeacon: function(data) {
             //    var item = this.beaconsDict[data.major.toString()];
             //    if(item==undefined) {

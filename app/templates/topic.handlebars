@@ -3,7 +3,7 @@
         <div class="title">{{topic.title}}</div>
     </div>
     <div class="map-link">
-        <a href="#">Find it on the Floor Plan</a>
+        <a href="#" class="show-map-button">Find it on the Floor Plan</a>
     </div>
     <ul>
         {{#each audio_items}}
@@ -19,4 +19,12 @@
     <div class="explore-link">
         <a href="#/trail/{{trail.slug}}">Explore other objects</a>
     </div>
+</div>
+<div class="object-map overlay overlay-image">
+    <i class="fa fa-times-circle-o close-overlay close-map-overlay"></i>
+    <img src="img/{{topic.map}}">
+</div>
+<div class="object-full-image overlay overlay-image">
+    <i class="fa fa-times-circle-o close-overlay close-image-overlay"></i>
+    <img src="img/{{topic.photograph}}">
 </div>
