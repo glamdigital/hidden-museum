@@ -1,4 +1,4 @@
-$headerHeight: 40px;
+$headerHeight: 25px;
 $headerPadding: 10px;
 $arrow-width: 90px;
 $audio-height: 30px;
@@ -14,6 +14,10 @@ $statusBar-height: 20px;
 }
 
 
+a {
+  text-decoration: none;
+}
+
 .pr-header-container {
   padding: $headerPadding 0px;
   text-align: center;
@@ -28,7 +32,7 @@ $statusBar-height: 20px;
       height: $headerHeight;
       display: inline-block;
       a {
-        font-size: 1.4em;
+        font-size: 1.2em;
         text-decoration: none;
       }
       &.header-arrow {
@@ -37,13 +41,13 @@ $statusBar-height: 20px;
       &.arrow-left {
         position:absolute;
         left:$headerPadding;
-        top:$statusBar-height + 10px;
+        top:$statusBar-height;
         text-align:left;
       }
       &.arrow-right {
         position:absolute;
         right:$headerPadding;
-        top:$statusBar-height + 10px;
+        top:$statusBar-height;
         text-align:right;
       }
       &.header-logo {
@@ -97,12 +101,15 @@ table.social-links-table {
 }
 
 div.black-bar {
+  border-radius: 5px;
   width: auto;
   background: black;
   padding: 5px 12px;
   color: white;
   font-size: 1em;
   line-height: 2.2em;
+  text-decoration: none;
+
   &.audio {
     height: $audio-height;
     img.audio-control-icon {
@@ -203,4 +210,45 @@ div.code-input {
 
 .item-image {
   max-height: 300px;
+}
+
+div.scan-container {
+  height: 1000px;
+  #header {
+    width: 100%;
+    height: 120px;
+    background: white;
+  }
+  .scan-instructions {
+    padding: 5px 20px;    
+  }
+  .preview {
+    height: 1000px;
+    opacity:0.4;
+    background-image: url(../img/moon-sketch.png);
+    background-color: white;
+    background-size: 500px;
+    background-position-x: -70px;
+    background-position-y: -120px;
+  }
+  img {
+    width: 100%;
+  }
+}
+
+.scanned-view {
+  background: url(../img/moon/back/moon-back.jpg);
+  background-size: 500px;
+  background-position-x: -70px;
+  height: 1000px;
+
+  .item-title {
+    background: white;
+    opacity: 0.8;
+    padding: 10px 20px 20px 20px;
+  }
+
+  video {
+    display: none;
+  }
 }

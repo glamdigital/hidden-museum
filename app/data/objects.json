@@ -1,0 +1,93 @@
+[
+  {
+    "id": "navigation",
+    "title": "Navigation",
+    "description": "",
+    "gallery": "upper_gallery",
+    "photograph": "objects/navigation/Sextant.jpg",
+    "photograph_cropped": "objects/navigation/Sextant_cropped.jpg",
+    "map": "maps/Upper Gallery.JPG",
+    "sketch": "",
+    "beaconID": "",
+    "mapX": "",
+    "mapY": ""
+  },
+  {
+    "id": "globe",
+    "title": "All Soul's Globe ",
+    "description": "",
+    "gallery": "upper_gallery",
+    "photograph": "objects/globe/All Souls Globe.jpg",
+    "photograph_cropped": "objects/globe/All-Souls-Globe_cropped.jpg",
+    "map": "maps/Upper Gallery.JPG",
+    "sketch": "",
+    "beaconID": "",
+    "mapX": "",
+    "mapY": ""
+  },
+  {
+    "id": "moon_globe",
+    "title": "Selenographia",
+    "description": "",
+    "gallery": "entrance_gallery",
+    "photograph": "objects/moon_globe/Selenographia2.jpg",
+    "photograph_cropped": "objects/moon_globe/Selenographia_cropped.jpg",
+    "map": "maps/Entrance Floor Plan.JPG",
+    "sketch": "",
+    "beaconID": "",
+    "mapX": "",
+    "mapY": ""
+  },
+  {
+    "id": "armillary",
+    "title": "Janvier armillary Sphere",
+    "description": "",
+    "gallery": "entrance_gallery",
+    "photograph": "objects/armillary/9061-Armillary-sphere.jpg",
+    "photograph_cropped": "objects/armillary/9061-Armillary-sphere_cropped.jpg",
+    "map": "maps/Entrance Floor Plan.JPG",
+    "sketch": "",
+    "beaconID": "",
+    "mapX": "",
+    "mapY": ""
+  },
+  {
+    "id": "blackboard",
+    "title": "Einstein's Blackboard",
+    "description": "",
+    "gallery": "basement_gallery",
+    "photograph": "objects/blackboard/Einstein_blackboard.jpg",
+    "photograph_cropped": "objects/blackboard/Einstein_cropped.jpg",
+    "map": "maps/Basement Floor Plan (4).JPG",
+    "sketch": "",
+    "beaconID": "",
+    "mapX": "",
+    "mapY": ""
+  },
+  {
+    "id": "marconi",
+    "title": "Marconi's thing",
+    "description": "",
+    "gallery": "basement_gallery",
+    "photograph": "objects/marconi/Marconi.jpg",
+    "photograph_cropped": "objects/marconi/Marconi_cropped.jpg",
+    "map": "maps/Basement Floor Plan (4).JPG",
+    "sketch": "",
+    "beaconID": "",
+    "mapX": "",
+    "mapY": ""
+  },
+  {
+    "id": "lodestone",
+    "title": "Lodestone",
+    "description": "",
+    "gallery": "basement_gallery",
+    "photograph": "objects/lodestone/imu-media.jpg",
+    "photograph_cropped": "objects/lodestone/Lodestone_cropped.jpg",
+    "map": "maps/Basement Floor Plan (4).JPG",
+    "sketch": "",
+    "beaconID": "",
+    "mapX": "",
+    "mapY": ""
+  }
+]
