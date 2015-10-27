@@ -1,13 +1,15 @@
 //topics screen - a.k.a Object screen / content select screen
 $topic-header-height: 156px;
+$iphone6-height: 667px;
 
 .object-container{
   .header {
     width:100%;
     height: $topic-header-height;
     .title {
-      padding: 20px;
-      background-color: rgba(0,0,0, 0.8);
+      padding:30px 20px 10px 20px;
+      font-size: 20px;
+      background-color: rgba(0,0,0, 0.6);
       color: white;
       text-align: left;
       position: relative;
@@ -67,4 +69,10 @@ $topic-header-height: 156px;
       color: black;
     }
   }
+}
+
+
+.overlay {
+  background: rgba(0,0,0,0.8);
+  width: 100%;
 }
