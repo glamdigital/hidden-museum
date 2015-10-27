@@ -1,0 +1,70 @@
+//topics screen - a.k.a Object screen / content select screen
+$topic-header-height: 156px;
+
+.object-container{
+  .header {
+    width:100%;
+    height: $topic-header-height;
+    .title {
+      padding: 20px;
+      background-color: rgba(0,0,0, 0.8);
+      color: white;
+      text-align: left;
+      position: relative;
+      top: $topic-header-height /2;
+      border: none;
+      display: inline-block;
+    }
+  }
+  .map-link {
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    background: grey;
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 2px;
+    a {
+      color: black;
+    }
+  }
+  ul {
+    margin:0px;
+    padding: 0px;
+    list-style: none;
+    li {
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      &.topic-audio {
+        height: 50px;
+        background: lightgrey;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+      }
+      &.topic-item {
+        width: 96%;
+        margin: 2%;
+        background: grey;
+        border: 1px solid black;
+        border-radius: 5px;
+      }
+      a {
+        text-decoration: none;
+        color: black;
+      }
+    }
+  }
+
+  .explore-link {
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+    background: darkgrey;
+    border: 1px solid black;
+    border-radius: 6px;
+    a {
+      color: black;
+    }
+  }
+}

@@ -7,7 +7,7 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
             serialize: function() {
                 //serialize trail, topic and items
                 var out = {};
-                //out.trail = this.trail.toJSON();
+                out.trail = window.session.currentTrail.toJSON();
                 out.topic = this.topic.toJSON();
                 //out.items = this.items.toJSON();
                 out.audio_items = new Backbone.Collection(this.items.where({type: 'audio'})).toJSON();
