@@ -6,7 +6,6 @@ define([  "backbone",
           "app/views/TrailsView",
           "app/views/TrailIntroView",
           "app/views/TopicView",
-          "app/views/ItemView",
           "app/views/FinishedView",
           "app/views/ContentView",
           "app/views/HeaderView",
@@ -28,7 +27,6 @@ define([  "backbone",
             TrailsView,
             TrailIntroView,
             TopicView,
-            ItemView,
             FinishedView,
             ContentView,
             HeaderView,
@@ -82,7 +80,6 @@ define([  "backbone",
             "trails": "trails",
             "trail/:trail": "trail",
             "topic/:topic": "topic",
-            "found/:item": "found_item",
             "finished/:trail": "finished",
             "restart": "restart",
             "dashboard": "dashboard",
@@ -90,7 +87,6 @@ define([  "backbone",
 	        "scan/:item": "item_scan",    //scan for the specific item
 	        "scanned/:item": "item_scanned",    //after the item has been found
 	        "interact/:item/:type/:index": "interact",   //interactive view for item
-            "item/:item": "item",
 
 	        "scan": "scan",
         },
@@ -165,39 +161,6 @@ define([  "backbone",
 
         },
 
-        found_item: function(itemSlug) {
-            this.item(itemSlug, true);
-
-            //links
-            //if(!trail.attributes.isTrail) {
-            //    this.headerView.setPrevURL('#/topic/component');
-            //}
-            this.headerView.setNextURL(null);
-            this.headerView.render();
-
-            FloorTracking.prompttoSwitch = true;
-        },
-        item: function(itemSlug, found) {
-            //default 'found' to false if not specified
-            found = typeof found !== 'undefined' ? found : false;
-
-            var item = window.allItems.findWhere({slug: itemSlug});
-            //Inform the session that we've visited this item
-            var view = new ItemView({
-                item: item,
-                found: found,
-                headerView: this.headerView
-            });
-            this.contentView.setView(view);
-            view.render();
-
-            //links
-            this.headerView.setPrevURL('#/topic/' + window.session.currentTopic.attributes.slug);
-            this.headerView.setNextURL(null);
-            this.headerView.render();
-
-            FloorTracking.prompttoSwitch = false;
-        },
         finished: function() {
             console.error('Finished not implemented.');
         },
