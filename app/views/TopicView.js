@@ -7,7 +7,7 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
             serialize: function() {
                 //serialize trail, topic and items
                 var out = {};
-                //out.trail = this.trail.toJSON();
+                out.trail = window.session.currentTrail.toJSON();
                 out.topic = this.topic.toJSON();
                 //out.items = this.items.toJSON();
                 out.audio_items = new Backbone.Collection(this.items.where({type: 'audio'})).toJSON();
@@ -27,6 +27,30 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
 
 	        },
 
+            events: {
+                "click .show-map-button": "showMap",
+                "click .close-map-overlay": "hideMap",
+                "click .header": "showImage",
+                "click .close-image-overlay": "hideImage"
+            },
+
+            showMap: function(ev) {
+                ev.preventDefault();
+                $('.object-map').show();
+            },
+            hideMap: function(ev) {
+                ev.preventDefault();
+                $('.object-map').hide();
+            },
+
+            showImage: function(ev) {
+                ev.preventDefault();
+                $('.object-full-image').show();
+            },
+            hideImage: function(ev) {
+                ev.preventDefault();
+                $('.object-full-image').hide();
+            }
             //didRangeBeacon: function(data) {
             //    var item = this.beaconsDict[data.major.toString()];
             //    if(item==undefined) {
