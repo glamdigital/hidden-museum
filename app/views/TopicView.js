@@ -30,7 +30,7 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
             events: {
                 "click .show-map-button": "showMap",
                 "click .close-map-overlay": "hideMap",
-                "click .show-image-button": "showImage",
+                "click .header": "showImage",
                 "click .close-image-overlay": "hideImage"
             },
 
