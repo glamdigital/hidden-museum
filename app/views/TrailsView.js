@@ -13,6 +13,7 @@ define(["backbone", "jquery", "hbs!app/templates/trails"], function(Backbone, $,
           this.trails.on('sync', function() {
               this.render();
           }, this);
+          this.listenTo(Backbone, 'nav_info', this.toggleInfoPanel);
           $(window).resize(this.adjustPosition);
       },
       
@@ -31,6 +32,10 @@ define(["backbone", "jquery", "hbs!app/templates/trails"], function(Backbone, $,
           if (this.trails.length > 0) {
               this.render();
           }
+      },
+      
+      toggleInfoPanel: function () {
+        console.log('Info button pressed');
       }
   });
   
