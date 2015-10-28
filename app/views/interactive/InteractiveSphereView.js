@@ -23,6 +23,7 @@ define([
             //this.defaultRotX = params.tiltTowardCam * Math.PI/180 | 0.1;
             this.defaultRotX = params.tiltTowardCam ? (params.tiltTowardCam * Math.PI/180) : 0.1;
             this.lightFromSun = params.lightFromSun | false;
+            this.stopped = false;
         },
 
         afterRender: function () {
@@ -67,7 +68,9 @@ define([
             renderer.setSize($container.width(), $container.height());
             $container.append(renderer.domElement);
 
-            this.animate();
+            //this.animate();
+            this.animReq = requestAnimationFrame(_.bind(this.animate, this) );
+            console.log("requested animation frame");
         },
 
         events: {
@@ -104,21 +107,25 @@ define([
         },
 
         animate: function() {
-            requestAnimationFrame(_.bind(this.animate, this) );
+            if(!this.stopped) {
+                this.animReq = requestAnimationFrame(_.bind(this.animate, this));
+                this.mesh.rotation.x = this.defaultRotX + this.extraRotX;
 
-            this.mesh.rotation.x = this.defaultRotX + this.extraRotX;
+                renderer.render(this.scene, this.camera);
 
-            renderer.render(this.scene, this.camera);
-
-            if(this.numTouches == 0) {
-                if(Math.abs(this.extraRotX) > 0.01) {
-                    this.extraRotX -= Math.sign(this.extraRotX) * 0.02;
+                if(this.numTouches == 0) {
+                    if(Math.abs(this.extraRotX) > 0.01) {
+                        this.extraRotX -= Math.sign(this.extraRotX) * 0.02;
+                    }
                 }
             }
         },
 
         cleanup: function() {
-            //todo cleanup
+            this.stopped = true;
+            delete(this.scene);
+            delete(this.renderer);
+            delete(this.mesh);
         },
 
     });
