@@ -1,8 +1,8 @@
-define(["backbone", "underscore", "app/models/Trail", "app/views/AudioControlsView", "hbs!app/templates/trail_intro"],
-    function(Backbone, _, Trail, AudioControlsView, trailIntro) {
+define(["backbone", "underscore", "app/models/Trail", "app/views/AudioControlsView", "hbs!app/templates/trail"],
+    function(Backbone, _, Trail, AudioControlsView, trail) {
 
     var TrailView = Backbone.View.extend({
-        template: trailIntro,
+        template: trail,
 
         initialize: function(params) {
             this.trails = params.trails
