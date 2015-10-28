@@ -1,9 +1,9 @@
-define(["backbone", "underscore", "hbs!app/templates/topic"],
-    function(Backbone, _, topicTemplate) {
-
+define(["backbone", "underscore", "hbs!app/templates/topic", "app/mixins/overlay"],
+    function(Backbone, _, topicTemplate, overlayMixin) {
+        
         var TopicView = Backbone.View.extend({
             template: topicTemplate,
-
+            
             serialize: function() {
                 //serialize trail, topic and items
                 var out = {};
@@ -14,26 +14,32 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
                 out.interact_items = new Backbone.Collection(this.items.filter(function(item){ return item.attributes.type !== 'audio'; })).toJSON();
                 return out;
             },
-
+            
             initialize: function(params) {
                 //this.trail = params.trail;
                 this.topic = params.topic;
                 this.items = this.topic.items;
-
-                this.beaconsDict = {}
+                
+                this.beaconsDict = {};
+                
+                this.overlayInitialize();
             },
-
-	        afterRender: function() {
-
-	        },
-
+            
+            afterRender: function() {
+                
+            },
+            
+            cleanup: function () {
+                this.overlayCleanup();
+            },
+            
             events: {
                 "click .show-map-button": "showMap",
                 "click .close-map-overlay": "hideMap",
                 "click .header": "showImage",
                 "click .close-image-overlay": "hideImage"
             },
-
+            
             showMap: function(ev) {
                 ev.preventDefault();
                 $('.object-map').show();
@@ -42,7 +48,7 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
                 ev.preventDefault();
                 $('.object-map').hide();
             },
-
+            
             showImage: function(ev) {
                 ev.preventDefault();
                 $('.object-full-image').show();
@@ -76,9 +82,9 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
             //        $itemListEntry.removeClass('nearby');
             //    }
             //}
-
         });
-
+        
+        _.extend(TopicView.prototype, overlayMixin);
+        
         return TopicView;
-
     });

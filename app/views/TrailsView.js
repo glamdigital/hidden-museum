@@ -20,20 +20,15 @@ define(["backbone", "jquery", "hbs!app/templates/trails", "app/mixins/overlay"],
           
           //this.overlaySetTemplate('foo');
           
-          // var baseRender = this.render;
-          // this.render = function () {
-          //   this.overlayMixin
-          // }
-          
-          
-          this.overlayView = new this.OverlayView({el:$('#content-overlay')});
-          
-          this.overlayView.render();
+          this.overlayInitialize();
+      },
+      
+      cleanup: function () {
+        this.overlayCleanup();
       },
       
       afterRender: function() {
         this.adjustPosition();
-        
       },
       
       adjustPosition: function() {
