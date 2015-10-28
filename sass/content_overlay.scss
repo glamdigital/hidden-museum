@@ -19,7 +19,7 @@ $innerBorder: 20px;
         .background {
             position: relative;
             background-color: black;
-            opacity: 0.6;
+            opacity: 0.8;
             width: 100%;
             height: 100%;
         }
@@ -30,7 +30,7 @@ $innerBorder: 20px;
             left: $innerBorder;
             right: $innerBorder;
             bottom: $innerBorder;
-            background-color: red;
+            color: white;
         }
     }
 }
@@ -43,4 +43,11 @@ $innerBorder: 20px;
 
 .content-overlay.hidden {
     display: none;
+}
+
+.overlay-information {
+    em {
+        text-transform: uppercase;
+        font-style: normal;
+    }
 }

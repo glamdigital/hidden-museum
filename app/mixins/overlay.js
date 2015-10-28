@@ -8,12 +8,19 @@ define([
     function (Backbone, _, baseTemplate, defaultInnerTemplate) {
         var overlayMixin = {
             overlaySetTemplate: function (template) {
-                this.overlayView.innerTemplate = template;
-                this.overlayView.render();
+                this.innerView.template = template;
+                this.innerView.render();
             },
             
             overlayInitialize: function () {
+                console.log(this);
+                
+                // Create the views
                 this.overlayView = new this.OverlayView();
+                this.innerView   = new this.InnerView();
+                
+                // The 'rootContext' is the context the mixin gets grafted onto.
+                this.overlayView.rootContext = this;
                 
                 var jContentOverlay = $('#content-overlay');
                 
@@ -34,8 +41,14 @@ define([
             
             overlayCleanup: function () {
                 console.log('Entered overlayCleanup()');
+                
+                if (this.innerView) {
+                    console.log('overlayCleanup() removing inner view');
+                    this.innerView.remove();
+                }
+                
                 if (this.overlayView) {
-                    console.log('overlayCleanup() removing view');
+                    console.log('overlayCleanup() removing overlay view');
                     this.overlayView.remove();
                 }
             }
@@ -48,10 +61,16 @@ define([
                 return {};
             },
             
-            innerTemplate: defaultInnerTemplate,
-            
             initialize: function (params) {
                 this.listenTo(Backbone, 'nav_info', this.toggleVisibility);
+            },
+            
+            afterRender: function () {
+                var jInner = $('#content-overlay .inner');
+                
+                jInner.append(this.rootContext.innerView.el);
+                
+                this.rootContext.innerView.render();
             },
             
             toggleVisibility: function () {
@@ -71,7 +90,16 @@ define([
             }
         });
         
+        var InnerView = Backbone.View.extend({
+            template: defaultInnerTemplate,
+            
+            serialize: function() {
+                return {};
+            }
+        });
+        
         overlayMixin.OverlayView = OverlayView;
+        overlayMixin.InnerView   = InnerView;
         
         return overlayMixin;
     }
