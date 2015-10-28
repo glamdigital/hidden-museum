@@ -12,7 +12,8 @@ define(["backbone", "underscore", "app/models/Trail", "app/views/AudioControlsVi
         },
 
         afterRender: function() {
-
+            $('.trail-content').hide();
+            $('#'+this.selectedTrail.attributes.slug +' > .trail-content').show();
         },
 
         serialize: function() {
@@ -27,8 +28,15 @@ define(["backbone", "underscore", "app/models/Trail", "app/views/AudioControlsVi
         },
 
         events: {
-
+            "click .trail-title" : "onSelectTrail",
         },
+
+        onSelectTrail: function(ev) {
+            var $target = $(ev.target).parent();
+            var slug = $target.attr('id');
+            this.selectedTrail = this.trails.findWhere({'id':slug});
+            this.render();
+        }
 
     });
 
