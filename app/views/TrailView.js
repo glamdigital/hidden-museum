@@ -1,5 +1,5 @@
-define(["backbone", "underscore", "app/models/Trail", "app/views/AudioControlsView", "hbs!app/templates/trail"],
-    function(Backbone, _, Trail, AudioControlsView, trail) {
+define(["backbone", "underscore", "app/models/Trail", "hbs!app/templates/trail"],
+    function(Backbone, _, Trail, trail) {
 
     var TrailView = Backbone.View.extend({
 
@@ -9,11 +9,6 @@ define(["backbone", "underscore", "app/models/Trail", "app/views/AudioControlsVi
             this.trails = params.trails;
             this.selectedTrail = params.selectedTrail;
             this.listenTo(Backbone, 'changed_floor', this.changedFloor);
-        },
-
-        afterRender: function() {
-            $('.trail-content').hide();
-            $('#'+this.selectedTrail.attributes.slug +' > .trail-content').show();
         },
 
         serialize: function() {
@@ -27,6 +22,10 @@ define(["backbone", "underscore", "app/models/Trail", "app/views/AudioControlsVi
             return out;
         },
 
+        afterRender: function() {
+            this.doAccordianMagic(0);
+        },
+
         events: {
             "click .trail-title" : "onSelectTrail",
         },
@@ -34,9 +33,23 @@ define(["backbone", "underscore", "app/models/Trail", "app/views/AudioControlsVi
         onSelectTrail: function(ev) {
             var $target = $(ev.target).parent();
             var slug = $target.attr('id');
-            this.selectedTrail = this.trails.findWhere({'id':slug});
-            this.render();
+            var selectedTrail = this.trails.findWhere({'id':slug});
+            if (selectedTrail != this.selectedTrail) {
+                this.selectedTrail = selectedTrail;
+                this.doAccordianMagic(200);           
+            }
+        },
+
+        doAccordianMagic: function(duration) {
+            var $selectedTrailDiv = $('#'+this.selectedTrail.attributes.slug);
+            var $siblingsToClose = $selectedTrailDiv.siblings()
+            if (duration > 0) {
+                $siblingsToClose = $selectedTrailDiv.siblings('.open');
+            }
+            $selectedTrailDiv.addClass('open').children('.trail-content').slideDown(duration);
+            $siblingsToClose.removeClass('open').children('.trail-content').slideUp(duration);
         }
+
 
     });
 
