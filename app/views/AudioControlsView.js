@@ -36,6 +36,9 @@ define(['backbone', 'hbs!app/templates/audio_controls'],
             }
 
 	        this.updateInterval = setInterval(this.updateElapsed.bind(this), 1000);
+
+            //listen for events that a (nother) piece of audio has been triggered
+            this.listenTo(Backbone, 'audio-player-start', _.bind(this.onAnyAudioPlayerStart, this));
         },
 
         serialize: function() {
@@ -58,6 +61,14 @@ define(['backbone', 'hbs!app/templates/audio_controls'],
             }
         },
 
+        onAnyAudioPlayerStart: function(source) {
+            //if the event didn't originate from us, pause the audio
+            if(source !== this) {
+                console.log('pausing, as other one is playing');
+                this.pauseAudio();
+            }
+        },
+
         getAudioURL: function() {
             path = 'audio/' + this.audio;
             if(device.platform.toLowerCase() === "android") {
@@ -76,6 +87,7 @@ define(['backbone', 'hbs!app/templates/audio_controls'],
             $('#play-audio', this.$el).hide();
             $('#pause-audio', this.$el).show();
             $('#restart-audio', this.$el).show();
+            Backbone.trigger('audio-player-start', this);
         },
 
         pauseAudio: function(ev) {
