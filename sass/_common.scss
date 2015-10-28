@@ -36,3 +36,8 @@ $navTextColor: #444444;
     height: 500px;
   }
 }
+
+.sphere-container {
+  width: 100%;
+  height: $iphone6Height - $headerHeight;
+}
