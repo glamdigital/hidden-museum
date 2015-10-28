@@ -1,4 +1,4 @@
-define(["backbone", "jquery", "hbs!app/templates/trails"], function(Backbone, $, trailsTemplate) {
+define(["backbone", "jquery", "hbs!app/templates/trails", "app/mixins/overlay"], function(Backbone, $, trailsTemplate, overlayMixin) {
 
   var TrailsView = Backbone.View.extend({
       template: trailsTemplate,
@@ -13,11 +13,25 @@ define(["backbone", "jquery", "hbs!app/templates/trails"], function(Backbone, $,
           this.trails.on('sync', function() {
               this.render();
           }, this);
+          
           $(window).resize(this.adjustPosition);
+          
+          //this.overlaySetTemplate('foo');
+          
+          // var baseRender = this.render;
+          // this.render = function () {
+          //   this.overlayMixin
+          // }
+          
+          
+          this.overlayView = new this.OverlayView({el:$('#content-overlay')});
+          
+          this.overlayView.render();
       },
       
       afterRender: function() {
         this.adjustPosition();
+        
       },
       
       adjustPosition: function() {
@@ -33,6 +47,8 @@ define(["backbone", "jquery", "hbs!app/templates/trails"], function(Backbone, $,
           }
       }
   });
+  
+  _.extend(TrailsView.prototype, overlayMixin);
   
   return TrailsView;
 });
