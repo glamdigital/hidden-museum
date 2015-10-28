@@ -3,7 +3,7 @@
     "id": "upper_gallery",
     "title": "Upper Gallery",
     "description": "",
-    "map": "",
+    "map": "maps/upper_gallery_floorplan.jpg",
     "photograph": "galleries/TopGallery.jpg",
     "entryPointBeaconID1": "1443",
     "entryPointBeaconID2": ""
@@ -12,7 +12,7 @@
     "id": "entrance_gallery",
     "title": "Entrance Gallery",
     "description": "",
-    "map": "",
+    "map": "maps/entrance_floorplan.jpg",
     "photograph": "galleries/EntranceGallery.jpg",
     "entryPointBeaconID1": "",
     "entryPointBeaconID2": ""
@@ -21,7 +21,7 @@
     "id": "basement_gallery",
     "title": "Basement Gallery",
     "description": "",
-    "map": "",
+    "map": "maps/basement_floorplan.jpg",
     "photograph": "galleries/BasementGallery.jpg",
     "entryPointBeaconID1": "",
     "entryPointBeaconID2": ""

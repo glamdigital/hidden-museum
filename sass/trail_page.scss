@@ -1,16 +1,30 @@
-//topics screen - a.k.a Object screen / content select screen
+//trail screen - a.k.a Gallery screen / object select screen
 
 @import "_common.scss";
 
-.object-container{
-  .header {
+.trail-container {
+  h2 {
+    width: 100%;
+    padding: 10px 20px 10px 20px;
+    margin: 0;
+    font-size: 20px;
+    background-color: rgba(0,0,0, 0.8);
+    color: white;
+    text-align: left;
+    border: none;
+  }
+  .trail-floorplan {
+    width: 100%;
+    height: 200px;
+  }
+  .topic-list-item {
     width:100%;
     height: $topicHeaderHeight;
     background-size: cover;
     .title {
       @include objectTitle;
     }
-    .zoom {
+    .map-icon {
       float: right;
       font-size: 2em;
       margin: 10px;
@@ -19,55 +33,17 @@
       top: $topicHeaderHeight * 0.6;
     }
   }
-  .map-link {
-    padding: 10px;
-    width: 100%;
-    text-align: center;
-    background: grey;
-    text-decoration: none;
-    border: 1px solid black;
-    border-radius: 2px;
-    a {
-      color: $contentTextColor;
-    }
-  }
   ul {
     margin:0px;
     padding: 0px;
     list-style: none;
     li {
       width: 100%;
-      padding: 20px;
-      text-align: center;
-      &.topic-audio {
-        height: 50px;
-        background: lightgrey;
-        border-top: 1px solid black;
-        border-bottom: 1px solid black;
-      }
-      &.topic-item {
-        width: 96%;
-        margin: 2%;
-        background: grey;
-        border: 1px solid black;
-        border-radius: 5px;
-      }
+      padding: 0;
       a {
         text-decoration: none;
         color: $contentTextColor;
       }
-    }
-  }
-
-  .explore-link {
-    text-align: center;
-    width: 100%;
-    padding: 20px;
-    background: darkgrey;
-    border: 1px solid black;
-    border-radius: 6px;
-    a {
-      color: $contentTextColor;
     }
   }
 }
