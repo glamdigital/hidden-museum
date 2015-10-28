@@ -127,8 +127,8 @@ define([  "backbone",
 
             ////create intro view
             var view = new TrailView({
-                trail: trail,
-                nextURL: "#"
+                trails: window.allTrails,
+                selectedTrail: trail
             });
 
             this.contentView.setView(view);
@@ -136,7 +136,6 @@ define([  "backbone",
 
             //set links
             this.headerView.setPrevURL('#/trails');
-            this.headerView.setNextURL(null);
             this.headerView.render();
 
         },
