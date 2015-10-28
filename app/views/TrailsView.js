@@ -14,6 +14,8 @@ define(["backbone", "jquery", "hbs!app/templates/trails", "app/mixins/overlay"],
               this.render();
           }, this);
           
+          this.listenTo(Backbone, 'nav_info', this.toggleInfoPanel);
+          
           $(window).resize(this.adjustPosition);
           
           //this.overlaySetTemplate('foo');
@@ -45,6 +47,10 @@ define(["backbone", "jquery", "hbs!app/templates/trails", "app/mixins/overlay"],
           if (this.trails.length > 0) {
               this.render();
           }
+      },
+      
+      toggleInfoPanel: function () {
+        console.log('Info button pressed');
       }
   });
   
