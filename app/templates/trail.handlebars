@@ -1,20 +1,20 @@
-<div class="topics-container">
-<h1>{{trail.title}}</h1>
-<p class="description">{{trail.description}}</p>
-    <ul>
-        {{#each topics}}
-            <a href="#topic/{{slug}}"><li id="{{slug}}" class="topic-list-item">
-                <i class="fa fa-chevron-right"></i>
-                <div class="item-thumbnail-container">
-                    <img class="item-thumbnail" src="img/{{image}}" />
-                </div>
-                <div class="main-title">{{title}}</div>
-                <div class="subtitle">{{description}}</div>
-            </li></a>
-        {{/each}}
-    </ul>
-</div>
-{{#if trail.audio}}
-    <div class="audio-controls"></div>
-{{/if}}
-
+{{#each trails}}
+    <div class="trail-container">
+        <h2>{{title}}</h1>
+        <div class="trail-floorplan">
+            <img class="floorpan" src="img/{{map}}" />
+        </div>
+        <ul>
+            {{#each topics}}
+                <a href="#topic/{{slug}}"><li id="{{slug}}" class="topic-list-item">
+                    <i class="fa fa-chevron-right"></i>
+                    <div class="item-thumbnail-container">
+                        <img class="item-thumbnail" src="img/{{image}}" />
+                    </div>
+                    <div class="main-title">{{title}}</div>
+                    <div class="subtitle">{{description}}</div>
+                </li></a>
+            {{/each}}
+        </ul>
+    </div>
+{{/each}}
