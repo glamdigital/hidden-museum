@@ -7,8 +7,10 @@ define([
     
     function (Backbone, _, baseTemplate, defaultInnerTemplate) {
         var overlayMixin = {
-            overlaySetTemplate: function (template) {
-                this.innerView.template = template;
+            overlaySetTemplate: function (template, templateContext) {
+                this.innerView.template        = template;
+                this.innerView.templateContext = templateContext;
+                
                 this.innerView.render();
             },
             
@@ -93,8 +95,10 @@ define([
         var InnerView = Backbone.View.extend({
             template: defaultInnerTemplate,
             
+            templateContext: {},
+            
             serialize: function() {
-                return {};
+                return this.templateContext;
             }
         });
         

@@ -3,9 +3,12 @@ define([
         "app/models/interactive/SextantModel",
         "app/views/interactive/SextantReadingView",
         "hbs!app/templates/interactive/sextant",
+        "app/mixins/overlay",
+        'hbs!app/templates/overlay_interactive_inner'
     ],
-    function(Backbone, SextantModel, SextantReadingView, sextantTemplate) {
-
+    
+    function (Backbone, SextantModel, SextantReadingView, sextantTemplate, overlayMixin, interactiveInnerTemplate) {
+        
         //sextant arm
         armPivot = {x:0.0, y:-0.36};  //rotation centre for the arm as proportion of width, from geometric centre
 
@@ -75,6 +78,18 @@ define([
             $('#content').css("background-color", "transparent");
             this.startingDeviceOrientation = { beta: 90 + DEFAULT_HORIZON };
             this.startTrackingOrientation();
+            
+            this.overlayInitialize();
+            this.overlaySetTemplate(interactiveInnerTemplate, {
+                imagePath: 'img/objects/navigation/Sextant Drawing.jpg',
+                title: 'Use a Sextant',
+                description: '<p>Learn to calculate your latitude using a Sextant</p>' +
+                             '<p>The height of the midday sun on any particular day depends on how far north or south of the equator you are - your latitude. Navigators used a sextant to calculate this.' +
+                             '<p>When you press Start a Sextant interactive will open. Follow the on-screen instructions to calculate your latitude.',
+                startRoute: '#',
+                returnRoute: '#',
+                itemName: 'Navigation at Sea'
+            });
         },
         afterRender: function() {
             this.setup();
@@ -227,14 +242,17 @@ define([
             var $messageDiv = $('#message')[0];
             $('#message').hide();
         },
-	    cleanup: function() {
-		    if (typeof(cordova) != "undefined") {
+        
+        cleanup: function() {
+            if (typeof cordova !== "undefined") {
                 cordova.plugins.camerapreview.stopCamera();
             }
-	    },
-
+            
+            this.overlayCleanup();
+        }
     });
-
+    
+    _.extend(SextantView.prototype, overlayMixin);
+    
     return SextantView;
-
 });
