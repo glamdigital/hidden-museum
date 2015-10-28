@@ -24,16 +24,32 @@ a {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    div {
+    
+    .nav-button {
       height: $headerHeight;
       line-height: $headerHeight;
       display: inline-block;
-      a {
-        font-size: 1.2em;
-        text-decoration: none;
-        vertical-align: middle;
+      color: $navTextColor;
+      font-size: 1.2em;
+      text-decoration: none;
+      vertical-align: middle;
+      
+      a:link {
         color: $navTextColor;
       }
+      
+      a:visited {
+        color: $navTextColor;
+      }
+      
+      a:hover {
+        color: $navTextColor;
+      }
+      
+      a:active {
+        color: $navTextColor;
+      }
+      
       &.header-arrow {
         width: $arrowWidth;
       }
@@ -43,6 +59,11 @@ a {
         text-align:left;
       }
       &.header-home {
+        position:absolute;
+        right:$headerPadding + 20px;
+        text-align:right;
+      }
+      &.header-info {
         position:absolute;
         right:$headerPadding;
         text-align:right;
