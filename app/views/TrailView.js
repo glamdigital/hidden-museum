@@ -1,7 +1,7 @@
 define(["backbone", "underscore", "app/models/Trail", "app/views/AudioControlsView", "hbs!app/templates/trail_intro"],
     function(Backbone, _, Trail, AudioControlsView, trailIntro) {
 
-    var TrailIntroView = Backbone.View.extend({
+    var TrailView = Backbone.View.extend({
         template: trailIntro,
 
         initialize: function(params) {
@@ -69,6 +69,6 @@ define(["backbone", "underscore", "app/models/Trail", "app/views/AudioControlsVi
         }
     });
 
-    return TrailIntroView;
+    return TrailView;
 
 });

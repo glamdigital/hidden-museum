@@ -4,7 +4,7 @@ define([  "backbone",
           "app/collections/TrailsCollection",
           "app/views/HomeView",
           "app/views/TrailsView",
-          "app/views/TrailIntroView",
+          "app/views/TrailView",
           "app/views/TopicView",
           "app/views/FinishedView",
           "app/views/ContentView",
@@ -25,7 +25,7 @@ define([  "backbone",
             TrailsCollection,
             HomeView,
             TrailsView,
-            TrailIntroView,
+            TrailView,
             TopicView,
             FinishedView,
             ContentView,
@@ -126,7 +126,7 @@ define([  "backbone",
             window.session.currentTrail = trail;
 
             ////create intro view
-            var view = new TrailIntroView({
+            var view = new TrailView({
                 trail: trail,
                 nextURL: "#"
             });
