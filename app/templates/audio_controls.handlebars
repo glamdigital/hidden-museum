@@ -1,7 +1,15 @@
 <div class="black-bar audio">
-    <img id="speaker-audio" src="img/white-speaker-128.png" class="audio-control-icon speaker" />
+    <i id="speaker-audio" class="fa fa-volume-up audio-control-icon speaker toggle-audio"/>
+    <div class="audio-info toggle-audio">
+        <span id="media-caption">{{caption}}</span><br>
         <span id="media-elapsed">0:00</span> / {{duration}}
-    <a><img id="play-audio" src="img/white-play-128.png" class="audio-control-icon play" /></a>
-    <img id="pause-audio" src="img/white-pause-128.png" class="audio-control-icon pause" />
-    <img id="restart-audio" src="img/white-skip-to-start-128.png" class="audio-control-icon restart" />
+    </div>
+    <a>
+        <i id="play-audio" class="fa fa-play audio-control-icon play"></i>
+    </a>
+    <i id="pause-audio" class="fa fa-pause audio-control-icon pause" />
+    <i id="restart-audio" class="fa fa-step-backward audio-control-icon restart" />
+    <audio>
+        <source src="audio/{{audio}}" type="audio/mpeg">
+    </audio>
 </div>

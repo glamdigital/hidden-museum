@@ -1,5 +1,15 @@
-define(["backbone", "underscore", "hbs!app/templates/topic"],
-    function(Backbone, _, topicTemplate) {
+define([
+            "backbone",
+            "underscore",
+            "app/views/AudioControlsView",
+            "hbs!app/templates/topic"
+        ],
+    function(
+            Backbone,
+            _,
+            AudioControlsView,
+            topicTemplate
+        ) {
 
         var TopicView = Backbone.View.extend({
             template: topicTemplate,
@@ -10,8 +20,9 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
                 out.trail = window.session.currentTrail.toJSON();
                 out.topic = this.topic.toJSON();
                 //out.items = this.items.toJSON();
-                out.audio_items = new Backbone.Collection(this.items.where({type: 'audio'})).toJSON();
-                out.interact_items = new Backbone.Collection(this.items.filter(function(item){ return item.attributes.type !== 'audio'; })).toJSON();
+                out.audio_items = this.audio_items.toJSON();
+                out.interact_items = this.interact_items.toJSON();
+                this.audioViews = [];
                 return out;
             },
 
@@ -19,12 +30,25 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
                 //this.trail = params.trail;
                 this.topic = params.topic;
                 this.items = this.topic.items;
+                this.audio_items = new Backbone.Collection(this.items.where({type: 'audio'}));
+                this.interact_items = new Backbone.Collection(this.items.filter(function(item){ return item.attributes.type !== 'audio'; }));
 
                 this.beaconsDict = {}
             },
 
 	        afterRender: function() {
-
+                //create the audio players
+                this.audio_items.each(_.bind(function(item, i, list) {
+                    var $audioContainer =$('#audio-' + item.attributes.id);
+                    var audioView = new AudioControlsView({
+                        audio: item.attributes.audio,
+                        caption: item.attributes.title,
+                        duration: item.attributes.audio_duration,
+                        el: $audioContainer,
+                    });
+                    audioView.render();
+                    this.audioViews.push( audioView );
+                },this));
 	        },
 
             events: {
