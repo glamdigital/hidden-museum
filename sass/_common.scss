@@ -27,3 +27,12 @@ $itemHeight: 40px;
 
 $contentTextColor: black;
 $navTextColor: #444444;
+
+#content {
+  width: 100%;
+  height: 500px;
+  div {
+    width: 100%;
+    height: 500px;
+  }
+}

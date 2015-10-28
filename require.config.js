@@ -15,7 +15,8 @@ require.config({
     hbs: "app/libs/require-handlebars-plugin/hbs",
     jasmine: "app/libs/jasmine/lib/jasmine-core",
     fulltilt: "app/libs/fulltilt/dist/fulltilt",
-    moment: "app/libs/momentjs/moment"
+    moment: "app/libs/momentjs/moment",
+    three: "app/libs/three.js/three"
   },
   packages: [
 

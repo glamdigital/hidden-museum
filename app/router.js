@@ -19,7 +19,8 @@ define([  "backbone",
           "app/floor_tracking",
 		  "app/views/interactive/SextantView",
           "app/views/interactive/AlmanacView",
-          "app/models/interactive/SextantModel"
+          "app/models/interactive/SextantModel",
+          "app/views/interactive/InteractiveSphereView",
 		],
   function(Backbone, $, _,
             TrailsCollection,
@@ -40,7 +41,8 @@ define([  "backbone",
             FloorTracking,
             SextantView,
             AlmanacView,
-            SextantModel
+            SextantModel,
+            InteractiveSphereView
         ) {
 
     var SEVRouter = Backbone.Router.extend({
@@ -89,6 +91,8 @@ define([  "backbone",
 	        "interact/:item/:type/:index": "interact",   //interactive view for item
 
 	        "scan": "scan",
+
+            "spheretest": "spheretest",
         },
         
         home: function() {
@@ -227,7 +231,15 @@ define([  "backbone",
             }
 		    this.contentView.setView(interactView);
 		    interactView.render();
-	    }
+	    },
+        spheretest: function() {
+            var sphereView = new InteractiveSphereView({
+                texture: 'img/objects/globe/map_texture_9.jpg',
+            });
+
+            this.contentView.setView(sphereView);
+            sphereView.render();
+        }
     });
 
     return SEVRouter;
