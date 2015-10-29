@@ -15,7 +15,7 @@ a {
 }
 
 .pr-header-container {
-  padding: $headerPadding 0px;
+  padding: 2*$headerPadding 0px $headerPadding;
   text-align: center;
   background-color: white;
   .pr-header {
