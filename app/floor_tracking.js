@@ -6,28 +6,29 @@ define(['app/logging', 'backbone', 'underscore', 'app/models/trail', 'app/views/
     function(Logging, Backbone, _, Trail, UserPromptView) {
         var FloorTracking = Backbone.Model.extend(
             {
-            initialize : function(topics) {
-                ////subscribe to relevant beacon events
-                //topics.each( function(topic) {
-                //    for(var i=0; i<topic.attributes.entryPointBeaconIDs.length; i++) {
-	             //       var beaconID = topic.attributes.entryPointBeaconIDs[i]
-	             //       var eventId = 'beaconRange:' + beaconID;
-	             //       this.listenTo(Backbone, eventId, this.beaconRanged);
-	             //       this.beaconsDict[beaconID.toString()] = topic;
-                //    }
-                //}, this);
-                //this.promptsSuppressed = false;
+            initialize : function() {
+                //subscribe to relevant beacon events
+                window.allTrails.each(_.bind(function(trail) {
+                    for(var i=0; i<trail.attributes.entryPointBeaconIDs.length; i++) {
+	                    var beaconID = trail.attributes.entryPointBeaconIDs[i]
+	                    var eventId = 'beaconRange:' + beaconID;
+	                    this.listenTo(Backbone, eventId, _.bind(this.beaconRanged, this));
+	                    this.beaconsDict[beaconID.toString()] = trail;
+                    }
+                }, this));
+                this.promptToSwitch = false;
+                this.promptsSuppressed = false;
 
             },
 
             beaconRanged: function(data) {
                 //if we're near to a beacon that's different than the current one
                 if(data.proximity === "ProximityNear") {
-                    if(this.currentTopic===null || this.currentTopic.attributes.entryPointBeaconIDs.indexOf(data.major.toString()) < 0) {
+                    if(window.session.currentPhysicalTrail===null || window.session.currentPhysicalTrail.attributes.entryPointBeaconIDs.indexOf(data.major.toString()) < 0) {
                         //This is a new floor. update current floor and emit a message
-                        this.currentTopic = this.beaconsDict[data.major.toString()];
-                        Backbone.trigger('changed_floor', this.currentTopic.attributes.slug);
-                        if(FloorTracking.promptToSwitch && !this.promptsSuppressed) {
+                        window.session.currentPhysicalTrail = this.beaconsDict[data.major.toString()];
+                        Backbone.trigger('changed_floor', window.session.currentPhysicalTrail.attributes.slug);
+                        if(this.promptToSwitch && !this.promptsSuppressed) {
                             this.suppressPrompts();
                             this.promptToSwitchFloor();
                         }
@@ -35,7 +36,7 @@ define(['app/logging', 'backbone', 'underscore', 'app/models/trail', 'app/views/
                 }
             },
             promptToSwitchFloor: function(floorSlug) {
-                var title = "Entering " + this.currentTopic.attributes.title;
+                var title = "Entering " + window.session.currentPhysicalTrail.attributes.title;
                 var message = "Switch to this area?";
 
                 //create the alert view
@@ -54,7 +55,7 @@ define(['app/logging', 'backbone', 'underscore', 'app/models/trail', 'app/views/
             },
 
             switchFloor: function() {
-                Backbone.history.navigate('#/topic/' + this.currentTopic.attributes.slug);
+                Backbone.history.navigate('#/trail/' + window.session.currentPhysicalTrail.attributes.slug);
                 this.unsuppressPromptsWithDelay(5000);
             },
 
@@ -73,7 +74,6 @@ define(['app/logging', 'backbone', 'underscore', 'app/models/trail', 'app/views/
                 this.promptsSuppressed = false;
             },
 
-            currentTopic: null,
             beaconsDict: {}
         },
         {

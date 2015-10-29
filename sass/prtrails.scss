@@ -1,8 +1,4 @@
-$headerHeight: 40px;
-$headerPadding: 10px;
-$arrow-width: 90px;
-$audio-height: 30px;
-$statusBar-height: 20px;
+@import "_common.scss";
 
 @mixin flip() {
   -moz-transform: scaleX(-1);
@@ -14,8 +10,12 @@ $statusBar-height: 20px;
 }
 
 
+a {
+  text-decoration: none;
+}
+
 .pr-header-container {
-  padding: $headerPadding 0px;
+  padding: 2*$headerPadding 0px $headerPadding;
   text-align: center;
   background-color: white;
   .pr-header {
@@ -24,30 +24,49 @@ $statusBar-height: 20px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    div {
+    
+    .nav-button {
       height: $headerHeight;
+      line-height: $headerHeight;
       display: inline-block;
-      a {
-        font-size: 1.4em;
-        text-decoration: none;
+      color: $navTextColor;
+      font-size: 1.2em;
+      text-decoration: none;
+      vertical-align: middle;
+      
+      a:link {
+        color: $navTextColor;
       }
+      
+      a:visited {
+        color: $navTextColor;
+      }
+      
+      a:hover {
+        color: $navTextColor;
+      }
+      
+      a:active {
+        color: $navTextColor;
+      }
+      
       &.header-arrow {
-        width: $arrow-width;
+        width: $arrowWidth;
       }
       &.arrow-left {
         position:absolute;
         left:$headerPadding;
-        top:$statusBar-height + 10px;
         text-align:left;
       }
-      &.arrow-right {
+      &.header-home {
         position:absolute;
-        right:$headerPadding;
-        top:$statusBar-height + 10px;
+        right:$headerPadding + 30px;
         text-align:right;
       }
-      &.header-logo {
-        padding: 0px 2%;
+      &.header-info {
+        position:absolute;
+        right:$headerPadding;
+        text-align:right;
       }
     }
   }
@@ -97,31 +116,15 @@ table.social-links-table {
 }
 
 div.black-bar {
+  border-radius: 5px;
   width: auto;
   background: black;
   padding: 5px 12px;
   color: white;
   font-size: 1em;
   line-height: 2.2em;
-  &.audio {
-    height: $audio-height;
-    img.audio-control-icon {
-      height: $audio-height;
-      width: $audio-height;
-      float: right;
-      padding: 0px 10px;
-      &.pause {
-        display: none;
-      }
-      &.restart {
-        display: none;
-      }
-      &.speaker {
-        padding-right: 20px;
-        float: left;
-      }
-    }
-  }
+  text-decoration: none;
+  
   &.map-link {
     height: 40px;
   }
@@ -203,4 +206,45 @@ div.code-input {
 
 .item-image {
   max-height: 300px;
+}
+
+div.scan-container {
+  height: 1000px;
+  #header {
+    width: 100%;
+    height: 120px;
+    background: white;
+  }
+  .scan-instructions {
+    padding: 5px 20px;    
+  }
+  .preview {
+    height: 1000px;
+    opacity:0.4;
+    background-image: url(../img/moon-sketch.png);
+    background-color: white;
+    background-size: 500px;
+    background-position-x: -70px;
+    background-position-y: -120px;
+  }
+  img {
+    width: 100%;
+  }
+}
+
+.scanned-view {
+  background: url(../img/moon/back/moon-back.jpg);
+  background-size: 500px;
+  background-position-x: -70px;
+  height: 1000px;
+
+  .item-title {
+    background: white;
+    opacity: 0.8;
+    padding: 10px 20px 20px 20px;
+  }
+
+  video {
+    display: none;
+  }
 }

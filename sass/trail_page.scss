@@ -1,0 +1,115 @@
+//trail screen - a.k.a Gallery screen / object select screen
+
+@import "_common.scss";
+
+.trail-container {
+  border-top:1px solid black;
+  h2 {
+    width: 100%;
+    padding: 10px 20px 10px 10px;
+    margin: 0;
+    font-size: 20px;
+    background-color: rgba(0,0,0, 0.8);
+    color: white;
+    text-align: left;
+    border: none;
+    &.current {
+      background-color: red;
+    }
+  }
+  .trail-floorplan {
+    width: 100%;
+    height: 180px;
+    position: relative;   //so that child map markers can be positioned absolutely
+  }
+  .topic-list-item {
+    width:100%;
+    height: $topicListItemHeight;
+    background-size: cover;
+    border-bottom: 1px black;
+    .title {
+      @include objectTitle;
+      top: $topicListItemHeight - 44px;
+    }
+
+  }
+  ul {
+    margin:0px;
+    padding: 0px;
+    list-style: none;
+    li {
+      width: 100%;
+      padding: 0;
+      a {
+        text-decoration: none;
+        color: $contentTextColor;
+      }
+    }
+  }
+}
+
+.map-icon {
+  float: right;
+  font-size: 1em;
+  margin: 10px;
+  color: $navTextColor;
+  position: relative;
+  top: $topicListItemHeight - $markerDiameter - 20px;
+  background: white;
+  border-radius: $markerDiameter;
+  height: $markerDiameter;
+  width: $markerDiameter;
+  text-align: center;
+  line-height: 38px;
+  font-weight: bold;
+  box-sizing: border-box;
+  &.on-map {
+    position: absolute;
+  }
+  &.nearby {
+    line-height: 36px;
+    border: 2px solid red;
+  }
+}
+
+/* adjustments needed because the basement has 3 items */
+#basement_gallery {
+  .topic-list-item {
+    height: $topicListItemHeight * 2/3;
+    .title {
+      top: $topicListItemHeight * 2/3 - 44px;
+    }
+    .map-icon {
+      top: $topicListItemHeight * 2/3 - $markerDiameter - 20px;
+    }
+  }
+
+}
+
+.overlay {
+  background: rgba(0,0,0,1);
+  width: 100%;
+  height: $iphone6Height;
+  display: none;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 10000;
+  &.overlay-image {
+    text-align: center;
+    i.close-overlay {
+      font-size: 3em;
+      float: right;
+      color: $navTextColor;
+    }
+    img {
+      position: relative;
+      top: 60px;
+      width: 100%;
+      &.photograph {
+        top: 0px;
+      }
+    }
+  }
+}
+

@@ -1,22 +1,22 @@
 @import "compass/css3";
-$phone: "only screen and (max-width: 767px)";
-$tablet: "only screen and (min-width: 768px)";
-$landscape-test: "only screen and (orientation: landscape)";
-$portrait-test: "only screen and (orientation: portrait)";
-$landscape: "(orientation:landscape)";
-$portrait: "(orientation:portrait)";
-$standardFontFamily: "Helvetica Neue", "Droid Sans", sans-serif;
-$standardPadding: 5px;
-$corner-radius: 5px;
-$navBarWidth: 250px;
-$fontColor: black;
-$videoAspectRatio: 1.7777777778;
-$headerHeight: 40px;
-$headerPadding: 10px;
+@import "_common.scss";
 
 
 @mixin rounded-corners {
-  border-radius: $corner-radius;
+  border-radius: $cornerRadius;
+}
+
+html {
+  background-color: transparent;
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none; /* Disable selection/copy in UIWebView */
 }
 
 body {
@@ -99,8 +99,8 @@ a.nav-link {
   top: $headerHeight + 2*$headerPadding;
   left: 0;
   position: fixed;
-  background-color: white;
-  color: black;
+  background-color: transparent;
+  color: $contentTextColor;
   z-index: 2;
   width: 100%;
   height: 100%;
@@ -309,6 +309,7 @@ div.item-title {
   font-size: x-small;
 }
 
+
 .question {
   display: inline;
   min-height: 0px;
@@ -352,21 +353,28 @@ div.item-title {
   display:none;
 }
 
-div.button {
+.button {
   &.center {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
     display: block;
-  }
-  a {
     padding: 2*$standardPadding;
     border-style: solid;
     border-radius: 5px;
-    border-width: 1px;
-    background-color: lightgrey;
+    border-width: 5px;
+    border-color: #333;
+    background-color: #923841;
     text-decoration: none;
-    color: $fontColor;
+    color: white;
+    width:90%;
+
+    border-top: 5px solid #ffaaaa;
+    border-left: 5px solid #ffcccc;
+    border-right: 5px solid #220000;
+    border-bottom: 5px solid #550000;
+
+
   }
   margin: 10px;
 }
@@ -387,14 +395,237 @@ div.button {
       display: inline;
     }
   }
-  &.landscape {
-    @media #{$landscape-test} {
-      display: inline;
+}
+.interactive {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  &#sextant {
+    #instructions {
+      padding: 2px;
+      background-image: url(../img/parchment-tan.jpg);
+      background-color: #edddc1;
+      background-size: 375px;
+      font-size: 1.1em;
+      line-height: 1.4em;
+      ol {
+        padding-top: $standardPadding;
+        margin: 0;
+      }
+      p {
+        margin:0;
+        padding-top: $standardPadding+3px;
+        text-align: center;
+      }
+      height:140px;
+      width: 100%;
     }
+    #viewfinder {
+      //clip-path: url(#clipping);
+      width: 100%;
+      height: $sextantCapturedImageHeight;
+      //mask-type: luminance;
+      -webkit-mask-source-type: luminance;
+      mask-image: url(../img/circle_mask.png);
+      -webkit-mask-image: url(../img/circle_mask.png);
+      -webkit-mask-position-x: 50%;
+      -webkit-mask-size:$sextantCapturedImageHeight;
+      -webkit-mask-repeat: no-repeat;
+
+
+
+      clip-path: circle(60px at center);
+      #captured-image {
+        position: absolute;
+        top: 138.5px;
+        width: 50%;
+        height: $sextantCapturedImageHeight;
+        background-size: 380px;
+        background-position-y: -240px;
+        z-index: 1000;
+        display: inline;
+        #alignment-indicator {
+          position: relative;
+          top: 50%;
+          width: 100%;
+          border-top: 1px solid red;
+        }
+      }
+      #sky {
+        clear: right;
+        background-image: url(../img/sun_sky.png);
+        background-size: 500px;
+        background-position-y: 555px; //to get the sea level in center initially
+        background-position-x: -205px; //to get the sun centered left-right
+        height: $sextantCapturedImageHeight;
+        width: 100%;
+        float: right;
+      }
+    }
+
+    #message {
+      padding: $standardPadding;
+      position: absolute;
+      top:0;
+      height:355px;
+      width:100%;
+      background-image: url(../img/parchment-tan.jpg);
+      background-color: #edddc1;
+      background-size: 375px;
+      font-size: 1.1em;
+      line-height: 1.4em;
+      p {
+        margin:0;
+        padding-bottom: $standardPadding + 3px;
+        text-align: center;
+      }   
+    }
+    #feedback {
+      position: fixed;
+      bottom: 0;
+      height: 270px;
+      width: 100%;
+      background: white;
+      background-position: center top;
+      background-size: auto 270px;
+      z-index: 1000;
+      #value-indicator {
+        border-top: 2px solid red;
+        color: $contentTextColor;
+        text-shadow: 2px 2px #edddc1;
+        font-size: 1.3em;
+        position:absolute;
+        text-align: right;
+        padding-right: $standardPadding * 2;
+        width:100%;
+      }
+      #sextant {
+        top: 5%;
+      width: 100%;
+        z-index: 500;
+        img {
+          position: absolute;
+          width: 100%;
+        }
+        canvas#sextant-reading {
+          width: 100%;
+          top: 220px;
+        }
+      }
+      #reference-indicator {
+        border-top: 1px solid black;
+        color: $contentTextColor;
+        text-shadow: 1px 1px #ccc;
+        font-size: 1.3em;
+        position:absolute;
+        text-align: right;
+        padding-right: $standardPadding * 2;
+        width:100%;    
+      }
+    }
+
+.ring {
+  //ring
+  height: $sextantCapturedImageHeight;
+  width: $sextantCapturedImageHeight;
+  margin-left: auto;
+  margin-right: auto;
+  border: 20px solid darkgoldenrod;
+  border-radius: $sextantCapturedImageHeight / 2;
+  z-index: 10000;
+  position: absolute;
+  left: 20.5%;
+}
+
+#controls {
+  padding: $standardPadding;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 90px;
+  width: 100%;
+  background: #333;
+  z-index: 1001;  //just above canvas for reading
+  &.image-recognised {
+    background: white;
   }
-  &.portrait {
-    @media #{$portrait-test} {
-      display: inline;
+  .button {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 40px;
+    margin-top: 8px;
+    //width:80px;
+    //height:80px;
+    //border-radius: 50%;
+    //border: 2px solid #111;
+    background: #923841;
+    color: white;
+    font-size: 1.4em;
+  }
+    }
+
+    #tabs {
+      width: 100%;
+      .tab {
+        display: block;
+        float: left;
+        width:50%;
+        height: $tabHeight;
+        text-align: center;
+        line-height: $tabHeight;
+      }
+    }
+
+    &.view-1 {
+      #instructions {
+        position: absolute;
+        top: $tabHeight;
+        height: 315px;
+        width: 100%;
+        background-position: 0 -1*$tabHeight;
+        &.pole-star {
+          background-image: url(../img/parchment-tan-dark.jpg); 
+          background-size: 375px;
+          background-position: 0 -1*$tabHeight;
+          color: white;
+        }
+      }
+      #message {
+        display:none;
+      }
+      #feedback {
+        padding: 0 $standardPadding;
+        position: fixed;
+        bottom: 0;
+        height: 270px;
+        width: 100%;
+        background-image: url(../img/navigation-map.jpg);
+        background-position: center top;
+        background-size: auto 270px;
+      }
+      #value-indicator {
+        border-top: 2px solid red;
+        color: $contentTextColor;
+        text-shadow: 2px 2px #edddc1;
+        font-size: 1.3em;
+        position:absolute;
+        text-align: right;
+        padding-right: $standardPadding * 2;
+        width:100%;
+      }
+      #tabs {
+        #sun {
+          background-image: url(../img/parchment-tan.jpg);
+          background-size: 375px;
+        }
+        #pole-star {
+          background-image: url(../img/parchment-tan-dark.jpg);
+          background-size: 375px;
+          color: white;
+        }
+      }
     }
   }
 }
+
