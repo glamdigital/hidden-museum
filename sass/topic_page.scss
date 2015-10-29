@@ -48,6 +48,50 @@
         background: lightgrey;
         border-top: 1px solid black;
         border-bottom: 1px solid black;
+        padding: 0px;
+        .audio {
+          height: $audioHeight;
+          line-height: $audioHeight * 0.5;
+          margin-top: 5px;
+          margin-bottom: 0px;
+          text-align: left;
+          background: transparent;
+          color: $navTextColor;
+          .audio-info {
+            margin-left: 5px;
+            display: inline-block;
+            text-align: left;
+            #media-caption {
+              //      text-align: left;
+              //        padding-right: 1em;
+              font-size: 1.0em;
+              font-weight: bold;
+              line-height: 0.9em;
+            }
+            #media-progress {
+              line-height: 1.2em;
+              font-size: 0.8em;
+              margin-top: 3px;
+            }
+
+          }
+          .audio-control-icon {
+            float: right;
+            padding: 0;
+            padding-right: 10px;
+            color: $navTextColor;
+            font-size: 1.5em;
+            &.pause {
+              display: none;
+            }
+            &.restart {
+              display: none;
+            }
+            &.speaker {
+              float: left;
+            }
+          }
+        }
       }
       &.topic-item {
         width: 96%;

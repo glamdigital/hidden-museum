@@ -12,6 +12,9 @@
     color: white;
     text-align: left;
     border: none;
+    &.current {
+      background-color: red;
+    }
   }
   .trail-floorplan {
     width: 100%;
@@ -54,10 +57,15 @@
   height: $markerDiameter;
   width: $markerDiameter;
   text-align: center;
-  line-height: $markerDiameter;
+  line-height: 38px;
   font-weight: bold;
+  box-sizing: border-box;
   &.on-map {
     position: absolute;
+  }
+  &.nearby {
+    line-height: 36px;
+    border: 2px solid red;
   }
 }
 

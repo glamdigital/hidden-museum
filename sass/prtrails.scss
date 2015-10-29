@@ -124,26 +124,7 @@ div.black-bar {
   font-size: 1em;
   line-height: 2.2em;
   text-decoration: none;
-
-  &.audio {
-    height: $audioHeight;
-    img.audio-control-icon {
-      height: $audioHeight;
-      width: $audioHeight;
-      float: right;
-      padding: 0px 10px;
-      &.pause {
-        display: none;
-      }
-      &.restart {
-        display: none;
-      }
-      &.speaker {
-        padding-right: 20px;
-        float: left;
-      }
-    }
-  }
+  
   &.map-link {
     height: 40px;
   }
