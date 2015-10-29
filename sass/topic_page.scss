@@ -3,6 +3,10 @@
 @import "_common.scss";
 
 .object-container{
+  &.nearby {
+    background: red;
+  }
+
   .header {
     width:100%;
     height: $topicHeaderHeight;

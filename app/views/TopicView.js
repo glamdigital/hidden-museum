@@ -20,7 +20,10 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
                 this.topic = params.topic;
                 this.items = this.topic.items;
 
-                this.beaconsDict = {}
+                //listen for the relevant beacon
+                var eventName = 'beaconRange:' + this.topic.attributes.beaconID;
+                this.listenTo(Backbone, eventName, this.didRangeBeacon);
+                this.isNearItem = false;
             },
 
 	        afterRender: function() {
@@ -50,32 +53,26 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
             hideImage: function(ev) {
                 ev.preventDefault();
                 $('.object-full-image').hide();
+            },
+
+            didRangeBeacon: function(data) {
+                if(data.proximity === 'ProximityImmediate' || data.proximity == 'ProximityNear')
+                {
+                    ////vibrate if this is a transition to near
+                    if(navigator.notification && !this.isNearItem) {
+                        navigator.notification.vibrate(500);
+                        //add class to item to make bg cycle
+                        $('.object-container').addClass('nearby');
+                        this.isNearItem = true;
+                    }
+
+                }
+                else {
+                    //remove class which makes bg cycle
+                    $('.object-container').removeClass('nearby');
+                    this.isNearItem = false;
+                }
             }
-            //didRangeBeacon: function(data) {
-            //    var item = this.beaconsDict[data.major.toString()];
-            //    if(item==undefined) {
-            //        alert("undefined beacon in dict from data: " + data);
-            //        return;
-            //    }
-            //    var $itemListEntry = $('#item-'+item.attributes.slug);
-            //    if($itemListEntry.length == 0) {
-            //        alert("No item list entries found for item")
-            //    }
-            //    if(data.proximity === 'ProximityImmediate' || data.proximity == 'ProximityNear')
-            //    {
-            //        ////vibrate if this is a transition to near
-            //        if(navigator.notification && !$itemListEntry.hasClass('nearby')) {
-            //            navigator.notification.vibrate(500);
-            //        }
-            //
-            //        //add class to item to make bg cycle
-            //        $itemListEntry.addClass('nearby');
-            //    }
-            //    else {
-            //        //remove class which makes bg cycle
-            //        $itemListEntry.removeClass('nearby');
-            //    }
-            //}
 
         });
 

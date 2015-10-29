@@ -1,14 +1,14 @@
 [
   {
     "id": "navigation",
-    "title": "Navigation",
+    "title": "Navigation at Sea",
     "description": "",
     "gallery": "upper_gallery",
     "photograph": "objects/navigation/Sextant.jpg",
     "photograph_cropped": "objects/navigation/Sextant_cropped.jpg",
     "map": "maps/Upper Gallery.JPG",
     "sketch": "",
-    "beaconID": "",
+    "beaconID": "12518",
     "mapX": "0.05",
     "mapY": "0.7"
   },
@@ -21,7 +21,7 @@
     "photograph_cropped": "objects/globe/All-Souls-Globe_cropped.jpg",
     "map": "maps/Upper Gallery.JPG",
     "sketch": "",
-    "beaconID": "",
+    "beaconID": "50197",
     "mapX": "0.6",
     "mapY": "0.7"
   },
@@ -34,7 +34,7 @@
     "photograph_cropped": "objects/moon_globe/Selenographia_cropped.jpg",
     "map": "maps/Entrance Floor Plan.JPG",
     "sketch": "",
-    "beaconID": "",
+    "beaconID": "61866",
     "mapX": "0.25",
     "mapY": "0.25"
   },
@@ -47,7 +47,7 @@
     "photograph_cropped": "objects/armillary/9061-Armillary-sphere_cropped.jpg",
     "map": "maps/Entrance Floor Plan.JPG",
     "sketch": "",
-    "beaconID": "",
+    "beaconID": "30098",
     "mapX": "0.15",
     "mapY": "0.35"
   },
@@ -60,33 +60,33 @@
     "photograph_cropped": "objects/blackboard/Einstein_cropped.jpg",
     "map": "maps/Basement Floor Plan (4).JPG",
     "sketch": "",
-    "beaconID": "",
+    "beaconID": "12616",
     "mapX": "0.72",
     "mapY": "0.24"
   },
   {
     "id": "marconi",
-    "title": "Marconi's thing",
+    "title": "Marconi Collection",
     "description": "",
     "gallery": "basement_gallery",
     "photograph": "objects/marconi/Marconi.jpg",
     "photograph_cropped": "objects/marconi/Marconi_cropped.jpg",
     "map": "maps/Basement Floor Plan (4).JPG",
     "sketch": "",
-    "beaconID": "",
+    "beaconID": "21925",
     "mapX": "0.2",
     "mapY": "0.5"
   },
   {
     "id": "lodestone",
-    "title": "Lodestone",
+    "title": "Westmorland Lodestone",
     "description": "",
     "gallery": "basement_gallery",
     "photograph": "objects/lodestone/imu-media.jpg",
     "photograph_cropped": "objects/lodestone/Lodestone_cropped.jpg",
     "map": "maps/Basement Floor Plan (4).JPG",
     "sketch": "",
-    "beaconID": "",
+    "beaconID": "5744",
     "mapX": "0.35",
     "mapY": "0.4"
   }
