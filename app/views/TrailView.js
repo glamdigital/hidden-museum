@@ -51,6 +51,11 @@ define(["backbone", "underscore", "app/models/Trail", "hbs!app/templates/trail"]
             for (var i=0; i< this.trails.length; i++) {
                 var topicsJSON = this.trails.models[i].getTopics().toJSON();
                 out.trails[i]['topics'] = topicsJSON;
+                if(this.trails.at(i) == window.session.currentPhysicalTrail) {
+                    out.trails[i].current = true;
+                } else {
+                    out.trails[i].current = false;
+                }
             }
             out.trail_slug = this.selectedTrail.attributes.slug;
             return out;
@@ -94,7 +99,11 @@ define(["backbone", "underscore", "app/models/Trail", "hbs!app/templates/trail"]
                     $('#index-marker-' + topic.attributes.slug).removeClass('nearby');
                 }
             }
+        },
 
+        changedFloor: function(data) {
+            $('h2.trail-title').removeClass('current');
+            $('#trail-title-' + data).addClass('current');
         }
 
 

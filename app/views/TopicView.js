@@ -24,6 +24,9 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
                 var eventName = 'beaconRange:' + this.topic.attributes.beaconID;
                 this.listenTo(Backbone, eventName, this.didRangeBeacon);
                 this.isNearItem = false;
+
+                //listen for floor chagnes
+                this.listenTo(Backbone, 'changed_floor', this.onChangeFloor);
             },
 
 	        afterRender: function() {
@@ -72,6 +75,10 @@ define(["backbone", "underscore", "hbs!app/templates/topic"],
                     $('.object-container').removeClass('nearby');
                     this.isNearItem = false;
                 }
+            },
+
+            onChangeFloor: function(data) {
+
             }
 
         });

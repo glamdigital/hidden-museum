@@ -33,6 +33,21 @@ define(["backbone", "app/collections/topicsCollection"], function(Backbone, Topi
 	    t.showImgAfterVideo = response.show_img_after_video == "TRUE";
 
 	    t.useQRCodes = response.use_qr_codes == "TRUE";
+
+        //read in all possible entry point beacon IDs to an array.
+        t.entryPointBeaconIDs = [];
+        var foundEmptyEntryPoint = false;
+        var j=1;
+        while(!foundEmptyEntryPoint) {
+          var entryPointKey = "entryPointBeaconID" + j;
+          if(response[entryPointKey]) {
+            t.entryPointBeaconIDs.push(response[entryPointKey]);
+          } else {
+            foundEmptyEntryPoint = true;
+          }
+          j++;
+        }
+
         return t;
     }
 

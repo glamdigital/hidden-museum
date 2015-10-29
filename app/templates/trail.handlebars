@@ -1,6 +1,6 @@
 {{#each trails}}
     <div id="{{slug}}" class="trail-container">
-        <h2 class="trail-title">{{title}}</h2>
+        <h2 id="trail-title-{{slug}}" class="trail-title {{#if current}}current{{/if}}">{{title}}</h2>
         <div class="trail-content">
             <div class="trail-floorplan" id="floorplan-{{slug}}">
                 <img class="floorpan" src="img/{{map}}" />
