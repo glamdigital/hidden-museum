@@ -15,8 +15,6 @@ define([
             },
             
             overlayInitialize: function (config) {
-                console.log(this);
-                
                 // Create the views
                 this.overlayView = new this.OverlayView();
                 this.innerView   = new this.InnerView();
@@ -47,15 +45,15 @@ define([
             },
             
             overlayCleanup: function () {
-                console.log('Entered overlayCleanup()');
+                //console.log('Entered overlayCleanup()');
                 
                 if (this.innerView) {
-                    console.log('overlayCleanup() removing inner view');
+                    //console.log('overlayCleanup() removing inner view');
                     this.innerView.remove();
                 }
                 
                 if (this.overlayView) {
-                    console.log('overlayCleanup() removing overlay view');
+                    //console.log('overlayCleanup() removing overlay view');
                     this.overlayView.remove();
                 }
             }
@@ -91,15 +89,15 @@ define([
                 
                 var jContentOverlay = $('#content-overlay');
                 
-                console.log('nav_info received by overlay, isHidden=' + jContentOverlay.hasClass('hidden'));
+                //console.log('nav_info received by overlay, isHidden=' + jContentOverlay.hasClass('hidden'));
                 
                 if (jContentOverlay.hasClass('hidden')) {
-                    console.log('showing overlay');
+                    //console.log('showing overlay');
                     this.render();
                     jContentOverlay.removeClass('hidden');
                 }
                 else {
-                    console.log('hiding overlay');
+                    //console.log('hiding overlay');
                     jContentOverlay.addClass('hidden');
                 }
             }
