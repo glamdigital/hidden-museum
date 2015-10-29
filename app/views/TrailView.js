@@ -10,13 +10,23 @@ define(["backbone", "underscore", "app/models/Trail", "hbs!app/templates/trail"]
             this.selectedTrail = params.selectedTrail;
             this.listenTo(Backbone, 'changed_floor', this.changedFloor);
 
+            //beacon data
+            this.beaconsDict = {
+                topics: {},
+                galleries: {}
+            };
+
             //store the index for each object within its own gallery
-            this.trails.each( function(trail) {
+            this.trails.each(_.bind(function(trail) {
                var topics = trail.topics;
-                topics.each( function(topic, index) {
+                topics.each(_.bind(function(topic, index) {
                    topic.set({galleryIndex: index+1});
-                });
-            });
+                    var eventID = 'beaconRange:' + topic.attributes.beaconID;
+                    this.listenTo(Backbone, eventID, this.didRangeBeacon);
+                    this.beaconsDict.topics[topic.attributes.beaconID.toString()] = topic;
+                }, this));
+
+            },this));
         },
 
         afterRender: function() {
@@ -36,7 +46,7 @@ define(["backbone", "underscore", "app/models/Trail", "hbs!app/templates/trail"]
         },
 
         serialize: function() {
-            var out = {}
+            var out = {};
             out.trails = this.trails.toJSON();
             for (var i=0; i< this.trails.length; i++) {
                 var topicsJSON = this.trails.models[i].getTopics().toJSON();
@@ -45,7 +55,6 @@ define(["backbone", "underscore", "app/models/Trail", "hbs!app/templates/trail"]
             out.trail_slug = this.selectedTrail.attributes.slug;
             return out;
         },
-
 
         events: {
             "click .trail-title" : "onSelectTrail",
@@ -70,6 +79,22 @@ define(["backbone", "underscore", "app/models/Trail", "hbs!app/templates/trail"]
             }
             $selectedTrailDiv.addClass('open').children('.trail-content').slideDown(duration);
             $siblingsToClose.removeClass('open').children('.trail-content').slideUp(duration);
+        },
+
+        didRangeBeacon: function(data) {
+            //look in topics
+            var topic = this.beaconsDict.topics[data.major.toString()];
+            if(typeof(topic) !== 'undefined') {
+                if(data.proximity == 'ProximityNear' || data.proximity == 'ProximityImmediate') {
+                    //find relevant elements and add classes
+                    $('#map-marker-' + topic.attributes.slug).addClass('nearby');
+                    $('#index-marker-' + topic.attributes.slug).addClass('nearby');
+                } else {
+                    $('#map-marker-' + topic.attributes.slug).removeClass('nearby');
+                    $('#index-marker-' + topic.attributes.slug).removeClass('nearby');
+                }
+            }
+
         }
 
 
