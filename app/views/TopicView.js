@@ -2,18 +2,20 @@ define([
             "backbone",
             "underscore",
             "app/views/AudioControlsView",
+            "app/mixins/overlay",
             "hbs!app/templates/topic"
         ],
     function(
             Backbone,
             _,
             AudioControlsView,
+            overlayMixin,
             topicTemplate
         ) {
-
+        
         var TopicView = Backbone.View.extend({
             template: topicTemplate,
-
+            
             serialize: function() {
                 //serialize trail, topic and items
                 var out = {};
@@ -25,24 +27,26 @@ define([
                 this.audioViews = [];
                 return out;
             },
-
+            
             initialize: function(params) {
                 //this.trail = params.trail;
                 this.topic = params.topic;
                 this.items = this.topic.items;
                 this.audio_items = new Backbone.Collection(this.items.where({type: 'audio'}));
                 this.interact_items = new Backbone.Collection(this.items.filter(function(item){ return item.attributes.type !== 'audio'; }));
-
+                
+                this.overlayInitialize();
+                
                 //listen for the relevant beacon
                 var eventName = 'beaconRange:' + this.topic.attributes.beaconID;
                 this.listenTo(Backbone, eventName, this.didRangeBeacon);
                 this.isNearItem = false;
-
-                //listen for floor chagnes
+                
+                //listen for floor changes
                 this.listenTo(Backbone, 'changed_floor', this.onChangeFloor);
             },
-
-	        afterRender: function() {
+            
+            afterRender: function() {
                 //create the audio players
                 this.audio_items.each(_.bind(function(item, i, list) {
                     var $audioContainer =$('#audio-' + item.attributes.id);
@@ -55,15 +59,19 @@ define([
                     audioView.render();
                     this.audioViews.push( audioView );
                 },this));
-	        },
-
+            },
+            
+            cleanup: function () {
+                this.overlayCleanup();
+            },
+            
             events: {
                 "click .show-map-button": "showMap",
                 "click .close-map-overlay": "hideMap",
                 "click .header": "showImage",
                 "click .close-image-overlay": "hideImage"
             },
-
+            
             showMap: function(ev) {
                 ev.preventDefault();
                 $('.object-map').show();
@@ -72,7 +80,7 @@ define([
                 ev.preventDefault();
                 $('.object-map').hide();
             },
-
+            
             showImage: function(ev) {
                 ev.preventDefault();
                 $('.object-full-image').show();
@@ -81,18 +89,17 @@ define([
                 ev.preventDefault();
                 $('.object-full-image').hide();
             },
-
+            
             didRangeBeacon: function(data) {
-                if(data.proximity === 'ProximityImmediate' || data.proximity == 'ProximityNear')
+                if (data.proximity === 'ProximityImmediate' || data.proximity === 'ProximityNear')
                 {
                     ////vibrate if this is a transition to near
-                    if(navigator.notification && !this.isNearItem) {
+                    if (navigator.notification && !this.isNearItem) {
                         navigator.notification.vibrate(500);
                         //add class to item to make bg cycle
                         $('.object-container').addClass('nearby');
                         this.isNearItem = true;
                     }
-
                 }
                 else {
                     //remove class which makes bg cycle
@@ -100,13 +107,13 @@ define([
                     this.isNearItem = false;
                 }
             },
-
+            
             onChangeFloor: function(data) {
-
+                
             }
-
         });
-
+        
+        _.extend(TopicView.prototype, overlayMixin);
+        
         return TopicView;
-
     });

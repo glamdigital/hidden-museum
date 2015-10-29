@@ -15,8 +15,7 @@ $navBarWidth: 250px;
 
 
 $videoAspectRatio: 1.7777777778;
-$headerHeight: 45px;
-$headerPadding: 10px;
+
 $tabHeight: 40px;
 $sextantCapturedImageHeight: 222px;
 
@@ -29,11 +28,12 @@ $itemHeight: 40px;
 $contentTextColor: black;
 $navTextColor: #444444;
 
+$contentOverlayZIndex: 1000;
+
 $markerDiameter: 40px;
 
-
 @mixin objectTitle {
-	padding:10px 20px 10px 20px;
+    padding:10px 20px 10px 20px;
     font-size: 20px;
     background-color: rgba(0,0,0, 0.6);
     color: white;
@@ -42,6 +42,7 @@ $markerDiameter: 40px;
     top: $topicHeaderHeight - 48px;
     border: none;
     display: inline-block;
+    
     .fa-chevron-right {
         font-size: 0.8em;
         padding-left: 1em;
