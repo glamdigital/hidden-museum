@@ -75,7 +75,15 @@ define([
                 this.rootContext.innerView.render();
             },
             
-            toggleVisibility: function () {
+            events: {
+                'click .lightbox': 'toggleVisibility'
+            },
+            
+            toggleVisibility: function (event) {
+                if (event) {
+                    event.preventDefault();
+                }
+                
                 var jContentOverlay = $('#content-overlay');
                 
                 console.log('nav_info received by overlay, isHidden=' + jContentOverlay.hasClass('hidden'));

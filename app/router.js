@@ -105,7 +105,7 @@ define([  "backbone",
             this.headerView.setLogoURL('#');
             this.headerView.render();
         },
-
+        
         trails: function() {
             var view = new TrailsView({
               trails:window.allTrails
@@ -119,31 +119,31 @@ define([  "backbone",
             this.headerView.setLogoURL('#');
             this.headerView.render();
         },
-
+        
         trail: function(trailSlug) {
             var trail = window.allTrails.findWhere( {slug: trailSlug} );
-            if(trail) {
+            if (trail) {
                 //trail explicitly specified
                 window.session.currentTrail = trail;
             } else {
                 //use the current session trail
                 trail = window.session.currentTrail;
             }
-
+            
             ////create intro view
             var view = new TrailView({
                 trails: window.allTrails,
                 selectedTrail: window.session.currentTrail
             });
-
+            
             this.contentView.setView(view);
             view.render();
-
+            
             //set links
             this.headerView.setPrevURL('#/trails');
             this.headerView.render();
         },
-
+        
         topic: function(topicSlug) {
             var topic = window.allTopics.findWhere({slug: topicSlug});
 
