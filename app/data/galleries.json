@@ -5,7 +5,7 @@
     "description": "",
     "map": "maps/upper_gallery_floorplan.jpg",
     "photograph": "galleries/TopGallery.jpg",
-    "entryPointBeaconID1": "1443",
+    "entryPointBeaconID1": "22691",
     "entryPointBeaconID2": ""
   },
   {
@@ -14,7 +14,7 @@
     "description": "",
     "map": "maps/entrance_floorplan.jpg",
     "photograph": "galleries/EntranceGallery.jpg",
-    "entryPointBeaconID1": "",
+    "entryPointBeaconID1": "59655",
     "entryPointBeaconID2": ""
   },
   {
@@ -23,7 +23,7 @@
     "description": "",
     "map": "maps/basement_floorplan.jpg",
     "photograph": "galleries/BasementGallery.jpg",
-    "entryPointBeaconID1": "",
+    "entryPointBeaconID1": "18670",
     "entryPointBeaconID2": ""
   }
 ]

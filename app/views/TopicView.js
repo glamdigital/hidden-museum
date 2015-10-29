@@ -33,7 +33,13 @@ define([
                 this.audio_items = new Backbone.Collection(this.items.where({type: 'audio'}));
                 this.interact_items = new Backbone.Collection(this.items.filter(function(item){ return item.attributes.type !== 'audio'; }));
 
-                this.beaconsDict = {}
+                //listen for the relevant beacon
+                var eventName = 'beaconRange:' + this.topic.attributes.beaconID;
+                this.listenTo(Backbone, eventName, this.didRangeBeacon);
+                this.isNearItem = false;
+
+                //listen for floor chagnes
+                this.listenTo(Backbone, 'changed_floor', this.onChangeFloor);
             },
 
 	        afterRender: function() {
@@ -74,32 +80,30 @@ define([
             hideImage: function(ev) {
                 ev.preventDefault();
                 $('.object-full-image').hide();
+            },
+
+            didRangeBeacon: function(data) {
+                if(data.proximity === 'ProximityImmediate' || data.proximity == 'ProximityNear')
+                {
+                    ////vibrate if this is a transition to near
+                    if(navigator.notification && !this.isNearItem) {
+                        navigator.notification.vibrate(500);
+                        //add class to item to make bg cycle
+                        $('.object-container').addClass('nearby');
+                        this.isNearItem = true;
+                    }
+
+                }
+                else {
+                    //remove class which makes bg cycle
+                    $('.object-container').removeClass('nearby');
+                    this.isNearItem = false;
+                }
+            },
+
+            onChangeFloor: function(data) {
+
             }
-            //didRangeBeacon: function(data) {
-            //    var item = this.beaconsDict[data.major.toString()];
-            //    if(item==undefined) {
-            //        alert("undefined beacon in dict from data: " + data);
-            //        return;
-            //    }
-            //    var $itemListEntry = $('#item-'+item.attributes.slug);
-            //    if($itemListEntry.length == 0) {
-            //        alert("No item list entries found for item")
-            //    }
-            //    if(data.proximity === 'ProximityImmediate' || data.proximity == 'ProximityNear')
-            //    {
-            //        ////vibrate if this is a transition to near
-            //        if(navigator.notification && !$itemListEntry.hasClass('nearby')) {
-            //            navigator.notification.vibrate(500);
-            //        }
-            //
-            //        //add class to item to make bg cycle
-            //        $itemListEntry.addClass('nearby');
-            //    }
-            //    else {
-            //        //remove class which makes bg cycle
-            //        $itemListEntry.removeClass('nearby');
-            //    }
-            //}
 
         });
 

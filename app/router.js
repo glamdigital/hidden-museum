@@ -55,14 +55,17 @@ define([  "backbone",
               console.log("error fetching trails: ");
               console.log(resp);
             },
-            success: function(coll, resp, opt) {
+            success: _.bind(function(coll, resp, opt) {
                   //global obj to store some session state
                   window.session = {
-                      currentTrail: window.allTrails.first(),
-                      currentTopic: window.allTopics.first()
+                      currentTrail: window.allTrails.first(),   //user chosen trail
+                      currentPhysicalTrail: null,               //our guess at user's current floor location
+                      currentTopic: window.allTopics.first(),
                   };
+                //start floor tracking
+                this.floorTracker = new FloorTracking();
                 Backbone.history.start();
-            }
+            }, this)
           });
 
 
@@ -118,6 +121,8 @@ define([  "backbone",
             this.headerView.setNextURL(null);
             this.headerView.setLogoURL('#');
             this.headerView.render();
+
+            this.floorTracker.promptToSwitch = false;
         },
 
         trail: function(trailSlug) {
@@ -142,6 +147,8 @@ define([  "backbone",
             //set links
             this.headerView.setPrevURL('#/trails');
             this.headerView.render();
+
+            this.floorTracker.promptToSwitch = false;
         },
 
         topic: function(topicSlug) {
@@ -160,7 +167,7 @@ define([  "backbone",
             this.headerView.setNextURL(null);
             this.headerView.render();
 
-            FloorTracking.prompttoSwitch = true;
+            this.floorTracker.promptToSwitch = true;
 
         },
 
@@ -179,7 +186,7 @@ define([  "backbone",
             this.contentView.setView(dashboardView);
             dashboardView.render();
 
-            FloorTracking.prompttoSwitch = false;
+            this.floorTracker.promptToSwitch = false;
         },
 	    scan: function() {
 		    var scanView = new ImageScanView();
@@ -230,6 +237,7 @@ define([  "backbone",
             }
 		    this.contentView.setView(interactView);
 		    interactView.render();
+            this.floorTracker.promptToSwitch = true;
 	    }
     });
 
