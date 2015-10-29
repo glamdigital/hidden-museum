@@ -2,6 +2,8 @@
 
 @import "_common.scss";
 
+$markerDiameter: 1.5em;
+
 .trail-container {
   h2 {
     width: 100%;
@@ -16,6 +18,7 @@
   .trail-floorplan {
     width: 100%;
     height: 200px;
+    position: relative;   //so that child map markers can be positioned absolutely
   }
   .topic-list-item {
     width:100%;
@@ -24,14 +27,7 @@
     .title {
       @include objectTitle;
     }
-    .map-icon {
-      float: right;
-      font-size: 2em;
-      margin: 10px;
-      color: $navTextColor;
-      position: relative;
-      top: $topicHeaderHeight * 0.6;
-    }
+
   }
   ul {
     margin:0px;
@@ -45,6 +41,25 @@
         color: $contentTextColor;
       }
     }
+  }
+}
+
+.map-icon {
+  float: right;
+  font-size: 1em;
+  margin: 10px;
+  color: $navTextColor;
+  position: relative;
+  top: $topicHeaderHeight * 0.6;
+  background: white;
+  border-radius: $markerDiameter;
+  height: $markerDiameter;
+  width: $markerDiameter;
+  text-align: center;
+  line-height: $markerDiameter;
+  font-weight: bold;
+  &.on-map {
+    position: absolute;
   }
 }
 
@@ -74,3 +89,4 @@
     }
   }
 }
+
