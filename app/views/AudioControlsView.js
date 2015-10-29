@@ -30,9 +30,15 @@ define(['backbone', 'hbs!app/templates/audio_controls'],
                         console.log("Failed to create audio object:" + err.code + " " + err.message );
                     }
                 );
-            } else { console.log("Media plugin not available!");}
+            } else {
+                this.media = null;
+                //pick element after render
+            }
 
 	        this.updateInterval = setInterval(this.updateElapsed.bind(this), 1000);
+
+            //listen for events that a (nother) piece of audio has been triggered
+            this.listenTo(Backbone, 'audio-player-start', _.bind(this.onAnyAudioPlayerStart, this));
         },
 
         serialize: function() {
@@ -48,6 +54,21 @@ define(['backbone', 'hbs!app/templates/audio_controls'],
           "click #restart-audio" : "restartAudio"
         },
 
+        afterRender: function() {
+            console.log("after render audio controls view");
+            if(!this.media) {
+                this.media = $('audio', this.$el)[0];
+            }
+        },
+
+        onAnyAudioPlayerStart: function(source) {
+            //if the event didn't originate from us, pause the audio
+            if(source !== this) {
+                console.log('pausing, as other one is playing');
+                this.pauseAudio();
+            }
+        },
+
         getAudioURL: function() {
             path = 'audio/' + this.audio;
             if(device.platform.toLowerCase() === "android") {
@@ -57,46 +78,43 @@ define(['backbone', 'hbs!app/templates/audio_controls'],
         },
 
         playAudio: function(ev) {
-            if(this.media_obj) {
-                this.media_obj.play();
+            if(this.media) {
+                this.media.play();
             }
             else if(this.media) {
                 this.media.play();
             }
-            $('#play-audio').hide();
-            $('#pause-audio').show();
-            $('#restart-audio').show();
+            $('#play-audio', this.$el).hide();
+            $('#pause-audio', this.$el).show();
+            $('#restart-audio', this.$el).show();
+            Backbone.trigger('audio-player-start', this);
         },
 
         pauseAudio: function(ev) {
-            if(this.media_obj) {
-                this.media_obj.pause();
+            if(this.media) {
+                this.media.pause();
             }
             else if(this.media) {
                 this.media.pause();
             }
-            $('#play-audio').show();
-            $('#pause-audio').hide();
+            $('#play-audio', this.$el).show();
+            $('#pause-audio', this.$el).hide();
         },
 
         restartAudio: function(ev) {
-            if(this.media_obj) {
-                this.media_obj.seekTo(0);
-	            $('#media-elapsed').html('0:00');
-            }
-            else if(this.media) {
+            if(this.media) {
                 this.media.currentTime = 0;
+	            $('#media-elapsed', this.$el).html('0:00');
             }
         },
 
 	    updateElapsed: function() {
-			this.media_obj.getCurrentPosition(function(elapsed) {
-				if(elapsed < 0) {
-					//not playing
-					return;
-				}
-				$('#media-elapsed').html(elapsed.toMSS());
-			});
+            var elapsed = this.media.currentTime;
+            if(elapsed < 0) {
+                //not playing
+                return;
+            }
+            $('#media-elapsed', this.$el).html(elapsed.toMSS());
 	    },
 
         cleanup: function() {
