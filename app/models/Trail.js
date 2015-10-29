@@ -1,12 +1,12 @@
 define(["backbone", "app/collections/topicsCollection"], function(Backbone, TopicsCollection) {
 
   // Get all topics. Each Trail will build its own collection of topics which belong to it.
-  var allTopics = new TopicsCollection();
+  window.allTopics = new TopicsCollection();
 
   var Trail = Backbone.Model.extend({
     initialize: function () {
       //get all the topics which include this trail in their list of trails
-      this.topics = new TopicsCollection( Trail.allTopics.filter( function(topic) {
+      this.topics = new TopicsCollection( window.allTopics.filter( function(topic) {
         return topic.attributes.trails.indexOf(this.attributes.slug) >= 0;
       }, this) );
     },
@@ -33,15 +33,29 @@ define(["backbone", "app/collections/topicsCollection"], function(Backbone, Topi
 	    t.showImgAfterVideo = response.show_img_after_video == "TRUE";
 
 	    t.useQRCodes = response.use_qr_codes == "TRUE";
+
+        //read in all possible entry point beacon IDs to an array.
+        t.entryPointBeaconIDs = [];
+        var foundEmptyEntryPoint = false;
+        var j=1;
+        while(!foundEmptyEntryPoint) {
+          var entryPointKey = "entryPointBeaconID" + j;
+          if(response[entryPointKey]) {
+            t.entryPointBeaconIDs.push(response[entryPointKey]);
+          } else {
+            foundEmptyEntryPoint = true;
+          }
+          j++;
+        }
+
         return t;
     }
 
   },
   {
     //Class property stores all topics
-    allTopics: allTopics,
     loadTopics: function(callback) {
-      allTopics.fetch({success: function(coll, resp, opt) {
+      window.allTopics.fetch({success: function(coll, resp, opt) {
         console.log("fetched all topics");
           //var floorTracker = new FloorTracking(coll);
           if(callback) { callback(coll); }

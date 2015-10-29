@@ -11,7 +11,7 @@ require(['jquery','backbone', 'app/models/Trail', 'app/models/Topic', 'app/loggi
     var Location_UUID_default = 'B9407F30-F5F8-466E-AFF9-25556B57FE6D'; //ios
 
     var onReady = function() {
-      Logging.logToDom("Device Ready");
+      console.log("Device Ready");
       Location.init();
       //Location.startRangingRegion(Location_UUID_ios);
       Location.startRangingRegion(Location_UUID_beacons);
@@ -19,15 +19,15 @@ require(['jquery','backbone', 'app/models/Trail', 'app/models/Topic', 'app/loggi
       //load topics and items
       Topic.loadItems( function() {
           Trail.loadTopics( function(coll) {
-              var floorTracker = new FloorTracking(coll);
 
-	          //create the router - this start's backbone's history when it's ready.
+	          //create the router - this starts backbone's history when it's ready.
               var router = new Router();
 
-              Logging.logToDom("Started the app");
+              console.log("Started the app");
           })
       } );
     };
+
     //start the location service when the device is ready
     document.addEventListener('deviceready', onReady, false);
 
@@ -36,7 +36,7 @@ require(['jquery','backbone', 'app/models/Trail', 'app/models/Topic', 'app/loggi
     //trigger device ready immediately in browser
 	  if(typeof(cordova) == 'undefined')
 	  {
-		  alert("forcing ready");
+		  //alert("forcing ready");
 		  onReady();
 	  }
 
