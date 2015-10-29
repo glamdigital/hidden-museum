@@ -16,7 +16,7 @@ require(['jquery','backbone', 'app/models/Trail', 'app/models/Topic', 'app/loggi
       // it has served its purpose.
       window.firstRun = true;
       
-      Logging.logToDom("Device Ready");
+      console.log("Device Ready");
       Location.init();
       //Location.startRangingRegion(Location_UUID_ios);
       Location.startRangingRegion(Location_UUID_beacons);
@@ -24,12 +24,10 @@ require(['jquery','backbone', 'app/models/Trail', 'app/models/Topic', 'app/loggi
       //load topics and items
       Topic.loadItems( function() {
           Trail.loadTopics( function(coll) {
-              var floorTracker = new FloorTracking(coll);
-              
               //create the router - this starts backbone's history when it's ready.
               var router = new Router();
               
-              Logging.logToDom("Started the app");
+              console.log("Started the app");
           })
       } );
     };

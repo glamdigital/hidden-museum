@@ -26,10 +26,10 @@ define(["backbone", "underscore", "app/logging"], function(Backbone, _, Logging)
         window.cordova.plugins.locationManager.setDelegate(this.delegate);
         this.delegate.didRangeBeaconsInRegion = this.handleRangedBeacons;
 
-        Logging.logToDom("Started location service");
+        console.log("Started location service");
       } catch (e) {
-        Logging.logToDom("Exception initialising beacons");
-        Logging.logToDom(e.message);
+        console.log("Exception initialising beacons");
+        console.log(e.message);
       }
     },
 
@@ -60,7 +60,6 @@ define(["backbone", "underscore", "app/logging"], function(Backbone, _, Logging)
 
         var beacon_data = {proximity: beacon.proximity, rssi: beacon.rssi, accuracy: beacon.accuracy, major: beacon.major};
         Backbone.trigger(eventID, beacon_data);
-
       }
     },
 
