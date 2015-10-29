@@ -80,7 +80,7 @@ define([
             },
             
             toggleVisibility: function (event) {
-                if (event) {
+                if (event && (event.target.localName !== 'a')) {
                     event.preventDefault();
                 }
                 
