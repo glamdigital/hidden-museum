@@ -1,14 +1,14 @@
 <div class="black-bar audio">
-    <i id="speaker-audio" class="fa fa-volume-up audio-control-icon speaker toggle-audio"/>
+    <i id="speaker-audio" class="fa fa-fw fa-volume-up audio-control-icon speaker toggle-audio"/>
     <div class="audio-info toggle-audio">
         <span id="media-caption">{{caption}}</span><br>
-        <span id="media-elapsed">0:00</span> / {{duration}}
+        <div id="media-progress"><span id="media-elapsed">0:00</span> / {{duration}}</div>
     </div>
     <a>
-        <i id="play-audio" class="fa fa-play audio-control-icon play"></i>
+        <i id="play-audio" class="fa fa-fw fa-play audio-control-icon play"></i>
     </a>
-    <i id="pause-audio" class="fa fa-pause audio-control-icon pause" />
-    <i id="restart-audio" class="fa fa-step-backward audio-control-icon restart" />
+    <i id="pause-audio" class="fa fa-fw fa-pause audio-control-icon pause" />
+    <i id="restart-audio" class="fa fa-fw fa-step-backward audio-control-icon restart" />
     <audio>
         <source src="audio/{{audio}}" type="audio/mpeg">
     </audio>

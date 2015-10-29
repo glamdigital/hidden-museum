@@ -62,14 +62,20 @@
           background: transparent;
           color: $navTextColor;
           .audio-info {
-            margin-left: 15px;
+            margin-left: 5px;
             display: inline-block;
             text-align: left;
             #media-caption {
               //      text-align: left;
               //        padding-right: 1em;
-              font-size: 1.1em;
+              font-size: 1.0em;
               font-weight: bold;
+              line-height: 0.9em;
+            }
+            #media-progress {
+              line-height: 1.2em;
+              font-size: 0.8em;
+              margin-top: 3px;
             }
 
           }
@@ -78,7 +84,7 @@
             padding: 0;
             padding-right: 10px;
             color: $navTextColor;
-            font-size: 2em;
+            font-size: 1.5em;
             &.pause {
               display: none;
             }
