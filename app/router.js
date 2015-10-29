@@ -2,7 +2,6 @@ define([  "backbone",
           "jquery",
           "underscore",
           "app/collections/TrailsCollection",
-          "app/views/HomeView",
           "app/views/TrailsView",
           "app/views/TrailView",
           "app/views/TopicView",
@@ -10,20 +9,19 @@ define([  "backbone",
           "app/views/ContentView",
           "app/views/HeaderView",
           "app/views/DashboardView",
-		  "app/views/BeaconListenView",
+          "app/views/BeaconListenView",
           "app/views/CodeEntryView",
           "app/views/QRCodeEntryView",
           "app/views/FollowTrailView",
-		  "app/views/interactive/ImageScanView",
+          "app/views/interactive/ImageScanView",
           "app/views/interactive/ImageScannedView",
           "app/floor_tracking",
-		  "app/views/interactive/SextantView",
+          "app/views/interactive/SextantView",
           "app/views/interactive/AlmanacView",
           "app/models/interactive/SextantModel"
-		],
+        ],
   function(Backbone, $, _,
             TrailsCollection,
-            HomeView,
             TrailsView,
             TrailView,
             TopicView,
@@ -73,37 +71,21 @@ define([  "backbone",
             this.headerView = new HeaderView({el:$('#prheader'), prevLink:null, nextLink:null, logoLink:"#"});
             this.headerView.render();
         },
-
+        
         routes: {
-            "": "home",
-            "home": "home",
+            "": "trails",
+            "home": "trails",
             "trails": "trails",
             "trail/:trail": "trail",
             "topic/:topic": "topic",
             "finished/:trail": "finished",
             "restart": "restart",
             "dashboard": "dashboard",
-	        //custom routes
-	        "scan/:item": "item_scan",    //scan for the specific item
-	        "scanned/:item": "item_scanned",    //after the item has been found
-	        "interact/:item/:type/:index": "interact",   //interactive view for item
-
-	        "scan": "scan",
-        },
-        
-        home: function() {
-            var homeView = new HomeView({
-              
-            });
-            
-            this.contentView.setView(homeView);
-            homeView.renderIfReady();
-            
-            //set links
-            this.headerView.setPrevURL(null);
-            this.headerView.setNextURL(null);
-            this.headerView.setLogoURL('#');
-            this.headerView.render();
+            //custom routes
+            "scan/:item": "item_scan",    //scan for the specific item
+            "scanned/:item": "item_scanned",    //after the item has been found
+            "interact/:item/:type/:index": "interact",   //interactive view for item
+            "scan": "scan"
         },
         
         trails: function() {
