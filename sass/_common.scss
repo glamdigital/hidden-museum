@@ -27,3 +27,23 @@ $itemHeight: 40px;
 
 $contentTextColor: black;
 $navTextColor: #444444;
+
+$markerDiameter: 2.5em;
+
+
+@mixin objectTitle {
+	padding:30px 20px 10px 20px;
+    font-size: 20px;
+    background-color: rgba(0,0,0, 0.6);
+    color: white;
+    text-align: left;
+    position: relative;
+    top: $topicHeaderHeight * 0.4;
+    border: none;
+    display: inline-block;
+    .fa-chevron-right {
+        font-size: 0.8em;
+        padding-left: 1em;
+        color: #ccc;
+    }
+}
