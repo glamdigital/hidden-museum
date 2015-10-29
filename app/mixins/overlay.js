@@ -14,7 +14,7 @@ define([
                 this.innerView.render();
             },
             
-            overlayInitialize: function () {
+            overlayInitialize: function (config) {
                 console.log(this);
                 
                 // Create the views
@@ -29,6 +29,11 @@ define([
                 // Ensure the content overlay is hidden to begin with.
                 if (!jContentOverlay.hasClass('hidden')) {
                     jContentOverlay.addClass('hidden');
+                }
+                
+                // Display the overlay once its rendered if the config requires it.
+                if (config && config.displayOnArrival) {
+                    this.innerView.displayOnArrival = true;
                 }
                 
                 // Append the view element to the container rather
@@ -103,7 +108,16 @@ define([
         var InnerView = Backbone.View.extend({
             template: defaultInnerTemplate,
             
+            displayOnArrival: false,
+            
             templateContext: {},
+            
+            afterRender: function () {
+                if (this.displayOnArrival) {
+                    $('#content-overlay').removeClass('hidden');
+                    this.displayOnArrival = false;
+                }
+            },
             
             serialize: function() {
                 return this.templateContext;

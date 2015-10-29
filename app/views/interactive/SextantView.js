@@ -81,7 +81,7 @@ define([
             this.startingDeviceOrientation = { beta: 90 + DEFAULT_HORIZON };
             this.startTrackingOrientation();
             
-            this.overlayInitialize();
+            this.overlayInitialize({ displayOnArrival: true });
             this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
         },
         
