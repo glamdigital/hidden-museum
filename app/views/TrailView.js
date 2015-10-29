@@ -12,8 +12,6 @@ define(["backbone", "underscore", "app/models/Trail", "hbs!app/templates/trail"]
 
             //beacon data
             this.beaconsDict = {
-                topics: {},
-                galleries: {}
             };
 
             //store the index for each object within its own gallery
@@ -23,7 +21,7 @@ define(["backbone", "underscore", "app/models/Trail", "hbs!app/templates/trail"]
                    topic.set({galleryIndex: index+1});
                     var eventID = 'beaconRange:' + topic.attributes.beaconID;
                     this.listenTo(Backbone, eventID, this.didRangeBeacon);
-                    this.beaconsDict.topics[topic.attributes.beaconID.toString()] = topic;
+                    this.beaconsDict[topic.attributes.beaconID.toString()] = topic;
                 }, this));
 
             },this));
@@ -88,7 +86,7 @@ define(["backbone", "underscore", "app/models/Trail", "hbs!app/templates/trail"]
 
         didRangeBeacon: function(data) {
             //look in topics
-            var topic = this.beaconsDict.topics[data.major.toString()];
+            var topic = this.beaconsDict[data.major.toString()];
             if(typeof(topic) !== 'undefined') {
                 if(data.proximity == 'ProximityNear' || data.proximity == 'ProximityImmediate') {
                     //find relevant elements and add classes
