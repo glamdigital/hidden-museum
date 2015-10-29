@@ -55,7 +55,7 @@ define([
             out.instructions = this.instructions[0];
             return out;
         },
-
+        
         initialize: function(params) {
             this.item = params.item;
             this.step = 0;
@@ -72,32 +72,26 @@ define([
             var dragEnabled = false; //enable preview box drag across the screen
             var toBack = true; //send preview box to the back of the webview
             var rect = {x: 0, y: 175, width: 380, height:280};
-	        if(typeof(cordova) !== 'undefined') {
-		        cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
-	        }
+            
+            if (typeof cordova !== 'undefined') {
+                cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
+            }
+            
             $('#content').css("background-color", "transparent");
             this.startingDeviceOrientation = { beta: 90 + DEFAULT_HORIZON };
             this.startTrackingOrientation();
             
             this.overlayInitialize();
-            this.overlaySetTemplate(interactiveInnerTemplate, {
-                imagePath: 'img/objects/navigation/Sextant Drawing.jpg',
-                title: 'Use a Sextant',
-                description: '<p>Learn to calculate your latitude using a Sextant</p>' +
-                             '<p>The height of the midday sun on any particular day depends on how far north or south of the equator you are - your latitude. Navigators used a sextant to calculate this.' +
-                             '<p>When you press Start a Sextant interactive will open. Follow the on-screen instructions to calculate your latitude.',
-                startRoute: '#',
-                returnRoute: '#',
-                itemName: 'Navigation at Sea'
-            });
+            this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
         },
+        
         afterRender: function() {
             this.setup();
 
             //create the view for the reading
             this.readingView = new SextantReadingView({
                 el: '#sextant-reading',
-                model: this.model
+                model: this.stateModel
             });
             this.readingView.render();
 
@@ -105,7 +99,7 @@ define([
         setup: function() {        
             this.displayInstructions(0);
             setSextantArmAngle(0);
-            this.model.set({angle: 0});
+            this.stateModel.set({angle: 0});
             this.hideMessage();
             this.showHorizonIndicator();
             this.angle = 0;       
@@ -172,8 +166,8 @@ define([
                     this.angle = MIN_ANGLE;
                 }
 
-                //set the angle on the model
-                this.model.set({angle: this.angle});
+                //set the angle on the state model
+                this.stateModel.set({angle: this.angle});
 
                 if(this.angle > MIN_CAPTURE_SUN_ANGLE) {
                     $button = $('#controls').find('.button');
@@ -236,7 +230,7 @@ define([
             //$('#message')[0].innerHTML = "<p>The angle you measured was "  + this.angle.toPrecision(4).toString() + "&deg;. If the object you lined up had been the Pole Star, the angle would be the same as your latitude. The Pole Star is 90&deg; above the horizon at the North Pole, which has a latitude of 90&deg; North. The star appears right on the horizon at the equator, at 0&deg;. Oxford is 51.7&deg; North. Usually navigators measured the Sun and other stars and calculated latitude using reference books called almanacs.</p><p>To line up the object with the horizon you tilted the phone. On a sextant you'd move the main arm to tilt a mirror.</p>";
             //$('#message')[0].innerHTML = "<p>The angle you measured was " + this.angle.toPrecision(4).toString() + "&deg;. Navigators could use this measurement to calculate their latitude, or north/south position, often by looking it up in a book called an almanac. The North Pole is 90&deg North and the equator is 0&deg. Oxford's latitude is 51.7&deg North." +
             //"<br><br>To line up the object with the horizon you tilted the phone. On a sextant the object and horizon are lined up by moving the main arm to tilt the mirror.</p>";
-            $('#message')[0].innerHTML = "<p>You have measured that the noon sun is " + this.model.getLatitude().toPrecision(5).toString() + "&deg; above the horizon. You could also measure other known celestial objects, such as the Pole Star</p><p>To calculate latitude from this measurement, navigators would consult a reference book called an almanac.</p><p>Press the 'Calculate latitude' button to get simulate this calculation.</p>"
+            $('#message')[0].innerHTML = "<p>You have measured that the noon sun is " + this.stateModel.getLatitude().toPrecision(5).toString() + "&deg; above the horizon. You could also measure other known celestial objects, such as the Pole Star</p><p>To calculate latitude from this measurement, navigators would consult a reference book called an almanac.</p><p>Press the 'Calculate latitude' button to get simulate this calculation.</p>"
         },
         hideMessage: function() {
             var $messageDiv = $('#message')[0];

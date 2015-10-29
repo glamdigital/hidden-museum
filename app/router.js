@@ -208,26 +208,27 @@ define([  "backbone",
 		    this.contentView.setView(scannedView);
 		    scannedView.render();
 	    },
-	    interact: function(item_slug, interact_type, index) {
+        interact: function(item_slug, interact_type, index) {
             var interactView;
             var item = window.allItems.findWhere({slug: item_slug});
-
+            
             //set prev link
             this.headerView.setPrevURL('#/topic/' + window.session.currentTopic.attributes.slug);
             this.headerView.render();
-
+            
             switch (interact_type) {
                 case 'sextant-interact': {
                     switch (index) {
-                        case '0': interactView = new SextantView({ item: item, model:this.sextantModel });break;
+                        case '0': interactView = new SextantView({ item: item, model:item, stateModel:this.sextantModel });break;
                         case '1': interactView = new AlmanacView({ item: item, model:this.sextantModel });break;
                     }
                     break;
                 }
             }
-		    this.contentView.setView(interactView);
-		    interactView.render();
-	    }
+            
+            this.contentView.setView(interactView);
+            interactView.render();
+        }
     });
 
     return SEVRouter;
