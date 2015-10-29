@@ -18,9 +18,12 @@ define(["backbone", "jquery", "hbs!app/templates/trails", "app/mixins/overlay"],
           
           $(window).resize(this.adjustPosition);
           
-          //this.overlaySetTemplate('foo');
+          this.overlayInitialize({ displayOnArrival: window.firstRun });
           
-          this.overlayInitialize();
+          if (window.firstRun) {
+            // Permanently clear the firstRun flag.
+            window.firstRun = false;
+          }
       },
       
       cleanup: function () {
