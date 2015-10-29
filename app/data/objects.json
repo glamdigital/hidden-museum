@@ -1,7 +1,7 @@
 [
   {
     "id": "navigation",
-    "title": "Navigation",
+    "title": "Navigation at Sea",
     "description": "",
     "gallery": "upper_gallery",
     "photograph": "objects/navigation/Sextant.jpg",
@@ -66,7 +66,7 @@
   },
   {
     "id": "marconi",
-    "title": "Marconi's thing",
+    "title": "Marconi Collection",
     "description": "",
     "gallery": "basement_gallery",
     "photograph": "objects/marconi/Marconi.jpg",
@@ -79,7 +79,7 @@
   },
   {
     "id": "lodestone",
-    "title": "Lodestone",
+    "title": "Westmorland Lodestone",
     "description": "",
     "gallery": "basement_gallery",
     "photograph": "objects/lodestone/imu-media.jpg",
