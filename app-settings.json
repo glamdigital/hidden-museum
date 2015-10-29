@@ -26,6 +26,14 @@
                     {
                         "value":"p3b",
                         "title":"Ashmolean - pull"
+                    },
+                    {
+                        "value":"p4",
+                        "title":"Museum of History of Science - content types"
+                    },
+                    {
+                        "value":"p5",
+                        "title":"Image recognition"
                     }
                 ],
                 "default":"ru",

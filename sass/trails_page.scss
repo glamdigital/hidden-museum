@@ -1,117 +1,41 @@
-@import "compass/css3/animation";
-$item-height: 40px;
-
-@include keyframes(cyclebg) {
-  0% {
-    background-color: #222;
-  }
-  50% {
-    background-color: #555;
-  }
-  100% {
-    background-color: #222;
-  }
-}
+@import "_common.scss";
 
 div.trails-list-container {
-  text-align: center;
-
-
-  ul {
-    padding: 0px;
-    list-style: none;
-    a {
-      text-decoration: none;
-      color: white;
-      li {
+  position: relative;
+  
+  a {
+    display: block;
+    position: relative;
+    
+    img {
+      display: block;
+      width: 100%;
+    }
+    
+    .label {
+      position: absolute;
+      left: 0;
+      bottom: 20px;
+      padding-bottom: 10px;
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-top: 30px;
+      
+      span {
+        position: relative;
+        color: white;
+        font-size: 20px;
+      }
+      
+      .background {
         background-color: black;
-        margin: 5px 0px;
-        width: 100%;
-        height: $item-height;
-        padding: 16px 0;
-        text-align: left;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-
-        //optionally hide items unless the user is near them
-        &.hide-if-not-near {
-          display: none;
-          &.nearby {
-            display: block;
-          }
-        }
-
-        &.audio {
-          margin-top: 20px;
-          padding: 5px 0;
-          height: 30px;
-        }
-
-        audio {
-          float: right;
-          padding-right: 20px;
-
-        }
-
-        div {
-          margin-left: 5%;
-          &.trails-list-item {
-            margin-right: 30%;
-          }
-          &.main-title {
-            margin-right: 30%;
-            font-size: 1.2em;
-            padding-bottom: 5px;
-            overflow-x: hidden;
-            text-overflow: ellipsis;
-            &.title-smaller {
-              font-size: 1.0em;
-            }
-          }
-          &.subtitle {
-            font-size: 0.8em;
-            margin-right: 30%;
-          }
-        }
-        &.near {
-          border-left: 20px solid #888888;
-          background-color: #444444;
-        }
-        &.far {
-          border-left: 20px solid #444444;
-          background-color: #222222;
-        }
-        .item-thumbnail-container {
-          height: $item-height + 16px;
-          width: $item-height + 16px;
-          float: left;
-          position: relative;
-          top: -8px;
-          overflow: hidden;
-          margin: 0px 8px;
-          text-align: center;
-
-        }
-        img.item-thumbnail {
-          height: $item-height + 16px;
-        }
-        i.fa {
-          float: right;
-          text-align: center;
-          line-height: $item-height + 16px;
-          height: $item-height + 16px;
-          width: $item-height;
-          position: relative;
-          top: -8px;
-        }
+        opacity: 0.6;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
       }
     }
   }
-  position: relative;
-}
-
-p.description {
-  margin: 10px 5px;
-  text-align: left;
-  font-size: 0.9em;
 }

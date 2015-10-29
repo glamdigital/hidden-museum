@@ -1,0 +1,21 @@
+{{#each trails}}
+    <div id="{{slug}}" class="trail-container">
+        <h2 class="trail-title">{{title}}</h2>
+        <div class="trail-content">
+            <div class="trail-floorplan" id="floorplan-{{slug}}">
+                <img class="floorpan" src="img/{{map}}" />
+                {{#each topics}}
+                    <a href="#topic/{{slug}}"><div id="map-marker-{{slug}}" class="map-icon on-map">{{galleryIndex}}</div></a>
+                {{/each}}
+            </div>
+            <ul>
+                {{#each topics}}
+                    <a href="#topic/{{slug}}"><li id="{{slug}}" class="topic-list-item" style="background-image: url(img/{{photograph_cropped}})">
+                        <div class="title">{{title}}<i class="fa fa-chevron-right"></i></div>
+                        <div class="map-icon">{{galleryIndex}}</div>
+                    </li></a>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+{{/each}}

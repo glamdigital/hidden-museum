@@ -148,6 +148,18 @@ module.exports = function(grunt) {
         src: ['HiddenMuseumData/HiddenMuseumData - Items.csv'],
         dest: 'app/data/items.json'
       },
+      trails: {
+        src: ['HiddenMuseumData/HiddenMuseumData - Galleries.csv'],
+        dest: 'app/data/galleries.json'
+      },
+      topics: {
+        src: ['HiddenMuseumData/HiddenMuseumData - Objects.csv'],
+        dest: 'app/data/objects.json'
+      },
+      items: {
+        src: ['HiddenMuseumData/HiddenMuseumData - Content.csv'],
+        dest: 'app/data/contentitems.json'
+      },
     },
     jasmine: {
         testTask: {
@@ -264,7 +276,7 @@ module.exports = function(grunt) {
 
 	//grunt localbuild:<ios|android>
   grunt.registerTask('localbuild', "Runs the appropriate pre-build steps then invokes cordova's build command", function(arg) {
-      if (!arg) { arg='build_ios'; }
+      if (!arg) { arg='ios'; }
       //use different package step for android
       //if(arg.indexOf('android') >=0 ) {
       //    grunt.task.run('packageLocalAndroid');

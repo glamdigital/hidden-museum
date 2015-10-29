@@ -21,13 +21,14 @@ require(['jquery','backbone', 'app/models/Trail', 'app/models/Topic', 'app/loggi
           Trail.loadTopics( function(coll) {
               var floorTracker = new FloorTracking(coll);
 
-	          //create the router - this start's backbone's history when it's ready.
+	          //create the router - this starts backbone's history when it's ready.
               var router = new Router();
 
               Logging.logToDom("Started the app");
           })
       } );
     };
+
     //start the location service when the device is ready
     document.addEventListener('deviceready', onReady, false);
 
@@ -36,7 +37,7 @@ require(['jquery','backbone', 'app/models/Trail', 'app/models/Topic', 'app/loggi
     //trigger device ready immediately in browser
 	  if(typeof(cordova) == 'undefined')
 	  {
-		  alert("forcing ready");
+		  //alert("forcing ready");
 		  onReady();
 	  }
 

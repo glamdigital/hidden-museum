@@ -76,5 +76,31 @@
     "hide_items_by_default": "",
     "show_img_after_video": "",
     "trail_image": ""
+  },
+  {
+    "id": "p5",
+    "title": "Image Recognition",
+    "description": "Museum of History of Science - interactive",
+    "audio": "",
+    "fixed_order": "TRUE",
+    "start_view_class": "TopicView",
+    "is_trail": "FALSE",
+    "use_qr_codes": "",
+    "hide_items_by_default": "",
+    "show_img_after_video": "",
+    "trail_image": ""
+  },
+  {
+    "id": "p6",
+    "title": "Sextant",
+    "description": "Museum of History of Science - sextant",
+    "audio": "",
+    "fixed_order": "TRUE",
+    "start_view_class": "interactive/SextantView",
+    "is_trail": "FALSE",
+    "use_qr_codes": "",
+    "hide_items_by_default": "",
+    "show_img_after_video": "",
+    "trail_image": ""
   }
 ]

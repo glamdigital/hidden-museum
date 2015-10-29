@@ -1,0 +1,13 @@
+<div class="scanned-view">
+    <div class="item-title">
+        <h3 class="name">{{{title}}}</h3>
+        {{{scannedText}}}
+        <div id="controls" class="image-recognised">
+		    <a id="play-video" class="button toggle">Play</a>
+	    </div>
+    </div>
+
+    <video id="video" class="scanned center-vertically" width="100%" height="auto" webkit-playsinline preload="auto" poster="img/{{image}}" controls>
+        <source src="video/{{video}}" type="video/mp4">
+    </video>
+</div>
