@@ -14,17 +14,17 @@ define(["backbone", "underscore", "app/models/Trail", "hbs!app/templates/trail"]
             this.trails.each( function(trail) {
                var topics = trail.topics;
                 topics.each( function(topic, index) {
-                   topic.set({galleryIndex: ''+index + topic.attributes.slug});
+                   topic.set({galleryIndex: index+1});
                 });
             });
         },
 
         afterRender: function() {
             //position the map markers
-            this.trails.each( function(trail) {
+            this.trails.each(function (trail) {
                 var $trailMap = $('#floorplan-' + trail.attributes.slug);
                 //position markers
-                trail.topics.each( function(topic) {
+                trail.topics.each(function (topic) {
                     var $marker = $('#map-marker-' + topic.attributes.slug);
                     var top = $trailMap.height() * topic.attributes.mapY;
                     $marker.css('top', top + 'px');
@@ -32,6 +32,7 @@ define(["backbone", "underscore", "app/models/Trail", "hbs!app/templates/trail"]
                     $marker.css('left', left + 'px');
                 });
             });
+            this.doAccordianMagic(0);
         },
 
         serialize: function() {
@@ -40,14 +41,37 @@ define(["backbone", "underscore", "app/models/Trail", "hbs!app/templates/trail"]
             for (var i=0; i< this.trails.length; i++) {
                 var topicsJSON = this.trails.models[i].getTopics().toJSON();
                 out.trails[i]['topics'] = topicsJSON;
-            }  
+            }
             out.trail_slug = this.selectedTrail.attributes.slug;
             return out;
         },
 
-        events: {
 
+        events: {
+            "click .trail-title" : "onSelectTrail",
         },
+
+        onSelectTrail: function(ev) {
+            var $target = $(ev.target).parent();
+            var slug = $target.attr('id');
+            var selectedTrail = this.trails.findWhere({'id':slug});
+            if (selectedTrail != this.selectedTrail) {
+                this.selectedTrail = selectedTrail;
+                this.doAccordianMagic(200);           
+            }
+            window.session.currentTrail = selectedTrail;
+        },
+
+        doAccordianMagic: function(duration) {
+            var $selectedTrailDiv = $('#'+this.selectedTrail.attributes.slug);
+            var $siblingsToClose = $selectedTrailDiv.siblings()
+            if (duration > 0) {
+                $siblingsToClose = $selectedTrailDiv.siblings('.open');
+            }
+            $selectedTrailDiv.addClass('open').children('.trail-content').slideDown(duration);
+            $siblingsToClose.removeClass('open').children('.trail-content').slideUp(duration);
+        }
+
 
     });
 

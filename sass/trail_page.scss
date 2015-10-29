@@ -2,8 +2,6 @@
 
 @import "_common.scss";
 
-$markerDiameter: 1.5em;
-
 .trail-container {
   h2 {
     width: 100%;
@@ -50,7 +48,7 @@ $markerDiameter: 1.5em;
   margin: 10px;
   color: $navTextColor;
   position: relative;
-  top: $topicHeaderHeight * 0.6;
+  top: $topicHeaderHeight * 0.5;
   background: white;
   border-radius: $markerDiameter;
   height: $markerDiameter;

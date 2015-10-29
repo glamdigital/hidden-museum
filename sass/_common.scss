@@ -28,6 +28,9 @@ $itemHeight: 40px;
 $contentTextColor: black;
 $navTextColor: #444444;
 
+$markerDiameter: 2.5em;
+
+
 @mixin objectTitle {
 	padding:30px 20px 10px 20px;
     font-size: 20px;
