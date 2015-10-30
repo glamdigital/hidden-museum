@@ -19,7 +19,7 @@ define([
             this.numTouches = 0;
             //this.defaultRotX = 17 * Math.PI/180;
             this.extraRotX = 0;
-            this.canRotateUpDown = params.canRotateUpDown | true;
+            this.canRotateUpDown = params.canRotateUpDown | false;
             //this.defaultRotX = params.tiltTowardCam * Math.PI/180 | 0.1;
             this.defaultRotX = params.tiltTowardCam ? (params.tiltTowardCam * Math.PI/180) : 0.1;
             this.lightFromSun = params.lightFromSun | false;
