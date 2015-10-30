@@ -19,9 +19,10 @@ define([
         "app/floor_tracking",
         "app/views/interactive/SextantView",
         "app/views/interactive/AlmanacView",
-          "app/models/interactive/SextantModel",
-          "app/views/interactive/clock/ClockView",
-          "app/views/interactive/InteractiveSphereView",
+        "app/models/interactive/SextantModel",
+        "app/views/interactive/clock/ClockView",
+        "app/views/interactive/InteractiveSphereView",
+        "app/views/interactive/ReckonerView"
     ],
     
     function(Backbone, $, _,
@@ -44,7 +45,8 @@ define([
             AlmanacView,
             SextantModel,
             ClockView,
-            InteractiveSphereView
+            InteractiveSphereView,
+            ReckonerView
         ) {
         
         var SEVRouter = Backbone.Router.extend({
@@ -217,19 +219,23 @@ define([
                 this.headerView.render();
                 
                 switch (interact_type) {
-                    case 'sextant-interact': {
+                    case 'sextant-interact':
                         switch (index) {
                             case '0': interactView = new SextantView({ item: item, model:item, stateModel:this.sextantModel }); break;
                             case '1': interactView = new AlmanacView({ item: item, stateModel:this.sextantModel }); break;
                         }
                         break;
-                    }
-                    case 'clock-interact': {
-                        switch(index) {
+                    
+                    case 'clock-interact':
+                        switch (index) {
                             case '0': interactView = new ClockView({ item: item, model:item }); break;
                         }
                         break;
-                    }
+                    
+                    case 'reckoner-interact':
+                        // switching on 'index' unneeded here as this isn't a multiple-stage interactive.
+                        interactView = new ReckonerView({ item: item, model: item });
+                        break;
                 }
                 
                 this.contentView.setView(interactView);
