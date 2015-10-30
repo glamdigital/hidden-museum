@@ -20,6 +20,8 @@ define([
         "app/views/interactive/SextantView",
         "app/views/interactive/AlmanacView",
         "app/models/interactive/SextantModel",
+        "app/views/interactive/clock/ClockView",
+        "app/views/interactive/InteractiveSphereView",
         "app/views/interactive/ReckonerView"
     ],
     
@@ -42,6 +44,8 @@ define([
             SextantView,
             AlmanacView,
             SextantModel,
+            ClockView,
+            InteractiveSphereView,
             ReckonerView
         ) {
         
@@ -88,7 +92,8 @@ define([
                 "scan/:item": "item_scan",    //scan for the specific item
                 "scanned/:item": "item_scanned",    //after the item has been found
                 "interact/:item/:type/:index": "interact",   //interactive view for item
-                "scan": "scan"
+                "scan": "scan",
+                "spheretest": "spheretest",
             },
             
             trails: function() {
@@ -217,7 +222,13 @@ define([
                     case 'sextant-interact':
                         switch (index) {
                             case '0': interactView = new SextantView({ item: item, model:item, stateModel:this.sextantModel }); break;
-                            case '1': interactView = new AlmanacView({ item: item, model:this.sextantModel }); break;
+                            case '1': interactView = new AlmanacView({ item: item, stateModel:this.sextantModel }); break;
+                        }
+                        break;
+                    
+                    case 'clock-interact':
+                        switch (index) {
+                            case '0': interactView = new ClockView({ item: item, model:item }); break;
                         }
                         break;
                     
@@ -230,6 +241,14 @@ define([
                 this.contentView.setView(interactView);
                 interactView.render();
                 this.floorTracker.promptToSwitch = true;
+            },
+            spheretest: function() {
+                var sphereView = new InteractiveSphereView({
+                    texture: 'img/objects/globe/map_texture_9.jpg',
+                });
+
+                this.contentView.setView(sphereView);
+                sphereView.render();
             }
         });
         

@@ -227,6 +227,7 @@ module.exports = function(grunt) {
 	                    "audio/**",
 	                    "video/**",
                         "css/**",
+                        "fonts/**",
                         ],
                     dest: "www" },
                 {   src: ["index-built.html"],
