@@ -90,9 +90,8 @@ define([
                 "scan/:item": "item_scan",    //scan for the specific item
                 "scanned/:item": "item_scanned",    //after the item has been found
                 "interact/:item/:type/:index": "interact",   //interactive view for item
-                "scan": "scan"
-
-            "spheretest": "spheretest",
+                "scan": "scan",
+                "spheretest": "spheretest",
             },
             
             trails: function() {
