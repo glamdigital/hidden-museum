@@ -39,8 +39,8 @@ define([
                 }
                 
                 this.templateData = {
-                    imagePath: 'selenographia.jpg',
-                    videoPath: 'slomo_portrait.mp4'
+                    imagePath: params.imagePath || '',
+                    videoPath: params.videoPath || ''
                 };
                 
                 this.ownOrientation(true);

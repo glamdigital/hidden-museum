@@ -31,6 +31,8 @@ define([
                 this.videoControlsView.initialize({
                     orientationMode: 'portrait',
                     hidePause:       true,
+                    imagePath:       this.item.attributes.image,
+                    videoPath:       this.item.attributes.video,
                     
                     onFinalFrame: (function () {
                         Backbone.history.navigate('#/topic/' + this.item.attributes.object);
