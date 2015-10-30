@@ -92,7 +92,7 @@ define([
             });
             this.listenTo(this.sphereModel, 'force-change', _.bind(function(source) {
                 //same angle as the 10 hour clock - i.e. 1 revolution per day
-                var time = this.model.attributes.from10HrAngle(this.sphereModel.attributes.angle);
+                var time = this.model.attributes.from10HrAngle(this.sphereModel.attributes.angle + 180);
                 this.model.set({time: time});
                 this.model.trigger('change', this.sphereModel);
             }, this));
@@ -103,6 +103,8 @@ define([
                 canRotateUpDown: false,
                 lightFromSun: true,
                 tiltTowardCan: 0,
+                marker: {lat: 51.7519, lng:1.2578},
+                defaultRotY: 180,
             });
             this.sphereView.render();
 

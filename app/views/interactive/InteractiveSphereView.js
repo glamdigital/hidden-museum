@@ -25,8 +25,11 @@ define([
             this.lightFromSun = params.lightFromSun | false;
             this.stopped = false;
 
+            this.marker = params.marker;
+
             //initialise angle
-            this.model.set({angle:0});
+            this.model.set({angle:this.defaultRotY});
+
         },
 
         afterRender: function () {
@@ -37,10 +40,11 @@ define([
 
             var texture = three.ImageUtils.loadTexture(this.texture);
 
-            var geometry = new three.SphereGeometry(15, 50, 50);
+            this.globeRadius = 15;
+            var geometry = new three.SphereGeometry(this.globeRadius, 50, 50);
             var material;
             if(this.lightFromSun) {
-                material = new three.MeshPhongMaterial({
+                material = new three.MeshLambertMaterial({
                     map: texture,
                 });
                 var sun = new three.DirectionalLight(0xfffffff, 2);
@@ -74,6 +78,28 @@ define([
             //this.animate();
             this.animReq = requestAnimationFrame(_.bind(this.animate, this) );
             console.log("requested animation frame");
+
+            if(this.marker) {
+                this._addMarker(this.marker)
+            }
+
+        },
+
+        _addMarker: function(marker) {
+            var markerMaterial = new three.MeshBasicMaterial({
+                color: 0xff0000,
+            });
+            var markerGeometry = new three.SphereGeometry(1, 50, 50);
+
+            //position
+            markerGeometry.translate(this.globeRadius, 0,0);
+            //lat/lng
+            markerGeometry.rotateY(-marker.lng* Math.PI/180);
+            markerGeometry.rotateZ(marker.lat* Math.PI/180);
+
+            var markerMesh = new three.Mesh( markerGeometry, markerMaterial);
+
+            this.mesh.add(markerMesh);
         },
 
         events: {
@@ -108,7 +134,6 @@ define([
                     this.extraRotX = extraDist * ROTATE_PAN_RATIO * Math.PI / 180;
                 }
             }
-
         },
 
         onTouchEnd: function(ev) {
