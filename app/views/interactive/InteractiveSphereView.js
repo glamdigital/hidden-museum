@@ -71,7 +71,7 @@ define([
 
             this.scene.add( this.mesh );
 
-            renderer = new three.WebGLRenderer();
+            renderer = new three.WebGLRenderer({ antialias: true });
             renderer.setPixelRatio( window.devicePixelRatio );
             renderer.setSize($container.width(), $container.height());
             $container.append(renderer.domElement);
