@@ -1,11 +1,13 @@
 <div class="trails-list-container">
-    <h1>TrailFinder</h1>
-    <h5>Choose a trail from the list below</h5>
-    <ul>
     {{#each trails}}
-        <a href='#trail/{{slug}}'><li><div class="trails-list-item">{{title}}</div></li></a>
+        <a href='#trail/{{slug}}'>
+            <img src="img/{{photograph}}" />
+            <div class="label">
+                <div class="background"></div>
+                <span>{{title}}<span>
+            </div>
+        </a>
     {{/each}}
-  </ul>
 </div>
 
 <br>

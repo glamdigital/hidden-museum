@@ -17,7 +17,8 @@ require.config({
     move: "app/libs/movejs/move",
     fulltilt: "app/libs/fulltilt/dist/fulltilt",
     moment: "app/libs/momentjs/moment",
-    victor: "app/libs/victor/build/victor"
+    victor: "app/libs/victor/build/victor",
+    three: "app/libs/three.js/three"
   },
   packages: [
 

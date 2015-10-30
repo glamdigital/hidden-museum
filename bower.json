@@ -30,6 +30,7 @@
     "font-awesome": "~4.4.0",
     "fulltilt": "~0.5.3",
     "momentjs": "~2.10.6",
+    "three.js": "~0.72.0",
     "movejs": "~0.4.0"
   },
   "devDependencies": {

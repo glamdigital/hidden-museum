@@ -1,24 +1,9 @@
 @import "compass/css3";
-$phone: "only screen and (max-width: 767px)";
-$tablet: "only screen and (min-width: 768px)";
-$landscape-test: "only screen and (orientation: landscape)";
-$portrait-test: "only screen and (orientation: portrait)";
-$landscape: "(orientation:landscape)";
-$portrait: "(orientation:portrait)";
-$standardFontFamily: "Helvetica Neue", "Droid Sans", sans-serif;
-$standardPadding: 5px;
-$corner-radius: 5px;
-$navBarWidth: 250px;
-$fontColor: black;
-$videoAspectRatio: 1.7777777778;
-$headerHeight: 25px;
-$headerPadding: 10px;
-$tabHeight: 40px;
-$sextant-captured-image-height: 222px;
+@import "_common.scss";
 
 
 @mixin rounded-corners {
-  border-radius: $corner-radius;
+  border-radius: $cornerRadius;
 }
 
 html {
@@ -115,7 +100,7 @@ a.nav-link {
   left: 0;
   position: fixed;
   background-color: transparent;
-  color: black;
+  color: $contentTextColor;
   z-index: 2;
   width: 100%;
   height: 100%;
@@ -410,16 +395,6 @@ div.item-title {
       display: inline;
     }
   }
-  &.landscape {
-    @media #{$landscape-test} {
-      display: inline;
-    }
-  }
-  &.portrait {
-    @media #{$portrait-test} {
-      display: inline;
-    }
-  }
 }
 .interactive {
   position: absolute;
@@ -448,13 +423,13 @@ div.item-title {
     #viewfinder {
       //clip-path: url(#clipping);
       width: 100%;
-      height: $sextant-captured-image-height;
+      height: $sextantCapturedImageHeight;
       //mask-type: luminance;
       -webkit-mask-source-type: luminance;
       mask-image: url(../img/circle_mask.png);
       -webkit-mask-image: url(../img/circle_mask.png);
       -webkit-mask-position-x: 50%;
-      -webkit-mask-size:$sextant-captured-image-height;
+      -webkit-mask-size:$sextantCapturedImageHeight;
       -webkit-mask-repeat: no-repeat;
 
 
@@ -464,7 +439,7 @@ div.item-title {
         position: absolute;
         top: 138.5px;
         width: 50%;
-        height: $sextant-captured-image-height;
+        height: $sextantCapturedImageHeight;
         background-size: 380px;
         background-position-y: -240px;
         z-index: 1000;
@@ -482,7 +457,7 @@ div.item-title {
         background-size: 500px;
         background-position-y: 555px; //to get the sea level in center initially
         background-position-x: -205px; //to get the sun centered left-right
-        height: $sextant-captured-image-height;
+        height: $sextantCapturedImageHeight;
         width: 100%;
         float: right;
       }
@@ -516,7 +491,7 @@ div.item-title {
       z-index: 1000;
       #value-indicator {
         border-top: 2px solid red;
-        color: black;
+        color: $contentTextColor;
         text-shadow: 2px 2px #edddc1;
         font-size: 1.3em;
         position:absolute;
@@ -539,7 +514,7 @@ div.item-title {
       }
       #reference-indicator {
         border-top: 1px solid black;
-        color: black;
+        color: $contentTextColor;
         text-shadow: 1px 1px #ccc;
         font-size: 1.3em;
         position:absolute;
@@ -551,12 +526,12 @@ div.item-title {
 
 .ring {
   //ring
-  height: $sextant-captured-image-height;
-  width: $sextant-captured-image-height;
+  height: $sextantCapturedImageHeight;
+  width: $sextantCapturedImageHeight;
   margin-left: auto;
   margin-right: auto;
   border: 20px solid darkgoldenrod;
-  border-radius: $sextant-captured-image-height / 2;
+  border-radius: $sextantCapturedImageHeight / 2;
   z-index: 10000;
   position: absolute;
   left: 20.5%;
@@ -631,7 +606,7 @@ div.item-title {
       }
       #value-indicator {
         border-top: 2px solid red;
-        color: black;
+        color: $contentTextColor;
         text-shadow: 2px 2px #edddc1;
         font-size: 1.3em;
         position:absolute;

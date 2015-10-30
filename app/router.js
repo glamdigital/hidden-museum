@@ -2,10 +2,10 @@ define([  "backbone",
           "jquery",
           "underscore",
           "app/collections/TrailsCollection",
+          "app/views/HomeView",
           "app/views/TrailsView",
           "app/views/TrailIntroView",
           "app/views/TopicView",
-          "app/views/ItemView",
           "app/views/FinishedView",
           "app/views/ContentView",
           "app/views/HeaderView",
@@ -21,13 +21,14 @@ define([  "backbone",
           "app/views/interactive/AlmanacView",
           "app/models/interactive/SextantModel",
           "app/views/interactive/clock/ClockView",
+          "app/views/interactive/InteractiveSphereView",
 		],
   function(Backbone, $, _,
             TrailsCollection,
+            HomeView,
             TrailsView,
             TrailIntroView,
             TopicView,
-            ItemView,
             FinishedView,
             ContentView,
             HeaderView,
@@ -42,7 +43,8 @@ define([  "backbone",
             SextantView,
             AlmanacView,
             SextantModel,
-            ClockView
+            ClockView,
+            InteractiveSphereView
         ) {
 
     var SEVRouter = Backbone.Router.extend({
@@ -79,9 +81,9 @@ define([  "backbone",
         routes: {
             "": "home",
             "home": "home",
+            "trails": "trails",
             "trail/:trail": "trail",
             "topic/:topic": "topic",
-            "found/:item": "found_item",
             "finished/:trail": "finished",
             "restart": "restart",
             "dashboard": "dashboard",
@@ -89,26 +91,39 @@ define([  "backbone",
 	        "scan/:item": "item_scan",    //scan for the specific item
 	        "scanned/:item": "item_scanned",    //after the item has been found
 	        "interact/:item/:type/:index": "interact",   //interactive view for item
-            "item/:item": "item",
 
 	        "scan": "scan",
+
+            "spheretest": "spheretest",
         },
-
+        
         home: function() {
-
-
-          var view = new TrailsView({
-            trails:window.allTrails
-          });
-          this.contentView.setView(view);
-          view.renderIfReady();
-
+            var homeView = new HomeView({
+              
+            });
+            
+            this.contentView.setView(homeView);
+            homeView.renderIfReady();
+            
             //set links
             this.headerView.setPrevURL(null);
             this.headerView.setNextURL(null);
             this.headerView.setLogoURL('#');
             this.headerView.render();
+        },
 
+        trails: function() {
+            var view = new TrailsView({
+              trails:window.allTrails
+            });
+            this.contentView.setView(view);
+            view.renderIfReady();
+            
+            //set links
+            this.headerView.setPrevURL(null);
+            this.headerView.setNextURL(null);
+            this.headerView.setLogoURL('#');
+            this.headerView.render();
         },
 
         trail: function(trailSlug) {
@@ -126,7 +141,7 @@ define([  "backbone",
             view.render();
 
             //set links
-            this.headerView.setPrevURL('#');
+            this.headerView.setPrevURL('#/trails');
             this.headerView.setNextURL(null);
             this.headerView.render();
 
@@ -152,39 +167,6 @@ define([  "backbone",
 
         },
 
-        found_item: function(itemSlug) {
-            this.item(itemSlug, true);
-
-            //links
-            //if(!trail.attributes.isTrail) {
-            //    this.headerView.setPrevURL('#/topic/component');
-            //}
-            this.headerView.setNextURL(null);
-            this.headerView.render();
-
-            FloorTracking.prompttoSwitch = true;
-        },
-        item: function(itemSlug, found) {
-            //default 'found' to false if not specified
-            found = typeof found !== 'undefined' ? found : false;
-
-            var item = window.allItems.findWhere({slug: itemSlug});
-            //Inform the session that we've visited this item
-            var view = new ItemView({
-                item: item,
-                found: found,
-                headerView: this.headerView
-            });
-            this.contentView.setView(view);
-            view.render();
-
-            //links
-            this.headerView.setPrevURL('#/topic/' + window.session.currentTopic.attributes.slug);
-            this.headerView.setNextURL(null);
-            this.headerView.render();
-
-            FloorTracking.prompttoSwitch = false;
-        },
         finished: function() {
             console.error('Finished not implemented.');
         },
@@ -257,7 +239,15 @@ define([  "backbone",
             }
 		    this.contentView.setView(interactView);
 		    interactView.render();
-	    }
+	    },
+        spheretest: function() {
+            var sphereView = new InteractiveSphereView({
+                texture: 'img/objects/globe/map_texture_9.jpg',
+            });
+
+            this.contentView.setView(sphereView);
+            sphereView.render();
+        }
     });
 
     return SEVRouter;

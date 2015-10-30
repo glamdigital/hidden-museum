@@ -1,0 +1,43 @@
+$headerHeight: 25px;
+$headerPadding: 10px;
+$arrowWidth: 90px;
+$audioHeight: 30px;
+
+$phone: "only screen and (max-width: 767px)";
+$tablet: "only screen and (min-width: 768px)";
+$landscape: "(orientation:landscape)";
+$portrait: "(orientation:portrait)";
+
+$standardFontFamily: "Helvetica Neue", "Droid Sans", sans-serif;
+$standardPadding: 5px;
+$cornerRadius: 5px;
+$navBarWidth: 250px;
+
+
+$videoAspectRatio: 1.7777777778;
+$headerHeight: 25px;
+$headerPadding: 10px;
+$tabHeight: 40px;
+$sextantCapturedImageHeight: 222px;
+
+$topicHeaderHeight: 128px;
+$iphone6Height: 667px;
+
+$itemHeight: 40px;
+
+$contentTextColor: black;
+$navTextColor: #444444;
+
+#content {
+  width: 100%;
+  height: 500px;
+  div {
+    width: 100%;
+    height: 500px;
+  }
+}
+
+.sphere-container {
+  width: 100%;
+  height: $iphone6Height - $headerHeight;
+}

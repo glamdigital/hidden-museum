@@ -1,4 +1,4 @@
-# Sensing Evolution
+# Pocket Curator
 
 ## Developer
 

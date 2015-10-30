@@ -1,0 +1,108 @@
+//topics screen - a.k.a Object screen / content select screen
+
+@import "_common.scss";
+
+.object-container{
+  .header {
+    width:100%;
+    height: $topicHeaderHeight;
+    background-size: cover;
+    .title {
+      padding:30px 20px 10px 20px;
+      font-size: 20px;
+      background-color: rgba(0,0,0, 0.6);
+      color: white;
+      text-align: left;
+      position: relative;
+      top: $topicHeaderHeight *0.4;
+      border: none;
+      display: inline-block;
+    }
+    .zoom {
+      float: right;
+      font-size: 2em;
+      margin: 10px;
+      color: $navTextColor;
+      position: relative;
+      top: $topicHeaderHeight * 0.6;
+    }
+  }
+  .map-link {
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    background: grey;
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 2px;
+    a {
+      color: $contentTextColor;
+    }
+  }
+  ul {
+    margin:0px;
+    padding: 0px;
+    list-style: none;
+    li {
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      &.topic-audio {
+        height: 50px;
+        background: lightgrey;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+      }
+      &.topic-item {
+        width: 96%;
+        margin: 2%;
+        background: grey;
+        border: 1px solid black;
+        border-radius: 5px;
+      }
+      a {
+        text-decoration: none;
+        color: $contentTextColor;
+      }
+    }
+  }
+
+  .explore-link {
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+    background: darkgrey;
+    border: 1px solid black;
+    border-radius: 6px;
+    a {
+      color: $contentTextColor;
+    }
+  }
+}
+
+.overlay {
+  background: rgba(0,0,0,1);
+  width: 100%;
+  height: $iphone6Height;
+  display: none;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 10000;
+  &.overlay-image {
+    text-align: center;
+    i.close-overlay {
+      font-size: 3em;
+      float: right;
+      color: $navTextColor;
+    }
+    img {
+      position: relative;
+      top: 60px;
+      width: 100%;
+      &.photograph {
+        top: 0px;
+      }
+    }
+  }
+}
