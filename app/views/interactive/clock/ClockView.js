@@ -216,6 +216,9 @@ define([
                 if(source !== this.sphereModel) {
                     this.updateSphere();
                 }
+                if(source !== this.digitalClockView) {
+                    this.digitalClockView.render();
+                }
             }, this));
         },
 

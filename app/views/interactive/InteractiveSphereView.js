@@ -23,7 +23,10 @@ define([
             //this.defaultRotX = params.tiltTowardCam * Math.PI/180 | 0.1;
             this.defaultRotX = params.tiltTowardCam ? (params.tiltTowardCam * Math.PI/180) : 0.1;
             this.lightFromSun = params.lightFromSun | false;
-            this.stopped = false;
+            this.stopped = false
+
+            //used for 'momentum' spin
+            this.lastDeltaX = 0;
 
             //initialise angle
             this.model.set({angle:this.defaultRotY});
@@ -111,6 +114,7 @@ define([
             this.touchStartY = ev.originalEvent.touches[0].clientY;
 
             this.numTouches++;
+            this.lastDeltaX = 0;
         },
 
         onTouchMove: function(ev) {
@@ -123,6 +127,7 @@ define([
             this.model.trigger('force-change', this.model);
 
             this.touchPrevX = xPos;
+            this.lastDeltaX = deltaX;
 
             if(this.canRotateUpDown) {
                 var yPos = ev.originalEvent.touches[0].clientY;
@@ -154,6 +159,10 @@ define([
                     if(Math.abs(this.extraRotX) > 0.01) {
                         this.extraRotX -= Math.sign(this.extraRotX) * 0.02;
                     }
+
+                    //spin with momentum
+                    this.model.set({angle: this.model.attributes.angle + this.lastDeltaX * 0.2});
+                    this.model.trigger('force-change', this.model);
                 }
             }
         },

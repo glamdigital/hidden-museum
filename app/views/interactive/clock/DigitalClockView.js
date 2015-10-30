@@ -13,8 +13,16 @@ define([
        template: digitalClockTemplate,
 
        initialize: function() {
-           this.listenTo(this.model, 'change', this.render);
+           //this.listenTo(this.model, 'change', this.render);
+
+           //listen for touch start/end events anywhere.
+           //$('body').on('touchstart', _.bind(this.onTouchStart,this));
+           //$('body').on('touchEnd', _.bind(this.onTouchEnd,this));
        },
+
+       //tell layout manager not to use RequestAnimationFrame to manage rendering.
+       // the sphere uses that, which causes an issue here.
+       useRAF : false,
 
        serialize: function() {
            var hours = this.model.attributes.time.hours().toString();
@@ -30,19 +38,36 @@ define([
            return out;
        },
 
-       events: {
-           "click .increase-time": "increaseTime",
-           "click .decrease-time": "decreaseTime"
-       },
-
-       increaseTime: function() {
-           this.model.attributes.time.add(1, 'minute');
-           this.model.trigger('change', this.model);
-       },
-       decreaseTime: function() {
-           this.model.attributes.time.subtract(1, 'minute');
-           this.model.trigger('change', this.model);
+       render: function() {
+           console.log("RENDER digital clock");
        }
+
+       //
+       //events: {
+       //    //"click .increase-time": "increaseTime",
+       //    //"click .decrease-time": "decreaseTime"
+       //},
+       //
+       //increaseTime: function() {
+       //    this.model.attributes.time.add(1, 'minute');
+       //    this.model.trigger('change', this);
+       //},
+       //
+       //decreaseTime: function() {
+       //    this.model.attributes.time.subtract(1, 'minute');
+       //    this.model.trigger('change', this);
+       //},
+       //
+       //onTouchStart: function(ev) {
+       //     //check if we are on the increase button
+       //
+       //    //check if we are on the
+       //},
+       //
+       //cleanup: function() {
+       //    $('.digital-clock').off('touchstart');
+       //    $('.digital-clock').off('touchend');
+       //}
    });
 
     return DigitalClockView;
