@@ -36,7 +36,10 @@ define([
             },
             
             ownOrientation: function (takeOwnership) {
-                if (!screen) {
+                if (!screen ||
+                    typeof screen.unlockOrientation !== 'function' ||
+                    typeof screen.lockOrientation !== 'function') {
+                    
                     return;
                 }
                 
@@ -74,7 +77,7 @@ define([
                 jVideo.webkitEnterFullscreen();
                 jVideo.play();
                 
-                ownOrientation(true);
+                this.ownOrientation(true);
                 // if(typeof(screen !== 'undefined')) {
                 //     screen.lockOrientation('landscape');
                 // }
@@ -97,14 +100,14 @@ define([
                 jVideoPlayer.find('.transports-controls').hide();
                 jVideoPlayer.removeClass('fullscreen');
                 
-                ownOrientation(false);
+                this.ownOrientation(false);
                 // if(typeof(screen !== 'undefined')) {
                 //     screen.lockOrientation('portrait');
                 // }
             },
             
             cleanup: function() {
-                ownOrientation(false);
+                this.ownOrientation(false);
                 // if(typeof(screen !== 'undefined')) {
                 //     screen.lockOrientation('portrait');
                 // }

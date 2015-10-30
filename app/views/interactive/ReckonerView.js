@@ -28,7 +28,7 @@ define([
             
             afterRender: function () {
                 this.videoControlsView = new VideoControlsView({ el: $('.interactive.reckoner') });
-                this.videoControlsView.initialize({ orientationMode: 'landscape' });
+                this.videoControlsView.initialize({ orientationMode: 'portrait' });
                 this.videoControlsView.render();
             },
             
