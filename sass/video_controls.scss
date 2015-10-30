@@ -1,0 +1,37 @@
+.video-player {
+    position: relative;
+    
+    &.fullscreen {
+        background-color: black;
+    }
+    
+    .transport-controls {
+        position: relative;
+        
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 0;
+            background-color: black;
+            opacity: 0.6;
+        }
+        
+        .play-pause {
+            
+        }
+        
+        .restart {
+            
+        }
+        
+        .play {
+            
+        }
+        
+        .pause {
+            
+        }
+    }
+}
