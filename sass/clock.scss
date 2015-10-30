@@ -16,9 +16,9 @@
   }
   &#ten-hr {
     width: 100%;
-    top: 10%;
+    top: 15%;
     img {
-      width: 80%;
+      width: 60%;
     }
   }
   &#twenty-four_min {
@@ -48,14 +48,20 @@
     position: absolute;
     top: 20px;
     right: 8px;
+    i {
+      pointer-events: none;
+    }
   }
   .decrease-time {
     display: inline;
     position: absolute;
     bottom: 20px;
     right: 8px;
+    i {
+      pointer-events: none;
+    }
   }
-  .time {
+  .digital-time {
     font-size: 0.9em;
     text-align: center;
     display: inline;

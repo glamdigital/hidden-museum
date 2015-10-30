@@ -160,9 +160,11 @@ define([
                         this.extraRotX -= Math.sign(this.extraRotX) * 0.02;
                     }
 
-                    //spin with momentum
-                    this.model.set({angle: this.model.attributes.angle + this.lastDeltaX * 0.2});
-                    this.model.trigger('force-change', this.model);
+                    if(this.lastDeltaX !== 0 ) {
+                        //spin with momentum
+                        this.model.set({angle: this.model.attributes.angle + this.lastDeltaX * 0.2});
+                        this.model.trigger('force-change', this.model);
+                    }
                 }
             }
         },

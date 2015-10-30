@@ -49,6 +49,11 @@ define([
                     var days = hours/24;
                     return days*360;
                 },
+                getGlobeAngle: function() {
+                    var hours = this.time.hours() + this.time.minutes()/60;
+                    var days = hours/24;
+                    return days*360 + 180;
+                },
 
                 //angle to time
                 from24HrAngle_H: function(angle) {
@@ -65,6 +70,11 @@ define([
                 },
                 from10HrAngle: function(angle) {
                     var minutes = (angle/360)*24*60;
+                    this.time.hours(0);
+                    return this.time.minutes(minutes);
+                },
+                fromGlobeAngle: function(angle) {
+                    var minutes = ((angle - 180)/360)*24*60;
                     this.time.hours(0);
                     return this.time.minutes(minutes);
                 }
@@ -92,7 +102,7 @@ define([
             });
             this.listenTo(this.sphereModel, 'force-change', _.bind(function(source) {
                 //same angle as the 10 hour clock - i.e. 1 revolution per day
-                var time = this.model.attributes.from10HrAngle(this.sphereModel.attributes.angle + 180);
+                var time = this.model.attributes.fromGlobeAngle(this.sphereModel.attributes.angle + 180);
                 this.model.set({time: time});
                 this.model.trigger('change', this.sphereModel);
             }, this));
@@ -164,7 +174,7 @@ define([
             });
             //update time when this changes
             this.listenTo(this.tenHourClockModel, 'force-change', _.bind(function() {
-                var time = this.model.attributes.from10HrAngle(this.tenHourClockModel.attributes.angle);
+                var time = this.model.attributes.from10HrAngle(this.tenHourClockModel.attributes.angle - Math.PI/180);
                 this.model.set({time: time});
                 this.model.trigger('change', this.tenHourClockModel);
                 //update other clocks
@@ -216,9 +226,7 @@ define([
                 if(source !== this.sphereModel) {
                     this.updateSphere();
                 }
-                if(source !== this.digitalClockView) {
-                    this.digitalClockView.render();
-                }
+                this.digitalClockView.updateTime();
             }, this));
         },
 
@@ -238,8 +246,10 @@ define([
         },
 
         updateSphere: function() {
-            var angle = this.model.attributes.get10HrAngle();
+            var angle = this.model.attributes.getGlobeAngle();
             this.sphereModel.set({angle: angle});
+            //stop spinning
+            this.sphereView.lastDeltaX = 0;
         }
 
 
