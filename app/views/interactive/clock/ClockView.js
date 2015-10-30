@@ -9,6 +9,8 @@ define([
         "moment",
         "hbs!app/templates/interactive/clock",
         "move",
+        "app/mixins/overlay",
+        "hbs!app/templates/overlay_interactive_inner",
     ], function(
         Backbone,
         RotateHandleView,
@@ -16,7 +18,9 @@ define([
         InteractiveSphereView,
         moment,
         clockTemplate,
-        move
+        move,
+        overlayMixin,
+        interactiveInnerTemplate
     ) {
 
     TIME = moment();
@@ -26,7 +30,7 @@ define([
 
         initialize: function(params) {
             var time = moment().hours(0).minutes(0).seconds(0);
-            this.model = new Backbone.Model({
+            this.timeModel = new Backbone.Model({
                 time: time,
 
                 setTime: function() {
@@ -82,8 +86,11 @@ define([
             });
 
             $('.set-time').click(_.bind(function(ev) {
-                this.model.setTime();
+                this.timeModel.setTime();
             }, this))
+
+            this.overlayInitialize({ displayOnArrival: true});
+            this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
         },
 
         afterRender: function() {
@@ -92,7 +99,7 @@ define([
 
             ///digital clock
             this.digitalClockView = new DigitalClockView({
-                model: this.model,
+                model: this.timeModel,
                 el: $('#digital-clock'),
             });
             this.digitalClockView.render();
@@ -102,9 +109,9 @@ define([
             });
             this.listenTo(this.sphereModel, 'force-change', _.bind(function(source) {
                 //same angle as the 10 hour clock - i.e. 1 revolution per day
-                var time = this.model.attributes.fromGlobeAngle(this.sphereModel.attributes.angle + 180);
-                this.model.set({time: time});
-                this.model.trigger('change', this.sphereModel);
+                var time = this.timeModel.attributes.fromGlobeAngle(this.sphereModel.attributes.angle + 180);
+                this.timeModel.set({time: time});
+                this.timeModel.trigger('change', this.sphereModel);
             }, this));
             this.sphereView = new InteractiveSphereView({
                 el: $('#globe'),
@@ -130,9 +137,9 @@ define([
             });
             //update time when this changes
             this.listenTo(this.twentyFourHourMinuteHandModel, 'force-change', _.bind(function(source) {
-                var time = this.model.attributes.from24HrAngle_M(this.twentyFourHourMinuteHandModel.attributes.angle);
-                this.model.set({time: time});
-                this.model.trigger('change', this.twentyFourHourMinuteHandModel);
+                var time = this.timeModel.attributes.from24HrAngle_M(this.twentyFourHourMinuteHandModel.attributes.angle);
+                this.timeModel.set({time: time});
+                this.timeModel.trigger('change', this.twentyFourHourMinuteHandModel);
                 //this.update10hrHand();
                 //this.updateHourHand();
             }, this));
@@ -152,9 +159,9 @@ define([
             });
             //update time when this changes
             this.listenTo(this.twentyFourHourHourHandModel, 'force-change', _.bind(function(source) {
-                var time = this.model.attributes.from24HrAngle_H(this.twentyFourHourHourHandModel.attributes.angle);
-                this.model.set({time: time});
-                this.model.trigger('change', this.twentyFourHourHourHandModel);
+                var time = this.timeModel.attributes.from24HrAngle_H(this.twentyFourHourHourHandModel.attributes.angle);
+                this.timeModel.set({time: time});
+                this.timeModel.trigger('change', this.twentyFourHourHourHandModel);
                 //update the other clocks
                 //this.update10hrHand();
                 //this.updateMinuteHand();
@@ -174,9 +181,9 @@ define([
             });
             //update time when this changes
             this.listenTo(this.tenHourClockModel, 'force-change', _.bind(function() {
-                var time = this.model.attributes.from10HrAngle(this.tenHourClockModel.attributes.angle - Math.PI/180);
-                this.model.set({time: time});
-                this.model.trigger('change', this.tenHourClockModel);
+                var time = this.timeModel.attributes.from10HrAngle(this.tenHourClockModel.attributes.angle - Math.PI/180);
+                this.timeModel.set({time: time});
+                this.timeModel.trigger('change', this.tenHourClockModel);
                 //update other clocks
                 //this.updateHourHand();
                 //this.updateMinuteHand();
@@ -213,7 +220,7 @@ define([
                 }
             }, this));
 
-            this.listenTo(this.model, 'change', _.bind(function(source) {
+            this.listenTo(this.timeModel, 'change', _.bind(function(source) {
                 if(source !== this.twentyFourHourHourHandModel) {
                     this.updateHourHand();
                 }
@@ -231,29 +238,36 @@ define([
         },
 
         updateMinuteHand: function() {
-            var angle24hr_minutehand = this.model.attributes.get24HrAngle_M();
+            var angle24hr_minutehand = this.timeModel.attributes.get24HrAngle_M();
             this.twentyFourHourMinuteHandModel.set({angle: angle24hr_minutehand});
         },
 
         updateHourHand: function() {
-            var angle24hr_hourhand = this.model.attributes.get24HrAngle_H();
+            var angle24hr_hourhand = this.timeModel.attributes.get24HrAngle_H();
             this.twentyFourHourHourHandModel.set({angle: angle24hr_hourhand });
         },
 
         update10hrHand: function() {
-            var angle = this.model.attributes.get10HrAngle();
+            var angle = this.timeModel.attributes.get10HrAngle();
             this.tenHourClockModel.set({angle: angle});
         },
 
         updateSphere: function() {
-            var angle = this.model.attributes.getGlobeAngle();
+            var angle = this.timeModel.attributes.getGlobeAngle();
             this.sphereModel.set({angle: angle});
             //stop spinning
             this.sphereView.lastDeltaX = 0;
+        },
+
+        cleanup: function() {
+            this.overlayCleanup();
         }
 
 
     });
+
+    _.extend(ClockView.prototype, overlayMixin);
+
     return ClockView;
 
 });

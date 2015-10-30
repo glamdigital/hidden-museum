@@ -220,16 +220,16 @@ define([
                     case 'sextant-interact': {
                         switch (index) {
                             case '0': interactView = new SextantView({ item: item, model:item, stateModel:this.sextantModel }); break;
-                            case '1': interactView = new AlmanacView({ item: item, model:this.sextantModel }); break;
+                            case '1': interactView = new AlmanacView({ item: item, stateModel:this.sextantModel }); break;
                         }
                         break;
                     }
-                case 'clock-interact': {
-                    switch(index) {
-                        case '0': interactView = new ClockView({ item: item }); break;
+                    case 'clock-interact': {
+                        switch(index) {
+                            case '0': interactView = new ClockView({ item: item, model:item }); break;
+                        }
+                        break;
                     }
-                    break;
-                }
                 }
                 
                 this.contentView.setView(interactView);

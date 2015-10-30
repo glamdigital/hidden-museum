@@ -13,7 +13,7 @@ define(["backbone", "app/models/interactive/SextantModel", "hbs!app/templates/in
     var SextantReadingView = Backbone.View.extend({
 
         initialize: function() {
-            this.listenTo(this.model, "change", this.render);
+            this.listenTo(this.stateModel, "change", this.render);
         },
 
         afterRender: function() {
@@ -62,7 +62,7 @@ define(["backbone", "app/models/interactive/SextantModel", "hbs!app/templates/in
         drawNumber: function(num, ctx) {
 
             //console.log("drawing number:", num);
-            var angle = (num + this.model.attributes.angle/2) * Math.PI/180  ;
+            var angle = (num + this.stateModel.attributes.angle/2) * Math.PI/180  ;
             ctx.translate(0, -SEXTANT_RADIUS);
             ctx.rotate(-angle);
             ctx.translate(0, SEXTANT_RADIUS);
