@@ -5,6 +5,7 @@ define([
         "backbone",
         "app/views/interactive/clock/RotateHandleView",
         "app/views/interactive/clock/DigitalClockView",
+        "app/views/interactive/InteractiveSphereView",
         "moment",
         "hbs!app/templates/interactive/clock",
         "move",
@@ -12,6 +13,7 @@ define([
         Backbone,
         RotateHandleView,
         DigitalClockView,
+        InteractiveSphereView,
         moment,
         clockTemplate,
         move
@@ -75,6 +77,28 @@ define([
         },
 
         afterRender: function() {
+
+            this.initHands();
+
+            ///digital clock
+            this.digitalClockView = new DigitalClockView({
+                model: this.model,
+                el: $('#digital-clock'),
+            });
+            this.digitalClockView.render();
+
+            this.sphereView = new InteractiveSphereView({
+                el: $('#globe'),
+                texture: 'img/objects/globe/map_texture_9.jpg',
+                canRotateUpDown: false,
+                lightFromSun: true,
+                tiltTowardCan: 0,
+            });
+            this.sphereView.render();
+
+        },
+
+        initHands: function() {
 
             //model for minute hand
             this.twentyFourHourMinuteHandModel = new Backbone.Model({
@@ -177,14 +201,6 @@ define([
                     this.update10hrHand();
                 }
             }, this));
-
-            ///digital clock
-            this.digitalClockView = new DigitalClockView({
-                model: this.model,
-                el: $('#digital-clock'),
-            });
-            this.digitalClockView.render();
-
         },
 
         updateMinuteHand: function() {

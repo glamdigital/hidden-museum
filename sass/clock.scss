@@ -1,3 +1,5 @@
+@import "_common.scss";
+
 .clock-face {
   position: absolute;
   z-index: 10;
@@ -31,5 +33,15 @@
   }
   .increase-time {
     display: inline;
+  }
+}
+
+$globeHeight: 200px;
+
+#globe {
+  position: relative;
+  top: $iphone6Height - $globeHeight - $headerHeight - 50px;
+  .sphere-container {
+    height: $globeHeight;
   }
 }
