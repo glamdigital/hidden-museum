@@ -1,0 +1,52 @@
+.video-player {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    
+    &.fullscreen {
+        background-color: black;
+    }
+    
+    .transport-controls {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        
+        .container {
+            text-align: center;
+            position: relative;
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: white;
+            opacity: 0.3;
+        }
+        
+        .play-pause {
+            
+        }
+        
+        .restart {
+            
+        }
+        
+        .play {
+            
+        }
+        
+        .pause {
+            
+        }
+    }
+}
