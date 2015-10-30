@@ -28,7 +28,14 @@ define([
             
             afterRender: function () {
                 this.videoControlsView = new VideoControlsView({ el: $('.interactive.reckoner') });
-                this.videoControlsView.initialize({ orientationMode: 'portrait' });
+                this.videoControlsView.initialize({
+                    orientationMode: 'portrait',
+                    hidePause:       true,
+                    
+                    onFinalFrame: (function () {
+                        Backbone.history.navigate('#/topic/' + this.item.attributes.object);
+                    }).bind(this)
+                });
                 this.videoControlsView.render();
             },
             
