@@ -1,5 +1,11 @@
 @import "_common.scss";
 
+
+@font-face {
+  font-family: "digital7";
+  src: url("../fonts/digital-7.ttf");
+}
+
 .clock-face {
   position: absolute;
   z-index: 10;
@@ -29,14 +35,33 @@
 #digital-clock {
   position: absolute;
   left: 50%;
-  .decrease-time {
-    display: inline;
-  }
-  .time {
-    display: inline;
-  }
+  font-family: "digital7";
+  background: url(../img/objects/armillary/digitalWatch.jpg);
+  background-size: 200px;
+  background-position: -20px -26px;
+  width: 50%;
+  height: 140px;
+  font-size: 2em;
   .increase-time {
     display: inline;
+    float: right;
+    position: absolute;
+    top: 20px;
+    right: 8px;
+  }
+  .decrease-time {
+    display: inline;
+    position: absolute;
+    bottom: 20px;
+    right: 8px;
+  }
+  .time {
+    font-size: 0.9em;
+    text-align: center;
+    display: inline;
+    position: absolute;
+    top: 58px;
+    left: 43px;
   }
 }
 

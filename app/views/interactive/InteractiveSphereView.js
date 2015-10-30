@@ -27,7 +27,6 @@ define([
 
             //initialise angle
             this.model.set({angle:this.defaultRotY});
-            this.panRatio = params.panRatio;
 
         },
 
