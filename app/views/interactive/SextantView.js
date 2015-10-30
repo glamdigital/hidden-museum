@@ -3,9 +3,12 @@ define([
         "app/models/interactive/SextantModel",
         "app/views/interactive/SextantReadingView",
         "hbs!app/templates/interactive/sextant",
+        "app/mixins/overlay",
+        'hbs!app/templates/overlay_interactive_inner'
     ],
-    function(Backbone, SextantModel, SextantReadingView, sextantTemplate) {
-
+    
+    function (Backbone, SextantModel, SextantReadingView, sextantTemplate, overlayMixin, interactiveInnerTemplate) {
+        
         //sextant arm
         armPivot = {x:0.0, y:-0.36};  //rotation centre for the arm as proportion of width, from geometric centre
 
@@ -52,7 +55,7 @@ define([
             out.instructions = this.instructions[0];
             return out;
         },
-
+        
         initialize: function(params) {
             this.item = params.item;
             this.step = 0;
@@ -69,20 +72,26 @@ define([
             var dragEnabled = false; //enable preview box drag across the screen
             var toBack = true; //send preview box to the back of the webview
             var rect = {x: 0, y: 175, width: 380, height:280};
-	        if(typeof(cordova) !== 'undefined') {
-		        cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
-	        }
+            
+            if (typeof cordova !== 'undefined') {
+                cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
+            }
+            
             $('#content').css("background-color", "transparent");
             this.startingDeviceOrientation = { beta: 90 + DEFAULT_HORIZON };
             this.startTrackingOrientation();
+            
+            this.overlayInitialize({ displayOnArrival: true });
+            this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
         },
+        
         afterRender: function() {
             this.setup();
 
             //create the view for the reading
             this.readingView = new SextantReadingView({
                 el: '#sextant-reading',
-                model: this.model
+                model: this.stateModel
             });
             this.readingView.render();
 
@@ -90,7 +99,7 @@ define([
         setup: function() {        
             this.displayInstructions(0);
             setSextantArmAngle(0);
-            this.model.set({angle: 0});
+            this.stateModel.set({angle: 0});
             this.hideMessage();
             this.showHorizonIndicator();
             this.angle = 0;       
@@ -157,8 +166,8 @@ define([
                     this.angle = MIN_ANGLE;
                 }
 
-                //set the angle on the model
-                this.model.set({angle: this.angle});
+                //set the angle on the state model
+                this.stateModel.set({angle: this.angle});
 
                 if(this.angle > MIN_CAPTURE_SUN_ANGLE) {
                     $button = $('#controls').find('.button');
@@ -221,20 +230,23 @@ define([
             //$('#message')[0].innerHTML = "<p>The angle you measured was "  + this.angle.toPrecision(4).toString() + "&deg;. If the object you lined up had been the Pole Star, the angle would be the same as your latitude. The Pole Star is 90&deg; above the horizon at the North Pole, which has a latitude of 90&deg; North. The star appears right on the horizon at the equator, at 0&deg;. Oxford is 51.7&deg; North. Usually navigators measured the Sun and other stars and calculated latitude using reference books called almanacs.</p><p>To line up the object with the horizon you tilted the phone. On a sextant you'd move the main arm to tilt a mirror.</p>";
             //$('#message')[0].innerHTML = "<p>The angle you measured was " + this.angle.toPrecision(4).toString() + "&deg;. Navigators could use this measurement to calculate their latitude, or north/south position, often by looking it up in a book called an almanac. The North Pole is 90&deg North and the equator is 0&deg. Oxford's latitude is 51.7&deg North." +
             //"<br><br>To line up the object with the horizon you tilted the phone. On a sextant the object and horizon are lined up by moving the main arm to tilt the mirror.</p>";
-            $('#message')[0].innerHTML = "<p>You have measured that the noon sun is " + this.model.getLatitude().toPrecision(5).toString() + "&deg; above the horizon. You could also measure other known celestial objects, such as the Pole Star</p><p>To calculate latitude from this measurement, navigators would consult a reference book called an almanac.</p><p>Press the 'Calculate latitude' button to get simulate this calculation.</p>"
+            $('#message')[0].innerHTML = "<p>You have measured that the noon sun is " + this.stateModel.getLatitude().toPrecision(5).toString() + "&deg; above the horizon. You could also measure other known celestial objects, such as the Pole Star</p><p>To calculate latitude from this measurement, navigators would consult a reference book called an almanac.</p><p>Press the 'Calculate latitude' button to get simulate this calculation.</p>"
         },
         hideMessage: function() {
             var $messageDiv = $('#message')[0];
             $('#message').hide();
         },
-	    cleanup: function() {
-		    if (typeof(cordova) != "undefined") {
+        
+        cleanup: function() {
+            if (typeof cordova !== "undefined") {
                 cordova.plugins.camerapreview.stopCamera();
             }
-	    },
-
+            
+            this.overlayCleanup();
+        }
     });
-
+    
+    _.extend(SextantView.prototype, overlayMixin);
+    
     return SextantView;
-
 });

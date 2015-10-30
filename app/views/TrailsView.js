@@ -1,4 +1,4 @@
-define(["backbone", "jquery", "hbs!app/templates/trails"], function(Backbone, $, trailsTemplate) {
+define(["backbone", "jquery", "hbs!app/templates/trails", "app/mixins/overlay"], function(Backbone, $, trailsTemplate, overlayMixin) {
 
   var TrailsView = Backbone.View.extend({
       template: trailsTemplate,
@@ -13,7 +13,21 @@ define(["backbone", "jquery", "hbs!app/templates/trails"], function(Backbone, $,
           this.trails.on('sync', function() {
               this.render();
           }, this);
+          
+          this.listenTo(Backbone, 'nav_info', this.toggleInfoPanel);
+          
           $(window).resize(this.adjustPosition);
+          
+          this.overlayInitialize({ displayOnArrival: window.firstRun });
+          
+          if (window.firstRun) {
+            // Permanently clear the firstRun flag.
+            window.firstRun = false;
+          }
+      },
+      
+      cleanup: function () {
+        this.overlayCleanup();
       },
       
       afterRender: function() {
@@ -31,8 +45,14 @@ define(["backbone", "jquery", "hbs!app/templates/trails"], function(Backbone, $,
           if (this.trails.length > 0) {
               this.render();
           }
+      },
+      
+      toggleInfoPanel: function () {
+        console.log('Info button pressed');
       }
   });
+  
+  _.extend(TrailsView.prototype, overlayMixin);
   
   return TrailsView;
 });
