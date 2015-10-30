@@ -25,10 +25,9 @@ define([
             this.lightFromSun = params.lightFromSun | false;
             this.stopped = false;
 
-            this.marker = params.marker;
-
             //initialise angle
             this.model.set({angle:this.defaultRotY});
+            this.panRatio = params.panRatio;
 
         },
 
@@ -118,7 +117,7 @@ define([
         onTouchMove: function(ev) {
             var xPos = ev.originalEvent.touches[0].clientX;
             var deltaX = xPos - this.touchPrevX;
-            var newAngle = this.mesh.rotation.y + deltaX * ROTATE_PAN_RATIO * Math.PI/180;
+            var newAngle = this.mesh.rotation.y + deltaX * this.panRatio * Math.PI/180;
             //update the model
             var newAngleDeg = newAngle * 180/Math.PI;
             this.model.set({angle: newAngleDeg});
@@ -131,7 +130,7 @@ define([
                 var deltaY = yPos - this.touchStartY;
                 if (Math.abs(deltaY) > MIN_DELTA_Y) {
                     var extraDist = deltaY - Math.sign(deltaY) * MIN_DELTA_Y;
-                    this.extraRotX = extraDist * ROTATE_PAN_RATIO * Math.PI / 180;
+                    this.extraRotX = extraDist * this.panRatio * Math.PI / 180;
                 }
             }
         },
