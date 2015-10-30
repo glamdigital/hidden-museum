@@ -87,8 +87,18 @@ define([
             });
             this.digitalClockView.render();
 
+            //sphere
+            this.sphereModel = new Backbone.Model({
+            });
+            this.listenTo(this.sphereModel, 'force-change', _.bind(function(source) {
+                //same angle as the 10 hour clock - i.e. 1 revolution per day
+                var time = this.model.attributes.from10HrAngle(this.sphereModel.attributes.angle);
+                this.model.set({time: time});
+                this.model.trigger('change', this.sphereModel);
+            }, this));
             this.sphereView = new InteractiveSphereView({
                 el: $('#globe'),
+                model: this.sphereModel,
                 texture: 'img/objects/globe/map_texture_9.jpg',
                 canRotateUpDown: false,
                 lightFromSun: true,
@@ -200,6 +210,9 @@ define([
                 if(source !== this.tenHourClockModel) {
                     this.update10hrHand();
                 }
+                if(source !== this.sphereModel) {
+                    this.updateSphere();
+                }
             }, this));
         },
 
@@ -216,6 +229,11 @@ define([
         update10hrHand: function() {
             var angle = this.model.attributes.get10HrAngle();
             this.tenHourClockModel.set({angle: angle});
+        },
+
+        updateSphere: function() {
+            var angle = this.model.attributes.get10HrAngle();
+            this.sphereModel.set({angle: angle});
         }
 
 

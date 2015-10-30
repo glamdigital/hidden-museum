@@ -24,6 +24,9 @@ define([
             this.defaultRotX = params.tiltTowardCam ? (params.tiltTowardCam * Math.PI/180) : 0.1;
             this.lightFromSun = params.lightFromSun | false;
             this.stopped = false;
+
+            //initialise angle
+            this.model.set({angle:0});
         },
 
         afterRender: function () {
@@ -89,7 +92,12 @@ define([
         onTouchMove: function(ev) {
             var xPos = ev.originalEvent.touches[0].clientX;
             var deltaX = xPos - this.touchPrevX;
-            this.mesh.rotation.y += deltaX * ROTATE_PAN_RATIO * Math.PI/180;
+            var newAngle = this.mesh.rotation.y + deltaX * ROTATE_PAN_RATIO * Math.PI/180;
+            //update the model
+            var newAngleDeg = newAngle * 180/Math.PI;
+            this.model.set({angle: newAngleDeg});
+            this.model.trigger('force-change', this.model);
+
             this.touchPrevX = xPos;
 
             if(this.canRotateUpDown) {
@@ -100,19 +108,25 @@ define([
                     this.extraRotX = extraDist * ROTATE_PAN_RATIO * Math.PI / 180;
                 }
             }
+
         },
 
         onTouchEnd: function(ev) {
             this.numTouches--;
         },
-
         animate: function() {
             if(!this.stopped) {
                 this.animReq = requestAnimationFrame(_.bind(this.animate, this));
+
+                //tilt
                 this.mesh.rotation.x = this.defaultRotX + this.extraRotX;
+                //turn
+                this.mesh.rotation.y = this.model.attributes.angle * Math.PI/180;
+
 
                 renderer.render(this.scene, this.camera);
 
+                //drift back to default tilt if not touching
                 if(this.numTouches == 0) {
                     if(Math.abs(this.extraRotX) > 0.01) {
                         this.extraRotX -= Math.sign(this.extraRotX) * 0.02;
