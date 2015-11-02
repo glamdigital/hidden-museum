@@ -35,7 +35,7 @@ define([
                     videoPath: this.item.attributes.video,
 
                     onFinalFrame: function() {
-                        Backbone.history.navigate('#/topic/this.item.attributes.object');
+                        Backbone.history.navigate('#/topic/' + this.item.attributes.object);
                     }.bind(this)
                 });
                 this.videoControlsView.render();
