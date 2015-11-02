@@ -114,7 +114,7 @@ define([
                 this.timeModel.trigger('change', this.sphereModel);
             }, this));
             this.sphereView = new InteractiveSphereView({
-                el: $('#globe'),
+                el: $('#globe-clock'),
                 model: this.sphereModel,
                 texture: 'img/objects/globe/map_texture_9.jpg',
                 canRotateUpDown: false,
