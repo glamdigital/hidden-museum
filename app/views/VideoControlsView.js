@@ -146,7 +146,6 @@ define([
             },
             
             cleanup: function() {
-                console.log("cleaning up video view");
                 this.ownOrientation(false);
             }
         });
