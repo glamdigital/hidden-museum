@@ -9,7 +9,7 @@ define([
     )
 {
     ROTATE_PAN_RATIO = 0.3;     //points of drag to degrees of rotation
-    MIN_DELTA_Y = 30;       //minimum y-distance for touch to move before tilting the globe
+    MIN_DELTA_Y = 0;       //minimum y-distance for touch to move before tilting the globe
 
     var InteractiveSphereView = Backbone.View.extend({
         template: sphereTemplate,
@@ -22,6 +22,8 @@ define([
             this.canRotateUpDown = params.canRotateUpDown | false;
             //this.defaultRotX = params.tiltTowardCam * Math.PI/180 | 0.1;
             this.defaultRotX = params.tiltTowardCam ? (params.tiltTowardCam * Math.PI/180) : 0.1;
+            this.defaultRotY = params.defaultRotY | 0;
+            this.panRatio = params.panRatio | 1;
             this.lightFromSun = params.lightFromSun | false;
             this.stopped = false
 
@@ -115,6 +117,8 @@ define([
 
             this.numTouches++;
             this.lastDeltaX = 0;
+
+            this.startExtraRotX = this.extraRotX;
         },
 
         onTouchMove: function(ev) {
@@ -134,7 +138,7 @@ define([
                 var deltaY = yPos - this.touchStartY;
                 if (Math.abs(deltaY) > MIN_DELTA_Y) {
                     var extraDist = deltaY - Math.sign(deltaY) * MIN_DELTA_Y;
-                    this.extraRotX = extraDist * this.panRatio * Math.PI / 180;
+                    this.extraRotX = this.startExtraRotX + extraDist * this.panRatio * Math.PI / 180;
                 }
             }
         },
