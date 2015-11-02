@@ -15,8 +15,15 @@ define([
             total: 0,
             
             events: {
-                'click .ui .controls .previous': 'onPrevious',
-                'click .ui .controls .next':     'onNext'
+                'click .ui .gallery .blackboard': 'onBlackboard',
+                'click .ui .controls .previous':  'onPrevious',
+                'click .ui .controls .next':      'onNext'
+            },
+            
+            onBlackboard: function (event) {
+                console.log('onBlackboard() toggling zoom');
+                this.isZoomed = !this.isZoomed;
+                Backbone.trigger('blackboard_gallery_render');
             },
             
             onPrevious: function (event) {
@@ -44,8 +51,9 @@ define([
             initialize: function (params) {
                 this.explanationComponents = [];
                 
-                this.index = 0;
-                this.item  = params.item;
+                this.index    = 0;
+                this.item     = params.item;
+                this.isZoomed = false;
                 
                 this.overlayInitialize({ displayOnArrival: true });
                 this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
@@ -89,6 +97,17 @@ define([
                 
                 jDescription.empty();
                 jDescription.append(explanation.jDescription.clone());
+                
+                var jZoomView = $('.ui .gallery .zoom-view');
+                
+                if (this.isZoomed) {
+                    jZoomView.removeClass('hidden');
+                    $('.ui .gallery .scroll-container').addClass('hidden');
+                }
+                else {
+                    jZoomView.addClass('hidden');
+                    $('.ui .gallery .scroll-container').removeClass('hidden');
+                }
             },
             
             renderGallery: function () {

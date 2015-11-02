@@ -12,6 +12,24 @@
         position: relative;
         height: 100%;
         
+        .zoom-view {
+            position: absolute;
+            top: 0;
+            bottom: 24px;
+            left: 0;
+            right: 0;
+            z-index: 2;
+            
+            &.hidden {
+                display: none;
+            }
+            
+            .blackboard {
+                height: auto;
+                width: 100%;
+            }
+        }
+        
         .background {
             display: none;
         }
@@ -40,6 +58,10 @@
             position: relative;
             height: $iphone6Height - $headerHeight - (3 * $headerPadding) - 260px - 24px - 10px;
             overflow-y: auto;
+            
+            &.hidden {
+                display: none;
+            }
         }
         
         p {
