@@ -20,9 +20,11 @@ define([
         "app/views/interactive/SextantView",
         "app/views/interactive/AlmanacView",
         "app/models/interactive/SextantModel",
+        "app/views/interactive/ReckonerView",
+        "app/views/interactive/BlackboardVideo",
         "app/views/interactive/clock/ClockView",
         "app/views/interactive/InteractiveSphereView",
-        "app/views/interactive/ReckonerView"
+        "app/views/interactive/MoonGlobeVideo"
     ],
     
     function(Backbone, $, _,
@@ -44,9 +46,11 @@ define([
             SextantView,
             AlmanacView,
             SextantModel,
+            ReckonerView,
+            BlackboardVideo,
             ClockView,
             InteractiveSphereView,
-            ReckonerView
+            MoonGlobeVideo
         ) {
         
         var SEVRouter = Backbone.Router.extend({
@@ -235,6 +239,50 @@ define([
                     case 'reckoner-interact':
                         // switching on 'index' unneeded here as this isn't a multiple-stage interactive.
                         interactView = new ReckonerView({ item: item, model: item });
+                        break;
+                        
+                    case 'blackboard-ir':
+                        switch (index) {
+                            case '0':
+                                var nextRoute = '#/' + Backbone.history.getFragment().replace('0', '1');
+                                interactView = new ImageScanView({
+                                    model: item,
+                                    item: item,
+                                    target: 'blackboard',        //a substring in the title of all relevant reference images in the moodstocks library
+                                    onFoundItem: _.bind(function() {
+                                        Backbone.history.navigate(nextRoute);
+                                    }, this)
+                                });
+                                break;
+                            case '1':
+                                interactView = new BlackboardVideo({
+                                    model: item,
+                                    item: item,
+                                });
+                                break;
+                        }
+                        break;
+
+                    case 'moonglobe-ir':
+                        switch (index) {
+                            case '0':
+                                var nextRoute = '#/' + Backbone.history.getFragment().replace('0', '1');
+                                interactView = new ImageScanView({
+                                    model: item,
+                                    item: item,
+                                    target: 'moon',        //a substring in the title of all relevant reference images in the moodstocks library
+                                    onFoundItem: _.bind(function() {
+                                        Backbone.history.navigate(nextRoute);
+                                    }, this)
+                                });
+                                break;
+                            case '1':
+                                interactView = new MoonGlobeVideo({
+                                    model: item,
+                                    item: item,
+                                });
+                                break;
+                        }
                         break;
                         
                     default:
