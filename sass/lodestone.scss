@@ -1,8 +1,8 @@
 @import "_common.scss";
 
-$paletteHeight: 100px;
+$paletteHeight: 0px;
 
-$frameHeight: $iphone6Height - 2* $headerHeight - $paletteHeight;
+$frameHeight: $iphone6Height - $headerHeight - 2*$headerPadding;
 
 $crownStartY: 100px;
 $crownWidth: 130px;
@@ -21,6 +21,15 @@ $weightCradleHeight: 300px;
     z-index: 10;
     position: absolute;
     top: 0;
+
+    #controls-height {
+      width: 100%;
+      position: relative;
+      top: $frameHeight - 200px;
+      #controls-holder {
+        text-align: center;
+      }
+    }
   }
 
   #crown-container {

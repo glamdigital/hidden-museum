@@ -3,6 +3,7 @@ define([
         'underscore',
         'app/models/interactive/LodestoneModel',
         'hbs!app/templates/interactive/lodestone',
+        'app/views/interactive/clock/RotateHandleView',
         'app/mixins/overlay',
         'hbs!app/tempaltes/overlay_interactive_inner',
         'app/views/VideoControlsView',
@@ -12,6 +13,7 @@ define([
         _,
         LodestoneModel,
         lodestoneTemplate,
+        RotateHandleView,
         overlayMixin,
         interactiveInnerTemplate,
         VideoControlsView
@@ -34,7 +36,9 @@ define([
 
                 //model to track handle winding
                 this.windModel = new Backbone.Model({
-                    angle: 0
+                    angle: 0,
+                    handleMinHeight: 120,
+                    handleWidth: 20,
                 });
 
             },
@@ -64,7 +68,12 @@ define([
                             //add keys as touch hotspot
                             break;
                         case 'winding':
-                            // add winding handle
+                            this.zoomHandleView = new RotateHandleView({
+                                el: $('#controls-holder'),
+                                model: this.windModel,
+                                image: "img/minute_hand.png"
+                            });
+                            this.zoomHandleView.render();
                             break;
                         case 'adding':
                             //add pallette view
