@@ -27,9 +27,9 @@ define([
             },
 
             afterRender: function() {
-                this.videoControlsView = new VideoControlsView({ el: $('.interactive.video')});
-                this.videoControlsView.initialize({
-                    orientationMode: 'portrait',
+                this.videoControlsView = new VideoControlsView({
+                    el: $('.interactive.video'),
+                    orientationMode: 'landscape-primary',
                     hidePause: true,
                     imagePath: this.item.attributes.image,
                     videoPath: this.item.attributes.video,
@@ -42,6 +42,7 @@ define([
             },
 
             cleanup: function() {
+                this.videoControlsView.remove();
                 this.overlayCleanup();
             },
         });

@@ -40,7 +40,8 @@ define([
                 
                 this.templateData = {
                     imagePath: params.imagePath || '',
-                    videoPath: params.videoPath || ''
+                    videoPath: params.videoPath || '',
+                    orientation: this.orientationMode
                 };
                 
                 this.ownOrientation(true);
@@ -59,11 +60,13 @@ define([
                         screen.lockOrientation(this.orientationMode);
                     }
                     else {
-                        screen.unlockOrientation();
+                        //if not explicitly landscape, assume portrait
+                        screen.lockOrientation('portrait-primary');
                     }
                 }
                 else {
-                    screen.unlockOrientation();
+                    //return to portrait on exiting
+                    screen.lockOrientation('portrait-primary');
                 }
             },
             
@@ -143,6 +146,7 @@ define([
             },
             
             cleanup: function() {
+                console.log("cleaning up video view");
                 this.ownOrientation(false);
             }
         });
