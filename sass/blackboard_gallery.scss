@@ -1,5 +1,8 @@
 @import "_common.scss";
 
+$controlsHeight: 32px;
+$blackboardHeight: 260px;
+
 .explanations {
     display: none;
 }
@@ -15,7 +18,7 @@
         .zoom-view {
             position: absolute;
             top: 0;
-            bottom: 24px;
+            bottom: $controlsHeight;
             left: 0;
             right: 0;
             z-index: 2;
@@ -38,7 +41,7 @@
             display: block;
             margin-left: auto;
             margin-right: auto;
-            height: 260px;
+            height: $blackboardHeight;
         }
         
         .name {
@@ -56,7 +59,7 @@
         .scroll-container {
             margin-top: 10px;
             position: relative;
-            height: $iphone6Height - $headerHeight - (3 * $headerPadding) - 260px - 24px - 10px;
+            height: $iphone6Height - $headerHeight - (3 * $headerPadding) - $blackboardHeight - $controlsHeight - 10px;
             overflow-y: auto;
             
             &.hidden {
@@ -99,7 +102,8 @@
         background-color: white;
         padding-top: 3px;
         padding-bottom: 3px;
-        height: 24px;
+        height: $controlsHeight;
+        box-sizing: initial;
         
         .background {
             display: none;
@@ -115,6 +119,8 @@
         
         .progress {
             display: inline-block;
+            height: $controlsHeight;
+            line-height: $controlsHeight;
             
             .index {
                 
