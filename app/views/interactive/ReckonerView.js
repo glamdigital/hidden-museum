@@ -27,13 +27,12 @@ define([
             },
             
             afterRender: function () {
-                this.videoControlsView = new VideoControlsView({ el: $('.interactive.reckoner') });
-                this.videoControlsView.initialize({
-                    orientationMode: 'portrait',
+                this.videoControlsView = new VideoControlsView({
+                    el: $('.interactive.reckoner'),
                     hidePause:       true,
                     imagePath:       this.item.attributes.image,
                     videoPath:       this.item.attributes.video,
-                    
+
                     onFinalFrame: (function () {
                         Backbone.history.navigate('#/topic/' + this.item.attributes.object);
                     }).bind(this)
@@ -42,6 +41,7 @@ define([
             },
             
             cleanup: function () {
+                this.videoControlsView.remove();
                 this.overlayCleanup();
             },
         });
