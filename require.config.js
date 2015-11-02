@@ -14,8 +14,11 @@ require.config({
     layoutmanager: "app/libs/layoutmanager/backbone.layoutmanager",
     hbs: "app/libs/require-handlebars-plugin/hbs",
     jasmine: "app/libs/jasmine/lib/jasmine-core",
+    move: "app/libs/movejs/move",
     fulltilt: "app/libs/fulltilt/dist/fulltilt",
-    moment: "app/libs/momentjs/moment"
+    moment: "app/libs/momentjs/moment",
+    victor: "app/libs/victor/build/victor",
+    three: "app/libs/three.js/three"
   },
   packages: [
 
