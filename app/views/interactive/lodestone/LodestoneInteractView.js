@@ -19,6 +19,10 @@ define([
         VideoControlsView
     ) {
 
+        MAX_WIND_ANGLE = 2.5 * 360;
+
+        MAX_WIND_HEIGHT = -95;
+
         var LodestoneInteractView = Backbone.View.extend({
             template: lodestoneTemplate,
 
@@ -83,6 +87,24 @@ define([
                             break;
                     }
                 }
+
+                //move when the winding changes
+                this.listenTo(this.windModel, 'change', function(source) {
+                    //move the crown up
+                    var crownHeight = MAX_WIND_HEIGHT * this.windModel.attributes.angle / MAX_WIND_ANGLE;
+                    $('#crown-holder').css('top', crownHeight);
+
+                    //check if it's at the top or at the bottom
+                    if (this.windModel.attributes.angle <0) {
+                        this.windModel.set({angle: 0});
+                    }
+
+                    if (this.windModel.attributes.angle > MAX_WIND_ANGLE) {
+                        console.log('Wound all the way up');
+                        //TODO trigger noise
+                        //TODO advance to next state
+                    }
+                })
 
 
             },
