@@ -79,6 +79,7 @@ define([
             renderExplanation: function () {
                 var jGallery     = $('.ui .gallery');
                 var jBlackboard  = jGallery.find('.blackboard');
+                var jZoomed      = jGallery.find('.zoom-view .blackboard');
                 var jName        = jGallery.find('.name');
                 var jRoles       = jGallery.find('.roles');
                 var jDescription = jGallery.find('.descriptive-text');
@@ -86,7 +87,9 @@ define([
                 var explanation  = this.explanationComponents[this.index];
                 
                 if (explanation.imageRoot) {
+                    // NB Slightly dirty - all blackboards (including zoomed) get set, then we fix up the zoomed ones.
                     jBlackboard.attr('src', 'img/objects/blackboard/gallery/' + explanation.imageRoot + '.jpg');
+                    jZoomed.attr('src', 'img/objects/blackboard/gallery/' + explanation.imageRoot + '_zoomed.jpg');
                 }
                 
                 jName.empty();
