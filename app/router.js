@@ -22,7 +22,8 @@ define([
         "app/models/interactive/SextantModel",
         "app/views/interactive/clock/ClockView",
         "app/views/interactive/InteractiveSphereView",
-        "app/views/interactive/ReckonerView"
+        "app/views/interactive/ReckonerView",
+        "app/views/interactive/BlackboardGalleryView"
     ],
     
     function(Backbone, $, _,
@@ -46,7 +47,8 @@ define([
             SextantModel,
             ClockView,
             InteractiveSphereView,
-            ReckonerView
+            ReckonerView,
+            BlackboardGalleryView
         ) {
         
         var SEVRouter = Backbone.Router.extend({
@@ -235,6 +237,11 @@ define([
                     case 'reckoner-interact':
                         // switching on 'index' unneeded here as this isn't a multiple-stage interactive.
                         interactView = new ReckonerView({ item: item, model: item });
+                        break;
+                        
+                    case 'gallery-interact':
+                        // switching on 'index' unneeded here as this isn't a multiple-stage interactive.
+                        interactView = new BlackboardGalleryView({ item: item, model: item });
                         break;
                 }
                 
