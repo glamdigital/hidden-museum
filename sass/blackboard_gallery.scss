@@ -10,6 +10,7 @@
     
     .gallery {
         position: relative;
+        height: 100%;
         
         .background {
             display: none;
@@ -30,15 +31,25 @@
             // background-color: yellow;
         }
         
-        .description {
+        .descriptive-text {
             // background-color: teal;
+        }
+        
+        .scroll-container {
+            margin-top: 10px;
+            position: relative;
+            height: $iphone6Height - $headerHeight - (3 * $headerPadding) - 260px - 24px - 10px;
+            overflow-y: auto;
         }
         
         p {
             margin-left: 10px;
             margin-right: 10px;
+            margin-bottom: 0;
+            text-align: justify;
             
             &.author {
+                margin-top: 0;
                 text-align: center;
                 font-weight: bold;
             }
@@ -59,10 +70,14 @@
     }
     
     .controls {
-        position: absolute;
+        position: fixed;
         width: 100%;
         bottom: 0;
         text-align: center;
+        background-color: white;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        height: 24px;
         
         .background {
             display: none;

@@ -73,7 +73,7 @@ define([
                 var jBlackboard  = jGallery.find('.blackboard');
                 var jName        = jGallery.find('.name');
                 var jRoles       = jGallery.find('.roles');
-                var jDescription = jGallery.find('.description');
+                var jDescription = jGallery.find('.descriptive-text');
                 
                 var explanation  = this.explanationComponents[this.index];
                 
