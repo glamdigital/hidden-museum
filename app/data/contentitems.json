@@ -131,7 +131,7 @@
     "object": "globe",
     "type": "globe-interact",
     "image": "",
-    "IRTargetImage": "",
+    "IRTargetImage": "objects/globe/globe-sketch.jpg",
     "audio": "",
     "audio_duration": "",
     "video": "",

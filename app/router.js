@@ -215,7 +215,7 @@ define([
             },
             
             interact: function(item_slug, interact_type, index) {
-                var interactView;
+                var interactView = null;
                 var item = window.allItems.findWhere({slug: item_slug});
                 
                 //set prev link
@@ -240,7 +240,7 @@ define([
                         // switching on 'index' unneeded here as this isn't a multiple-stage interactive.
                         interactView = new ReckonerView({ item: item, model: item });
                         break;
-
+                        
                     case 'blackboard-ir':
                         switch (index) {
                             case '0':
@@ -284,12 +284,17 @@ define([
                                 break;
                         }
                         break;
-
+                        
+                    default:
+                        console.error('Unknown interact_type of "' + interact_type + '"');
+                        break;
                 }
                 
-                this.contentView.setView(interactView);
-                interactView.render();
-                this.floorTracker.promptToSwitch = true;
+                if (interactView) {
+                    this.contentView.setView(interactView);
+                    interactView.render();
+                    this.floorTracker.promptToSwitch = true;
+                }
             },
             spheretest: function() {
                 var sphereView = new InteractiveSphereView({
