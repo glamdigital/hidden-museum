@@ -260,6 +260,7 @@ define([
         },
 
         cleanup: function() {
+            this.sphereView.remove();
             this.overlayCleanup();
         }
 

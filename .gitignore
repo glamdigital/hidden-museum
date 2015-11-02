@@ -19,3 +19,5 @@ _SpecRunner.html
 www/*
 
 plugins/
+
+*.orig
