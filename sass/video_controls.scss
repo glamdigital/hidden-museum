@@ -4,7 +4,7 @@
     height: 100%;
     text-align: center;
 
-    &.video-landscape-primary {
+    &.landscape-primary {
         video {
             width: 77%;
         }
@@ -13,7 +13,7 @@
     &.fullscreen {
         background-color: black;
     }
-    
+
     .transport-controls {
         position: absolute;
         bottom: 0;

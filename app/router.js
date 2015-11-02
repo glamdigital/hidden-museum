@@ -21,7 +21,8 @@ define([
         "app/views/interactive/AlmanacView",
         "app/models/interactive/SextantModel",
         "app/views/interactive/ReckonerView",
-        "app/views/interactive/BlackboardVideo"
+        "app/views/interactive/BlackboardVideo",
+        "app/views/interactive/MoonGlobeVideo"
     ],
     
     function(Backbone, $, _,
@@ -44,7 +45,8 @@ define([
             AlmanacView,
             SextantModel,
             ReckonerView,
-            BlackboardVideo
+            BlackboardVideo,
+            MoonGlobeVideo
         ) {
         
         var SEVRouter = Backbone.Router.extend({
@@ -248,6 +250,30 @@ define([
                                 });
                                 break;
                         }
+                        break;
+
+                    case 'moonglobe-ir':
+                        switch (index) {
+                            case '0':
+                                var nextRoute = '#/' + Backbone.history.getFragment().replace('0', '1');
+                                interactView = new ImageScanView({
+                                    model: item,
+                                    item: item,
+                                    target: 'moon',        //a substring in the title of all relevant reference images in the moodstocks library
+                                    onFoundItem: _.bind(function() {
+                                        Backbone.history.navigate(nextRoute);
+                                    }, this)
+                                });
+                                break;
+                            case '1':
+                                interactView = new MoonGlobeVideo({
+                                    model: item,
+                                    item: item,
+                                });
+                                break;
+                        }
+                        break;
+
                 }
                 
                 this.contentView.setView(interactView);
