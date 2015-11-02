@@ -1,0 +1,13 @@
+@import "_common.scss";
+
+#wireless-button {
+	width:100px;
+	height:100px;
+	border: 2px solid black;
+	border-radius: 50%;
+	background:#ccc;
+	line-height: 100px;
+	font-weight: bold;
+	text-align: center;
+	margin: 0 auto;
+}

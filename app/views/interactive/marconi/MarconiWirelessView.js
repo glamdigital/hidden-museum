@@ -7,7 +7,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
         template: marconiWirelessTemplate,
 
         events: {
-          "click #wirelessButton": "wirelessButtonHandler"
+          "click #wireless-button": "wirelessButtonHandler"
         },
 
         serialize: function() {
@@ -32,7 +32,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
     });
 
      _.extend(MarconiWirelessView.prototype, overlayMixin);
-     
+
     return MarconiWirelessView;
 
 });
