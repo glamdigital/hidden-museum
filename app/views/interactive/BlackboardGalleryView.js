@@ -11,10 +11,8 @@ define([
             template: blackboardGalleryTemplate,
             
             explanationComponents: [],
-            
-            
             index: 0,
-            total: 10,
+            total: 0,
             
             events: {
                 'click .ui .controls .previous': 'onPrevious',
@@ -44,7 +42,10 @@ define([
             },
             
             initialize: function (params) {
-                this.item = params.item;
+                this.explanationComponents = [];
+                
+                this.index = 0;
+                this.item  = params.item;
                 
                 this.overlayInitialize({ displayOnArrival: true });
                 this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
