@@ -25,9 +25,24 @@ $weightCradleHeight: 300px;
     #controls-height {
       width: 100%;
       position: relative;
-      top: $frameHeight - 200px;
+      top: $frameHeight - 100px;
       #controls-holder {
         text-align: center;
+        .palette-choice {
+          display: inline-block;
+          width: 30%;
+          img {
+            width: 80%;
+          }
+          p {
+            background: #fff;
+            border: solid 1px white;
+            margin:0px;
+            //position: absolute;
+            //bottom: 2px;
+            //padding: 5px;
+          }
+        }
       }
     }
   }
@@ -63,6 +78,16 @@ $weightCradleHeight: 300px;
         background-repeat: no-repeat;
         height: $weightCradleHeight;
         z-index: 2;
+
+        #weights-stack {
+          position: absolute;
+          bottom: 147px;
+          img {
+            display: block;
+            width: 100%;
+            margin-top: -1px;
+          }
+        }
       }
     }
   }

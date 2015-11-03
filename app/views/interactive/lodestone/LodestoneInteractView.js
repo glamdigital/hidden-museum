@@ -4,8 +4,10 @@ define([
         'app/models/interactive/LodestoneModel',
         'hbs!app/templates/interactive/lodestone',
         'app/views/interactive/clock/RotateHandleView',
+        'app/views/interactive/lodestone/PaletteView',
+        'app/views/interactive/lodestone/WeightsView',
         'app/mixins/overlay',
-        'hbs!app/tempaltes/overlay_interactive_inner',
+        'hbs!app/templates/overlay_interactive_inner',
         'app/views/VideoControlsView',
 
        ], function(
@@ -14,6 +16,8 @@ define([
         LodestoneModel,
         lodestoneTemplate,
         RotateHandleView,
+        PaletteView,
+        WeightsView,
         overlayMixin,
         interactiveInnerTemplate,
         VideoControlsView
@@ -66,6 +70,9 @@ define([
                             console.log('video ended');
                         }, this),
                     });
+
+
+
                 } else {
                     switch (this.model.attributes.state) {
                         case 'start':
@@ -81,12 +88,26 @@ define([
                             break;
                         case 'adding':
                             //add pallette view
+                            this.weightPaletteView = new PaletteView({
+                                el: $('#controls-holder'),
+                                choices: this.model.attributes.availableWeights,
+                            });
+                            this.weightPaletteView.render();
+
+                            //listen for clicks on weights
+                            this.listenTo(this.weightPaletteView, 'choice-clicked', _.bind(this.onChooseWeight, this));
                             break;
                         case 'fallen':
                             //prepare for exit
                             break;
                     }
                 }
+
+                this.weightsView = new WeightsView({
+                    el: $('#weight-cradle'),
+                    model: this.model,
+                });
+                this.weightsView.render();
 
                 //move when the winding changes
                 this.listenTo(this.windModel, 'change', function(source) {
@@ -104,9 +125,16 @@ define([
                         //TODO trigger noise
                         //TODO advance to next state
                     }
-                })
+                });
 
 
+
+            },
+
+            onChooseWeight: function(choice) {
+                console.log('user chose a weight: ', choice);
+                this.model.attributes.loadedWeights.unshift(choice);
+                this.render();
             },
 
             events: {
