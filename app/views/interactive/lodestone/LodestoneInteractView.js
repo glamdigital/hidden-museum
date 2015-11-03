@@ -9,6 +9,7 @@ define([
         'app/mixins/overlay',
         'hbs!app/templates/overlay_interactive_inner',
         'app/views/VideoControlsView',
+        'move',
 
        ], function(
         Backbone,
@@ -20,7 +21,8 @@ define([
         WeightsView,
         overlayMixin,
         interactiveInnerTemplate,
-        VideoControlsView
+        VideoControlsView,
+        move
     ) {
 
         MAX_WIND_ANGLE = 2.5 * 360;
@@ -104,7 +106,43 @@ define([
                         case 'fallen':
                             //prepare for exit
                             console.log("FALLING!");
+
+                            //animate the drop after a half second wait
+                            _.delay(function() {
+                                var cradle = $('#weight-cradle')[0];
+                                console.log("dropping ", cradle);
+                                var fallDist = MAX_WIND_HEIGHT;
+                                move(cradle)
+                                    //fall
+                                    .duration('0.2s')
+                                    .y(-MAX_WIND_HEIGHT + 30)
+                                    //bounce
+                                    .then()
+                                    //.y(20)
+                                    //.ease('in-out')
+                                    //.duration('1s')
+                                    //////bounce-fall
+                                    //.then()
+                                    .y(-40)
+                                    .ease('in-out')
+                                    .duration('0.2s')
+                                    //.pop()
+                                    .then()
+                                    .y(10)
+                                    .ease('in-out')
+                                    .duration('0.1s')
+                                    .pop()
+                                    .pop()
+
+                                    .end();
+                            }, 100);
+
                             break;
+                        case 'ended':
+                            console.log("All Finished");
+                            setTimeout(_.bind(function() {
+                                Backbone.history.navigate('#/topic/' + this.item.attributes.object);
+                            }, this), 1000);
                     }
                 }
 
