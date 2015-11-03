@@ -73,7 +73,7 @@ define([
                         window.session = {
                             currentTrail: window.allTrails.first(),   //user chosen trail
                             currentPhysicalTrail: null,               //our guess at user's current floor location
-                            currentTopic: window.allTopics.first(),
+                            currentTopic: window.allTopics.first()
                         };
                         //start floor tracking
                         this.floorTracker = new FloorTracking();
@@ -102,7 +102,7 @@ define([
                 "scan/:item": "item_scan",    //scan for the specific item
                 "scanned/:item": "item_scanned",    //after the item has been found
                 "interact/:item/:type/:index": "interact",   //interactive view for item
-                "scan": "scan",
+                "scan": "scan"
             },
             
             trails: function() {
@@ -152,7 +152,7 @@ define([
                 
                 window.session.currentTopic = topic;
                 var view = new TopicView({
-                    topic: topic,
+                    topic: topic
                 });
                 this.contentView.setView(view);
                 view.render();
@@ -230,8 +230,14 @@ define([
                 switch (interact_type) {
                     case 'sextant-interact':
                         switch (index) {
-                            case '0': interactView = new SextantView({ item: item, model:item, stateModel:this.sextantModel }); break;
-                            case '1': interactView = new AlmanacView({ item: item, stateModel:this.sextantModel }); break;
+                            case '0':
+                                this.sextantModel = new SextantModel();
+                                interactView      = new SextantView({ item: item, model:item, stateModel:this.sextantModel });
+                                break;
+                                
+                            case '1':
+                                interactView = new AlmanacView({ item: item, stateModel:this.sextantModel });
+                                break;
                         }
                         break;
                     
@@ -264,10 +270,11 @@ define([
                                     }, this)
                                 });
                                 break;
+                                
                             case '1':
                                 interactView = new BlackboardVideo({
                                     model: item,
-                                    item: item,
+                                    item: item
                                 });
                                 break;
                         }
@@ -289,7 +296,7 @@ define([
                             case '1':
                                 interactView = new MoonGlobeVideo({
                                     model: item,
-                                    item: item,
+                                    item: item
                                 });
                                 break;
                         }
@@ -310,7 +317,7 @@ define([
                                 break;
                             case '1':
                                 interactView = new GlobeInteractive({
-                                    model: item,
+                                    model: item
                                 });
                                 break;
                         }
