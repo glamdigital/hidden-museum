@@ -206,15 +206,19 @@ define([
             
             takeHorizonImage: function (ev) {
             //capture the screen, rather than taking an actual photo, since this is much faster.
-                if (typeof(navigator.screenshot) !== 'undefined') {
+                if (typeof navigator.screenshot !== 'undefined') {
                     navigator.screenshot.save(function (error, res) {
                         if (error) {
                             console.error(error);
                         } else {
                             console.log('ok', res.filePath);
                             $('#captured-image').css("background", "url(" + res.filePath + ")");
-                            $('#captured-image').css("background-size", "380px");
-                            $('#captured-image').css("background-position-y", "-185px");
+                            
+                            // Must equal the display width exactly otherwise scaling will blur the image
+                            // and it will be impossible to set the position-y offset correctly.
+                            $('#captured-image').css("background-size", "375px");
+                            
+                            $('#captured-image').css("background-position-y", "-183px");
                         }
                     });
                 }
