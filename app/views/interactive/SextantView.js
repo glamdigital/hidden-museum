@@ -83,7 +83,7 @@ define([
                 //create the view for the reading
                 this.readingView = new SextantReadingView({
                     el: '#sextant-reading',
-                    model: this.stateModel
+                    stateModel: this.stateModel
                 });
                 this.readingView.render();
             },
