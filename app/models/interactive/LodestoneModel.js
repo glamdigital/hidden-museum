@@ -15,7 +15,6 @@ define([
                 state: 'winding',      // 'start' | 'winding' | 'adding' | 'fallen' | 'ended'
                 height: 0,           // 0.0 .. 1.0
                 maxWeight: 150,      //
-                loadedWeights: [],
                 availableWeights: {
                     '10': {
                         weight: 40,
@@ -42,6 +41,9 @@ define([
                         width: 12
                     }
                 }
+            },
+            initialize: function() {
+                this.set({loadedWeights : []});
             },
             getTotalWeight: function() {
                 var total = 0;

@@ -2,9 +2,10 @@
 
 $paletteHeight: 0px;
 
-$frameHeight: $iphone6Height - $headerHeight - 2*$headerPadding;
+$frameStartY: -35px;
+$frameHeight: $iphone6Height - $frameStartY - ($headerHeight + 3*$headerPadding);
 
-$crownStartY: 100px;
+$crownStartY: 92px;
 $crownWidth: 130px;
 $crownHeight: 180px;
 $weightCradleHeight: 300px;
@@ -13,6 +14,9 @@ $weightCradleHeight: 300px;
 #lodestone-display {
   width: 100%;
   height: $frameHeight;
+  top: $frameStartY;
+  position:relative;
+
   #frame {
     width: 100%;
     height: $frameHeight;
@@ -30,6 +34,10 @@ $weightCradleHeight: 300px;
     z-index: 100;
     #controls-holder {
       text-align: center;
+      overflow: visible !important;
+      img {
+        width: 50%;
+      }
       .palette-choice {
         display: inline-block;
         width: 30%;

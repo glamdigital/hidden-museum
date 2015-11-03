@@ -33,7 +33,7 @@ define([
             template: lodestoneTemplate,
 
             initialize: function() {
-                this.model = new LodestoneModel();
+                this.stateModel = new LodestoneModel();
 
                 this.videos = {
                     //hash of videos to phases - each key corresponds to the video playing when that phase begins
@@ -51,12 +51,12 @@ define([
                     handleWidth: 100,
                 });
 
-                this.listenTo(this.model, 'change:state', this.render);
+                this.listenTo(this.stateModel, 'change:state', this.render);
 
             },
 
             serialize: function() {
-                return this.model.toJSON();
+                return this.stateModel.toJSON();
             },
 
             afterRender: function() {
@@ -64,14 +64,14 @@ define([
 
                 //initialise appropriate subview dependent on state
 
-                if(this.model.attributes.videoPlaying) {
+                if(this.stateModel.attributes.videoPlaying) {
                     //add video player
                     this.videoControlsView = new VideoControlsView({
                         el: $('.video-holder'),
                         orientationMode: 'portrait',
                         hidePause: true,
                         imagePath: null,
-                        videoPath: this.videos[this.model.attributes.state],
+                        videoPath: this.videos[this.stateModel.attributes.state],
                         onFinalFrame: _.bind(function () {
                             console.log('video ended');
                         }, this),
@@ -80,7 +80,7 @@ define([
 
 
                 } else {
-                    switch (this.model.attributes.state) {
+                    switch (this.stateModel.attributes.state) {
                         case 'start':
                             //add keys as touch hotspot
                             break;
@@ -96,7 +96,7 @@ define([
                             //add pallette view
                             this.weightPaletteView = new PaletteView({
                                 el: $('#controls-holder'),
-                                choices: this.model.attributes.availableWeights,
+                                choices: this.stateModel.attributes.availableWeights,
                             });
                             this.weightPaletteView.render();
 
@@ -105,12 +105,10 @@ define([
                             break;
                         case 'fallen':
                             //prepare for exit
-                            console.log("FALLING!");
 
                             //animate the drop after a half second wait
                             _.delay(function() {
                                 var cradle = $('#weight-cradle')[0];
-                                console.log("dropping ", cradle);
                                 var fallDist = MAX_WIND_HEIGHT;
                                 move(cradle)
                                     //fall
@@ -118,15 +116,9 @@ define([
                                     .y(-MAX_WIND_HEIGHT + 30)
                                     //bounce
                                     .then()
-                                    //.y(20)
-                                    //.ease('in-out')
-                                    //.duration('1s')
-                                    //////bounce-fall
-                                    //.then()
                                     .y(-40)
                                     .ease('in-out')
                                     .duration('0.2s')
-                                    //.pop()
                                     .then()
                                     .y(10)
                                     .ease('in-out')
@@ -134,7 +126,11 @@ define([
                                     .pop()
                                     .pop()
 
-                                    .end();
+                                    .end(function() {
+                                        setTimeout(function() {
+                                            Backbone.history.navigate('#/topic/lodestone');
+                                        }, 1000);
+                                    });
                             }, 100);
 
                             break;
@@ -148,7 +144,7 @@ define([
 
                 this.weightsView = new WeightsView({
                     el: $('#weight-cradle'),
-                    model: this.model,
+                    model: this.stateModel,
                 });
                 this.weightsView.render();
 
@@ -163,10 +159,12 @@ define([
                     }
 
                     if (this.windModel.attributes.angle > MAX_WIND_ANGLE) {
+                        this.windModel.attributes.angle = MAX_WIND_ANGLE;
                         console.log('Wound all the way up');
                         //TODO trigger noise
                         //TODO advance to next state
-                        this.model.set({state: 'adding'});
+                        this.stateModel.set({state: 'adding'});
+                        this.stopListening(this.windModel);
                     }
                 });
             },
@@ -177,14 +175,14 @@ define([
             },
 
             onChooseWeight: function(choice) {
-                this.model.attributes.loadedWeights.unshift(choice);
+                this.stateModel.attributes.loadedWeights.unshift(choice);
                 this.render();
 
                 //check we're not too heavy
-                var total = this.model.getTotalWeight();
+                var total = this.stateModel.getTotalWeight();
 
-                if(this.model.hasExceededLimit()) {
-                    this.model.set({state: 'fallen'});
+                if(this.stateModel.hasExceededLimit()) {
+                    this.stateModel.set({state: 'fallen'});
                 }
 
             },
