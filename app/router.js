@@ -24,8 +24,10 @@ define([
         "app/views/interactive/BlackboardVideo",
         "app/views/interactive/clock/ClockView",
         "app/views/interactive/InteractiveSphereView",
+        "app/views/interactive/ReckonerView",
+        "app/views/interactive/BlackboardGalleryView",
         "app/views/interactive/MoonGlobeVideo",
-        "app/views/interactive/GlobeInteractive",
+        "app/views/interactive/GlobeInteractive"
     ],
     
     function(Backbone, $, _,
@@ -51,6 +53,8 @@ define([
             BlackboardVideo,
             ClockView,
             InteractiveSphereView,
+            ReckonerView,
+            BlackboardGalleryView,
             MoonGlobeVideo,
             GlobeInteractive
         ) {
@@ -240,6 +244,11 @@ define([
                     case 'reckoner-interact':
                         // switching on 'index' unneeded here as this isn't a multiple-stage interactive.
                         interactView = new ReckonerView({ item: item, model: item });
+                        break;
+                        
+                    case 'gallery-interact':
+                        // switching on 'index' unneeded here as this isn't a multiple-stage interactive.
+                        interactView = new BlackboardGalleryView({ item: item, model: item });
                         break;
                         
                     case 'blackboard-ir':
