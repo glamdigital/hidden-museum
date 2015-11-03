@@ -84,8 +84,15 @@ define([
             touchLocalPos.rotateDeg(-this.model.attributes.angle);
 
             var withinWidth = Math.abs(touchLocalPos.x) < this.model.attributes.handleWidth;
-            var withinHeight = -touchLocalPos.y > 0;
-            withinHeight = withinHeight && -touchLocalPos.y < this.model.attributes.handleMinHeight;
+            var withinHeight
+            if(this.model.attributes.handleMinHeight) {
+                //single-sided hand
+                withinHeight = -touchLocalPos.y > 0;
+                withinHeight = withinHeight && -touchLocalPos.y < this.model.attributes.handleMinHeight;
+            } else {
+                //double-sided handle, use full height of image
+                withinHeight = true;
+            }
 
             if(withinWidth && withinHeight) {
                 this.touchPrevPos = new Victor(

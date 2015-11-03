@@ -12,7 +12,7 @@ define([
 
         var LodestoneModel = Backbone.Model.extend({
             defaults: {
-                state: 'adding',      // 'start' | 'winding' | 'adding' | 'fallen' | 'ended'
+                state: 'winding',      // 'start' | 'winding' | 'adding' | 'fallen' | 'ended'
                 height: 0,           // 0.0 .. 1.0
                 maxWeight: 150,      //
                 loadedWeights: [],
@@ -42,6 +42,16 @@ define([
                         width: 12
                     }
                 }
+            },
+            getTotalWeight: function() {
+                var total = 0;
+                _.each(this.attributes.loadedWeights, function(item, index) {
+                    total += item.weight;
+                });
+                return total;
+            },
+            hasExceededLimit: function() {
+                return this.getTotalWeight() > this.attributes.maxWeight;
             }
         });
 

@@ -21,27 +21,28 @@ $weightCradleHeight: 300px;
     z-index: 10;
     position: absolute;
     top: 0;
+  }
 
-    #controls-height {
-      width: 100%;
-      position: relative;
-      top: $frameHeight - 100px;
-      #controls-holder {
-        text-align: center;
-        .palette-choice {
-          display: inline-block;
-          width: 30%;
-          img {
-            width: 80%;
-          }
-          p {
-            background: #fff;
-            border: solid 1px white;
-            margin:0px;
-            //position: absolute;
-            //bottom: 2px;
-            //padding: 5px;
-          }
+  #controls-height {
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    z-index: 100;
+    #controls-holder {
+      text-align: center;
+      .palette-choice {
+        display: inline-block;
+        width: 30%;
+        img {
+          width: 80%;
+        }
+        p {
+          background: #fff;
+          border: solid 1px white;
+          margin:0px;
+          //position: absolute;
+          //bottom: 2px;
+          //padding: 5px;
         }
       }
     }

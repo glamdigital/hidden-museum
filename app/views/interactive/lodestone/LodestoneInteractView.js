@@ -45,9 +45,11 @@ define([
                 //model to track handle winding
                 this.windModel = new Backbone.Model({
                     angle: 0,
-                    handleMinHeight: 120,
-                    handleWidth: 20,
+                    handleMinHeight: null,
+                    handleWidth: 100,
                 });
+
+                this.listenTo(this.model, 'change:state', this.render);
 
             },
 
@@ -56,6 +58,8 @@ define([
             },
 
             afterRender: function() {
+                this.setCrownHeight();
+
                 //initialise appropriate subview dependent on state
 
                 if(this.model.attributes.videoPlaying) {
@@ -82,7 +86,7 @@ define([
                             this.zoomHandleView = new RotateHandleView({
                                 el: $('#controls-holder'),
                                 model: this.windModel,
-                                image: "img/minute_hand.png"
+                                image: "img/objects/lodestone/ratchet-handle.png"
                             });
                             this.zoomHandleView.render();
                             break;
@@ -99,6 +103,7 @@ define([
                             break;
                         case 'fallen':
                             //prepare for exit
+                            console.log("FALLING!");
                             break;
                     }
                 }
@@ -112,8 +117,7 @@ define([
                 //move when the winding changes
                 this.listenTo(this.windModel, 'change', function(source) {
                     //move the crown up
-                    var crownHeight = MAX_WIND_HEIGHT * this.windModel.attributes.angle / MAX_WIND_ANGLE;
-                    $('#crown-holder').css('top', crownHeight);
+                    this.setCrownHeight();
 
                     //check if it's at the top or at the bottom
                     if (this.windModel.attributes.angle <0) {
@@ -124,17 +128,27 @@ define([
                         console.log('Wound all the way up');
                         //TODO trigger noise
                         //TODO advance to next state
+                        this.model.set({state: 'adding'});
                     }
                 });
+            },
 
-
-
+            setCrownHeight: function() {
+                var crownHeight = MAX_WIND_HEIGHT * this.windModel.attributes.angle / MAX_WIND_ANGLE;
+                $('#crown-holder').css('top', crownHeight);
             },
 
             onChooseWeight: function(choice) {
-                console.log('user chose a weight: ', choice);
                 this.model.attributes.loadedWeights.unshift(choice);
                 this.render();
+
+                //check we're not too heavy
+                var total = this.model.getTotalWeight();
+
+                if(this.model.hasExceededLimit()) {
+                    this.model.set({state: 'fallen'});
+                }
+
             },
 
             events: {
