@@ -7,12 +7,10 @@ define([
         'hbs!app/templates/overlay_interactive_inner'
     ],
     
-    function (Backbone, SextantModel, SextantReadingView, sextantTemplate, overlayMixin, interactiveInnerTemplate) {
+    function (Backbone, SextantModel/*UNUSED*/, SextantReadingView, sextantTemplate, overlayMixin, interactiveInnerTemplate) {
         
         //sextant arm
-        armPivot = {x:0.0, y:-0.36};  //rotation centre for the arm as proportion of width, from geometric centre
-        
-        spinAngle = 0;
+        ARM_PIVOT = {x:0.0, y:-0.36};  //rotation centre for the arm as proportion of width, from geometric centre
         
         SKY_BACKGROUND_SCROLL_RATE = 1000/90;
         SKY_BACKGROUND_OFFSET = 555;
@@ -28,19 +26,13 @@ define([
             var r01 = -Math.sin(rad);
             var r10 = -1 * r01;
             var width = $('#sextant-arm').width();
-            var x = armPivot.x * width;
-            var y = armPivot.y * width;
+            var x = ARM_PIVOT.x * width;
+            var y = ARM_PIVOT.y * width;
             var tx = x - r00*x - r01*y;
             var ty = y - r10*x -r11*y;
             
             var matrix = "matrix(" + r00 + "," + r10 + "," + r01 + "," + r11 + "," + tx + "," + ty + ")";
             $('#sextant-arm').css("transform", matrix);
-        };
-        
-        spinSextantArm = function(angle) {
-            spinAngle += 0.5;
-            setSextantArmAngle(spinAngle);
-            setTimeout(spinSextantArm, 2);
         };
         
         var SextantView = Backbone.View.extend({
