@@ -40,6 +40,12 @@ define([
                         height: 10,
                         width: 12
                     }
+                },
+                instructions: {
+                    'start': 'Tap on the winding keys to begin',
+                    'winding': 'Turn the key to raise the lodestone',
+                    'adding': 'Tap to add weights to the lodestone',
+                    'fallen': 'The lodestone could hold up to 150lbs of weight'
                 }
             },
             initialize: function() {

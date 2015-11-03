@@ -53,6 +53,24 @@ $weightCradleHeight: 300px;
           //padding: 5px;
         }
       }
+
+      #continue-button {
+        //display: none;
+        width: auto;
+        margin-left: 2%;
+        margin-right: 2%;
+        //height: 50px;
+        padding: 5px;
+        font-size: 1.2em;
+        background:lightgrey;
+        position:relative;
+        bottom:25px;
+        border: 1px solid darkgrey;
+        border-radius: 5px;
+        line-height: 2.5;
+
+      }
+
     }
   }
 
@@ -103,6 +121,19 @@ $weightCradleHeight: 300px;
     }
   }
 
+  #instructions-box {
+    width: 100%;
+    background: rgba(0,0,0, 0.5);
+    height: 40px;
+    line-height: 1.5;
+    color: white;
+    padding: 5px;
+    position: absolute;
+    bottom: 160px;
+    z-index: 200;
+    text-align: center;
+  }
+
   #readout {
     width: 33%;
     height: 100px;
@@ -111,8 +142,9 @@ $weightCradleHeight: 300px;
     border: 2px solid grey;
     border-radius: 10px;
     position: relative;
-    top: -120px;
+    top: -235px;
     display: none;
+
     &.readout-visible {
       display: block;
     }

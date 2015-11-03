@@ -25,7 +25,7 @@ define([
         move
     ) {
 
-        MAX_WIND_ANGLE = 2.5 * 360;
+        MAX_WIND_ANGLE = 4 * 360;
 
         MAX_WIND_HEIGHT = -95;
 
@@ -66,6 +66,8 @@ define([
                 out.totalWeight = this.stateModel.getTotalWeight();
 
                 out.shouldShowKey = this.stateModel.attributes.state == 'start';
+                out.instruction = out.instructions[out.state];
+                out.renderContinueButton = out.state == 'fallen';
                 return out;
             },
 
@@ -120,7 +122,7 @@ define([
                             //prepare for exit
 
                             //animate the drop after a half second wait
-                            _.delay(function() {
+                            _.delay(_.bind(function() {
                                 var cradle = $('#weight-cradle')[0];
                                 var fallDist = MAX_WIND_HEIGHT;
                                 move(cradle)
@@ -130,29 +132,30 @@ define([
                                     .y(-MAX_WIND_HEIGHT + 30)
 
                                     //bounce
-                                    .end( function() {
+                                    .end(_.bind(function() {
                                         if( navigator.notification ) { navigator.notification.vibrate(100); }
                                         move(cradle).y(-MAX_WIND_HEIGHT - 10)
                                         .ease('in-out')
                                         .duration('0.2s')
-                                        .end( function() {
+                                        .end(_.bind(function() {
                                             move(cradle).y(-MAX_WIND_HEIGHT)
                                             .ease('in-out')
                                             .duration('0.1s')
-                                            .end(function() {
-                                                setTimeout(function() {
-                                                    Backbone.history.navigate('#/topic/lodestone');
-                                                }, 1000);
-                                            });
-                                        })
-                                    })
-                            }, 100);
+                                            .end(_.bind(function() {
+                                                setTimeout(_.bind(function() {
+                                                    //Backbone.history.navigate('#/topic/lodestone');
+                                                    $('#continue-button').show();
+                                                },this), 1000);
+                                            },this));
+                                        },this))
+                                    }, this))
+                            },this), 100);
                             break;
 
                         case 'ended':
                             console.log("All Finished");
                             setTimeout(_.bind(function() {
-                                Backbone.history.navigate('#/topic/' + this.item.attributes.object);
+                                //Backbone.history.navigate('#/topic/' + this.item.attributes.object);
                             }, this), 1000);
                     }
                 }
@@ -175,9 +178,7 @@ define([
 
                     if (this.windModel.attributes.angle > MAX_WIND_ANGLE) {
                         this.windModel.attributes.angle = MAX_WIND_ANGLE;
-                        console.log('Wound all the way up');
                         //TODO trigger noise
-                        //TODO advance to next state
                         this.stateModel.set({state: 'adding'});
                         this.stopListening(this.windModel);
                     }
@@ -204,7 +205,8 @@ define([
             },
 
             events: {
-                "click img.lodestone-key": "onClickKey"
+                "click img.lodestone-key": "onClickKey",
+                "click #continue-button": "continue",          //class only exists in fallen state
             },
 
             onClickKey: function() {
@@ -229,6 +231,11 @@ define([
                     .duration('1.2s')
                     .ease('in-out')
                     .end()
+            },
+
+            continue: function() {
+                //return to menu after finishing, but only after the weight has finished falling.
+                Backbone.history.navigate('#/topic/' + this.item.attributes.topic);
             }
         });
 

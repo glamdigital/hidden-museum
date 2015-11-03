@@ -5,7 +5,10 @@
             <div id="weight-cradle"></div>
         </div>
     </div>
-    <div id="frame"></div>
+    <div id="frame" class="frame-{{state}}"></div>
+    <div id="instructions-box">
+        {{instruction}}
+    </div>
     <div id="readout" class="{{readoutVisible}}">
         <div class="readout-header">LOAD (lbs)</div>
         <div class="readout-value">{{totalWeight}}</div>
@@ -15,7 +18,11 @@
     <img id="lodestone-Lkey" class="lodestone-key" src="img/objects/lodestone/key.png">
     {{/if}}
     <div id="controls-height">
-        <div id="controls-holder"></div>
+        <div id="controls-holder">
+            {{#if renderContinueButton}}
+                <div id="continue-button">Learn more about the Lodestone <i class="fa fa-chevron-right"></i></div>
+            {{/if}}
+        </div>
     </div>
 
 </div>
