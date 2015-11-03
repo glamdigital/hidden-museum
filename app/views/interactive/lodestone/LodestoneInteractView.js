@@ -56,7 +56,12 @@ define([
             },
 
             serialize: function() {
-                return this.stateModel.toJSON();
+                var out = this.stateModel.toJSON();
+                var state = this.stateModel.attributes.state;
+                shouldShowReadout = (this.stateModel.attributes.state == 'adding' || this.stateModel.attributes.state == 'fallen');
+                out.readoutVisible = shouldShowReadout? 'readout-visible': '';
+                out.totalWeight = this.stateModel.getTotalWeight();
+                return out;
             },
 
             afterRender: function() {
@@ -84,6 +89,7 @@ define([
                         case 'start':
                             //add keys as touch hotspot
                             break;
+
                         case 'winding':
                             this.zoomHandleView = new RotateHandleView({
                                 el: $('#controls-holder'),
@@ -92,6 +98,7 @@ define([
                             });
                             this.zoomHandleView.render();
                             break;
+
                         case 'adding':
                             //add pallette view
                             this.weightPaletteView = new PaletteView({
@@ -103,6 +110,7 @@ define([
                             //listen for clicks on weights
                             this.listenTo(this.weightPaletteView, 'choice-clicked', _.bind(this.onChooseWeight, this));
                             break;
+
                         case 'fallen':
                             //prepare for exit
 
@@ -113,27 +121,29 @@ define([
                                 move(cradle)
                                     //fall
                                     .duration('0.2s')
+                                    .ease('in')
                                     .y(-MAX_WIND_HEIGHT + 30)
+
                                     //bounce
-                                    .then()
-                                    .y(-40)
-                                    .ease('in-out')
-                                    .duration('0.2s')
-                                    .then()
-                                    .y(10)
-                                    .ease('in-out')
-                                    .duration('0.1s')
-                                    .pop()
-                                    .pop()
-
-                                    .end(function() {
-                                        setTimeout(function() {
-                                            Backbone.history.navigate('#/topic/lodestone');
-                                        }, 1000);
-                                    });
+                                    .end( function() {
+                                        if( navigator.notification ) { navigator.notification.vibrate(100); }
+                                        move(cradle).y(-MAX_WIND_HEIGHT - 10)
+                                        .ease('in-out')
+                                        .duration('0.2s')
+                                        .end( function() {
+                                            move(cradle).y(-MAX_WIND_HEIGHT)
+                                            .ease('in-out')
+                                            .duration('0.1s')
+                                            .end(function() {
+                                                setTimeout(function() {
+                                                    Backbone.history.navigate('#/topic/lodestone');
+                                                }, 1000);
+                                            });
+                                        })
+                                    })
                             }, 100);
-
                             break;
+
                         case 'ended':
                             console.log("All Finished");
                             setTimeout(_.bind(function() {
@@ -180,6 +190,7 @@ define([
 
                 //check we're not too heavy
                 var total = this.stateModel.getTotalWeight();
+                $('.readout-value').html(total);
 
                 if(this.stateModel.hasExceededLimit()) {
                     this.stateModel.set({state: 'fallen'});

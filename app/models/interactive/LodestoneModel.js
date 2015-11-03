@@ -16,7 +16,7 @@ define([
                 height: 0,           // 0.0 .. 1.0
                 maxWeight: 150,      //
                 availableWeights: {
-                    '10': {
+                    '40': {
                         weight: 40,
                         image: 'objects/lodestone/weight40.png',
                         cradleImage: 'objects/lodestone/weight40-in-cradle.png',
@@ -32,8 +32,8 @@ define([
                         height: 10,
                         width: 50
                     },
-                    '30': {
-                        weight: 30,
+                    '5': {
+                        weight: 5,
                         image: 'objects/lodestone/weight5.png',
                         cradleImage: 'objects/lodestone/weight5-in-cradle.png',
                         label: '5lb',

@@ -102,4 +102,33 @@ $weightCradleHeight: 300px;
       }
     }
   }
+
+  #readout {
+    width: 33%;
+    height: 100px;
+    z-index: 10000;
+    background: rgba(255,255,255,0.8);
+    border: 2px solid grey;
+    border-radius: 10px;
+    position: relative;
+    top: -120px;
+    display: none;
+    &.readout-visible {
+      display: block;
+    }
+
+    text-align: center;
+    font-weight: bold;
+    margin: 10px;
+
+    .readout-header {
+      font-size: 1.1em;
+      padding: 7px 0px;
+      border-bottom: 1px solid grey;
+    }
+    .readout-value {
+      font-size: 2.5em;
+      line-height: 1.4em;
+    }
+  }
 }
