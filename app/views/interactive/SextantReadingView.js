@@ -3,11 +3,10 @@
  */
 define([
         "backbone",
-        "app/models/interactive/SextantModel",
         "hbs!app/templates/interactive/sextantReading"
     ],
     
-    function (Backbone, SextantModel, sextantReadingTemplate) {
+    function (Backbone, sextantReadingTemplate) {
         SEXTANT_RADIUS= 500;
         SEXTANT_THICKNESS = 50;
         SEXTANT_ANGLE_RANGE = Math.PI * 40/360;
