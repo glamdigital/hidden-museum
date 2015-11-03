@@ -26,7 +26,7 @@ define([
                     },
                     '20': {
                         weight: 20,
-                        image: 'objects/lodestone/weight40.png',
+                        image: 'objects/lodestone/weight20.png',
                         cradleImage: 'objects/lodestone/weight20-in-cradle.png',
                         label: '20lb',
                         height: 10,
@@ -34,7 +34,7 @@ define([
                     },
                     '30': {
                         weight: 30,
-                        image: 'objects/lodestone/weight40.png',
+                        image: 'objects/lodestone/weight5.png',
                         cradleImage: 'objects/lodestone/weight5-in-cradle.png',
                         label: '5lb',
                         height: 10,
