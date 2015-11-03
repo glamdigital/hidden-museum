@@ -127,7 +127,8 @@ define([
                     
                     case 2:
                         this.step = 0;
-                        Backbone.history.navigate('#/interact/' + this.item.attributes.slug + "/1");
+                        console.log(this.item.attributes);
+                        Backbone.history.navigate('#/interact/' + this.item.attributes.slug + '/' + this.item.attributes.type + '/1');
                         break;
                 }
             },
