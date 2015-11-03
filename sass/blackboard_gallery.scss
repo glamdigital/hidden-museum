@@ -39,6 +39,7 @@ $blackboardHeight: 260px;
                 right: 10px;
                 font-size: 3em;
                 color: $navTextColor;
+                opacity: 0.8;
             }
         }
         
@@ -54,9 +55,17 @@ $blackboardHeight: 260px;
         
         .thumbnail {
             position: relative;
+            height: $blackboardHeight;
+            text-align: center;
+            
+            .inner {
+                position: relative;
+                display: inline-block;
+                height: 100%;
+            }
             
             .blackboard {
-                height: $blackboardHeight;
+                height: 100%;
             }
             
             .zoom {
@@ -66,6 +75,7 @@ $blackboardHeight: 260px;
                 right: 10px;
                 font-size: 3em;
                 color: $navTextColor;
+                opacity: 0.8;
             }
         }
         
