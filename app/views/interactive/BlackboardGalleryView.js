@@ -15,9 +15,10 @@ define([
             total: 0,
             
             events: {
-                'click .ui .gallery .blackboard': 'onBlackboard',
-                'click .ui .controls .previous':  'onPrevious',
-                'click .ui .controls .next':      'onNext'
+                'click .ui .gallery .zoom-view':            'onBlackboard',
+                'click .ui .gallery .blackboard.thumbnail': 'onBlackboard',
+                'click .ui .controls .previous':            'onPrevious',
+                'click .ui .controls .next':                'onNext'
             },
             
             onBlackboard: function (event) {
