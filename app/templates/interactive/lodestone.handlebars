@@ -10,7 +10,12 @@
         <div class="readout-header">LOAD (lbs)</div>
         <div class="readout-value">{{totalWeight}}</div>
     </div>
+    {{#if shouldShowKey}}
+    <img id="lodestone-Rkey" class="lodestone-key" src="img/objects/lodestone/key.png">
+    <img id="lodestone-Lkey" class="lodestone-key" src="img/objects/lodestone/key.png">
+    {{/if}}
     <div id="controls-height">
         <div id="controls-holder"></div>
     </div>
+
 </div>

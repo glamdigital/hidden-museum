@@ -131,4 +131,17 @@ $weightCradleHeight: 300px;
       line-height: 1.4em;
     }
   }
+
+  img.lodestone-key {
+    position: absolute;
+    bottom: 211px;
+    left: 40px;
+    z-index: 100;
+    height: 40px;
+    &#lodestone-Rkey {
+      left: 45px;
+      bottom: 204px;
+      transform: rotate(70deg);
+    }
+  }
 }

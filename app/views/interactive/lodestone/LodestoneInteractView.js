@@ -53,6 +53,9 @@ define([
 
                 this.listenTo(this.stateModel, 'change:state', this.render);
 
+                this.overlayInitialize({ displayOnArrival: true });
+                this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
+
             },
 
             serialize: function() {
@@ -61,6 +64,8 @@ define([
                 shouldShowReadout = (this.stateModel.attributes.state == 'adding' || this.stateModel.attributes.state == 'fallen');
                 out.readoutVisible = shouldShowReadout? 'readout-visible': '';
                 out.totalWeight = this.stateModel.getTotalWeight();
+
+                out.shouldShowKey = this.stateModel.attributes.state == 'start';
                 return out;
             },
 
@@ -199,10 +204,35 @@ define([
             },
 
             events: {
+                "click img.lodestone-key": "onClickKey"
+            },
 
+            onClickKey: function() {
+                //animate key up towards
+                var keyL = $('#lodestone-Lkey')[0];
+                move(keyL)
+                    .translate(55, -345)
+                    .rotate(180)
+                    .duration('1s')
+                    .ease('in-out')
+                    .end(_.bind(function() {
+                        $('.lodestone-key').attr('src', 'img/objects/lodestone/ratchet-handle.png')
+                        setTimeout(_.bind(function(){
+                            this.stateModel.set({state: 'winding'});
+                        }, this), 500)
+                    },this));
+
+                var keyR = $('#lodestone-Rkey')[0];
+                move(keyR)
+                    .translate(177, -352)
+                    .rotate(210)
+                    .duration('1.2s')
+                    .ease('in-out')
+                    .end()
             }
         });
 
+        _.extend(LodestoneInteractView.prototype, overlayMixin);
         return LodestoneInteractView;
 
     }
