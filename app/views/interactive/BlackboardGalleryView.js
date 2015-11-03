@@ -15,10 +15,10 @@ define([
             total: 0,
             
             events: {
-                'click .ui .gallery .zoom-view':            'onBlackboard',
-                'click .ui .gallery .blackboard.thumbnail': 'onBlackboard',
-                'click .ui .controls .previous':            'onPrevious',
-                'click .ui .controls .next':                'onNext'
+                'click .ui .gallery .zoom-view': 'onBlackboard',
+                'click .ui .gallery .thumbnail': 'onBlackboard',
+                'click .ui .controls .previous': 'onPrevious',
+                'click .ui .controls .next':     'onNext'
             },
             
             onBlackboard: function (event) {
@@ -80,7 +80,7 @@ define([
             
             renderExplanation: function () {
                 var jGallery     = $('.ui .gallery');
-                var jBlackboard  = jGallery.find('.blackboard.thumbnail');
+                var jBlackboard  = jGallery.find('.thumbnail .blackboard');
                 var jZoomed      = jGallery.find('.zoom-view .blackboard');
                 var jName        = jGallery.find('.name');
                 var jRoles       = jGallery.find('.roles');
