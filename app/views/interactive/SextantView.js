@@ -127,7 +127,6 @@ define([
                     
                     case 2:
                         this.step = 0;
-                        console.log(this.item.attributes);
                         Backbone.history.navigate('#/interact/' + this.item.attributes.slug + '/' + this.item.attributes.type + '/1');
                         break;
                 }
@@ -211,7 +210,7 @@ define([
                         if (error) {
                             console.error(error);
                         } else {
-                            console.log('ok', res.filePath);
+                            console.log('screenshot ok', res.filePath);
                             $('#captured-image').css("background", "url(" + res.filePath + ")");
                             
                             // Must equal the display width exactly otherwise scaling will blur the image
