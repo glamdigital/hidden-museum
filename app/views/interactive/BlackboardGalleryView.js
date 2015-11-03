@@ -21,7 +21,8 @@ define([
             },
             
             onBlackboard: function (event) {
-                console.log('onBlackboard() toggling zoom');
+                // console.log('onBlackboard() toggling zoom');
+                
                 this.isZoomed = !this.isZoomed;
                 Backbone.trigger('blackboard_gallery_render');
             },
@@ -78,7 +79,7 @@ define([
             
             renderExplanation: function () {
                 var jGallery     = $('.ui .gallery');
-                var jBlackboard  = jGallery.find('.blackboard');
+                var jBlackboard  = jGallery.find('.blackboard.thumbnail');
                 var jZoomed      = jGallery.find('.zoom-view .blackboard');
                 var jName        = jGallery.find('.name');
                 var jRoles       = jGallery.find('.roles');
@@ -87,7 +88,6 @@ define([
                 var explanation  = this.explanationComponents[this.index];
                 
                 if (explanation.imageRoot) {
-                    // NB Slightly dirty - all blackboards (including zoomed) get set, then we fix up the zoomed ones.
                     jBlackboard.attr('src', 'img/objects/blackboard/gallery/' + explanation.imageRoot + '.jpg');
                     jZoomed.attr('src', 'img/objects/blackboard/gallery/' + explanation.imageRoot + '_zoomed.jpg');
                 }
