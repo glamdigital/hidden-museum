@@ -134,10 +134,10 @@
 .overlay {
   background: rgba(0,0,0,1);
   width: 100%;
-  height: $iphone6Height;
+  height: $iphone6Height - $headerSystemStatusClearance;
   display: none;
   position: fixed;
-  top: 0px;
+  top: $headerSystemStatusClearance;
   left: 0px;
   z-index: 10000;
   &.overlay-image {
