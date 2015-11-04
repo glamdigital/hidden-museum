@@ -15,7 +15,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             initialize: function() {
  
                 var connectDevice = _.bind(this.connectDevice, this);
-                if (typeof evothings.ble !== 'undefined') {
+                if (typeof evothings !== 'undefined') {
                     evothings.ble.startScan(
                         connectDevice,
                         function(errorCode)
@@ -129,11 +129,11 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
         },
 
         serialize: function() {
-            var out = {};
-            return out;
+            return this.item.toJSON();
         },
 
         initialize: function(params) {
+            this.item = params.item;
             this.overlayInitialize({ displayOnArrival: true});
             this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
             this.blecontroller.initialize();
