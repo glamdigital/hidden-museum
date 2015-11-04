@@ -3,36 +3,35 @@
  */
 define([
         'backbone',
-        'hbs!app/templates/interactive/palette',
+        'hbs!app/templates/interactive/palette'
         ],
     function(
         Backbone,
         paletteTemplate
     ) {
-
         var PaletteView = Backbone.View.extend({
             template: paletteTemplate,
-
-            initialize: function(params) {
+            
+            initialize: function (params) {
                 this.choices = params.choices;
             },
-
-            serialize: function() {
+            
+            serialize: function () {
                 return {choices:this.choices};
             },
-
+            
             events: {
                 'click .palette-choice': 'onClickChoice'
             },
-
-            onClickChoice: function(ev) {
+            
+            onClickChoice: function (ev) {
                 $target = $(ev.target).parents('.palette-choice');
                 var choiceID = $target.attr('choice-key');
                 var choice = this.choices[choiceID];
                 this.trigger('choice-clicked', choice);
             }
         });
-
+        
         return PaletteView;
     }
 );

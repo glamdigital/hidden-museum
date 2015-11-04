@@ -3,13 +3,14 @@
  */
 define([
         'backbone',
-        'underscore',
+        'underscore'
         ],
+        
         function(
             Backbone,
             _
         ) {
-
+        
         var LodestoneModel = Backbone.Model.extend({
             defaults: {
                 state: 'start',      // 'start' | 'winding' | 'adding' | 'fallen' | 'ended'
@@ -48,9 +49,11 @@ define([
                     'fallen': 'The lodestone could hold up to 150lbs of weight'
                 }
             },
+            
             initialize: function() {
                 this.set({loadedWeights : []});
             },
+            
             getTotalWeight: function() {
                 var total = 0;
                 _.each(this.attributes.loadedWeights, function(item, index) {
@@ -58,12 +61,12 @@ define([
                 });
                 return total;
             },
+            
             hasExceededLimit: function() {
                 return this.getTotalWeight() > this.attributes.maxWeight;
             }
         });
-
+        
         return LodestoneModel;
-
     }
 );
