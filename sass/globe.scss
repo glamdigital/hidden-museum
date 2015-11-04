@@ -1,0 +1,7 @@
+@import "_common.scss";
+
+.globe-interactive {
+    .sphere-container {
+      height: $iphone6Height - 2*$headerHeight;
+    }
+}

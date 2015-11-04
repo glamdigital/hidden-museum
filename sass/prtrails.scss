@@ -219,9 +219,12 @@ div.scan-container {
     padding: 5px 20px;    
   }
   .preview {
-    height: 1000px;
+    //height: 1000px;
+    width: 100%;
+    height: $iphone6Height;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
     opacity:0.4;
-    background-image: url(../img/moon-sketch.png);
     background-color: white;
     background-size: 500px;
     background-position-x: -70px;
