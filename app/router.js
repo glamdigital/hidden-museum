@@ -20,10 +20,15 @@ define([
         "app/views/interactive/SextantView",
         "app/views/interactive/AlmanacView",
         "app/models/interactive/SextantModel",
+        "app/views/interactive/ReckonerView",
+        "app/views/interactive/BlackboardVideo",
         "app/views/interactive/clock/ClockView",
         "app/views/interactive/InteractiveSphereView",
         "app/views/interactive/ReckonerView",
-        "app/views/interactive/marconi/MarconiWirelessView"
+        "app/views/interactive/marconi/MarconiWirelessView",
+        "app/views/interactive/BlackboardGalleryView",
+        "app/views/interactive/MoonGlobeVideo",
+        "app/views/interactive/GlobeInteractive"
     ],
     
     function(Backbone, $, _,
@@ -45,10 +50,15 @@ define([
             SextantView,
             AlmanacView,
             SextantModel,
+            ReckonerView,
+            BlackboardVideo,
             ClockView,
             InteractiveSphereView,
             ReckonerView,
-            MarconiWirelessView
+            MarconiWirelessView,
+            BlackboardGalleryView,
+            MoonGlobeVideo,
+            GlobeInteractive
         ) {
         
         var SEVRouter = Backbone.Router.extend({
@@ -95,7 +105,6 @@ define([
                 "scanned/:item": "item_scanned",    //after the item has been found
                 "interact/:item/:type/:index": "interact",   //interactive view for item
                 "scan": "scan",
-                "spheretest": "spheretest",
             },
             
             trails: function() {
@@ -213,7 +222,7 @@ define([
             },
             
             interact: function(item_slug, interact_type, index) {
-                var interactView;
+                var interactView = null;
                 var item = window.allItems.findWhere({slug: item_slug});
                 
                 //set prev link
@@ -238,22 +247,90 @@ define([
                         // switching on 'index' unneeded here as this isn't a multiple-stage interactive.
                         interactView = new ReckonerView({ item: item, model: item });
                         break;
+
                     case 'marconi-interact':
                         interactView = new MarconiWirelessView({ item: item, model: item });
+                        
+                    case 'gallery-interact':
+                        // switching on 'index' unneeded here as this isn't a multiple-stage interactive.
+                        interactView = new BlackboardGalleryView({ item: item, model: item });
+                        break;
+                        
+                    case 'blackboard-ir':
+                        switch (index) {
+                            case '0':
+                                var nextRoute = '#/' + Backbone.history.getFragment().replace('0', '1');
+                                interactView = new ImageScanView({
+                                    model: item,
+                                    item: item,
+                                    target: 'blackboard',        //a substring in the title of all relevant reference images in the moodstocks library
+                                    onFoundItem: _.bind(function() {
+                                        Backbone.history.navigate(nextRoute);
+                                    }, this)
+                                });
+                                break;
+                            case '1':
+                                interactView = new BlackboardVideo({
+                                    model: item,
+                                    item: item,
+                                });
+                                break;
+                        }
+                        break;
+                        
+                    case 'moonglobe-ir':
+                        switch (index) {
+                            case '0':
+                                var nextRoute = '#/' + Backbone.history.getFragment().replace('0', '1');
+                                interactView = new ImageScanView({
+                                    model: item,
+                                    item: item,
+                                    target: 'moon',        //a substring in the title of all relevant reference images in the moodstocks library
+                                    onFoundItem: _.bind(function() {
+                                        Backbone.history.navigate(nextRoute);
+                                    }, this)
+                                });
+                                break;
+                            case '1':
+                                interactView = new MoonGlobeVideo({
+                                    model: item,
+                                    item: item,
+                                });
+                                break;
+                        }
+                        break;
+                        
+                    case 'globe-interact':
+                        switch (index) {
+                            case '0':
+                                var nextRoute = '#/' + Backbone.history.getFragment().replace('0', '1');
+                                interactView = new ImageScanView({
+                                    model: item,
+                                    item: item,
+                                    target: 'globe',        //a substring in the title of all relevant reference images in the moodstocks library
+                                    onFoundItem: _.bind(function() {
+                                        Backbone.history.navigate(nextRoute);
+                                    }, this)
+                                });
+                                break;
+                            case '1':
+                                interactView = new GlobeInteractive({
+                                    model: item,
+                                });
+                                break;
+                        }
+                        break;
+                        
+                    default:
+                        console.error('Unknown interact_type of "' + interact_type + '"');
                         break;
                 }
                 
-                this.contentView.setView(interactView);
-                interactView.render();
-                this.floorTracker.promptToSwitch = true;
-            },
-            spheretest: function() {
-                var sphereView = new InteractiveSphereView({
-                    texture: 'img/objects/globe/map_texture_9.jpg',
-                });
-
-                this.contentView.setView(sphereView);
-                sphereView.render();
+                if (interactView) {
+                    this.contentView.setView(interactView);
+                    interactView.render();
+                    this.floorTracker.promptToSwitch = true;
+                }
             }
         });
         
