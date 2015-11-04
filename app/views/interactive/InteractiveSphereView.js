@@ -82,27 +82,32 @@ define([
             this.animReq = requestAnimationFrame(_.bind(this.animate, this) );
             console.log("requested animation frame");
 
-            if(this.marker) {
-                this._addMarker(this.marker)
+            if(this.markers) {
+                this._addMarkers(this.markers);
             }
 
         },
 
-        _addMarker: function(marker) {
+        _addMarkers: function(markers) {
+            var color = this.markerColor? this.markerColor: 0xff0000;
+            var radius = this.markerRadius? this.markerRadius: 1.0;
+
             var markerMaterial = new three.MeshBasicMaterial({
-                color: 0xff0000,
+                color: color,
             });
-            var markerGeometry = new three.SphereGeometry(1, 50, 50);
+            var markerGeometry = new three.SphereGeometry(radius, 1, 1);
 
             //position
             markerGeometry.translate(this.globeRadius, 0,0);
-            //lat/lng
-            markerGeometry.rotateY(-marker.lng* Math.PI/180);
-            markerGeometry.rotateZ(marker.lat* Math.PI/180);
 
-            var markerMesh = new three.Mesh( markerGeometry, markerMaterial);
-
-            this.mesh.add(markerMesh);
+            _.each(markers, _.bind(function(marker) {
+                console.log("adding marker");
+                var markerMesh = new three.Mesh( markerGeometry, markerMaterial);
+                //lat/lng
+                markerMesh.rotateY((marker.lng) * Math.PI/180);
+                markerMesh.rotateZ(marker.lat* Math.PI/180);
+                this.mesh.add(markerMesh);
+            },this));
         },
 
         events: {

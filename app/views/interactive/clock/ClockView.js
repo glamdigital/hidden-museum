@@ -120,7 +120,7 @@ define([
                 canRotateUpDown: false,
                 lightFromSun: true,
                 tiltTowardCan: 0,
-                marker: {lat: 51.7519, lng:1.2578},
+                markers: [{lat: 51.7519, lng:1.2578 }],
                 defaultRotY: 180,
                 panRatio: 1.0,
             });
