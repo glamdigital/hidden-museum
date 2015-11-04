@@ -34,8 +34,7 @@ define([
             template: lodestoneTemplate,
             
             initialize: function() {
-                this.stateModel = new LodestoneModel();
-                
+
                 //this.videos = {
                 //    //hash of videos to phases - each key corresponds to the video playing when that phase begins
                 //    'start': 'video/lodestone/intro.mp4',
@@ -44,18 +43,29 @@ define([
                 //    'fallen': null,
                 //    'ended': 'video/lodestone/outro.mp4'
                 //};
-                
+
+                this.resetState();
+
+                this.overlayInitialize({ displayOnArrival: true });
+                this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
+            },
+
+            resetState: function() {
+                if(this.stateModel) {
+                    this.stopListening(this.stateModel);
+                }
+
+                this.stateModel = new LodestoneModel();
+
                 //model to track handle winding
                 this.windModel = new Backbone.Model({
                     angle: 0,
                     handleMinHeight: null,
                     handleWidth: 100
                 });
-                
+
                 this.listenTo(this.stateModel, 'change:state', this.render);
-                
-                this.overlayInitialize({ displayOnArrival: true });
-                this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
+
             },
             
             serialize: function() {
@@ -67,7 +77,8 @@ define([
                 
                 out.shouldShowKey = (state === 'start');
                 out.instruction = out.instructions[state];
-                out.renderContinueButton = (state === 'fallen' || state == 'failed');
+                out.renderContinueButton = (state === 'fallen');
+                out.renderRetryButton = (state === 'failed' );
                 return out;
             },
             
@@ -205,7 +216,8 @@ define([
             
             events: {
                 "click img.lodestone-key": "onClickKey",
-                "click #continue-button": "continue"           //class only exists in fallen state
+                "click #continue-button": "continue",           //class only exists in fallen state
+                "click #retry-button": "retry"           //class only exists in failed state
             },
             
             onClickKey: function() {
@@ -235,6 +247,11 @@ define([
             continue: function() {
                 //return to menu after finishing, but only after the weight has finished falling.
                 Backbone.history.navigate('#/topic/' + this.item.attributes.topic);
+            },
+
+            retry: function() {
+                this.resetState();
+                this.render();
             },
 
             cleanup: function() {
