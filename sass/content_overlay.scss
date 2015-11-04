@@ -5,7 +5,7 @@ $innerBorder: 20px;
 .content-overlay {
     display: block;
     position: absolute;
-    top: $headerHeight + ($headerPadding * 2);
+    top: $headerTotalHeight;
     bottom: 0;
     left: 0;
     right: 0;
