@@ -3,7 +3,7 @@
 $paletteHeight: 0px;
 
 $frameStartY: -35px;
-$frameHeight: $iphone6Height - $frameStartY - ($headerHeight + 3*$headerPadding);
+$frameHeight: $iphone6Height - $frameStartY - $headerTotalHeight;
 
 $crownStartY: 92px;
 $crownWidth: 130px;
