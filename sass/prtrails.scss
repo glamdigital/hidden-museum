@@ -15,7 +15,7 @@ a {
 }
 
 .pr-header-container {
-  padding: 2*$headerPadding 0px $headerPadding;
+  padding: $headerPaddingTop 0px $headerPadding;
   text-align: center;
   background-color: white;
   .pr-header {
@@ -30,7 +30,7 @@ a {
       line-height: $headerHeight;
       display: inline-block;
       color: $navTextColor;
-      font-size: 1.2em;
+      font-size: 1.5em;
       text-decoration: none;
       vertical-align: middle;
       

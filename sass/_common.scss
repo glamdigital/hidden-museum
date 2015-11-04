@@ -1,5 +1,8 @@
 $headerHeight: 25px;
 $headerPadding: 10px;
+$headerPaddingTop: 30px;
+$headerTotalHeight: $headerHeight + $headerPadding + $headerPaddingTop;
+
 $arrowWidth: 90px;
 $audioHeight: 30px;
 
