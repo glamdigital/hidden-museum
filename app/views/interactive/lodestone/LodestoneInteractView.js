@@ -28,7 +28,7 @@ define([
         
         MAX_WIND_ANGLE = 4 * 360;
         
-        MAX_WIND_HEIGHT = -95;
+        MAX_WIND_HEIGHT = -70;
         
         var LodestoneInteractView = Backbone.View.extend({
             template: lodestoneTemplate,
@@ -195,7 +195,7 @@ define([
             },
             
             setCrownHeight: function() {
-                var crownHeight = MAX_WIND_HEIGHT * this.windModel.attributes.angle / MAX_WIND_ANGLE;
+                var crownHeight = 30 + MAX_WIND_HEIGHT * this.windModel.attributes.angle / MAX_WIND_ANGLE;
                 $('#crown-holder').css('top', crownHeight);
             },
             

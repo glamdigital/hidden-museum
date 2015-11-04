@@ -2,32 +2,27 @@
 
 $paletteHeight: 0px;
 
-$frameStartY: -35px;
-$frameHeight: $iphone6Height - $frameStartY - $headerTotalHeight;
-
-$crownStartY: 92px;
 $crownWidth: 130px;
 $crownHeight: 180px;
 $weightCradleHeight: 300px;
 
-$frameOffsetY: 35px;
+$frameOffsetY: -35px;
 
 
 #lodestone-display {
   width: 100%;
-  height: $frameHeight;
-  top: $frameStartY;
+  height: $iphone6Height - $headerTotalHeight;
   position:relative;
 
   #frame {
     width: 100%;
-    height: $frameHeight;
+    height: 100%;
     background: url(../img/objects/lodestone/frame.png);
     background-position-y: $frameOffsetY;
     background-size: cover;
     z-index: 10;
     position: absolute;
-    top: $frameOffsetY;
+    top: 0;
   }
 
   #controls-height {
@@ -51,18 +46,13 @@ $frameOffsetY: 35px;
           background: #fff;
           border: solid 1px white;
           margin:0px;
-          //position: absolute;
-          //bottom: 2px;
-          //padding: 5px;
         }
       }
 
       .lodestone-button {
-        //display: none;
         width: auto;
         margin-left: 2%;
         margin-right: 2%;
-        //height: 50px;
         padding: 5px;
         font-size: 1.2em;
         background:lightgrey;
@@ -79,9 +69,8 @@ $frameOffsetY: 35px;
 
   #crown-container {
     position: relative;
-    top: $crownStartY;
     overflow: hidden;
-    height: $frameHeight - $crownStartY;
+    height: 100%;
     width: $crownWidth;
     margin-left: auto;
     margin-right: auto;
@@ -145,7 +134,7 @@ $frameOffsetY: 35px;
     border: 2px solid grey;
     border-radius: 10px;
     position: relative;
-    top: -235px;
+    top: -325px;
     display: none;
 
     &.readout-visible {
