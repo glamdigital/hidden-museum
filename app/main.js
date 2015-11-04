@@ -11,17 +11,20 @@ require([
         'app/router',
         'app/location',
         'app/test/validateData',
-        'app/floor_tracking'
+        'app/floor_tracking',
+        'fastclick'
     ],
     
-    function ($, Backbone, Trail, Topic, Logging, LayoutManager, Router, Location, Tests, FloorTracking) {
+    function ($, Backbone, Trail, Topic, Logging, LayoutManager, Router, Location, Tests, FloorTracking, Fastclick) {
     
     //UUIDs to monitor
     //TODO move this to config
     var Location_UUID_beacons = 'D191E31B-4298-41B5-BFE7-3382B57B9D81'; //beacons
     var Location_UUID_ios     = '8492E75F-4FD6-469D-B132-043FE94921D8'; //ios
     var Location_UUID_default = 'B9407F30-F5F8-466E-AFF9-25556B57FE6D'; //ios
-    
+
+    new Fastclick(document.body);
+
     var onReady = function () {
         // The 'firstRun' flag is intended to trigger anything in the app that must be done
         // the very first time it runs. The flag will be cleared deeper within the app once

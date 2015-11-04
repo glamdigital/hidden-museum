@@ -105,12 +105,11 @@ a.nav-link {
 
 .content {
   position: absolute;
-  top: $headerHeight + 3*$headerPadding;
+  top: $headerTotalHeight;
   left: 0;
   right: 0;
   bottom: 0;
-  height: $iphone6Height - ($headerHeight + 3*$headerPadding);
-  overflow: hidden;
+  height: $iphone6Height - $headerTotalHeight;
   
   background-color: transparent;
   color: $contentTextColor;
