@@ -24,6 +24,7 @@ define([
         "app/views/interactive/BlackboardVideo",
         "app/views/interactive/clock/ClockView",
         "app/views/interactive/InteractiveSphereView",
+        "app/views/interactive/marconi/MarconiWirelessView",
         "app/views/interactive/lodestone/LodestoneInteractView",
         "app/views/interactive/BlackboardGalleryView",
         "app/views/interactive/MoonGlobeVideo",
@@ -53,6 +54,7 @@ define([
             BlackboardVideo,
             ClockView,
             InteractiveSphereView,
+            MarconiWirelessView,
             LodestoneInteractView,
             BlackboardGalleryView,
             MoonGlobeVideo,
@@ -252,8 +254,12 @@ define([
                         interactView = new ReckonerView({ item: item, model: item });
                         break;
 
+                    case 'marconi-interact':
+                        interactView = new MarconiWirelessView({ item: item, model: item });
+                        break;
+                        
                     case 'lodestone-interact':
-                        interactView = new LodestoneInteractView({ item: item, model: item});
+                        interactView = new LodestoneInteractView({ item: item, model: item });
                         break;
                         
                     case 'gallery-interact':
