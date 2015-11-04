@@ -147,6 +147,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             this.blecontroller.turnOnLed();
         },
 	    cleanup: function() {
+            this.overlayCleanup();
 	    },
     });
 
