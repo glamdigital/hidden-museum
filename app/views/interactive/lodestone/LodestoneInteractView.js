@@ -233,6 +233,10 @@ define([
             continue: function() {
                 //return to menu after finishing, but only after the weight has finished falling.
                 Backbone.history.navigate('#/topic/' + this.item.attributes.topic);
+            },
+
+            cleanup: function() {
+                this.overlayCleanup();
             }
         });
     
