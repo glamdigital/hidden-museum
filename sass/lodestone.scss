@@ -18,7 +18,7 @@ $frameOffsetY: -35px;
     width: 100%;
     height: 100%;
     background: url(../img/objects/lodestone/frame.png);
-    background-position-y: -$frameOffsetY;
+    background-position-y: $frameOffsetY;
     background-size: cover;
     z-index: 10;
     position: absolute;
@@ -158,13 +158,13 @@ $frameOffsetY: -35px;
 
   img.lodestone-key {
     position: absolute;
-    bottom: 194px;
+    bottom: 204px;
     left: 40px;
     z-index: 100;
     height: 40px;
     &#lodestone-Rkey {
       left: 45px;
-      bottom: 186px;
+      bottom: 196px;
       transform: rotate(70deg);
     }
   }
