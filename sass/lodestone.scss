@@ -10,6 +10,8 @@ $crownWidth: 130px;
 $crownHeight: 180px;
 $weightCradleHeight: 300px;
 
+$frameOffsetY: 35px;
+
 
 #lodestone-display {
   width: 100%;
@@ -21,10 +23,11 @@ $weightCradleHeight: 300px;
     width: 100%;
     height: $frameHeight;
     background: url(../img/objects/lodestone/frame.png);
+    background-position-y: $frameOffsetY;
     background-size: cover;
     z-index: 10;
     position: absolute;
-    top: 0;
+    top: $frameOffsetY;
   }
 
   #controls-height {
