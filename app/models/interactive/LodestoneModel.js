@@ -16,13 +16,14 @@ define([
                 state: 'start',      // 'start' | 'winding' | 'adding' | 'fallen' | 'ended'
                 height: 0,           // 0.0 .. 1.0
                 maxWeight: 150,      //
+                maxHeight: 100,
                 availableWeights: {
                     '40': {
                         weight: 40,
                         image: 'objects/lodestone/weight40.png',
                         cradleImage: 'objects/lodestone/weight40-in-cradle.png',
                         label: '40lb',
-                        height: 10,
+                        height: 20,
                         width: 100
                     },
                     '20': {
@@ -45,8 +46,9 @@ define([
                 instructions: {
                     'start': 'Tap on the winding keys to begin',
                     'winding': 'Turn the key to raise the lodestone',
-                    'adding': 'Tap to add weights to the lodestone',
-                    'fallen': 'The lodestone could hold up to 150lbs of weight'
+                    'adding': 'Tap a weight to add it to the lodestone',
+                    'fallen': 'The lodestone could hold up to 150lbs of weight',
+                    'failed': 'You have added as many weights as you can'
                 }
             },
             
@@ -60,6 +62,12 @@ define([
                     total += item.weight;
                 });
                 return total;
+            },
+
+            getTotalHeight: function() {
+                return _.reduce(this.attributes.loadedWeights, function(h, item) {
+                    return h + item.height;
+                }, 0);
             },
             
             hasExceededLimit: function() {

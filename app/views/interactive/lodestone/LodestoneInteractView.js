@@ -36,14 +36,14 @@ define([
             initialize: function() {
                 this.stateModel = new LodestoneModel();
                 
-                this.videos = {
-                    //hash of videos to phases - each key corresponds to the video playing when that phase begins
-                    'start': 'video/lodestone/intro.mp4',
-                    'winding': 'video/lodestone/keysup.mp4',
-                    'adding': null,
-                    'fallen': null,
-                    'ended': 'video/lodestone/outro.mp4'
-                };
+                //this.videos = {
+                //    //hash of videos to phases - each key corresponds to the video playing when that phase begins
+                //    'start': 'video/lodestone/intro.mp4',
+                //    'winding': 'video/lodestone/keysup.mp4',
+                //    'adding': null,
+                //    'fallen': null,
+                //    'ended': 'video/lodestone/outro.mp4'
+                //};
                 
                 //model to track handle winding
                 this.windModel = new Backbone.Model({
@@ -61,13 +61,13 @@ define([
             serialize: function() {
                 var out = this.stateModel.toJSON();
                 var state = this.stateModel.attributes.state;
-                var shouldShowReadout = (state === 'adding' || state === 'fallen');
+                var shouldShowReadout = (state === 'adding' || state === 'fallen' || state == 'failed');
                 out.readoutVisible = shouldShowReadout? 'readout-visible': '';
                 out.totalWeight = this.stateModel.getTotalWeight();
                 
                 out.shouldShowKey = (state === 'start');
                 out.instruction = out.instructions[state];
-                out.renderContinueButton = (state === 'fallen');
+                out.renderContinueButton = (state === 'fallen' || state == 'failed');
                 return out;
             },
             
@@ -198,6 +198,8 @@ define([
                 
                 if(this.stateModel.hasExceededLimit()) {
                     this.stateModel.set({state: 'fallen'});
+                } else if(this.stateModel.getTotalHeight() >= this.stateModel.attributes.maxHeight) {
+                    this.stateModel.set({state: 'failed'});
                 }
             },
             
