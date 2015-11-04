@@ -1,7 +1,6 @@
-$headerHeight: 25px;
-$headerPadding: 10px;
-$headerPaddingTop: 30px;
-$headerTotalHeight: $headerHeight + $headerPadding + $headerPaddingTop;
+$headerSystemStatusClearance: 20px;
+$headerHeight: 45px;
+$headerTotalHeight: $headerSystemStatusClearance + $headerHeight;
 
 $arrowWidth: 90px;
 $audioHeight: 30px;

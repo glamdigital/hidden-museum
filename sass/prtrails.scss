@@ -15,24 +15,34 @@ a {
 }
 
 .pr-header-container {
-  padding: $headerPaddingTop 0px $headerPadding;
+  padding-top: $headerSystemStatusClearance;
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
   text-align: center;
   background-color: white;
+  
   .pr-header {
     z-index: 3;
     height: $headerHeight;
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    position: relative;
     
     .nav-button {
-      height: $headerHeight;
+      height: 100%;
       line-height: $headerHeight;
       display: inline-block;
       color: $navTextColor;
       font-size: 1.5em;
       text-decoration: none;
       vertical-align: middle;
+      position: relative;
+      
+      a {
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+      }
       
       a:link {
         color: $navTextColor;
@@ -53,19 +63,22 @@ a {
       &.header-arrow {
         width: $arrowWidth;
       }
+      
       &.arrow-left {
         position:absolute;
-        left:$headerPadding;
+        left: 10px;
         text-align:left;
       }
+      
       &.header-home {
         position:absolute;
-        right:$headerPadding + 30px;
+        right: 40px;
         text-align:right;
       }
+      
       &.header-info {
         position:absolute;
-        right:$headerPadding;
+        right: 10px;
         text-align:right;
       }
     }
