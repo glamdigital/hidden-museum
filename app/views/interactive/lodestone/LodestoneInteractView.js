@@ -32,7 +32,16 @@ define([
         
         var LodestoneInteractView = Backbone.View.extend({
             template: lodestoneTemplate,
-            
+
+            tapKeySound: new Audio('audio/lodestone/quiet_clunk.wav'),
+            keyInSound: new Audio('audio/lodestone/keyIn.wav'),
+            ratchetSound: new Audio('audio/lodestone/ratchet.wav'),
+            addWeightSound: new Audio('audio/lodestone/add_weight.wav'),
+            fullWindSound: new Audio('audio/lodestone/click_in_place.wav'),
+            fallStartSound: new Audio('audio/lodestone/fall_loud.wav'),
+            fallSound: new Audio('audio/lodestone/fall.wav'),
+
+
             initialize: function() {
 
                 //this.videos = {
@@ -48,6 +57,10 @@ define([
 
                 this.overlayInitialize({ displayOnArrival: true });
                 this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
+
+                this.playRatchetAudio = _.bind(_.throttle(function(){
+                    this.ratchetSound.play();
+                }, 300),this);
             },
 
             resetState: function() {
@@ -131,6 +144,11 @@ define([
                             
                             //animate the drop after a half second wait
                             _.delay(_.bind(function() {
+
+                                //play sound
+                                this.fallStartSound.play();
+
+                                //animate fall
                                 var cradle = $('#weight-cradle')[0];
                                 var fallDist = MAX_WIND_HEIGHT;
                                 move(cradle)
@@ -141,6 +159,7 @@ define([
                                     
                                     //bounce
                                     .end(_.bind(function() {
+                                        this.fallSound.play();
                                         if( navigator.notification ) { navigator.notification.vibrate(100); }
                                         move(cradle).y(-MAX_WIND_HEIGHT - 10)
                                         .ease('in-out')
@@ -176,9 +195,11 @@ define([
                 this.weightsView.render();
                 
                 //move when the winding changes
-                this.listenTo(this.windModel, 'change', function(source) {
+                this.listenTo(this.windModel, 'change', _.bind(function(source) {
                     //move the crown up
                     this.setCrownHeight();
+
+                    this.playRatchetAudio();
                     
                     //check if it's at the top or at the bottom
                     if (this.windModel.attributes.angle <0) {
@@ -187,13 +208,15 @@ define([
                     
                     if (this.windModel.attributes.angle > MAX_WIND_ANGLE) {
                         this.windModel.attributes.angle = MAX_WIND_ANGLE;
-                        //TODO trigger noise
+
+                        this.fullWindSound.play();
+
                         this.stateModel.set({state: 'adding'});
                         this.stopListening(this.windModel);
                     }
-                });
+                }, this));
             },
-            
+
             setCrownHeight: function() {
                 var crownHeight = 30 + MAX_WIND_HEIGHT * this.windModel.attributes.angle / MAX_WIND_ANGLE;
                 $('#crown-holder').css('top', crownHeight);
@@ -202,7 +225,10 @@ define([
             onChooseWeight: function(choice) {
                 this.stateModel.attributes.loadedWeights.unshift(choice);
                 this.render();
-                
+
+                //play sound
+                this.addWeightSound.play();
+
                 //check we're not too heavy
                 var total = this.stateModel.getTotalWeight();
                 $('.readout-value').html(total);
@@ -221,6 +247,8 @@ define([
             },
             
             onClickKey: function() {
+                this.tapKeySound.play();
+
                 //animate key up towards
                 var keyL = $('#lodestone-Lkey')[0];
                 move(keyL)
@@ -229,7 +257,11 @@ define([
                     .duration('1s')
                     .ease('in-out')
                     .end(_.bind(function() {
+                        //swap for ratchet images
                         $('.lodestone-key').attr('src', 'img/objects/lodestone/ratchet-handle.png');
+                        //play clunk audio
+                        this.keyInSound.play();
+                        //move to winding state
                         setTimeout(_.bind(function () {
                             this.stateModel.set({state: 'winding'});
                         }, this), 500);

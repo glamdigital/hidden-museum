@@ -2,6 +2,6 @@
 
 .globe-interactive {
     .sphere-container {
-      height: $iphone6Height - 2*$headerHeight;
+      height: $iphone6Height - $headerTotalHeight;
     }
 }
