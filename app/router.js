@@ -55,7 +55,7 @@ define([
             ClockView,
             InteractiveSphereView,
             ReckonerView,
-            LodestoneInteractView
+            LodestoneInteractView,
             BlackboardGalleryView,
             MoonGlobeVideo,
             GlobeInteractive
