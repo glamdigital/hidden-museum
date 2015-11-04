@@ -1,0 +1,31 @@
+<div id="lodestone-display">
+    <div id="crown-container">
+        <div id="crown-holder">
+            <div id="crown"></div>
+            <div id="weight-cradle"></div>
+        </div>
+    </div>
+    <div id="frame" class="frame-{{state}}"></div>
+    <div id="instructions-box">
+        {{instruction}}
+    </div>
+    <div id="readout" class="{{readoutVisible}}">
+        <div class="readout-header">LOAD (lbs)</div>
+        <div class="readout-value">{{totalWeight}}</div>
+    </div>
+    {{#if shouldShowKey}}
+    <img id="lodestone-Rkey" class="lodestone-key" src="img/objects/lodestone/key.png">
+    <img id="lodestone-Lkey" class="lodestone-key" src="img/objects/lodestone/key.png">
+    {{/if}}
+    <div id="controls-height">
+        <div id="controls-holder">
+            {{#if renderContinueButton}}
+                <div id="continue-button" class="lodestone-button">Learn more about the Lodestone <i class="fa fa-chevron-right"></i></div>
+            {{/if}}
+            {{#if renderRetryButton}}
+                <div id="retry-button" class="lodestone-button">Try again</div>
+            {{/if}}
+        </div>
+    </div>
+
+</div>
