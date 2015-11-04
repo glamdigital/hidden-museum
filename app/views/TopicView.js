@@ -1,11 +1,12 @@
 define([
-            "backbone",
-            "underscore",
-            "app/views/AudioControlsView",
-            "app/mixins/overlay",
-            "hbs!app/templates/topic"
-        ],
-    function(
+        "backbone",
+        "underscore",
+        "app/views/AudioControlsView",
+        "app/mixins/overlay",
+        "hbs!app/templates/topic"
+    ],
+    
+    function (
             Backbone,
             _,
             AudioControlsView,
@@ -16,7 +17,7 @@ define([
         var TopicView = Backbone.View.extend({
             template: topicTemplate,
             
-            serialize: function() {
+            serialize: function () {
                 //serialize trail, topic and items
                 var out = {};
                 out.trail = window.session.currentTrail.toJSON();
@@ -28,12 +29,12 @@ define([
                 return out;
             },
             
-            initialize: function(params) {
+            initialize: function (params) {
                 //this.trail = params.trail;
                 this.topic = params.topic;
                 this.items = this.topic.items;
                 this.audio_items = new Backbone.Collection(this.items.where({type: 'audio'}));
-                this.interact_items = new Backbone.Collection(this.items.filter(function(item){ return item.attributes.type !== 'audio'; }));
+                this.interact_items = new Backbone.Collection(this.items.filter(function (item) { return item.attributes.type !== 'audio'; }));
                 
                 this.overlayInitialize();
                 
@@ -46,15 +47,15 @@ define([
                 this.listenTo(Backbone, 'changed_floor', this.onChangeFloor);
             },
             
-            afterRender: function() {
+            afterRender: function () {
                 //create the audio players
-                this.audio_items.each(_.bind(function(item, i, list) {
+                this.audio_items.each(_.bind(function (item, i, list) {
                     var $audioContainer =$('#audio-' + item.attributes.id);
                     var audioView = new AudioControlsView({
                         audio: item.attributes.audio,
                         caption: item.attributes.title,
                         duration: item.attributes.audio_duration,
-                        el: $audioContainer,
+                        el: $audioContainer
                     });
                     audioView.render();
                     this.audioViews.push( audioView );
@@ -67,30 +68,27 @@ define([
             
             events: {
                 "click .show-map-button": "showMap",
-                "click .close-map-overlay": "hideMap",
                 "click .header": "showImage",
-                "click .close-image-overlay": "hideImage"
+                "click .overlay-image": "hideOverlays"
             },
             
-            showMap: function(ev) {
-                ev.preventDefault();
-                $('.object-map').show();
-            },
-            hideMap: function(ev) {
-                ev.preventDefault();
+            hideOverlays: function (event) {
+                event.preventDefault();
                 $('.object-map').hide();
-            },
-            
-            showImage: function(ev) {
-                ev.preventDefault();
-                $('.object-full-image').show();
-            },
-            hideImage: function(ev) {
-                ev.preventDefault();
                 $('.object-full-image').hide();
             },
             
-            didRangeBeacon: function(data) {
+            showMap: function (event) {
+                event.preventDefault();
+                $('.object-map').show();
+            },
+            
+            showImage: function (event) {
+                event.preventDefault();
+                $('.object-full-image').show();
+            },
+            
+            didRangeBeacon: function (data) {
                 if (data.proximity === 'ProximityImmediate' || data.proximity === 'ProximityNear')
                 {
                     ////vibrate if this is a transition to near
@@ -108,7 +106,7 @@ define([
                 }
             },
             
-            onChangeFloor: function(data) {
+            onChangeFloor: function (data) {
                 
             }
         });
@@ -116,4 +114,5 @@ define([
         _.extend(TopicView.prototype, overlayMixin);
         
         return TopicView;
-    });
+    }
+);
