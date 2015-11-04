@@ -55,7 +55,6 @@ define(['backbone', 'hbs!app/templates/audio_controls'],
         },
 
         afterRender: function() {
-            console.log("after render audio controls view");
             if(!this.media) {
                 this.media = $('audio', this.$el)[0];
             }
@@ -64,7 +63,6 @@ define(['backbone', 'hbs!app/templates/audio_controls'],
         onAnyAudioPlayerStart: function(source) {
             //if the event didn't originate from us, pause the audio
             if(source !== this) {
-                console.log('pausing, as other one is playing');
                 this.pauseAudio();
             }
         },
