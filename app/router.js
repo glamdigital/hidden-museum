@@ -230,8 +230,14 @@ define([
                 switch (interact_type) {
                     case 'sextant-interact':
                         switch (index) {
-                            case '0': interactView = new SextantView({ item: item, model:item, stateModel:this.sextantModel }); break;
-                            case '1': interactView = new AlmanacView({ item: item, stateModel:this.sextantModel }); break;
+                            case '0':
+                                this.sextantModel = new SextantModel();
+                                interactView      = new SextantView({ item: item, model:item, stateModel:this.sextantModel });
+                                break;
+                                
+                            case '1':
+                                interactView = new AlmanacView({ item: item, stateModel:this.sextantModel });
+                                break;
                         }
                         break;
                     
@@ -268,6 +274,7 @@ define([
                                     }, this)
                                 });
                                 break;
+                                
                             case '1':
                                 interactView = new BlackboardVideo({
                                     model: item,
