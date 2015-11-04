@@ -1,7 +1,7 @@
 define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins/overlay",
-        "hbs!app/templates/overlay_interactive_inner"],
+        "hbs!app/templates/overlay_interactive_inner", "app/views/interactive/ImageScanView"],
     function(Backbone, marconiWirelessTemplate, overlayMixin,
-        interactiveInnerTemplate) {
+        interactiveInnerTemplate, ImageScanView) {
 
 
     var MarconiWirelessView = Backbone.View.extend({
@@ -134,13 +134,27 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
 
         initialize: function(params) {
             this.item = params.item;
+            this.model = params.model;
             this.overlayInitialize({ displayOnArrival: false});
             this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
             this.blecontroller.initialize();
+            $('#content').css("background-color", "transparent");
         },
         afterRender: function() {
+            $('#controls').hide();
+            this.irView = new ImageScanView({
+                                    el: $('#ir-view'),
+                                    model: this.item,
+                                    item: this.item,
+                                    target: 'marconi', //a substring in the title of all relevant reference images in the moodstocks library
+                                    onFoundItem: _.bind(function() {
+                                        this.showControls();
+                                    }, this)
+                                });
+            this.irView.render();
         },
-        setup: function() {              
+        showControls: function() { 
+            $('#controls').show();             
         },
         wirelessButtonHandler: function(ev) {
             var $target = $(ev.target);
@@ -148,6 +162,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
         },
 	    cleanup: function() {
             this.overlayCleanup();
+            this.irView.remove();
 	    },
     });
 
