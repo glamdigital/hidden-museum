@@ -255,7 +255,26 @@ define([
                         break;
 
                     case 'marconi-interact':
-                        interactView = new MarconiWirelessView({ item: item, model: item });
+                        switch (index) {
+                            case '0':
+                                var nextRoute = '#/' + Backbone.history.getFragment().replace('0', '1');
+                                interactView = new ImageScanView({
+                                    model: item,
+                                    item: item,
+                                    target: 'marconi', //a substring in the title of all relevant reference images in the moodstocks library
+                                    onFoundItem: _.bind(function() {
+                                        Backbone.history.navigate(nextRoute);
+                                    }, this)
+                                });
+                                break;
+                                
+                            case '1':
+                                interactView = new MarconiWirelessView({
+                                    model: item,
+                                    item: item
+                                });
+                                break;
+                        }
                         break;
                         
                     case 'lodestone-interact':

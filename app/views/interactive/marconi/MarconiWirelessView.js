@@ -134,7 +134,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
 
         initialize: function(params) {
             this.item = params.item;
-            this.overlayInitialize({ displayOnArrival: true});
+            this.overlayInitialize({ displayOnArrival: false});
             this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
             this.blecontroller.initialize();
         },
