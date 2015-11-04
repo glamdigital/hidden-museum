@@ -25,7 +25,7 @@ define([
             },
             
             onClickChoice: function (ev) {
-                $target = $(ev.target).parents('.palette-choice');
+                $target = $(ev.currentTarget);
                 var choiceID = $target.attr('choice-key');
                 var choice = this.choices[choiceID];
                 this.trigger('choice-clicked', choice);
