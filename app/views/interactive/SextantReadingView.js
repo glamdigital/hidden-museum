@@ -49,7 +49,8 @@ define([
                 ctx.fill();
                 
                 //render numbers -60 to +60;
-                for (var i=-60; i<=60; i+=1)
+                var i;
+                for (i = -60; i <= 60; i += 1)
                 {
                     ctx.setTransform(1,0,0, 1,0,0);
                     ctx.translate(canvas.width/2, canvas.height/2);
@@ -68,10 +69,10 @@ define([
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 
-                var height = (num%5 == 0) ? SEXTANT_MAJOR_MARK_HEIGHT : SEXTANT_MARK_HEIGHT;
+                var height = (num%5 === 0) ? SEXTANT_MAJOR_MARK_HEIGHT : SEXTANT_MARK_HEIGHT;
                 
                 //draw number
-                if(num%10 == 0) {
+                if (num%10 === 0) {
                     height = SEXTANT_MARK_HEIGHT;
                     ctx.font="30px Arial";
                     ctx.fillStyle="#FFFFFF";
