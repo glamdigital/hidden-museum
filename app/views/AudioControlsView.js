@@ -65,6 +65,7 @@ define(['backbone', 'hbs!app/templates/audio_controls'],
             if(source !== this) {
                 this.pauseAudio();
             }
+            this.$el.removeClass('playing');
         },
 
         getAudioURL: function() {
@@ -86,6 +87,7 @@ define(['backbone', 'hbs!app/templates/audio_controls'],
             $('#pause-audio', this.$el).show();
             $('#restart-audio', this.$el).show();
             Backbone.trigger('audio-player-start', this);
+            this.$el.addClass('playing');
         },
 
         pauseAudio: function(ev) {

@@ -184,10 +184,6 @@ define([
                 var time = this.timeModel.attributes.from10HrAngle(this.tenHourClockModel.attributes.angle - Math.PI/180);
                 this.timeModel.set({time: time});
                 this.timeModel.trigger('change', this.tenHourClockModel);
-                //update other clocks
-                //this.updateHourHand();
-                //this.updateMinuteHand();
-
             }, this));
             //create view
             this.tenHourClockView = new RotateHandleView({
@@ -262,8 +258,16 @@ define([
         cleanup: function() {
             this.sphereView.remove();
             this.overlayCleanup();
-        }
+        },
 
+        events: {
+            "touchstart .clock-face": "stopSpin",
+            "touchstart .digital-time": "stopSpin",
+        },
+
+        stopSpin: function() {
+            this.sphereView.lastDeltaX = 0;
+        }
 
     });
 

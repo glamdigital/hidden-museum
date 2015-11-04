@@ -92,6 +92,17 @@
             }
           }
         }
+
+        &.playing {
+          background: white;
+          .audio {
+            color: black;
+            .audio-control-icon {
+              color: black;
+              font-size: 1.8em;
+            }
+          }
+        }
       }
       &.topic-item {
         width: 96%;
