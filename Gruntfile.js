@@ -232,6 +232,8 @@ module.exports = function(grunt) {
                     dest: "www" },
                 {   src: ["index-built.html"],
                     dest: "www/index.html" },
+                {   src: ["ar_overlay.html"],
+                    dest: "www/ar_overlay.html" },
                 {
 		            src: ["app/libs/font-awesome/css/font-awesome.min.css"],
 		            dest: "www/css/font-awesome.min.css"

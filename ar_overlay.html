@@ -1,0 +1,189 @@
+ <html>
+    <head>
+        <meta charset="utf-8" />
+        <script src="cordova.js"></script>
+        <script src="CraftARView.js"></script>
+		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script>
+				var finding = false;
+				var autoar = true;
+				var arobject = 0;
+				
+				
+				function onLoad()
+				{
+					console.log('Verifying craftar environment');
+		            console.log('window.CraftAR exists:                           ' + !!window.CraftAR);
+		            if (window.CraftAR) {
+		                console.log('window.CraftAR.startView() exists:               ' + !!window.CraftAR.startView);
+		                console.log('window.CraftAR.startView() is a function:        ' + (typeof window.CraftAR.startView === 'function'));
+		            }
+		            
+		            console.log('window.craftarjs exists:                         ' + !!window.craftarjs);
+		            if (window.craftarjs) {
+		                console.log('window.craftarjs.setToken() exists:              ' + !!window.craftarjs.setToken);
+		                console.log('window.craftarjs.setToken() is a function:       ' + (typeof window.craftarjs.setToken === 'function'));
+		                console.log('window.craftarjs.setAutomaticAR() exists:        ' + !!window.craftarjs.setAutomaticAR);
+		                console.log('window.craftarjs.setAutomaticAR() is a function: ' + (typeof window.craftarjs.setAutomaticAR === 'function'));
+		            }
+            
+                    //alert("Device Load");
+                    console.log('Waiting for "deviceready" event');
+				   document.addEventListener("deviceready", onDeviceReady, false);
+                }
+
+   			 	function onDeviceReady() {
+   			 		console.log('Got "deviceready" event');
+   			 		console.log('Setting token to 95d6944f709b4b4d');
+   			 		window.craftarjs.setToken("95d6944f709b4b4d");
+   			 		updateStats();
+   			 		
+    			}
+				
+				function onError(error) {
+					alert("Got error response (" + error.code + "): " + error.message);
+				}
+
+				function searchCompletedIR(items)
+				{
+				  if(items.length>0) {
+				     arobject = 2;
+				     updateStats();
+				  	 alert(JSON.stringify(items));
+				  }
+				  else
+				    arobject = 0;
+				    updateStats();
+				}
+				
+				function requestFailedResponse(code, err)
+				{
+				  //alert("requestFailedResponse Error: "+ code + " " + err);
+				}
+				
+				function requestImageError(err)
+				{
+				  alert("requestImageError Error: " + err);
+				}
+				
+				function ARFound()
+				{
+				  arobject = 2;
+				  finding = false;
+				  updateStats();
+				}
+				
+				function updateStats()
+				{
+					if (finding){
+						$("#findingstatus").html("Finding: On");	
+						$("#findingstatus").css("background-color", "#009900");
+					}
+					else {
+						$("#findingstatus").html("Finding: Off");	
+						$("#findingstatus").css("background-color", "#990000");
+					}
+					if (autoar){
+						$("#armode").html("Auto AR: On");	
+						$("#armode").css("background-color", "#009900");
+					}
+					else {
+						$("#armode").html("Auto AR: Off");	
+						$("#armode").css("background-color", "#990000");
+					}
+				    switch (arobject)
+				    {
+				      case 0:
+				        $("#picture").html("Image not found");	
+						$("#picture").css("background-color", "#990000");
+						break;
+					  case 1:
+					    $("#picture").html("Searching...");	
+						$("#picture").css("background-color", "#990000");
+					    break;
+					  case 2:
+					    $("#picture").html("Image Found");	
+						$("#picture").css("background-color", "#009900");
+						break;
+					}
+				}
+				
+
+				$(function()  {
+				console.log('Setting up the event handlers');
+			
+				$("#startFinding").on("click", function() {
+					window.craftarjs.startFinding();
+
+					finding = true;
+					updateStats();
+				});
+								
+				$("#stopFinding").on("click", function() {
+					window.craftarjs.stopFinding();
+
+					finding = false;
+					updateStats();
+				});
+				
+				$("#takepicture").on("click", function() {
+				    window.craftarjs.takePictureAndSearch();
+
+				    arobject = 1;
+				    updateStats();
+				});
+				
+				$("#restartCamera").on("click", function() {
+				    window.craftarjs.restartCamera();
+
+				});
+				
+				$("#triggerFocus").on("click", function() {
+				    window.craftarjs.triggerFocus();
+				});
+				
+				$("#setToken").on("click", function() {
+				    window.craftarjs.setToken("catchoomcooldemo");
+
+				});
+				
+				
+				$("#close").on("click", function() {
+					console.log('Close');
+				    window.craftarjs.close();
+
+				});
+				
+				$("#modearauto").on("click", function() {
+					autoar = !autoar;
+				    window.craftarjs.setAutomaticAR(autoar);
+
+				    updateStats();
+				});
+				
+				$("#stopar").on("click", function() {
+				    window.craftarjs.stopAR();
+
+				    arobject = false;
+				     updateStats();
+				});
+			});
+
+
+	</script>
+    </head>
+    <body onload="onLoad()">
+		<button id="startFinding" style="display:block">Start Finding</button>
+		<button id="stopFinding" style="display:block">Stop Finding</button>
+		<button id="takepicture" style="display:block">Take Picture & Search</button>
+		<button id="restartCamera" style="display:block">Restart Camera</button>
+		<button id="triggerFocus" style="display:block">Trigger focus</button>
+		<button id="modearauto" style="display:block">Automatic AR Mode</button>
+		<button id="stopar" style="display:block">Stop AR</button>
+		<button id="close" style="display:block">Close</button>
+	<div  style = "color:#FFFFFF;position:fixed;bottom:0px;width:100%">
+	    <div id="findingstatus" style = "width:33%;float:left">Finding: On</div><div id="armode" style = "width:33%;float:left">AutoAR: On</div><div id="picture" style = "width:33%;float:left">Image not found</div>
+	</div>
+    </body>
+</html>
+	

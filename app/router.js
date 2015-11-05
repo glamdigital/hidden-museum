@@ -28,7 +28,8 @@ define([
         "app/views/interactive/lodestone/LodestoneInteractView",
         "app/views/interactive/BlackboardGalleryView",
         "app/views/interactive/MoonGlobeVideo",
-        "app/views/interactive/GlobeInteractive"
+        "app/views/interactive/GlobeInteractive",
+        "app/views/CraftarView"
     ],
     
     function(Backbone, $, _,
@@ -58,7 +59,8 @@ define([
             LodestoneInteractView,
             BlackboardGalleryView,
             MoonGlobeVideo,
-            GlobeInteractive
+            GlobeInteractive,
+            CraftarView
         ) {
         
         var SEVRouter = Backbone.Router.extend({
@@ -104,7 +106,14 @@ define([
                 "scan/:item": "item_scan",    //scan for the specific item
                 "scanned/:item": "item_scanned",    //after the item has been found
                 "interact/:item/:type/:index": "interact",   //interactive view for item
-                "scan": "scan"
+                "scan": "scan",
+                "craftar": "craftar"
+            },
+            
+            craftar: function () {
+                var craftarView = new CraftarView({});
+                this.contentView.setView(craftarView);
+                craftarView.render();
             },
             
             trails: function() {
