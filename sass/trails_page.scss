@@ -2,10 +2,14 @@
 
 div.trails-list-container {
   position: relative;
+  height:602px;
+  background-color: black;
   
   a {
     display: block;
     position: relative;
+    height:200px;
+    overflow: hidden;
     
     img {
       display: block;
