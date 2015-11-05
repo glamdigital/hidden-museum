@@ -67,7 +67,7 @@
     "title": "Dead Reckoner",
     "object": "navigation",
     "type": "reckoner-interact",
-    "image": "MHS_04_camera.png",
+    "image": "objects/navigation/Traverse Board.jpg",
     "IRTargetImage": "",
     "audio": "",
     "audio_duration": "",
@@ -498,7 +498,7 @@
     "infoParentTitle": "Marconi Collection",
     "poster": "",
     "interactView": "",
-    "text1": "",
+    "text1": "Line up the outline below with the Marconi Coherer (the box with the bell on top)",
     "text2": "",
     "text3": "",
     "text4": ""

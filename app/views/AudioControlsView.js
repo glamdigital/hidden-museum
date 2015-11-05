@@ -49,9 +49,10 @@ define(['backbone', 'hbs!app/templates/audio_controls'],
         },
 
         events: {
-          "click #play-audio" : "playAudio",
-          "click #pause-audio" : "pauseAudio",
-          "click #restart-audio" : "restartAudio"
+          "click .audio": "toggleAudio",
+          //"click #play-audio" : "playAudio",
+          //"click #pause-audio" : "pauseAudio",
+          "click #restart-audio" : "restartAudio",
         },
 
         afterRender: function() {
@@ -80,9 +81,6 @@ define(['backbone', 'hbs!app/templates/audio_controls'],
             if(this.media) {
                 this.media.play();
             }
-            else if(this.media) {
-                this.media.play();
-            }
             $('#play-audio', this.$el).hide();
             $('#pause-audio', this.$el).show();
             $('#restart-audio', this.$el).show();
@@ -101,7 +99,16 @@ define(['backbone', 'hbs!app/templates/audio_controls'],
             $('#pause-audio', this.$el).hide();
         },
 
+        toggleAudio: function(ev) {
+            if(this.media.paused) {
+                this.playAudio();
+            } else {
+                this.pauseAudio();
+            }
+        },
+
         restartAudio: function(ev) {
+            ev.stopPropagation();
             if(this.media) {
                 this.media.currentTime = 0;
 	            $('#media-elapsed', this.$el).html('0:00');

@@ -255,7 +255,7 @@ define([
                         break;
 
                     case 'marconi-interact':
-                        interactView = new MarconiWirelessView({ item: item, model: item });
+                        interactView = new MarconiWirelessView({ model: item, item: item });
                         break;
                         
                     case 'lodestone-interact':
