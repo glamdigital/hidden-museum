@@ -71,14 +71,16 @@ a {
       
       &.header-home {
         position:absolute;
-        right: 40px;
-        text-align:right;
+        right: 70px;
+        text-align:center;
+        width: 60px;
       }
       
       &.header-info {
         position:absolute;
         right: 10px;
-        text-align:right;
+        text-align:center;
+        width: 60px;
       }
     }
   }
