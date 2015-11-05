@@ -7,7 +7,7 @@ define([
         'hbs!app/templates/overlay_interactive_inner'
     ],
     
-    function (Backbone, SextantModel/*UNUSED*/, SextantReadingView, sextantTemplate, overlayMixin, interactiveInnerTemplate) {
+    function (Backbone, SextantModel/*UNUSED*/, SextantReadingView, sextantTemplate, overlayMixin, interactiveInnerTemplate, ft /* We need to require FullTilt, but it ends up as a global object */) {
         
         //sextant arm
         ARM_PIVOT = {x:0.0, y:-0.36};  //rotation centre for the arm as proportion of width, from geometric centre
