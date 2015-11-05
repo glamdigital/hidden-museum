@@ -80,7 +80,6 @@ define([
 
             //this.animate();
             this.animReq = requestAnimationFrame(_.bind(this.animate, this) );
-            console.log("requested animation frame");
 
             if(this.markers) {
                 this._addMarkers(this.markers);
@@ -101,7 +100,6 @@ define([
             markerGeometry.translate(this.globeRadius, 0,0);
 
             _.each(markers, _.bind(function(marker) {
-                console.log("adding marker");
                 var markerMesh = new three.Mesh( markerGeometry, markerMaterial);
                 //lat/lng
                 markerMesh.rotateY((marker.lng) * Math.PI/180);
