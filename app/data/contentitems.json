@@ -67,7 +67,7 @@
     "title": "Dead Reckoner",
     "object": "navigation",
     "type": "reckoner-interact",
-    "image": "MHS_04_camera.png",
+    "image": "objects/navigation/Traverse Board.jpg",
     "IRTargetImage": "",
     "audio": "",
     "audio_duration": "",
