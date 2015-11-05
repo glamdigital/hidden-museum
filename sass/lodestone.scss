@@ -13,6 +13,7 @@ $frameOffsetY: -35px;
   width: 100%;
   height: $iphone6Height - $headerTotalHeight;
   position:relative;
+  overflow: hidden;
 
   #frame {
     width: 100%;
@@ -69,6 +70,7 @@ $frameOffsetY: -35px;
 
   #crown-container {
     position: relative;
+    top: 7px;
     overflow: hidden;
     height: 100%;
     width: $crownWidth;

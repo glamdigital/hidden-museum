@@ -207,12 +207,12 @@ define([
                     }
                     
                     if (this.windModel.attributes.angle > MAX_WIND_ANGLE) {
+                        this.stopListening(this.windModel);
                         this.windModel.attributes.angle = MAX_WIND_ANGLE;
 
                         this.fullWindSound.play();
 
                         this.stateModel.set({state: 'adding'});
-                        this.stopListening(this.windModel);
                     }
                 }, this));
             },
