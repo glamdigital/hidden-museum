@@ -95,13 +95,15 @@ define([
                     if (navigator.notification && !this.isNearItem) {
                         navigator.notification.vibrate(500);
                         //add class to item to make bg cycle
-                        $('.object-container').addClass('nearby');
+                        //$('.object-container').addClass('nearby');
+                        $('.header').addClass('nearby');
                         this.isNearItem = true;
                     }
                 }
                 else {
                     //remove class which makes bg cycle
-                    $('.object-container').removeClass('nearby');
+                    //$('.object-container').removeClass('nearby');
+                    $('.header').removeClass('nearby');
                     this.isNearItem = false;
                 }
             },

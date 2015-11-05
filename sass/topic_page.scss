@@ -11,6 +11,10 @@
     width:100%;
     height: $topicHeaderHeight;
     background-size: cover;
+    &.nearby {
+      border: 1px solid red;
+    }
+
     .title {
       @include objectTitle;
     }
