@@ -13,6 +13,9 @@
     color: white;
     text-align: left;
     border: none;
+    height: 45px;
+    line-height: 1.4em;
+    
     &.current {
       background-color: red;
     }
