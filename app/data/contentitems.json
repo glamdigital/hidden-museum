@@ -488,7 +488,7 @@
     "object": "marconi",
     "type": "marconi-interact",
     "image": "",
-    "IRTargetImage": "",
+    "IRTargetImage": "objects/marconi/marconi-sketch.jpg",
     "audio": "",
     "audio_duration": "",
     "video": "",
