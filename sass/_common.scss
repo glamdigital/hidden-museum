@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "frutigel";
+  src: url("../fonts/frutigel.ttf");
+}
+
 $headerSystemStatusClearance: 20px;
 $headerHeight: 45px;
 $headerTotalHeight: $headerSystemStatusClearance + $headerHeight;
@@ -10,7 +15,7 @@ $tablet: "only screen and (min-width: 768px)";
 $landscape: "(orientation:landscape)";
 $portrait: "(orientation:portrait)";
 
-$standardFontFamily: "Helvetica Neue", "Droid Sans", sans-serif;
+$standardFontFamily: "frutigel", "Helvetica Neue", "Droid Sans", sans-serif;
 $standardPadding: 5px;
 $cornerRadius: 5px;
 $navBarWidth: 250px;
