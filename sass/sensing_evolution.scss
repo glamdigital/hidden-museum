@@ -63,48 +63,6 @@ video {
   @include transition-duration(0.25s);
 }
 
-.nav-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #000000;
-  color: white;
-  z-index: -1;
-  width: $navBarWidth;
-  height: 1000px;
-  font-size: smaller;
-  overflow-y: scroll;
-
-  h4 {
-    margin: 5px 0px;
-  }
-  ul {
-    list-style: none;
-  }
-}
-
-.nav-menu-button {
-  position: absolute;
-  padding: 0;
-  float: left;
-}
-
-a.nav-link {
-  font-weight: bold;
-  font-size: smaller;
-  color: lightgray;
-  &.current {
-    border-style: solid;
-    border-width: 1px;
-    border-color: blue;
-    border-radius: 3px;
-  }
-  &.found {
-    background-color: darkgreen;
-    border-radius: 3px;
-  }
-}
-
 .content {
   position: absolute;
   top: $headerTotalHeight;
