@@ -153,7 +153,7 @@ define([
             
             cleanup: function () {
                 this.overlayCleanup();
-            },
+            }
         });
         
         _.extend(BlackboardGalleryView.prototype, overlayMixin);
