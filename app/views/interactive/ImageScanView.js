@@ -117,7 +117,7 @@ define(['backbone',
 										console.warn("image recognition sync failed");
 										console.log(err);
 									}
-								)
+								);
 							}
 
 						},this),
