@@ -697,7 +697,9 @@ define([
                 this.globeView = new InteractiveSphereView({
                     el: $('.globe-interactive'),
                     model: this.model,
-                    texture: 'img/objects/globe/earth_flat_map.jpg',
+                    texture: 'img/objects/globe/earthmap1k.jpg',
+                    bump: 'img/objects/globe/earthbump1k.jpg',
+                    specular: 'img/objects/globe/earthspec1k.jpg',
                     canRotateUpDown: true,
                     tiltTowardCam: 10,
                     defaultRotY: -70,

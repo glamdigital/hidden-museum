@@ -2,7 +2,9 @@ define([
         'backbone',
         'three',
         'hbs!app/templates/interactive/sphere'
-    ], function(
+    ],
+    
+    function(
         Backbone,
         three,
         sphereTemplate
@@ -19,13 +21,13 @@ define([
             this.numTouches = 0;
             //this.defaultRotX = 17 * Math.PI/180;
             this.extraRotX = 0;
-            this.canRotateUpDown = params.canRotateUpDown | false;
+            this.canRotateUpDown = params.canRotateUpDown || false;
             //this.defaultRotX = params.tiltTowardCam * Math.PI/180 | 0.1;
             this.defaultRotX = params.tiltTowardCam ? (params.tiltTowardCam * Math.PI/180) : 0.1;
-            this.defaultRotY = params.defaultRotY | 0;
-            this.panRatio = params.panRatio | 1;
-            this.lightFromSun = params.lightFromSun | false;
-            this.stopped = false
+            this.defaultRotY = params.defaultRotY || 0;
+            this.panRatio = params.panRatio || 1;
+            this.lightFromSun = params.lightFromSun || false;
+            this.stopped = false;
 
             //used for 'momentum' spin
             this.lastDeltaX = 0;
@@ -41,15 +43,19 @@ define([
             this.camera.position.z = 80;
             this.scene = new three.Scene();
 
-            var texture = three.ImageUtils.loadTexture(this.texture);
+            var texture  = three.ImageUtils.loadTexture(this.texture);
+            var bump     = this.bump ? three.ImageUtils.loadTexture(this.bump) : null;
+            var specular = this.specular ? three.ImageUtils.loadTexture(this.specular) : null;
 
             this.globeRadius = 15;
-            var geometry = new three.SphereGeometry(this.globeRadius, 50, 50);
+            var geometry = new three.SphereGeometry(this.globeRadius, 32, 32);
             var material;
-            if(this.lightFromSun) {
-                material = new three.MeshLambertMaterial({
-                    map: texture,
-                });
+            var matspec = {
+                map: texture
+            };
+                
+            if (this.lightFromSun) {
+                material = new three.MeshLambertMaterial(matspec);
                 var sun = new three.DirectionalLight(0xfffffff, 2);
                 sun.position.set(50, 0, 0);
                 sun.target.lookAt(0,0,0);
@@ -57,14 +63,30 @@ define([
 
                 var ambientLight = new three.AmbientLight(0xff040439);
                 this.scene.add(ambientLight);
-            } else {
+            }
+            else {
+                if (bump) {
+                    matspec.bumpMap = bump;
+                    matspec.bumpScale = 1;
+                }
+                
+                if (specular) {
+                    matspec.specularMap = specular;
+                    matspec.specular = new THREE.Color('grey');
+                }
+                
                 //just use a basic material;
-                material = new three.MeshBasicMaterial({
-                    map: texture,
-                });
+                material = new three.MeshPhongMaterial(matspec);
+                var sun = new three.DirectionalLight(0xfffffff, 0.3);
+                sun.position.set(100, 100, 50);
+                sun.target.lookAt(0,0,0);
+                this.scene.add(sun);
+
+                var ambientLight = new three.AmbientLight(0xffffffff);
+                this.scene.add(ambientLight);
             }
 
-            this.mesh = new three.Mesh( geometry, material);
+            this.mesh = new three.Mesh(geometry, material);
 
             //tilt on axis, then spin
             this.mesh.rotation.z = 10.5 * Math.PI/180;  //the earth's tilt
@@ -88,11 +110,11 @@ define([
         },
 
         _addMarkers: function(markers) {
-            var color = this.markerColor? this.markerColor: 0xff0000;
-            var radius = this.markerRadius? this.markerRadius: 1.0;
+            var color = (typeof this.markerColor === 'number') ? this.markerColor : 0xff0000;
+            var radius = (typeof this.markerRadius === 'number') ? this.markerRadius : 1.0;
 
             var markerMaterial = new three.MeshBasicMaterial({
-                color: color,
+                color: color
             });
             var markerGeometry = new three.SphereGeometry(radius, 1, 1);
 
@@ -181,8 +203,7 @@ define([
             delete(this.scene);
             delete(this.renderer);
             delete(this.mesh);
-        },
-
+        }
     });
 
     return InteractiveSphereView;
