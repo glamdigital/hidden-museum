@@ -121,6 +121,9 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             },
             turnOffLed: function() {
                 this.writeData(new Uint8Array([0]));
+            },
+            close:function() {
+                evothings.ble.close(this.deviceHandle);
             }
         },
 
@@ -161,6 +164,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             this.blecontroller.turnOnLed();
         },
 	    cleanup: function() {
+            this.blecontroller.close();
             this.overlayCleanup();
             this.irView.remove();
 	    },
