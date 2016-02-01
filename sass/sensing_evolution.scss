@@ -505,8 +505,8 @@ div.item-title {
       width: $sextantCapturedImageHeight;
       margin-left: auto;
       margin-right: auto;
-      border: 20px solid darkgoldenrod;
-      border-radius: $sextantCapturedImageHeight / 2;
+      background-image: url(../img/sextant_eye_piece.png);
+      background-size:cover;
       z-index: 10000;
       position: absolute;
       left: 20.5%;
