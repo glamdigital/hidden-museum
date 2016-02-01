@@ -83,7 +83,8 @@ define([
                     this.selectedTrail = selectedTrail;
                     this.doAccordianMagic(200);
                 }
-                // should show new chevrons here
+                $(".active-fa").html("<i class='fa fa-chevron-right'></i>");
+                $("#"+this.selectedTrail.get("id")+" .active-fa").html("<i class='fa fa-chevron-down'></i>");
                 window.session.currentTrail = selectedTrail;
             },
             

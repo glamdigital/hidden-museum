@@ -26,6 +26,11 @@
     height: 180px;
     position: relative;   //so that child map markers can be positioned absolutely
     text-align: center;
+    
+    img.floorpan {
+      width: 100%;
+    }
+    
   }
   .topic-list-item {
     width:100%;
