@@ -60,7 +60,8 @@ define([
                 for (var i=0; i< this.trails.length; i++) {
                     var topicsJSON = this.trails.models[i].getTopics().toJSON();
                     out.trails[i]['topics'] = topicsJSON;
-                if(this.trails.at(i) == window.session.currentPhysicalTrail) {
+                // if(this.trails.at(i) == window.session.currentPhysicalTrail) {
+                if(this.trails.at(i).id == window.session.currentTrail.id) {
                     out.trails[i].current = true;
                 } else {
                     out.trails[i].current = false;
@@ -82,6 +83,7 @@ define([
                     this.selectedTrail = selectedTrail;
                     this.doAccordianMagic(200);
                 }
+                // should show new chevrons here
                 window.session.currentTrail = selectedTrail;
             },
             

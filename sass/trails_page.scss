@@ -18,28 +18,40 @@ div.trails-list-container {
     
     .label {
       position: absolute;
+      width: 70%;
       left: 0;
-      bottom: 20px;
-      padding-bottom: 10px;
-      padding-left: 20px;
-      padding-right: 20px;
-      padding-top: 30px;
+      bottom: 0;
+      padding: 15px 10px 10px 10px;
+      text-align: right;
       
       span {
         position: relative;
         color: white;
-        font-size: 20px;
+        font-size: 24px;
       }
       
       .background {
-        background-color: black;
-        opacity: 0.6;
+        opacity: 1;
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
+    
       }
+      
+      #upper_gallery-background {
+        background-color: $upperGalleryColor;
+      }
+
+      #entrance_gallery-background {
+        background-color: $entranceGalleryColor;
+      }
+
+      #basement_gallery-background {
+        background-color: $basementGalleryColor;
+      }
+
     }
   }
 }
