@@ -54,7 +54,6 @@ $markerDiameter: 25px;
 @mixin objectTitle {
     padding:10px 20px 10px 20px;
     font-size: 20px;
-//    background-color: rgba(0,0,0, 0.6);
     color: white;
     text-align: left;
     position: relative;
@@ -65,6 +64,5 @@ $markerDiameter: 25px;
     .fa-chevron-right {
         font-size: 0.8em;
         padding-left: 1em;
-        // color: #ccc;
     }
 }
