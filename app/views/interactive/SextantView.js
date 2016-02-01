@@ -226,7 +226,8 @@ define([
             displayInstructions: function () {
                 var $instructionsDiv = $('#instructions')[0];
                 $instructionsDiv.innerHTML = this.instructions[this.step];
-                $($instructionsDiv).css('background-image', this.instructionsColors[this.step]); 
+                $($instructionsDiv).css('background-image', this.instructionsColors[this.step]);
+                //$('canvas#sextant-reading').css('background-image', this.instructionsColors[this.step]); 
             },
             
             showMessage: function () {

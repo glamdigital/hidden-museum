@@ -399,7 +399,7 @@ div.item-title {
       mask-image: url(../img/circle_mask.png);
       -webkit-mask-image: url(../img/circle_mask.png);
       -webkit-mask-position-x: 50%;
-      -webkit-mask-size:$sextantCapturedImageHeight;
+      -webkit-mask-size:$sextantCapturedImageHeight - 10px;
       -webkit-mask-repeat: no-repeat;
       clip-path: circle(60px at center);
       
@@ -474,6 +474,7 @@ div.item-title {
       #sextant {
         width: 100%;
         z-index: 500;
+        border-top: 4px solid black;
         
         img {
           position: absolute;
@@ -485,6 +486,12 @@ div.item-title {
           height: 150px;
           display: block;
           background-image: url(../img/parchment-tan.jpg);
+        }
+        img#sextant-angle-reader {
+          z-index: 999;
+          margin: 0 113px;
+          height: 150px;
+          width: auto;
         }
       }
       
@@ -502,15 +509,15 @@ div.item-title {
     
     .ring {
       //ring
-      height: $sextantCapturedImageHeight;
-      width: $sextantCapturedImageHeight;
+      height: $sextantCapturedImageHeight - 10px;
+      width: $sextantCapturedImageHeight - 10px;
       margin-left: auto;
       margin-right: auto;
       background-image: url(../img/sextant_eye_piece.png);
       background-size:cover;
       z-index: 10000;
       position: absolute;
-      left: 20.5%;
+      left: (375px - $sextantCapturedImageHeight + 10px)/2;
     }
     
     #controls {
