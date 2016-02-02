@@ -53,7 +53,9 @@ define([
                 //    'ended': 'video/lodestone/outro.mp4'
                 //};
 
+                
                 this.resetState();
+                this.model.set({state: 'winding'});
 
                 this.overlayInitialize({ displayOnArrival: true });
                 this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
@@ -89,6 +91,7 @@ define([
                 out.totalWeight = this.stateModel.getTotalWeight();
                 
                 out.shouldShowKeyOnTable = (state === 'start');
+                out.showRatchet = (state == 'winding');
                 out.instruction = out.instructions[state];
                 out.renderContinueButton = (state === 'fallen');
                 out.renderRetryButton = (state === 'failed' );
@@ -203,6 +206,8 @@ define([
                     
                     this.updateSmallKeys();
                     
+                    this.updateRatchetArm();
+                    
                     //check if it's at the top or at the bottom
                     if (this.windModel.attributes.angle <0) {
                         this.windModel.set({angle: 0});
@@ -230,6 +235,17 @@ define([
                 
                 $('#lodestone-Lkey').css('transform', 'rotate(' + lKeyNewOri + 'deg)');
                 $('#lodestone-Rkey').css('transform', 'rotate(' + rKeyNewOri + 'deg)');
+            },
+            
+            updateRatchetArm: function() {
+                var numTeeth = 22;
+                var degPerTeeth = Math.floor(360/numTeeth);
+                var phase =  this.windModel.attributes.angle % degPerTeeth;
+                var armInitialAngle = 0;
+                
+                var armAngle = armInitialAngle - phase;
+                $('#ratchet-arm').css('transform', 'rotate(' + armAngle + 'deg)');
+                
             },
             
             onChooseWeight: function(choice) {

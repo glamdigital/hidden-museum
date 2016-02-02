@@ -33,11 +33,34 @@ $frameOffsetY: -35px;
     position: absolute;
     bottom: 0px;
     z-index: 100;
+    #ratchet-base {
+        background: url(../img/objects/lodestone/ratchet.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+        height: 165px;
+        position: relative;
+        top:136px;
+        #ratchet-arm {
+            position: relative;
+            top: -17px;
+            left: -20px;
+            width: 67%;
+        }
+    }
     #controls-holder {
       text-align: center;
       overflow: visible !important;
       img {
         width: 50%;
+            &#handle {
+            //rotating key
+            position: relative;
+            left: 35px;
+            top: -19px;        
+        }
       }
       .palette-choice {
         display: inline-block;
