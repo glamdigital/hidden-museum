@@ -57,11 +57,11 @@ define([
             if (this.lightFromSun) {
                 material = new three.MeshLambertMaterial(matspec);
                 var sun = new three.DirectionalLight(0xfffffff, 2);
-                sun.position.set(50, 0, 0);
+                sun.position.set(50, 0, 25);
                 sun.target.lookAt(0,0,0);
                 this.scene.add(sun);
 
-                var ambientLight = new three.AmbientLight(0xff040439);
+                var ambientLight = new three.AmbientLight(0xff040469);
                 this.scene.add(ambientLight);
             }
             else {

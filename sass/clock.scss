@@ -6,6 +6,11 @@
   src: url("../fonts/digital-7.ttf");
 }
 
+#interact-clock {
+    background: url(../img/objects/armillary/clock-bg.png);
+    height: $iphone6Height - $headerTotalHeight;
+}
+
 .clock-face {
   position: absolute;
   z-index: 10;
@@ -15,32 +20,58 @@
     width: 100%;
   }
   &#ten-hr {
+    background: url(../img/objects/armillary/ten-hr-face.png);
+    background-size: 61%;
+    background-repeat: no-repeat;
+    background-position: 50% 0px;
+    height: 400px;
     width: 100%;
     top: 20%;
     img {
-      width: 60%;
+      position: relative;
+      top: 54px;
+      width: 50%;
+      left: 2px;
     }
   }
   &#twenty-four_min {
     width: 50%;
+    z-index: 20;
   }
   &#twenty-four_hour {
+    z-index: 15;
+    background: url(../img/objects/armillary/twelve-hr-face.png);
+    background-size: contain;
+    background-repeat: no-repeat;
     width: 50%;
   }
+  
 }
 
+#twenty-four-cap {
+    width: 50%;
+    position: absolute;
+    z-index: 30;
+}
 
-
+#ten-hr-cap {
+    position: absolute;
+    z-index: 30;
+    top: 41.5%;
+    left: 46%;
+    width: 9%;
+}
 
 #digital-clock {
   position: absolute;
   left: 50%;
   font-family: "digital7";
-  background: url(../img/objects/armillary/digitalWatch.jpg);
-  background-size: 200px;
-  background-position: -20px -26px;
+  background: url(../img/objects/armillary/digital-face.png);
+  background-size: 150px;
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
   width: 50%;
-  height: 140px;
+  height: 200px;
   font-size: 2em;
   .increase-time {
     display: inline;
@@ -55,7 +86,7 @@
   .decrease-time {
     display: inline;
     position: absolute;
-    bottom: 20px;
+    bottom: 80px;
     right: 8px;
     i {
       pointer-events: none;
@@ -66,18 +97,21 @@
     text-align: center;
     display: inline;
     position: absolute;
-    top: 58px;
+    top: 61px;
     left: 43px;
   }
 }
 
-$globeHeight: 200px;
+$globeHeight: 230px;
 
 #globe-clock {
   position: relative;
-  top: $iphone6Height - $globeHeight - $headerHeight - 50px;
-  background: black;
+  top: $iphone6Height - $globeHeight - $headerTotalHeight;
+  background: url(../img/objects/armillary/stars.png);
+  background-size: contain;
   .sphere-container {
     height: $globeHeight;
   }
+  border-top: 4px solid black;
+  z-index: 40;
 }
