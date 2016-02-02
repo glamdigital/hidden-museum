@@ -15,7 +15,7 @@ $tablet: "only screen and (min-width: 768px)";
 $landscape: "(orientation:landscape)";
 $portrait: "(orientation:portrait)";
 
-$standardFontFamily: "frutigel", "Helvetica Neue", "Droid Sans", sans-serif;
+$standardFontFamily: "Century Gothic","frutigel", "Helvetica Neue", "Droid Sans", sans-serif;
 $standardPadding: 5px;
 $cornerRadius: 5px;
 $navBarWidth: 250px;
@@ -34,16 +34,26 @@ $iphone6Width: 375px;
 $itemHeight: 40px;
 
 $contentTextColor: black;
-$navTextColor: #444444;
+$navBackgroundColor: #1d2b23;
+$navTextColor: #9b9e9d;
 
+$upperGalleryColor: #71b4b2;
+$entranceGalleryColor: #deaf54;
+$basementGalleryColor: #b76c61;
+
+$upperGallerySecondColor: #68adab;
+$entranceGallerySecondColor: #d49828;
+$basementGallerySecondColor: #b36559;
+
+$mapIconBackgroundColor: #e0ddb3;
+$mapIconTextColor: #1d2b23;
 $contentOverlayZIndex: 1000;
 
-$markerDiameter: 40px;
+$markerDiameter: 25px;
 
 @mixin objectTitle {
     padding:10px 20px 10px 20px;
     font-size: 20px;
-    background-color: rgba(0,0,0, 0.6);
     color: white;
     text-align: left;
     position: relative;
@@ -54,6 +64,5 @@ $markerDiameter: 40px;
     .fa-chevron-right {
         font-size: 0.8em;
         padding-left: 1em;
-        color: #ccc;
     }
 }

@@ -4,7 +4,7 @@
 define([
         'backbone',
         'underscore',
-        'hbs!app/templates/interactive/bbVideo',
+        'hbs!app/templates/interactive/moonglobe',
         'app/views/VideoControlsView',
         'app/mixins/overlay',
         'hbs!app/templates/overlay_interactive_inner'
@@ -28,8 +28,8 @@ define([
 
             afterRender: function() {
                 this.videoControlsView = new VideoControlsView({
-                    el: $('.interactive.video'),
-                    orientationMode: 'landscape-primary',
+                    el: $('.interactive.moonglobe'),
+                    // orientationMode: 'landscape-primary',
                     hidePause: true,
                     imagePath: this.item.attributes.image,
                     videoPath: this.item.attributes.video,

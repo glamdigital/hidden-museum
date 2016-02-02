@@ -3,6 +3,7 @@ define([
         "jquery",
         "underscore",
         "app/collections/TrailsCollection",
+        "app/views/IntroView",
         "app/views/TrailsView",
         "app/views/TrailView",
         "app/views/TopicView",
@@ -33,6 +34,7 @@ define([
     
     function(Backbone, $, _,
             TrailsCollection,
+            IntroView,
             TrailsView,
             TrailView,
             TopicView,
@@ -92,7 +94,7 @@ define([
             },
             
             routes: {
-                "": "trails",
+                "": "intro",
                 "home": "trails",
                 "trails": "trails",
                 "trail/:trail": "trail",
@@ -107,6 +109,12 @@ define([
                 "scan": "scan"
             },
             
+            intro: function() {
+                var view = new IntroView();
+                this.contentView.setView(view);
+                view.render();
+            },
+
             trails: function() {
                 var view = new TrailsView({
                     trails:window.allTrails

@@ -9,8 +9,8 @@
     "map": "maps/Upper Gallery.JPG",
     "sketch": "",
     "beaconID": "12518",
-    "mapX": "0.05",
-    "mapY": "0.7"
+    "mapX": "0.12",
+    "mapY": "0.75"
   },
   {
     "id": "globe",
@@ -22,8 +22,8 @@
     "map": "maps/Upper Gallery.JPG",
     "sketch": "",
     "beaconID": "50197",
-    "mapX": "0.6",
-    "mapY": "0.7"
+    "mapX": "0.7",
+    "mapY": "0.75"
   },
   {
     "id": "moon_globe",
@@ -35,8 +35,8 @@
     "map": "maps/Entrance Floor Plan.JPG",
     "sketch": "",
     "beaconID": "61866",
-    "mapX": "0.25",
-    "mapY": "0.25"
+    "mapX": "0.34",
+    "mapY": "0.18"
   },
   {
     "id": "armillary",
@@ -48,8 +48,8 @@
     "map": "maps/Entrance Floor Plan.JPG",
     "sketch": "",
     "beaconID": "30098",
-    "mapX": "0.15",
-    "mapY": "0.35"
+    "mapX": "0.22",
+    "mapY": "0.31"
   },
   {
     "id": "blackboard",
@@ -61,8 +61,8 @@
     "map": "maps/Basement Floor Plan (4).JPG",
     "sketch": "",
     "beaconID": "12616",
-    "mapX": "0.72",
-    "mapY": "0.24"
+    "mapX": "0.83",
+    "mapY": "0.28"
   },
   {
     "id": "marconi",
@@ -74,8 +74,8 @@
     "map": "maps/Basement Floor Plan (4).JPG",
     "sketch": "",
     "beaconID": "21925",
-    "mapX": "0.2",
-    "mapY": "0.5"
+    "mapX": "0.29",
+    "mapY": "0.61"
   },
   {
     "id": "lodestone",
@@ -87,7 +87,7 @@
     "map": "maps/Basement Floor Plan (4).JPG",
     "sketch": "",
     "beaconID": "5744",
-    "mapX": "0.35",
-    "mapY": "0.4"
+    "mapX": "0.43",
+    "mapY": "0.45"
   }
 ]

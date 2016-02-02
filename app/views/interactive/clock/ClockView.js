@@ -56,7 +56,7 @@ define([
                 getGlobeAngle: function() {
                     var hours = this.time.hours() + this.time.minutes()/60;
                     var days = hours/24;
-                    return days*360 + 180;
+                    return days*360 + 210;
                 },
 
                 //angle to time
@@ -78,7 +78,7 @@ define([
                     return this.time.minutes(minutes);
                 },
                 fromGlobeAngle: function(angle) {
-                    var minutes = ((angle - 180)/360)*24*60;
+                    var minutes = ((angle - 210)/360)*24*60;
                     this.time.hours(0);
                     return this.time.minutes(minutes);
                 }
@@ -109,7 +109,7 @@ define([
             });
             this.listenTo(this.sphereModel, 'force-change', _.bind(function(source) {
                 //same angle as the 10 hour clock - i.e. 1 revolution per day
-                var time = this.timeModel.attributes.fromGlobeAngle(this.sphereModel.attributes.angle + 180);
+                var time = this.timeModel.attributes.fromGlobeAngle(this.sphereModel.attributes.angle + 210);
                 this.timeModel.set({time: time});
                 this.timeModel.trigger('change', this.sphereModel);
             }, this));
@@ -121,7 +121,7 @@ define([
                 lightFromSun: true,
                 tiltTowardCan: 0,
                 markers: [{lat: 51.7519, lng:1.2578 }],
-                defaultRotY: 180,
+                defaultRotY: 210,
                 panRatio: 1.0,
             });
             this.sphereView.render();
@@ -147,7 +147,7 @@ define([
             this.twentyFourHourClockMinuteHandView = new RotateHandleView({
                 el: $('#twenty-four_min'),
                 model: this.twentyFourHourMinuteHandModel,
-                image: "img/minute_hand.png"
+                image: "img/objects/armillary/twelve-hr-minute-hand.png"
             });
             this.twentyFourHourClockMinuteHandView.render();
 
@@ -170,7 +170,7 @@ define([
             this.twentyFourHourClockHourHandView = new RotateHandleView({
                 el: $('#twenty-four_hour'),
                 model: this.twentyFourHourHourHandModel,
-                image: "img/hour_hand.png",
+                image: "img/objects/armillary/twelve-hr-hour-hand.png",
             });
             this.twentyFourHourClockHourHandView.render();
 
@@ -189,7 +189,7 @@ define([
             this.tenHourClockView = new RotateHandleView({
                 el: $('#ten-hr'),
                 model: this.tenHourClockModel,
-                image: "img/hour_hand.png",
+                image: "img/objects/armillary/ten-hr-face-hand.png",
             });
             this.tenHourClockView.render();
 
