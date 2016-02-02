@@ -9,7 +9,6 @@
     padding: 10px 20px 10px 10px;
     margin: 0;
     font-size: 19px;
-    background-color: rgba(0,0,0, 0.8);
     color: white;
     text-align: left;
     border: none;
@@ -20,10 +19,17 @@
       background-color: red;
     }
   }
+    
   .trail-floorplan {
     width: 100%;
     height: 180px;
     position: relative;   //so that child map markers can be positioned absolutely
+    text-align: center;
+    
+    img.floorpan {
+      width: 100%;
+    }
+    
   }
   .topic-list-item {
     width:100%;
@@ -51,19 +57,46 @@
   }
 }
 
+#upper_gallery {
+  .trail-title {
+    background-color: $upperGalleryColor;
+  }
+  .trail-floorplan, .title {
+    background-color: $upperGallerySecondColor;
+  }
+}
+
+#entrance_gallery {
+  .trail-title {
+    background-color: $entranceGalleryColor;
+  }
+  .trail-floorplan, .title {
+    background-color: $entranceGallerySecondColor;
+  }
+}
+
+#basement_gallery {
+  .trail-title {
+    background-color: $basementGalleryColor;
+  }
+  .trail-floorplan, .title {
+    background-color: $basementGallerySecondColor;
+  }
+}
+
 .map-icon {
   float: right;
   font-size: 1em;
   margin: 10px;
-  color: $navTextColor;
+  color: $mapIconTextColor;
   position: relative;
   top: $topicListItemHeight - $markerDiameter - 20px;
-  background: white;
+  background: $mapIconBackgroundColor;
   border-radius: $markerDiameter;
   height: $markerDiameter;
   width: $markerDiameter;
   text-align: center;
-  line-height: 38px;
+  line-height: 30px;
   font-weight: bold;
   box-sizing: border-box;
   &.on-map {
@@ -115,4 +148,3 @@
     }
   }
 }
-

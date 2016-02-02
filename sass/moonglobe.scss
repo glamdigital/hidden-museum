@@ -1,0 +1,15 @@
+@import "_common.scss";
+
+.interactive.moonglobe {
+    overflow: hidden;
+    
+    .video-player {
+        //fill screen
+        // position: absolute;
+        // top: -135px;
+        // left: 0px;
+    }
+    .transport-controls {
+      bottom: -60px;
+    }
+}

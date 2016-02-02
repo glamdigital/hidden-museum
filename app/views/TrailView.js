@@ -60,7 +60,7 @@ define([
                 for (var i=0; i< this.trails.length; i++) {
                     var topicsJSON = this.trails.models[i].getTopics().toJSON();
                     out.trails[i]['topics'] = topicsJSON;
-                if(this.trails.at(i) == window.session.currentPhysicalTrail) {
+                if(this.trails.at(i).id == window.session.currentTrail.id) {
                     out.trails[i].current = true;
                 } else {
                     out.trails[i].current = false;
@@ -82,6 +82,8 @@ define([
                     this.selectedTrail = selectedTrail;
                     this.doAccordianMagic(200);
                 }
+                $(".active-fa").html("<i class='fa fa-chevron-right'></i>");
+                $("#"+this.selectedTrail.get("id")+" .active-fa").html("<i class='fa fa-chevron-down'></i>");
                 window.session.currentTrail = selectedTrail;
             },
             
