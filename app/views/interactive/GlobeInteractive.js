@@ -695,7 +695,7 @@ define([
             
             afterRender: function() {
                 this.globeView = new InteractiveSphereView({
-                    el: $('.globe-interactive'),
+                    el: $('#globe-view'),
                     model: this.model,
                     texture: 'img/objects/globe/earthmap1k.jpg',
                     bump: 'img/objects/globe/earthbump1k.jpg',
