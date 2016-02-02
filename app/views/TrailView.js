@@ -60,7 +60,6 @@ define([
                 for (var i=0; i< this.trails.length; i++) {
                     var topicsJSON = this.trails.models[i].getTopics().toJSON();
                     out.trails[i]['topics'] = topicsJSON;
-                // if(this.trails.at(i) == window.session.currentPhysicalTrail) {
                 if(this.trails.at(i).id == window.session.currentTrail.id) {
                     out.trails[i].current = true;
                 } else {
