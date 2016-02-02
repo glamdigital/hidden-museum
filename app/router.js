@@ -302,6 +302,7 @@ define([
                         switch (index) {
                             case '0':
                                 var nextRoute = '#/' + Backbone.history.getFragment().replace('0', '1');
+                                Backbone.history.navigate(nextRoute);
                                 interactView = new ImageScanView({
                                     model: item,
                                     item: item,
