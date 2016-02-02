@@ -24,7 +24,7 @@
     background-size: 61%;
     background-repeat: no-repeat;
     background-position: 50% 0px;
-    height: 500px;
+    height: 400px;
     width: 100%;
     top: 20%;
     img {
@@ -108,8 +108,10 @@ $globeHeight: 230px;
   position: relative;
   top: $iphone6Height - $globeHeight - $headerTotalHeight;
   background: url(../img/objects/armillary/stars.png);
+  background-size: contain;
   .sphere-container {
     height: $globeHeight;
   }
   border-top: 4px solid black;
+  z-index: 40;
 }
