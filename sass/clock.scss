@@ -31,20 +31,36 @@
       position: relative;
       top: 54px;
       width: 50%;
+      left: 2px;
     }
   }
   &#twenty-four_min {
     width: 50%;
+    z-index: 20;
   }
   &#twenty-four_hour {
-    z-index: 20;
+    z-index: 15;
     background: url(../img/objects/armillary/twelve-hr-face.png);
     background-size: contain;
     background-repeat: no-repeat;
     width: 50%;
   }
+  
 }
 
+#twenty-four-cap {
+    width: 50%;
+    position: absolute;
+    z-index: 30;
+}
+
+#ten-hr-cap {
+    position: absolute;
+    z-index: 30;
+    top: 41.5%;
+    left: 46%;
+    width: 9%;
+}
 
 #digital-clock {
   position: absolute;

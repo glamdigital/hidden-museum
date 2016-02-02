@@ -78,7 +78,7 @@ define([
                     return this.time.minutes(minutes);
                 },
                 fromGlobeAngle: function(angle) {
-                    var minutes = ((angle - 180)/360)*24*60;
+                    var minutes = ((angle - 210)/360)*24*60;
                     this.time.hours(0);
                     return this.time.minutes(minutes);
                 }
@@ -121,7 +121,7 @@ define([
                 lightFromSun: true,
                 tiltTowardCan: 0,
                 markers: [{lat: 51.7519, lng:1.2578 }],
-                defaultRotY: 180,
+                defaultRotY: 210,
                 panRatio: 1.0,
             });
             this.sphereView.render();
