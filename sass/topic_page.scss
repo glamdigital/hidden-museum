@@ -137,12 +137,13 @@
   .explore-link {
     text-align: center;
     width: 100%;
-    padding: 20px;
     background: darkgrey;
     border: 1px solid black;
     border-radius: 6px;
     a {
+      padding: 20px;
       color: $contentTextColor;
+      display: block;
     }
   }
 }
