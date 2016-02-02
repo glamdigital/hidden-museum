@@ -7,12 +7,14 @@ define([
     ],
     
     function (Backbone, sextantReadingTemplate) {
-        SEXTANT_RADIUS= 500;
-        SEXTANT_THICKNESS = 50;
+        SEXTANT_RADIUS= 480;
+        SEXTANT_THICKNESS = 45;
         SEXTANT_ANGLE_RANGE = Math.PI * 40/360;
         
-        SEXTANT_MARK_HEIGHT = 10;
-        SEXTANT_MAJOR_MARK_HEIGHT = 20;
+        SEXTANT_MARK_HEIGHT = 8;
+        SEXTANT_MAJOR_MARK_HEIGHT = 16;
+
+        SEXTANT_VERTICAL_ADJUSTMENT = 10;
         
         var SextantReadingView = Backbone.View.extend({
             initialize: function () {
@@ -25,7 +27,7 @@ define([
                 var ctx = canvas.getContext('2d');
                 
                 var pivotX = canvas.width/2;
-                var pivotY = canvas.height/2 - SEXTANT_RADIUS;
+                var pivotY = canvas.height/2 - SEXTANT_RADIUS - SEXTANT_VERTICAL_ADJUSTMENT;
                 
                 ctx.setTransform(1,0,0, 1,0,0);
                 
@@ -53,7 +55,7 @@ define([
                 for (i = -60; i <= 60; i += 1)
                 {
                     ctx.setTransform(1,0,0, 1,0,0);
-                    ctx.translate(canvas.width/2, canvas.height/2);
+                    ctx.translate(canvas.width/2, canvas.height/2 - SEXTANT_VERTICAL_ADJUSTMENT);
                     
                     this.drawNumber(i, ctx);
                 }
@@ -74,7 +76,7 @@ define([
                 //draw number
                 if (num%10 === 0) {
                     height = SEXTANT_MARK_HEIGHT;
-                    ctx.font="30px Arial";
+                    ctx.font="24px Arial";
                     ctx.fillStyle="#FFFFFF";
                     ctx.fillText(-num*2, 0, 0);
                 }
