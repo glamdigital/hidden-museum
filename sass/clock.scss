@@ -8,7 +8,7 @@
 
 #interact-clock {
     background: url(../img/objects/armillary/clock-bg.png);
-    height: 1000px;
+    height: $iphone6Height - $headerTotalHeight;
 }
 
 .clock-face {
