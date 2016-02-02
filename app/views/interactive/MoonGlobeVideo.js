@@ -29,7 +29,7 @@ define([
             afterRender: function() {
                 this.videoControlsView = new VideoControlsView({
                     el: $('.interactive.moonglobe'),
-                    orientationMode: 'landscape-primary',
+                    // orientationMode: 'landscape-primary',
                     hidePause: true,
                     imagePath: this.item.attributes.image,
                     videoPath: this.item.attributes.video,
