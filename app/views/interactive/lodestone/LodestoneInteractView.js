@@ -88,7 +88,7 @@ define([
                 out.readoutVisible = shouldShowReadout? 'readout-visible': '';
                 out.totalWeight = this.stateModel.getTotalWeight();
                 
-                out.shouldShowKey = (state === 'start');
+                out.shouldShowKeyOnTable = (state === 'start');
                 out.instruction = out.instructions[state];
                 out.renderContinueButton = (state === 'fallen');
                 out.renderRetryButton = (state === 'failed' );
@@ -201,6 +201,8 @@ define([
 
                     this.playRatchetAudio();
                     
+                    this.updateSmallKeys();
+                    
                     //check if it's at the top or at the bottom
                     if (this.windModel.attributes.angle <0) {
                         this.windModel.set({angle: 0});
@@ -220,6 +222,14 @@ define([
             setCrownHeight: function() {
                 var crownHeight = 30 + MAX_WIND_HEIGHT * this.windModel.attributes.angle / MAX_WIND_ANGLE;
                 $('#crown-holder').css('top', crownHeight);
+            },
+            
+            updateSmallKeys: function() {
+                var lKeyNewOri = 180 + this.windModel.attributes.angle;
+                var rKeyNewOri = 210 + this.windModel.attributes.angle;
+                
+                $('#lodestone-Lkey').css('transform', 'rotate(' + lKeyNewOri + 'deg)');
+                $('#lodestone-Rkey').css('transform', 'rotate(' + rKeyNewOri + 'deg)');
             },
             
             onChooseWeight: function(choice) {
