@@ -18,7 +18,7 @@ define(["backbone", "jquery", "hbs!app/templates/trails", "app/mixins/overlay"],
           
           $(window).resize(this.adjustPosition);
           
-          this.overlayInitialize({ displayOnArrival: window.firstRun });
+          this.overlayInitialize({ displayOnArrival: false });
           
           if (window.firstRun) {
             // Permanently clear the firstRun flag.
