@@ -3,46 +3,54 @@
 @import "_common.scss";
 
 .object-container{
+  color: $navTextColor;
+
   &.nearby {
     background: red;
   }
 
   .header {
     width:100%;
-    height: $topicHeaderHeight;
+    height: $iphone6Height - $headerTotalHeight;
     background-size: cover;
     &.nearby {
       border: 1px solid red;
-    }
-
-    .title {
-      @include objectTitle;
     }
     .zoom {
       float: right;
       font-size: 2em;
       margin: 10px;
-      color: $navTextColor;
+      color: $mapColor;
       position: relative;
-      top: $topicHeaderHeight * 0.6;
+      top: 0px;
     }
+
+  }
+
+  .object-content {
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+
   }
   
   .map-link {
+    padding:13px;
     width: 100%;
     text-align: center;
-    background: grey;
+    height: $topicListItemHeight / 3;
+    background: url("../img/find-on-flooplan-button.png") no-repeat center center ;
+    background-size: cover;
     text-decoration: none;
-    border: 1px solid black;
-    border-radius: 2px;
+    border-bottom: 1px solid;
+
     
     a {
-      padding: 10px;
       display: block;
       color: $contentTextColor;
     }
   }
-  
+
   ul {
     margin:0px;
     padding: 0px;
@@ -54,8 +62,8 @@
       
       &.topic-audio {
         height: 50px;
-        background: lightgrey;
-        border-top: 1px solid black;
+        background: $mapColor;
+        border-top: 1px solid $mapColor;
         border-bottom: 1px solid black;
         padding: 0px;
         .audio {
@@ -92,7 +100,6 @@
             float: right;
             padding: 0;
             padding-right: 10px;
-            color: $navTextColor;
             font-size: 1.5em;
             &.pause {
               display: none;
@@ -108,28 +115,34 @@
 
         &.playing {
           background: white;
-          .audio {
-            color: black;
-            .audio-control-icon {
-              color: black;
-              font-size: 1.7em;
-            }
-          }
+        // styling for audio control bar when playing  
+        //   .audio {
+        //     color: black;
+        //     .audio-control-icon {
+        //       color: black;
+        //       font-size: 1.7em;
+        //     }
+        //   }
         }
       }
       &.topic-item {
-        width: 96%;
-        margin: 2%;
-        background: grey;
-        border: 1px solid black;
-        border-radius: 5px;
+        border-bottom: 1px solid black;
+        text-align: left;
+        height:75px;
       }
       
       a {
         text-decoration: none;
-        color: $contentTextColor;
+        color: white;
         display: block;
-        padding: 20px;
+        padding: 14px;
+        
+        .interact-chevron {
+          position: relative;
+          float: right;
+          right: -19px;
+          top: -19px;
+        }
       }
     }
   }
@@ -137,13 +150,13 @@
   .explore-link {
     text-align: center;
     width: 100%;
-    background: darkgrey;
-    border: 1px solid black;
-    border-radius: 6px;
+    height: 50px;
+    background: $navBackgroundColor;
     a {
-      padding: 20px;
-      color: $contentTextColor;
+      padding: 15px;
+      color: $mapColor;
       display: block;
+      text-align: left;
     }
   }
 }
@@ -172,5 +185,61 @@
         top: 0px;
       }
     }
+  }
+}
+
+.object-content .title {
+  padding: 15px 15px 15px 48px;
+}
+
+.title, .topic-item {
+  @include objectTitle;
+  position: relative;
+  height: $topicListItemHeight / 3;
+  width: 66%;
+  .container-navigation & {
+      background-color: $upperGalleryColor;
+  }
+  .container-globe & {
+      background-color: $upperGalleryColor;
+  }
+  .container-moon_globe & {
+      background-color: $entranceGalleryColor;
+  }
+  .container-armillary & {
+      background-color: $entranceGalleryColor;
+  }
+  .container-blackboard & {
+      background-color: $basementGalleryColor;
+  }
+  .container-marconi & {
+      background-color: $basementGalleryColor;
+  }
+  .container-lodestone & {
+      background-color: $basementGalleryColor;
+  }
+}
+
+.audio-control-icon:not(.speaker) {
+  .container-navigation & {
+      color: $upperGalleryColor;
+  }
+  .container-globe & {
+      color: $upperGalleryColor;
+  }
+  .container-moon_globe & {
+      color: $entranceGalleryColor;
+  }
+  .container-armillary & {
+      color: $entranceGalleryColor;
+  }
+  .container-blackboard & {
+      color: $basementGalleryColor;
+  }
+  .container-marconi & {
+      color: $basementGalleryColor;
+  }
+  .container-lodestone & {
+      color: $basementGalleryColor;
   }
 }
