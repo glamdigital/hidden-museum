@@ -247,49 +247,25 @@
   position: relative;
   height: $topicListItemHeight / 3;
   width: 66%;
-  .container-navigation & {
+  .container-navigation &, .container-globe & {
       background-color: $upperGalleryColor;
   }
-  .container-globe & {
-      background-color: $upperGalleryColor;
-  }
-  .container-moon_globe & {
+  .container-moon_globe &, .container-armillary & {
       background-color: $entranceGalleryColor;
   }
-  .container-armillary & {
-      background-color: $entranceGalleryColor;
-  }
-  .container-blackboard & {
-      background-color: $basementGalleryColor;
-  }
-  .container-marconi & {
-      background-color: $basementGalleryColor;
-  }
-  .container-lodestone & {
+  .container-blackboard &, .container-marconi &, .container-lodestone & {
       background-color: $basementGalleryColor;
   }
 }
 
 .audio-control-icon:not(.speaker) {
-  .container-navigation & {
+  .container-navigation &, .container-globe & {
       color: $upperGalleryColor;
   }
-  .container-globe & {
-      color: $upperGalleryColor;
-  }
-  .container-moon_globe & {
+  .container-moon_globe &, .container-armillary & {
       color: $entranceGalleryColor;
   }
-  .container-armillary & {
-      color: $entranceGalleryColor;
-  }
-  .container-blackboard & {
-      color: $basementGalleryColor;
-  }
-  .container-marconi & {
-      color: $basementGalleryColor;
-  }
-  .container-lodestone & {
+  .container-blackboard &, .container-marconi &,.container-lodestone &  {
       color: $basementGalleryColor;
   }
 }
