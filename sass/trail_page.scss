@@ -36,7 +36,7 @@
     width:100%;
     height: $topicListItemHeight;
     background-size: cover;
-    border-bottom: 1px black;
+    border-top: 1px solid black;
     .title {
       @include objectTitle;
       height: $topicListItemHeight / 3;
