@@ -60,6 +60,13 @@ define([
                     audioView.render();
                     this.audioViews.push( audioView );
                 },this));
+                var $marker = $('.map-marker');
+                var $map = $('.map-container-div');
+                
+                var top = $map.height() * this.topic.get("mapY")+15;
+                $marker.css('top', top + 'px');
+                var left = $map.width() * this.topic.get("mapX")+12;
+                $marker.css('left', left + 'px');
             },
             
             cleanup: function () {

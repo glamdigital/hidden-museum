@@ -186,11 +186,53 @@
         top: 0px;
       }
     }
+    .map-container-div {
+      transform: rotate(90deg);
+      width: 600px;
+      top: 200px;
+      left: -112px;
+      height: 288px;
+      position: relative;
+    }
     .map {
-        transform: rotate(90deg);
-        width: 576px;
-        top: 153px;
-        left: -98px;        
+      position: absolute;
+      background-color: white;
+      width: 600px;
+      top: 0px;
+      left: 0px;
+    }
+    .map-marker {
+      position: absolute;
+      margin: 10px;
+      position: absolute;
+      bottom: 3px;
+      border-radius: 25px;
+      height: 25px;
+      width: 25px;
+      text-align: center;
+      line-height: 25px;
+      font-weight: bold;
+      box-sizing: border-box;
+
+      .map-marker-navigation, .map-marker-globe {
+          background-color: $upperGalleryColor;
+          border-radius: 25px;
+          height: 25px;
+          width: 25px;
+      }
+      .map-marker-moon_globe, .map-marker-armillary {
+          background-color: $entranceGalleryColor;
+          border-radius: 25px;
+          height: 25px;
+          width: 25px;
+      }
+      .map-marker-blackboard, .map-marker-marconi, .map-marker-lodestone {
+          background-color: $basementGalleryColor;
+          border-radius: 25px;
+          height: 25px;
+          width: 25px;
+      }
+
     }
 
   }
