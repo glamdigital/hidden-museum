@@ -13,7 +13,7 @@
     width:100%;
     height: $iphone6Height - $headerTotalHeight;
     background-position: top;
-    background-size: cover;
+    background-size: contain;
     &.nearby {
       border: 1px solid red;
     }
