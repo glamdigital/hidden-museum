@@ -45,19 +45,19 @@ a {
       }
       
       a:link {
-        color: $navTextColor;
+        color: $mapColor;
       }
       
       a:visited {
-        color: $navTextColor;
+        color: $mapColor;
       }
       
       a:hover {
-        color: $navTextColor;
+        color: $mapColor;
       }
       
       a:active {
-        color: $navTextColor;
+        color: $mapColor;
       }
       
       &.header-arrow {
@@ -78,6 +78,7 @@ a {
       }
       
       &.header-info {
+        color: $mapColor;
         position:absolute;
         right: 10px;
         text-align:center;

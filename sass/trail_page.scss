@@ -32,13 +32,15 @@
     
   }
   .topic-list-item {
+    position: relative;
     width:100%;
     height: $topicListItemHeight;
     background-size: cover;
-    border-bottom: 1px black;
+    border-top: 1px solid black;
     .title {
       @include objectTitle;
-      top: $topicListItemHeight - 46px;
+      height: $topicListItemHeight / 3;
+      width: 66%;
     }
 
   }
@@ -57,46 +59,39 @@
   }
 }
 
+.active-fa {
+  display: none;
+}
+
 #upper_gallery {
-  .trail-title {
+  .trail-title, .title {
     background-color: $upperGalleryColor;
-  }
-  .trail-floorplan, .title {
-    background-color: $upperGallerySecondColor;
   }
 }
 
 #entrance_gallery {
-  .trail-title {
+  .trail-title, .title {
     background-color: $entranceGalleryColor;
-  }
-  .trail-floorplan, .title {
-    background-color: $entranceGallerySecondColor;
   }
 }
 
 #basement_gallery {
-  .trail-title {
+  .trail-title, .title {
     background-color: $basementGalleryColor;
-  }
-  .trail-floorplan, .title {
-    background-color: $basementGallerySecondColor;
   }
 }
 
 .map-icon {
-  float: right;
   font-size: 1em;
   margin: 10px;
-  color: $mapIconTextColor;
-  position: relative;
-  top: $topicListItemHeight - $markerDiameter - 20px;
-  background: $mapIconBackgroundColor;
+  color: $mapColor;
+  position: absolute;
+  bottom: 3px;
   border-radius: $markerDiameter;
   height: $markerDiameter;
   width: $markerDiameter;
   text-align: center;
-  line-height: 30px;
+  line-height: 25px;
   font-weight: bold;
   box-sizing: border-box;
   &.on-map {
@@ -108,18 +103,39 @@
   }
 }
 
+.title-chevron {
+  float: right;
+  margin: 10px;
+  color: white;
+  position: absolute;
+  bottom: -4px;
+  right: 35%;
+  line-height: 30px;
+}
+
+#upper_gallery {
+  .map-icon {
+    background: $upperGalleryColor;
+  }
+}
+#entrance_gallery {
+  .map-icon {
+    background: $entranceGalleryColor;
+  }
+}
+#basement_gallery {
+  .map-icon {
+    background: $basementGalleryColor;
+  }
+}
+
+
+
 /* adjustments needed because the basement has 3 items */
 #basement_gallery {
   .topic-list-item {
     height: $topicListItemHeight * 2/3;
-    .title {
-      top: $topicListItemHeight * 2/3 - 46px;
-    }
-    .map-icon {
-      top: $topicListItemHeight * 2/3 - $markerDiameter - 20px;
-    }
   }
-
 }
 
 .overlay {

@@ -1,29 +1,41 @@
 <div class="object-container">
-    <div class="header" style="background-image: url(img/{{topic.photograph_cropped}})">
-        <div class="title">{{topic.title}}</div>
-        <div class="zoom"><i class="fa fa-arrows-alt show-image-button"></i></div>
-    </div>
-    <div class="map-link">
-        <a href="#" class="show-map-button">Find it on the Floor Plan</a>
-    </div>
-    <ul>
-        {{#each audio_items}}
-            <li id='audio-{{id}}' class="topic-audio"></li>
-        {{/each}}
-        
-        {{#each interact_items}}
-            <li id="item-{{slug}}" class="topic-item"><a href="#/interact/{{slug}}/{{type}}/0">
-                <div class="main-title title-smaller">{{{title}}}</div>
-            </a></li>
-        {{/each}}
-    </ul>
-    <div class="explore-link">
-        <a href="#/trail/{{trail.slug}}">Explore other objects</a>
+    <div class="container-{{topic.id}}">
+        <div class="header" style="background-image: url(img/{{topic.photograph_cropped}})">
+            <div class="zoom"><i class="fa fa-arrows-alt show-image-button"></i></div>
+        </div>
+        <div class="object-content">
+            <div class="title">{{topic.title}}</div>
+            <div class="map-link">
+                <a href="#" class="show-map-button">Find it on the Floor Plan <i class="fa fa-chevron-right"></i></a>
+            </div>
+            <ul>
+                {{#each audio_items}}
+                    <li id='audio-{{id}}' class="topic-audio"></li>
+                {{/each}}
+                
+                {{#each interact_items}}
+                    <li id="item-{{slug}}" class="topic-item"><a href="#/interact/{{slug}}/{{type}}/0">
+                        <div class="main-title title-smaller">{{{title}}}</div>
+                        <div class="interact-chevron"><i class="fa fa-chevron-right"></i></div>
+                    </a></li>
+                {{/each}}
+            </ul>
+            <div class="explore-link">
+                <a href="#/trail/{{trail.slug}}"><i class="fa fa-chevron-left"></i> Explore other objects</a>
+            </div>
+        </div>
     </div>
 </div>
 <div class="object-map overlay overlay-image">
     <i class="fa fa-times-circle-o close-overlay close-map-overlay"></i>
-    <img class="map" src="img/{{topic.map}}">
+    
+    
+    <div class="map-container-div">
+      <img class="map" src="img/{{topic.map}}">
+      <div class="map-marker"><div class="map-marker-{{topic.id}}"> </div></div>
+    </div>
+    
+    
 </div>
 <div class="object-full-image overlay overlay-image">
     <i class="fa fa-times-circle-o close-overlay close-image-overlay"></i>
