@@ -14,3 +14,7 @@
       bottom: -60px;
     }
 }
+
+video::-webkit-media-controls-start-playback-button {
+  display: none;
+}
