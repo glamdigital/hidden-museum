@@ -150,6 +150,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
                                     model: this.item,
                                     item: this.item,
                                     target: 'marconi', //a substring in the title of all relevant reference images in the moodstocks library
+                                    gallery: 'basement',
                                     onFoundItem: _.bind(function() {
                                         this.showControls();
                                     }, this)

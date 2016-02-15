@@ -229,9 +229,23 @@ div.scan-container {
   
   #header {
     width: 100%;
-    background: white;
-    position: fixed;
+    color: white;
+    position: absolute;
+    top: 0px;
+    padding:10px;
   }
+  .upper-background {
+    background-color: $upperGalleryColor;
+  }
+
+  .entrance-background {
+    background-color: $entranceGalleryColor;
+  }
+
+  .basement-background {
+    background-color: $basementGalleryColor;
+  }
+
   
   .scan-instructions {
     padding: 5px 20px;

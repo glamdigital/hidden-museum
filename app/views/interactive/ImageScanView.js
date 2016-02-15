@@ -23,13 +23,15 @@ define(['backbone',
 				this.item = params.item;
 				//set appropriate orientation
 				this.orientation = params.orientation;
-
+				this.gallery = params.gallery;
 				this.overlayInitialize({ displayOnArrival: true });
 				this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
 			},
 
 			serialize: function() {
-				return this.item.toJSON();
+				data = this.item.toJSON();
+				data.gallery = this.gallery;
+				return data;
 			},
 
 			afterRender: function() {
