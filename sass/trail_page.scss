@@ -83,15 +83,14 @@
 
 .map-icon {
   font-size: 1em;
-  margin: 10px;
   color: $mapColor;
   position: absolute;
-  bottom: 3px;
+  bottom: 8px;
   border-radius: $markerDiameter;
   height: $markerDiameter;
   width: $markerDiameter;
   text-align: center;
-  line-height: 25px;
+  line-height: $markerDiameter;
   font-weight: bold;
   box-sizing: border-box;
   &.on-map {
