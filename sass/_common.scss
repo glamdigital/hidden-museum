@@ -61,3 +61,25 @@ $markerDiameter: 30px;
         padding-left: 1em;
     }
 }
+
+@mixin interactiveButton {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 40px;
+    margin-top: 8px;
+    border: 2px solid #111;
+    background: #923841;
+    color: white;
+    font-size: 1.4em;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: #ddaaaa;
+    width:95%;
+    &:active {
+        background: #501f24;
+        border-color: #aa6666;
+        color: #aa6666;
+    }
+}
