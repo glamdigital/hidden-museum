@@ -24,7 +24,6 @@ define([
                 this.overlayInitialize({ displayOnArrival: true });
                 this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
                 this.playImmediately = false;
-
             },
             
             afterRender: function () {
@@ -40,8 +39,8 @@ define([
                     }).bind(this)
                 });
                 this.videoControlsView.render();
+                this.listenTo(this.overlayView, 'overlayDismissed', this.videoControlsView.transportPlay);
             },
-            
             
             cleanup: function () {
                 this.videoControlsView.remove();
@@ -50,7 +49,6 @@ define([
         });
         
         _.extend(ReckonerView.prototype, overlayMixin);
-        
         return ReckonerView;
     }
 );

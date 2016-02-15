@@ -99,8 +99,9 @@ define([
                 else {
                     //console.log('hiding overlay');
                     jContentOverlay.addClass('hidden');
+                    this.trigger("overlayDismissed");                    
                 }
-            }
+            },
         });
         
         var InnerView = Backbone.View.extend({
