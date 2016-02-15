@@ -61,3 +61,9 @@ $markerDiameter: 25px;
         padding-left: 1em;
     }
 }
+
+
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none; /* Disable selection/copy in UIWebView */
+}
