@@ -74,6 +74,7 @@ define([
             
             onEndFullscreen: function(ev) {
               screen.lockOrientation("portrait-primary");
+              this.onVideoEnded();
             },
             
             onPause: function (event) {
