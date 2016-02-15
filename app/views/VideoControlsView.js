@@ -60,6 +60,8 @@ define([
                 jVideo.on('playing', this.onPlay.bind(this));
                 jVideo.on('webkitbeginfullscreen', this.onFullscreen.bind(this));
                 jVideo.on('webkitendfullscreen', this.onEndFullscreen.bind(this));
+                
+                // this.onPlay.bind(this);
             },
             
             onFullscreen: function(ev) {
