@@ -176,14 +176,15 @@
     i.close-overlay {
       font-size: 3em;
       float: right;
-      color: $navTextColor;
+      color: $mapColor;
     }
     img {
       position: relative;
       top: 60px;
       width: 100%;
       &.photograph {
-        top: 0px;
+        top: -48px;
+        z-index: -1;
       }
     }
     .map-container-div {
