@@ -8,13 +8,14 @@
                     <a href="#topic/{{slug}}"><div id="map-marker-{{slug}}" class="map-icon on-map">{{galleryIndex}}</div></a>
                 {{/each}}
             </div>
-            <ul>
-                {{#each topics}}
-                    <a href="#topic/{{slug}}"><li id="{{slug}}" class="topic-list-item" style="background-image: url(img/{{photograph_cropped}})">
-                        <div class="title">{{title}}<i class="fa fa-chevron-right"></i></div>
-                        <div id="index-marker-{{slug}}" class="map-icon">{{galleryIndex}}</div>
-                    </li></a>
-                {{/each}}
+            <ul class="objects-list">
+              {{#each topics}}
+                <a href="#topic/{{slug}}"><li id="{{slug}}" class="topic-list-item" style="background-image: url(img/{{sketch}})">
+                    <div class="title">{{title}}</div>
+                    <div id="index-marker-{{slug}}" class="map-icon">{{galleryIndex}}</div>
+                    <div class="title-chevron"><i class="fa fa-chevron-right"></i></div>
+                  </li></a>
+              {{/each}}
             </ul>
         </div>
     </div>

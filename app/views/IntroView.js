@@ -9,13 +9,14 @@ define([
 		template: introTemplate,
 
 		afterRender: function (params) {
-			setTimeout(function(){
+			this.timeout = setTimeout(function(){
 				console.log("timeout");
 				this.hideIntro();
 	    }.bind(this), 3000)
 		},
 
 		hideIntro: function (event) {
+			clearTimeout(this.timeout);
 			console.log("go to trails");
 			Backbone.history.navigate('#/trails');
 		},

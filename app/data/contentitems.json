@@ -386,7 +386,7 @@
     "IRTargetImage": "objects/blackboard/blackboard_sketch.jpg",
     "audio": "",
     "audio_duration": "",
-    "video": "Blackboard.mp4",
+    "video": "Selenographia.mp4",
     "infoImagePath": "img/objects/blackboard/chalkboard-writing.png",
     "infoDescription": "<p>Capture the blackboard on your screen to solve the equation.</p><p>When you press Start your camera will open. Standing directly in front of the blackboard, capture it in your viewfinder to trigger a video of Dr. Jo Dunkely, Professor of Astrophysics, University of Oxford, explaining Einstein's equation.</p>",
     "infoReturn": "#topic/blackboard",

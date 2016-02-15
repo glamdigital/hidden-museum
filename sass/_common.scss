@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "frutigel";
-  src: url("../fonts/frutigel.ttf");
+  font-family: "Century Gothic";
+  src: url("../fonts/Century Gothic.ttf");
 }
 
 $headerSystemStatusClearance: 20px;
@@ -15,7 +15,7 @@ $tablet: "only screen and (min-width: 768px)";
 $landscape: "(orientation:landscape)";
 $portrait: "(orientation:portrait)";
 
-$standardFontFamily: "Century Gothic","frutigel", "Helvetica Neue", "Droid Sans", sans-serif;
+$standardFontFamily: "Century Gothic", "Helvetica Neue", "Droid Sans", sans-serif;
 $standardPadding: 5px;
 $cornerRadius: 5px;
 $navBarWidth: 250px;
@@ -33,31 +33,26 @@ $iphone6Width: 375px;
 
 $itemHeight: 40px;
 
-$contentTextColor: black;
+$contentTextColor: #555;
 $navBackgroundColor: #1d2b23;
-$navTextColor: #9b9e9d;
+$navTextColor: #555;
 
 $upperGalleryColor: #71b4b2;
 $entranceGalleryColor: #deaf54;
 $basementGalleryColor: #b76c61;
 
-$upperGallerySecondColor: #68adab;
-$entranceGallerySecondColor: #d49828;
-$basementGallerySecondColor: #b36559;
-
-$mapIconBackgroundColor: #e0ddb3;
-$mapIconTextColor: #1d2b23;
+$mapColor: #e0ddb3;
 $contentOverlayZIndex: 1000;
 
 $markerDiameter: 25px;
 
 @mixin objectTitle {
-    padding:10px 20px 10px 20px;
-    font-size: 20px;
+    padding:15px 35px 15px 35px;
+    font-size: 15px;
     color: white;
     text-align: left;
-    position: relative;
-    top: $topicHeaderHeight - 50px;
+    position: absolute;
+    bottom: 0px;
     border: none;
     display: inline-block;
     
