@@ -259,6 +259,10 @@
   }
 }
 
+.topic-item {
+  font-weight: bold;
+}
+
 .audio-control-icon:not(.speaker) {
   .container-navigation &, .container-globe & {
       color: $upperGalleryColor;
