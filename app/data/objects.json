@@ -9,8 +9,8 @@
     "photograph_cropped": "objects/navigation/navigation-display-main.jpg",
     "map": "maps/upper_gallery_floorplan.jpg",
     "beaconID": "12518",
-    "mapX": "0.12",
-    "mapY": "0.75"
+    "mapX": "0.843",
+    "mapY": "0.206"
   },
   {
     "id": "globe",
@@ -22,8 +22,8 @@
     "photograph_cropped": "objects/globe/all-souls-globe-main.jpg",
     "map": "maps/upper_gallery_floorplan.jpg",
     "beaconID": "50197",
-    "mapX": "0.7",
-    "mapY": "0.75"
+    "mapX": "0.365",
+    "mapY": "0.044"
   },
   {
     "id": "moon_globe",
@@ -35,8 +35,8 @@
     "photograph_cropped": "objects/moon_globe/selenographia-main.jpg",
     "map": "maps/entrance_floorplan.jpg",
     "beaconID": "61866",
-    "mapX": "0.34",
-    "mapY": "0.18"
+    "mapX": "0.651",
+    "mapY": "0.572"
   },
   {
     "id": "armillary",
@@ -48,8 +48,8 @@
     "photograph_cropped": "objects/armillary/armillary-sphere-main.jpg",
     "map": "maps/entrance_floorplan.jpg",
     "beaconID": "30098",
-    "mapX": "0.22",
-    "mapY": "0.31"
+    "mapX": "0.693",
+    "mapY": "0.389"
   },
   {
     "id": "blackboard",
@@ -61,8 +61,8 @@
     "photograph_cropped": "objects/blackboard/einsteins-blackboard-main.jpg",
     "map": "maps/basement_floorplan.jpg",
     "beaconID": "12616",
-    "mapX": "0.83",
-    "mapY": "0.28"
+    "mapX": "0.075",
+    "mapY": "0.389"
   },
   {
     "id": "marconi",
@@ -74,8 +74,8 @@
     "photograph_cropped": "objects/marconi/marconi-main.jpg",
     "map": "maps/basement_floorplan.jpg",
     "beaconID": "21925",
-    "mapX": "0.29",
-    "mapY": "0.61"
+    "mapX": "0.6",
+    "mapY": "0.194"
   },
   {
     "id": "lodestone",
@@ -87,7 +87,7 @@
     "photograph_cropped": "objects/lodestone/lodestone_main.jpg",
     "map": "maps/basement_floorplan.jpg",
     "beaconID": "5744",
-    "mapX": "0.43",
-    "mapY": "0.45"
+    "mapX": "0.475",
+    "mapY": "0.389"
   }
 ]
