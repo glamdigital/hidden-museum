@@ -43,6 +43,8 @@ define([
                     videoPath: params.videoPath || '',
                     orientation: this.orientationMode
                 };
+                this.playImmediately = params.playImmediately;
+
                 
             },
             
@@ -61,7 +63,7 @@ define([
                 jVideo.on('webkitbeginfullscreen', this.onFullscreen.bind(this));
                 jVideo.on('webkitendfullscreen', this.onEndFullscreen.bind(this));
                 
-                // this.onPlay.bind(this);
+                if (this.playImmediately) this.transportPlay();
             },
             
             onFullscreen: function(ev) {
