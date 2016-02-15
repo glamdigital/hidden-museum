@@ -40,7 +40,7 @@
     .title {
       @include objectTitle;
       height: $topicListItemHeight / 3;
-      width: 66%;
+      width: 68%;
     }
 
   }
@@ -108,7 +108,7 @@
   color: white;
   position: absolute;
   bottom: -4px;
-  right: 35%;
+  right: 32%;
   line-height: 30px;
 }
 
