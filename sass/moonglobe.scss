@@ -1,6 +1,7 @@
 @import "_common.scss";
 
 .interactive.moonglobe {
+    background-color: #000;
     overflow: hidden;
     
     .video-player {
@@ -12,4 +13,8 @@
     .transport-controls {
       bottom: -60px;
     }
+}
+
+video::-webkit-media-controls-start-playback-button {
+  display: none;
 }

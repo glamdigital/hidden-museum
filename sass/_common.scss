@@ -3,6 +3,11 @@
   src: url("../fonts/Century Gothic.ttf");
 }
 
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none; /* Disable selection/copy in UIWebView */
+}
+
 $headerSystemStatusClearance: 20px;
 $headerHeight: 45px;
 $headerTotalHeight: $headerSystemStatusClearance + $headerHeight;
@@ -36,6 +41,7 @@ $itemHeight: 40px;
 $contentTextColor: #555;
 $navBackgroundColor: #1d2b23;
 $navTextColor: #555;
+$beaconPulseColor: #1d2b23;
 
 $upperGalleryColor: #71b4b2;
 $entranceGalleryColor: #deaf54;

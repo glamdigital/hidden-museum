@@ -1,6 +1,42 @@
 //trail screen - a.k.a Gallery screen / object select screen
 
 @import "_common.scss";
+@import "compass/css3/animation";
+@include keyframes(cyclebg-upper) {
+  0% {
+    background-color: $upperGalleryColor;
+  }
+  50% {
+    background-color: $beaconPulseColor;
+  }
+  100% {
+    background-color: $upperGalleryColor;
+  }
+}
+
+@include keyframes(cyclebg-basement) {
+  0% {
+    background-color: $basementGalleryColor;
+  }
+  50% {
+    background-color: $beaconPulseColor;
+  }
+  100% {
+    background-color: $basementGalleryColor;
+  }
+}
+
+@include keyframes(cyclebg-entrance) {
+  0% {
+    background-color: $entranceGalleryColor;
+  }
+  50% {
+    background-color: $beaconPulseColor;
+  }
+  100% {
+    background-color: $entranceGalleryColor;
+  }
+}
 
 .trail-container {
   border-top:1px solid black;
@@ -67,17 +103,26 @@
   .trail-title, .title {
     background-color: $upperGalleryColor;
   }
+  .map-icon.nearby {
+      @include animation(1.4s cyclebg-upper ease-in-out infinite);
+  }
 }
 
 #entrance_gallery {
   .trail-title, .title {
     background-color: $entranceGalleryColor;
   }
+  .map-icon.nearby {
+    @include animation(1.4s cyclebg-entrance ease-in-out infinite);
+  }
 }
 
 #basement_gallery {
   .trail-title, .title {
     background-color: $basementGalleryColor;
+  }
+  .map-icon.nearby {
+    @include animation(1.4s cyclebg-basement ease-in-out infinite);
   }
 }
 
@@ -96,11 +141,9 @@
   &.on-map {
     position: absolute;
   }
-  &.nearby {
-    line-height: 36px;
-    border: 2px solid red;
-  }
 }
+
+
 
 .title-chevron {
   float: right;

@@ -43,7 +43,7 @@ define([
                     videoPath: params.videoPath || '',
                     orientation: this.orientationMode
                 };
-                
+                this.playImmediately = params.playImmediately;
             },
             
             afterRender: function () {
@@ -60,6 +60,7 @@ define([
                 jVideo.on('playing', this.onPlay.bind(this));
                 jVideo.on('webkitbeginfullscreen', this.onFullscreen.bind(this));
                 jVideo.on('webkitendfullscreen', this.onEndFullscreen.bind(this));
+                if (this.playImmediately) this.transportPlay();
             },
             
             onFullscreen: function(ev) {
@@ -70,6 +71,7 @@ define([
             
             onEndFullscreen: function(ev) {
               screen.lockOrientation("portrait-primary");
+              this.onVideoEnded();
             },
             
             onPause: function (event) {

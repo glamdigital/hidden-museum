@@ -24,15 +24,15 @@ define([
             initialize: function(params) {
                 this.overlayInitialize({displayOnArrival: false});
                 this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
+                this.playImmediately = true;
             },
 
             afterRender: function() {
                 this.videoControlsView = new VideoControlsView({
                     el: $('.interactive.moonglobe'),
-                    // orientationMode: 'landscape-primary',
                     hidePause: true,
-                    imagePath: this.item.attributes.image,
                     videoPath: this.item.attributes.video,
+                    playImmediately: this.playImmediately,
 
                     onFinalFrame: function() {
                         Backbone.history.navigate('#/topic/' + this.item.attributes.object);
