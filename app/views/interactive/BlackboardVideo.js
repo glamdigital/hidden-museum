@@ -32,7 +32,6 @@ define([
                     el: $('.interactive.blackboard'),
                     orientationMode: 'landscape-primary',
                     hidePause: true,
-                    // imagePath: this.item.attributes.image,
                     videoPath: this.item.attributes.video,
                     playImmediately: this.playImmediately,
 

@@ -20,7 +20,6 @@ define([
             
             initialize: function (params) {
                 this.item = params.item;
-                
                 this.overlayInitialize({ displayOnArrival: true });
                 this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
                 this.playImmediately = false;
@@ -33,7 +32,6 @@ define([
                     imagePath:       this.item.attributes.image,
                     videoPath:       this.item.attributes.video,
                     playImmediately: this.playImmediately,
-                    
                     onFinalFrame: (function () {
                         Backbone.history.navigate('#/topic/' + this.item.attributes.object);
                     }).bind(this)

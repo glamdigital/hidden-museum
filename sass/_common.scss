@@ -3,6 +3,11 @@
   src: url("../fonts/Century Gothic.ttf");
 }
 
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none; /* Disable selection/copy in UIWebView */
+}
+
 $headerSystemStatusClearance: 20px;
 $headerHeight: 45px;
 $headerTotalHeight: $headerSystemStatusClearance + $headerHeight;
@@ -83,10 +88,4 @@ $markerDiameter: 30px;
         border-color: #aa6666;
         color: #aa6666;
     }
-}
-
-
-* {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none; /* Disable selection/copy in UIWebView */
 }

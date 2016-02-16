@@ -34,11 +34,7 @@ define(["backbone", "jquery", "hbs!app/templates/trails", "app/mixins/overlay"],
       },
       
       didRangeBeacon: function(data) {
-        console.log(" ");
-        console.log("didRangeBeacon triggered:",data);
-        console.log("data.major.toString()",data.major.toString());
         var trail = this.beaconsDict[data.major.toString()];
-        console.log("trail:",trail);
         if(typeof(trail) !== 'undefined') {
           if(data.proximity == 'ProximityNear' || data.proximity == 'ProximityImmediate') {
               //find relevant elements and add classes

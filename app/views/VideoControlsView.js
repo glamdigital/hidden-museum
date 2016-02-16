@@ -44,8 +44,6 @@ define([
                     orientation: this.orientationMode
                 };
                 this.playImmediately = params.playImmediately;
-
-                
             },
             
             afterRender: function () {
@@ -62,7 +60,6 @@ define([
                 jVideo.on('playing', this.onPlay.bind(this));
                 jVideo.on('webkitbeginfullscreen', this.onFullscreen.bind(this));
                 jVideo.on('webkitendfullscreen', this.onEndFullscreen.bind(this));
-                
                 if (this.playImmediately) this.transportPlay();
             },
             
