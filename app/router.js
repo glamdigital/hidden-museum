@@ -154,7 +154,7 @@ define([
                 this.headerView.setPrevURL('#/trails');
                 this.headerView.render();
                 
-                this.floorTracker.promptToSwitch = false;
+                this.floorTracker.promptToSwitch = true;
             },
             
             topic: function(topicSlug) {
@@ -173,7 +173,7 @@ define([
                 this.headerView.setNextURL(null);
                 this.headerView.render();
                 
-                this.floorTracker.promptToSwitch = true;
+                this.floorTracker.promptToSwitch = false;
             },
             
             finished: function() {
@@ -354,7 +354,7 @@ define([
                 if (interactView) {
                     this.contentView.setView(interactView);
                     interactView.render();
-                    this.floorTracker.promptToSwitch = true;
+                    this.floorTracker.promptToSwitch = false;
                 }
             }
         });
