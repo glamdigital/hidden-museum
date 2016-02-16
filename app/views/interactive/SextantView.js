@@ -57,7 +57,7 @@ define([
                 this.startingDeviceOrientation = {alpha:0, beta:0, gamma:0};
                 this.angle = 0;
                 this.instructions = ["<ol><li>Hold the phone straight up in front of you so the red line is level with with the sea horizon</li><li>Press the 'Set Horizon' button</li></ol>",
-                    "<ol><li>Slowly tilt the camera towards the ceiling and watch for an image of the sun</li><li>Line up the sun with the horizon line</li><li>Press the 'Capture the Angle of the Sun' button</li></ol>",
+                    "<ol><li>Tilt the camera upwards and watch for an image of the sun</li><li>Line up the sun with the horizon line</li><li>Press the 'Angle of the Sun' button</li></ol>",
                     "<p>This mimics a reading of the Pole Star, where the angle is the same as your latitude. For the Sun or other bodies you would need an almanac to get a latitude from the angle</p>"];
                 this.instructionsColors = ['url(img/parchment-tan.jpg)', 'url(img/parchment-tan-dark.jpg)', 'url(img/parchment-tan.jpg)'];
                 var tapEnabled = true; //enable tap take picture
@@ -104,7 +104,7 @@ define([
                 switch (this.step) {
                     case 0:
                         this.step = 1;
-                        $target.text("Capture the Angle of the Sun");
+                        $target.text("Angle of the Sun");
                         $target.hide();
                         this.takeHorizonImage(ev);
                         this.hasSetHorizon = true;
