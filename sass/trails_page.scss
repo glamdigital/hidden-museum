@@ -1,4 +1,40 @@
 @import "_common.scss";
+@import "compass/css3/animation";
+@include keyframes(cyclebg-upper) {
+  0% {
+    background-color: $upperGalleryColor;
+  }
+  50% {
+    background-color: $beaconPulseColor;
+  }
+  100% {
+    background-color: $upperGalleryColor;
+  }
+}
+
+@include keyframes(cyclebg-basement) {
+  0% {
+    background-color: $basementGalleryColor;
+  }
+  50% {
+    background-color: $beaconPulseColor;
+  }
+  100% {
+    background-color: $basementGalleryColor;
+  }
+}
+
+@include keyframes(cyclebg-entrance) {
+  0% {
+    background-color: $entranceGalleryColor;
+  }
+  50% {
+    background-color: $beaconPulseColor;
+  }
+  100% {
+    background-color: $entranceGalleryColor;
+  }
+}
 
 div.trails-list-container {
   position: relative;
@@ -42,14 +78,23 @@ div.trails-list-container {
       
       #upper_gallery-background {
         background-color: $upperGalleryColor;
+        &.nearby {
+          @include animation(1.4s cyclebg-upper ease-in-out infinite);
+        }
       }
 
       #entrance_gallery-background {
         background-color: $entranceGalleryColor;
+        &.nearby {
+          @include animation(1.4s cyclebg-entrance ease-in-out infinite);
+        }
       }
 
       #basement_gallery-background {
         background-color: $basementGalleryColor;
+        &.nearby {
+          @include animation(1.4s cyclebg-basement ease-in-out infinite);
+        }
       }
 
     }

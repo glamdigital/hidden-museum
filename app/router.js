@@ -279,9 +279,11 @@ define([
                         switch (index) {
                             case '0':
                                 var nextRoute = '#/' + Backbone.history.getFragment().replace('0', '1');
+                                Backbone.history.navigate(nextRoute);
                                 interactView = new ImageScanView({
                                     model: item,
                                     item: item,
+                                    gallery: 'basement',
                                     target: 'blackboard',        //a substring in the title of all relevant reference images in the moodstocks library
                                     onFoundItem: _.bind(function() {
                                         Backbone.history.navigate(nextRoute);
@@ -302,9 +304,11 @@ define([
                         switch (index) {
                             case '0':
                                 var nextRoute = '#/' + Backbone.history.getFragment().replace('0', '1');
+                                Backbone.history.navigate(nextRoute);
                                 interactView = new ImageScanView({
                                     model: item,
                                     item: item,
+                                    gallery: 'entrance',
                                     target: 'moon',        //a substring in the title of all relevant reference images in the moodstocks library
                                     onFoundItem: _.bind(function() {
                                         Backbone.history.navigate(nextRoute);
@@ -327,6 +331,7 @@ define([
                                 interactView = new ImageScanView({
                                     model: item,
                                     item: item,
+                                    gallery: 'upper',
                                     target: 'globe',        //a substring in the title of all relevant reference images in the moodstocks library
                                     onFoundItem: _.bind(function() {
                                         Backbone.history.navigate(nextRoute);
