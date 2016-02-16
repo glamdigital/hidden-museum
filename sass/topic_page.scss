@@ -40,7 +40,7 @@
     width: 100%;
     text-align: center;
     height: $topicListItemHeight / 3;
-    background: url("../img/find-on-flooplan-button.png") no-repeat center center ;
+    background: url("../img/find-on-flooplan-button.jpg") no-repeat center center ;
     background-size: cover;
     text-decoration: none;
     border-bottom: 1px solid;
@@ -100,7 +100,7 @@
           .audio-control-icon {
             float: right;
             padding: 0;
-            padding-right: 10px;
+            padding-right: 4px;
             font-size: 1.5em;
             &.pause {
               display: none;
@@ -136,7 +136,7 @@
         text-decoration: none;
         color: white;
         display: block;
-        padding: 14px;
+        padding: 14px 14px 14px 10px;
         
         .interact-chevron {
           position: relative;
@@ -176,14 +176,15 @@
     i.close-overlay {
       font-size: 3em;
       float: right;
-      color: $navTextColor;
+      color: $mapColor;
     }
     img {
       position: relative;
       top: 60px;
       width: 100%;
       &.photograph {
-        top: 0px;
+        top: -48px;
+        z-index: -1;
       }
     }
     .map-container-div {
@@ -239,14 +240,14 @@
 }
 
 .object-content .title {
-  padding: 15px 15px 15px 48px;
+  padding: 15px 15px 15px 44px;
 }
 
 .title, .topic-item {
   @include objectTitle;
   position: relative;
   height: $topicListItemHeight / 3;
-  width: 66%;
+  width: 68%;
   .container-navigation &, .container-globe & {
       background-color: $upperGalleryColor;
   }
@@ -256,6 +257,10 @@
   .container-blackboard &, .container-marconi &, .container-lodestone & {
       background-color: $basementGalleryColor;
   }
+}
+
+.topic-item {
+  font-weight: bold;
 }
 
 .audio-control-icon:not(.speaker) {

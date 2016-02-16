@@ -158,7 +158,9 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             this.irView.render();
         },
         showControls: function() { 
-            $('#controls').show();             
+            $('#controls').show();
+            $('.preview').hide();
+
         },
         wirelessButtonHandler: function(ev) {
             var $target = $(ev.target);
