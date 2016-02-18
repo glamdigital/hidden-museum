@@ -1,6 +1,11 @@
 @font-face {
-  font-family: "frutigel";
-  src: url("../fonts/frutigel.ttf");
+  font-family: "Century Gothic";
+  src: url("../fonts/Century Gothic.ttf");
+}
+
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none; /* Disable selection/copy in UIWebView */
 }
 
 $headerSystemStatusClearance: 20px;
@@ -15,7 +20,7 @@ $tablet: "only screen and (min-width: 768px)";
 $landscape: "(orientation:landscape)";
 $portrait: "(orientation:portrait)";
 
-$standardFontFamily: "Century Gothic","frutigel", "Helvetica Neue", "Droid Sans", sans-serif;
+$standardFontFamily: "Century Gothic", "Helvetica Neue", "Droid Sans", sans-serif;
 $standardPadding: 5px;
 $cornerRadius: 5px;
 $navBarWidth: 250px;
@@ -33,36 +38,54 @@ $iphone6Width: 375px;
 
 $itemHeight: 40px;
 
-$contentTextColor: black;
+$contentTextColor: #555;
 $navBackgroundColor: #1d2b23;
-$navTextColor: #9b9e9d;
+$navTextColor: #555;
+$beaconPulseColor: #1d2b23;
 
 $upperGalleryColor: #71b4b2;
 $entranceGalleryColor: #deaf54;
 $basementGalleryColor: #b76c61;
 
-$upperGallerySecondColor: #68adab;
-$entranceGallerySecondColor: #d49828;
-$basementGallerySecondColor: #b36559;
-
-$mapIconBackgroundColor: #e0ddb3;
-$mapIconTextColor: #1d2b23;
+$mapColor: #e0ddb3;
 $contentOverlayZIndex: 1000;
 
-$markerDiameter: 25px;
+$markerDiameter: 30px;
 
 @mixin objectTitle {
-    padding:10px 20px 10px 20px;
-    font-size: 20px;
+    padding:15px 25px 15px 35px;
+    font-size: 1em;
     color: white;
     text-align: left;
-    position: relative;
-    top: $topicHeaderHeight - 50px;
+    position: absolute;
+    bottom: 0px;
     border: none;
     display: inline-block;
     
     .fa-chevron-right {
         font-size: 0.8em;
         padding-left: 1em;
+    }
+}
+
+@mixin interactiveButton {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 40px;
+    margin-top: 8px;
+    border: 2px solid #111;
+    background: #923841;
+    color: white;
+    font-size: 1.4em;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: #ddaaaa;
+    width:95%;
+    &:active {
+        background: #501f24;
+        border-color: #aa6666;
+        color: #aa6666;
     }
 }

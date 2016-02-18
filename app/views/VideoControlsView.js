@@ -43,31 +43,7 @@ define([
                     videoPath: params.videoPath || '',
                     orientation: this.orientationMode
                 };
-                
-                this.ownOrientation(true);
-            },
-            
-            ownOrientation: function (takeOwnership) {
-                if (!screen ||
-                    typeof screen.unlockOrientation !== 'function' ||
-                    typeof screen.lockOrientation !== 'function') {
-                    
-                    return;
-                }
-                
-                if (takeOwnership) {
-                    if (this.orientationMode) {
-                        screen.lockOrientation(this.orientationMode);
-                    }
-                    else {
-                        //if not explicitly landscape, assume portrait
-                        screen.lockOrientation('portrait-primary');
-                    }
-                }
-                else {
-                    //return to portrait on exiting
-                    screen.lockOrientation('portrait-primary');
-                }
+                this.playImmediately = params.playImmediately;
             },
             
             afterRender: function () {
@@ -82,6 +58,20 @@ define([
                 jVideo.on('pause',   this.onPause.bind(this));
                 jVideo.on('play',    this.onPlay.bind(this));
                 jVideo.on('playing', this.onPlay.bind(this));
+                jVideo.on('webkitbeginfullscreen', this.onFullscreen.bind(this));
+                jVideo.on('webkitendfullscreen', this.onEndFullscreen.bind(this));
+                if (this.playImmediately) this.transportPlay();
+            },
+            
+            onFullscreen: function(ev) {
+              if(this.orientationMode === 'landscape-primary') {
+                screen.lockOrientation(this.orientationMode);
+              }
+            },
+            
+            onEndFullscreen: function(ev) {
+              screen.lockOrientation("portrait-primary");
+              this.onVideoEnded();
             },
             
             onPause: function (event) {
@@ -141,12 +131,10 @@ define([
             },
             
             onVideoEnded: function (event) {
-                this.ownOrientation(false);
                 this.onFinalFrame();
             },
             
             cleanup: function() {
-                this.ownOrientation(false);
             }
         });
         

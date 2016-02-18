@@ -3,46 +3,55 @@
 @import "_common.scss";
 
 .object-container{
+  color: $navTextColor;
+
   &.nearby {
     background: red;
   }
 
   .header {
     width:100%;
-    height: $topicHeaderHeight;
-    background-size: cover;
+    height: $iphone6Height - $headerTotalHeight;
+    background-position: top;
+    background-size: contain;
     &.nearby {
       border: 1px solid red;
-    }
-
-    .title {
-      @include objectTitle;
     }
     .zoom {
       float: right;
       font-size: 2em;
       margin: 10px;
-      color: $navTextColor;
+      color: $mapColor;
       position: relative;
-      top: $topicHeaderHeight * 0.6;
+      top: 0px;
     }
+
+  }
+
+  .object-content {
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+
   }
   
   .map-link {
+    padding:13px;
     width: 100%;
     text-align: center;
-    background: grey;
+    height: $topicListItemHeight / 3;
+    background: url("../img/find-on-flooplan-button.jpg") no-repeat center center ;
+    background-size: cover;
     text-decoration: none;
-    border: 1px solid black;
-    border-radius: 2px;
+    border-bottom: 1px solid;
+
     
     a {
-      padding: 10px;
       display: block;
       color: $contentTextColor;
     }
   }
-  
+
   ul {
     margin:0px;
     padding: 0px;
@@ -54,8 +63,8 @@
       
       &.topic-audio {
         height: 50px;
-        background: lightgrey;
-        border-top: 1px solid black;
+        background: $mapColor;
+        border-top: 1px solid $mapColor;
         border-bottom: 1px solid black;
         padding: 0px;
         .audio {
@@ -91,8 +100,7 @@
           .audio-control-icon {
             float: right;
             padding: 0;
-            padding-right: 10px;
-            color: $navTextColor;
+            padding-right: 4px;
             font-size: 1.5em;
             &.pause {
               display: none;
@@ -108,28 +116,34 @@
 
         &.playing {
           background: white;
-          .audio {
-            color: black;
-            .audio-control-icon {
-              color: black;
-              font-size: 1.7em;
-            }
-          }
+        // styling for audio control bar when playing  
+        //   .audio {
+        //     color: black;
+        //     .audio-control-icon {
+        //       color: black;
+        //       font-size: 1.7em;
+        //     }
+        //   }
         }
       }
       &.topic-item {
-        width: 96%;
-        margin: 2%;
-        background: grey;
-        border: 1px solid black;
-        border-radius: 5px;
+        border-bottom: 1px solid black;
+        text-align: left;
+        height:75px;
       }
       
       a {
         text-decoration: none;
-        color: $contentTextColor;
+        color: white;
         display: block;
-        padding: 20px;
+        padding: 14px 14px 14px 10px;
+        
+        .interact-chevron {
+          position: relative;
+          float: right;
+          right: -19px;
+          top: -19px;
+        }
       }
     }
   }
@@ -137,13 +151,13 @@
   .explore-link {
     text-align: center;
     width: 100%;
-    background: darkgrey;
-    border: 1px solid black;
-    border-radius: 6px;
+    height: 50px;
+    background: $navBackgroundColor;
     a {
-      padding: 20px;
-      color: $contentTextColor;
+      padding: 15px;
+      color: $mapColor;
       display: block;
+      text-align: left;
     }
   }
 }
@@ -162,15 +176,101 @@
     i.close-overlay {
       font-size: 3em;
       float: right;
-      color: $navTextColor;
+      color: $mapColor;
     }
     img {
       position: relative;
       top: 60px;
       width: 100%;
       &.photograph {
-        top: 0px;
+        top: -48px;
+        z-index: -1;
       }
     }
+    .map-container-div {
+      transform: rotate(90deg);
+      width: 600px;
+      top: 200px;
+      left: -112px;
+      height: 288px;
+      position: relative;
+    }
+    .map {
+      position: absolute;
+      background-color: white;
+      width: 600px;
+      top: 0px;
+      left: 0px;
+    }
+    .map-marker {
+      position: absolute;
+      margin: 10px;
+      position: absolute;
+      bottom: 3px;
+      border-radius: 25px;
+      height: 25px;
+      width: 25px;
+      text-align: center;
+      line-height: 25px;
+      font-weight: bold;
+      box-sizing: border-box;
+
+      .map-marker-navigation, .map-marker-globe {
+          background-color: $upperGalleryColor;
+          border-radius: 25px;
+          height: 25px;
+          width: 25px;
+      }
+      .map-marker-moon_globe, .map-marker-armillary {
+          background-color: $entranceGalleryColor;
+          border-radius: 25px;
+          height: 25px;
+          width: 25px;
+      }
+      .map-marker-blackboard, .map-marker-marconi, .map-marker-lodestone {
+          background-color: $basementGalleryColor;
+          border-radius: 25px;
+          height: 25px;
+          width: 25px;
+      }
+
+    }
+
+  }
+}
+
+.object-content .title {
+  padding: 15px 15px 15px 44px;
+}
+
+.title, .topic-item {
+  @include objectTitle;
+  position: relative;
+  height: $topicListItemHeight / 3;
+  width: 68%;
+  .container-navigation &, .container-globe & {
+      background-color: $upperGalleryColor;
+  }
+  .container-moon_globe &, .container-armillary & {
+      background-color: $entranceGalleryColor;
+  }
+  .container-blackboard &, .container-marconi &, .container-lodestone & {
+      background-color: $basementGalleryColor;
+  }
+}
+
+.topic-item {
+  font-weight: bold;
+}
+
+.audio-control-icon:not(.speaker) {
+  .container-navigation &, .container-globe & {
+      color: $upperGalleryColor;
+  }
+  .container-moon_globe &, .container-armillary & {
+      color: $entranceGalleryColor;
+  }
+  .container-blackboard &, .container-marconi &,.container-lodestone &  {
+      color: $basementGalleryColor;
   }
 }

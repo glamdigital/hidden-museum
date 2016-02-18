@@ -121,6 +121,9 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             },
             turnOffLed: function() {
                 this.writeData(new Uint8Array([0]));
+            },
+            close:function() {
+                evothings.ble.close(this.deviceHandle);
             }
         },
 
@@ -147,6 +150,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
                                     model: this.item,
                                     item: this.item,
                                     target: 'marconi', //a substring in the title of all relevant reference images in the moodstocks library
+                                    gallery: 'basement',
                                     onFoundItem: _.bind(function() {
                                         this.showControls();
                                     }, this)
@@ -154,13 +158,16 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             this.irView.render();
         },
         showControls: function() { 
-            $('#controls').show();             
+            $('#controls').show();
+            $('.preview').hide();
+
         },
         wirelessButtonHandler: function(ev) {
             var $target = $(ev.target);
             this.blecontroller.turnOnLed();
         },
 	    cleanup: function() {
+            this.blecontroller.close();
             this.overlayCleanup();
             this.irView.remove();
 	    },

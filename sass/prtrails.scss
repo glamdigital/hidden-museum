@@ -45,19 +45,19 @@ a {
       }
       
       a:link {
-        color: $navTextColor;
+        color: $mapColor;
       }
       
       a:visited {
-        color: $navTextColor;
+        color: $mapColor;
       }
       
       a:hover {
-        color: $navTextColor;
+        color: $mapColor;
       }
       
       a:active {
-        color: $navTextColor;
+        color: $mapColor;
       }
       
       &.header-arrow {
@@ -78,6 +78,7 @@ a {
       }
       
       &.header-info {
+        color: $mapColor;
         position:absolute;
         right: 10px;
         text-align:center;
@@ -134,7 +135,7 @@ div.black-bar {
   border-radius: 5px;
   width: auto;
   background: black;
-  padding: 5px 12px;
+  padding: 5px 8px;
   color: white;
   font-size: 1em;
   line-height: 2.2em;
@@ -173,6 +174,8 @@ div.black-bar {
     background-color: black;
     &.title {
       font-size: 1.1em;
+      width: 100%;
+      text-align: center;
     }
     &.subtitle {
       font-size: 0.8em;
@@ -228,9 +231,23 @@ div.scan-container {
   
   #header {
     width: 100%;
-    background: white;
-    position: fixed;
+    color: white;
+    position: absolute;
+    top: 0px;
+    padding:10px;
   }
+  .upper-background {
+    background-color: $upperGalleryColor;
+  }
+
+  .entrance-background {
+    background-color: $entranceGalleryColor;
+  }
+
+  .basement-background {
+    background-color: $basementGalleryColor;
+  }
+
   
   .scan-instructions {
     padding: 5px 20px;

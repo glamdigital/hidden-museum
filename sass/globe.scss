@@ -1,7 +1,23 @@
 @import "_common.scss";
 
+$paragraphHeight: 140px;
+
 .globe-interactive {
-    .sphere-container {
-      height: $iphone6Height - $headerTotalHeight - 10;
+    background: url(../img/objects/armillary/clock-bg.png);
+    p {
+        height: $paragraphHeight;
+        padding: 20px;
+        margin: 0;
+        line-height: 1.5em;
+        font-weight: bold;
+    }
+    #globe-view {
+        height: $iphone6Height - $headerTotalHeight - $paragraphHeight;
+        .sphere-container {
+            height: 100%;
+            
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
     }
 }

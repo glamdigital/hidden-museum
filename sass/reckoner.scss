@@ -2,6 +2,7 @@
 
 .interactive.reckoner {
     overflow: hidden;
+    background-color: #000;
     
     .video-player {
         //fill screen
@@ -9,4 +10,11 @@
         top: -35px;
         left: 0px;
     }
+    .transport-controls {
+      display:none;
+    }
+}
+
+video::-webkit-media-controls-start-playback-button {
+  display: none;
 }

@@ -1,0 +1,18 @@
+@import "_common.scss";
+
+.interactive.blackboard {
+    background-color: #000;
+    overflow: hidden;
+    .video-player {
+      top:180px;
+      
+    }
+
+    .transport-controls {
+      display:none;
+    }
+}
+
+video::-webkit-media-controls-start-playback-button {
+  display: none;
+}

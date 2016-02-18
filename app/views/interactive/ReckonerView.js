@@ -12,7 +12,6 @@ define([
             template: reckonerTemplate,
             
             events: {
-                
             },
             
             serialize: function () {
@@ -21,9 +20,9 @@ define([
             
             initialize: function (params) {
                 this.item = params.item;
-                
                 this.overlayInitialize({ displayOnArrival: true });
                 this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
+                this.playImmediately = false;
             },
             
             afterRender: function () {
@@ -32,12 +31,13 @@ define([
                     hidePause:       true,
                     imagePath:       this.item.attributes.image,
                     videoPath:       this.item.attributes.video,
-
+                    playImmediately: this.playImmediately,
                     onFinalFrame: (function () {
                         Backbone.history.navigate('#/topic/' + this.item.attributes.object);
                     }).bind(this)
                 });
                 this.videoControlsView.render();
+                this.listenTo(this.overlayView, 'overlayDismissed', this.videoControlsView.transportPlay);
             },
             
             cleanup: function () {
@@ -47,7 +47,6 @@ define([
         });
         
         _.extend(ReckonerView.prototype, overlayMixin);
-        
         return ReckonerView;
     }
 );

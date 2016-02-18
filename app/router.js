@@ -154,7 +154,7 @@ define([
                 this.headerView.setPrevURL('#/trails');
                 this.headerView.render();
                 
-                this.floorTracker.promptToSwitch = false;
+                this.floorTracker.promptToSwitch = true;
             },
             
             topic: function(topicSlug) {
@@ -173,7 +173,7 @@ define([
                 this.headerView.setNextURL(null);
                 this.headerView.render();
                 
-                this.floorTracker.promptToSwitch = true;
+                this.floorTracker.promptToSwitch = false;
             },
             
             finished: function() {
@@ -282,6 +282,7 @@ define([
                                 interactView = new ImageScanView({
                                     model: item,
                                     item: item,
+                                    gallery: 'basement',
                                     target: 'blackboard',        //a substring in the title of all relevant reference images in the moodstocks library
                                     onFoundItem: _.bind(function() {
                                         Backbone.history.navigate(nextRoute);
@@ -305,6 +306,7 @@ define([
                                 interactView = new ImageScanView({
                                     model: item,
                                     item: item,
+                                    gallery: 'entrance',
                                     target: 'moon',        //a substring in the title of all relevant reference images in the moodstocks library
                                     onFoundItem: _.bind(function() {
                                         Backbone.history.navigate(nextRoute);
@@ -327,6 +329,7 @@ define([
                                 interactView = new ImageScanView({
                                     model: item,
                                     item: item,
+                                    gallery: 'upper',
                                     target: 'globe',        //a substring in the title of all relevant reference images in the moodstocks library
                                     onFoundItem: _.bind(function() {
                                         Backbone.history.navigate(nextRoute);
@@ -349,7 +352,7 @@ define([
                 if (interactView) {
                     this.contentView.setView(interactView);
                     interactView.render();
-                    this.floorTracker.promptToSwitch = true;
+                    this.floorTracker.promptToSwitch = false;
                 }
             }
         });

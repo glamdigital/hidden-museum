@@ -71,9 +71,9 @@ define(['backbone', 'hbs!app/templates/audio_controls'],
 
         getAudioURL: function() {
             path = 'audio/' + this.audio;
-            if(device.platform.toLowerCase() === "android") {
-                return "/android_asset/www/" + path;
-            }
+            // if(device.platform.toLowerCase() === "android") {
+            //     return "/android_asset/www/" + path;
+            // }
             return path;
         },
 

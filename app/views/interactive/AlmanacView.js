@@ -5,18 +5,20 @@ define(["backbone", "hbs!app/templates/interactive/almanac"],
         template: almanacTemplate,
         
         events: {
-          "click .tab": "tabButtonHandler"
+          "click .tab": "tabButtonHandler",
+          "click #done-button": "done"
         },
         
         serialize: function() {
             var out = {};
             out.instructions = this.instructions[this.stateModel.attributes.mode];
+            out.donePath = '#/topic/'+this.item.attributes.slug;
             return out;
         },
         
         initialize: function(params) {
             this.tab = 1;
-            
+            this.item = params.item;
             this.instructions = { 
                 'sun': "<p>Assuming you are in the Northern Hemisphere, your measurement for the noon day Sun today " +
                        "shows that you are " + this.stateModel.getLatitude().toPrecision(5).toString() +
@@ -116,6 +118,10 @@ define(["backbone", "hbs!app/templates/interactive/almanac"],
             $('#message')[0].innerHTML = "";
             var $messageDiv = $('#message')[0];
             $('#message').hide();
+        },
+
+        done: function() {
+            Backbone.history.navigate('#/topic/' + this.item.attributes.topic);
         },
         
         cleanup: function() {

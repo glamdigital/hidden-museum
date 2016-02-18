@@ -37,14 +37,6 @@ define([
                 this.interact_items = new Backbone.Collection(this.items.filter(function (item) { return item.attributes.type !== 'audio'; }));
                 
                 this.overlayInitialize();
-                
-                //listen for the relevant beacon
-                var eventName = 'beaconRange:' + this.topic.attributes.beaconID;
-                this.listenTo(Backbone, eventName, this.didRangeBeacon);
-                this.isNearItem = false;
-                
-                //listen for floor changes
-                this.listenTo(Backbone, 'changed_floor', this.onChangeFloor);
             },
             
             afterRender: function () {
@@ -60,6 +52,13 @@ define([
                     audioView.render();
                     this.audioViews.push( audioView );
                 },this));
+                var $marker = $('.map-marker');
+                var $map = $('.map-container-div');
+                
+                var top = $map.height() * this.topic.get("mapY")+15;
+                $marker.css('top', top + 'px');
+                var left = $map.width() * this.topic.get("mapX")+12;
+                $marker.css('left', left + 'px');
             },
             
             cleanup: function () {
@@ -87,30 +86,6 @@ define([
                 event.preventDefault();
                 $('.object-full-image').show();
             },
-            
-            didRangeBeacon: function (data) {
-                if (data.proximity === 'ProximityImmediate' || data.proximity === 'ProximityNear')
-                {
-                    ////vibrate if this is a transition to near
-                    if (navigator.notification && !this.isNearItem) {
-                        navigator.notification.vibrate(500);
-                        //add class to item to make bg cycle
-                        //$('.object-container').addClass('nearby');
-                        $('.header').addClass('nearby');
-                        this.isNearItem = true;
-                    }
-                }
-                else {
-                    //remove class which makes bg cycle
-                    //$('.object-container').removeClass('nearby');
-                    $('.header').removeClass('nearby');
-                    this.isNearItem = false;
-                }
-            },
-            
-            onChangeFloor: function (data) {
-                
-            }
         });
         
         _.extend(TopicView.prototype, overlayMixin);
