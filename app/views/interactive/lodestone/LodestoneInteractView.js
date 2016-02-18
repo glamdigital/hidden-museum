@@ -125,9 +125,11 @@ define([
                             this.zoomHandleView = new RotateHandleView({
                                 el: $('#controls-holder'),
                                 model: this.windModel,
-                                image: "img/objects/lodestone/ratchet-handle.png"
+                                image: "img/objects/lodestone/RatchetHandle.png",
+                                oneWay: true
                             });
                             this.zoomHandleView.render();
+                            this.updateRatchetArm();
                             break;
                             
                         case 'adding':
@@ -238,12 +240,12 @@ define([
             },
             
             updateRatchetArm: function() {
-                var numTeeth = 22;
+                var numTeeth = 21;
                 var degPerTeeth = Math.floor(360/numTeeth);
-                var phase =  this.windModel.attributes.angle % degPerTeeth;
-                var armInitialAngle = 0;
+                var phase =  (5 + this.windModel.attributes.angle) % degPerTeeth;
+                var armInitialAngle = 5;
                 
-                var armAngle = armInitialAngle - phase;
+                var armAngle = (0.3 * (armInitialAngle - phase)) - 5;
                 $('#ratchet-arm').css('transform', 'rotate(' + armAngle + 'deg)');
                 
             },

@@ -34,10 +34,10 @@ $frameOffsetY: -35px;
     bottom: 0px;
     z-index: 100;
     #ratchet-base {
-        background: url(../img/objects/lodestone/ratchet.png);
+        background: url(../img/objects/lodestone/BrassPlate.jpg);
         background-size: contain;
         background-repeat: no-repeat;
-        width: 70%;
+        width: 75%;
         margin-left: auto;
         margin-right: auto;
         height: 165px;
@@ -45,8 +45,8 @@ $frameOffsetY: -35px;
         top:136px;
         #ratchet-arm {
             position: relative;
-            top: -17px;
-            left: -20px;
+            top: -22px;
+            left: -26px;
             width: 67%;
         }
     }
@@ -58,8 +58,8 @@ $frameOffsetY: -35px;
             &#handle {
             //rotating key
             position: relative;
-            left: 35px;
-            top: -19px;        
+            left: 29px;
+            top: -24px;        
         }
       }
       .palette-choice {
@@ -185,14 +185,14 @@ $frameOffsetY: -35px;
 
   img.lodestone-key {
     position: absolute;
-    bottom: 204px;
+    bottom: 201px;
     left: 40px;
     z-index: 100;
     height: 40px;
     &#lodestone-Rkey {
       left: 45px;
-      bottom: 196px;
-      transform: rotate(70deg);
+      bottom: 195px;
+      transform: rotate(63deg);
     }
   }
   
