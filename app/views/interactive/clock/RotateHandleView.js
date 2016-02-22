@@ -28,6 +28,7 @@ define([
             this.listenTo(this.model, 'change', _.bind(function(){
                 this.setAngle(this.model.attributes.angle);
             }, this));
+            this.oneWay = !!params.oneWay;
 
         },
 
@@ -129,7 +130,6 @@ define([
                 var pivotToTouch = touchPos.clone().subtract(this.pivot);
                 var angleChange = pivotToTouch.horizontalAngleDeg() - pivotToPrevTouch.horizontalAngleDeg();
 
-
                 //account for where angle flips from -180 to +180
                 if (angleChange > 180) {
                     angleChange -= 360;
@@ -138,8 +138,12 @@ define([
                     angleChange += 360;
                 }
 
-
-                this.model.set({angle: this.model.attributes.angle + angleChange});
+                if(angleChange < 0 && this.oneWay) {
+                    //don't update the angle change if this is a one-way ratchet.
+                } else {
+                    this.model.set({angle: this.model.attributes.angle + angleChange});
+                }
+                
                 this.model.trigger('force-change', this.model);
 
                 this.setAngle(this.model.attributes.angle);

@@ -14,6 +14,8 @@ $frameOffsetY: -35px;
   height: $iphone6Height - $headerTotalHeight;
   position:relative;
   overflow: hidden;
+  background: url(../img/objects/lodestone/lodestone-bg.png);
+  background-size: contain;
 
   #frame {
     width: 100%;
@@ -31,11 +33,34 @@ $frameOffsetY: -35px;
     position: absolute;
     bottom: 0px;
     z-index: 100;
+    #ratchet-base {
+        background: url(../img/objects/lodestone/BrassPlate.jpg);
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        height: 165px;
+        position: relative;
+        top:136px;
+        #ratchet-arm {
+            position: relative;
+            top: -22px;
+            left: -26px;
+            width: 67%;
+        }
+    }
     #controls-holder {
       text-align: center;
       overflow: visible !important;
       img {
         width: 50%;
+            &#handle {
+            //rotating key
+            position: relative;
+            left: 29px;
+            top: -24px;        
+        }
       }
       .palette-choice {
         display: inline-block;
@@ -160,14 +185,29 @@ $frameOffsetY: -35px;
 
   img.lodestone-key {
     position: absolute;
-    bottom: 204px;
+    bottom: 201px;
     left: 40px;
     z-index: 100;
     height: 40px;
     &#lodestone-Rkey {
       left: 45px;
-      bottom: 196px;
-      transform: rotate(70deg);
+      bottom: 195px;
+      transform: rotate(63deg);
     }
+  }
+  
+  img.lodestone-key-winding {
+      position: absolute;
+      z-index: 100;
+      height: 40px;
+      top: 15px;
+      &#lodestone-Rkey {
+          left: 25%;
+          transform: rotate(180deg);
+      }
+      &#lodestone-Lkey {
+          left: 59%;
+          transform: rotate(210deg);
+      }
   }
 }
