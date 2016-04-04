@@ -35,6 +35,7 @@
     "victor": "~1.1.0"
   },
   "devDependencies": {
-    "jasmine": "~2.2.1"
+    "jasmine": "~2.2.1",
+    "owl.carousel": "owl-carousel2#^2.0.0-beta.3"
   }
 }

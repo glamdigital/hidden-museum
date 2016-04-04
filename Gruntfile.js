@@ -160,6 +160,10 @@ module.exports = function(grunt) {
         src: ['HiddenMuseumData/HiddenMuseumData - Content.csv'],
         dest: 'app/data/contentitems.json'
       },
+      blackboards: {
+        src: ['HiddenMuseumData/HiddenMuseumData - Blackboards.csv'],
+        dest: 'app/data/blackboards.json'
+      },
     },
     jasmine: {
         testTask: {
@@ -295,7 +299,7 @@ module.exports = function(grunt) {
     grunt.task.run('push:' + token);
   });
 
-  grunt.registerTask('convertData', 'convert csv data to json format required by the app', ['convert:trails', 'convert:topics', 'convert:items']);
+  grunt.registerTask('convertData', 'convert csv data to json format required by the app', ['convert:trails', 'convert:topics', 'convert:items', 'convert:blackboards']);
 
   grunt.registerTask('test', 'Run jasmine tests', ['jasmine']);
 
