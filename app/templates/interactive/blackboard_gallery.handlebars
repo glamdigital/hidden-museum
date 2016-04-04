@@ -15,9 +15,25 @@
                   </div>
               </div>
               <div class="scroll-container">
-                  <div class="name">{{author}}</div>
-                  <div class="roles">{{role1}}</div>
-                  <div class="descriptive-text">{{description}}</div>
+                  <div class="name">
+                    <p class="author">{{author}}</p>
+                  </div>
+                  <div class="roles">
+                    <p class="role">
+                      {{role1}}
+                      {{#if role2}}
+                        </br>{{role2}}
+                        {{#if role3}}
+                          </br>{{role3}}
+                        {{/if}}
+                      {{/if}}
+                    </p>
+                  </div>
+                  <div class="descriptive-text">
+                    <div class="description">
+                      {{description}}
+                    </div>
+                  </div>
               </div>
           </div>
       </div>  

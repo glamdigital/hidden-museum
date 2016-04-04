@@ -86,18 +86,26 @@ define([
             },
             
             events: {
-                // 'click .ui .gallery .zoom-view': 'onBlackboard',
-                // 'click .ui .gallery .thumbnail': 'onBlackboard',
+                'click .ui .gallery .zoom-view': 'onBlackboard',
+                'click .ui .gallery .thumbnail': 'onBlackboard',
                 // 'click .ui .controls .previous': 'onPrevious',
                 // 'click .ui .controls .next':     'onNext'
             },
             
-            // onBlackboard: function (event) {
-            //     // console.log('onBlackboard() toggling zoom');
-            //     
-            //     this.isZoomed = !this.isZoomed;
-            //     Backbone.trigger('blackboard_gallery_render');
-            // },
+            onBlackboard: function (event) {
+                // console.log('onBlackboard() toggling zoom');
+                
+                this.isZoomed = !this.isZoomed;
+                // Backbone.trigger('blackboard_gallery_render');
+                if (this.isZoomed) {
+                    $('.ui .gallery .zoom-view').removeClass('hidden');
+                    $('.ui .gallery .scroll-container').addClass('hidden');
+                }
+                else {
+                    $('.ui .gallery .zoom-view').addClass('hidden');
+                    $('.ui .gallery .scroll-container').removeClass('hidden');
+                }
+            },
             // 
             // onPrevious: function (event) {
             //     // console.log('onPrevious() current index = ' + this.index);
