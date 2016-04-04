@@ -1,4 +1,4 @@
-define(["backbone", "underscore", "app/collections/QuestionsCollection"], function(Backbone, _, QuestionsCollection) {
+define(["backbone", "underscore"], function(Backbone, _) {
 
 
   var Item = Backbone.Model.extend({
