@@ -80,8 +80,9 @@ define([
                   center: true,
                   items:1,
                   loop:false,
-                  margin:0,
                   dots:true,
+                  // nav:true,
+                  // autoHeight:true
                 });
             },
             
@@ -100,10 +101,12 @@ define([
                 if (this.isZoomed) {
                     $('.ui .gallery .zoom-view').removeClass('hidden');
                     $('.ui .gallery .scroll-container').addClass('hidden');
+                    $('.ui .gallery .thumbnail').addClass('hidden');
                 }
                 else {
                     $('.ui .gallery .zoom-view').addClass('hidden');
                     $('.ui .gallery .scroll-container').removeClass('hidden');
+                    $('.ui .gallery .thumbnail').removeClass('hidden');
                 }
             },
             // 
