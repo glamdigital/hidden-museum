@@ -17,6 +17,9 @@ $audioHeight: 30px;
 
 $phone: "only screen and (max-width: 767px)";
 $tablet: "only screen and (min-width: 768px)";
+$phone_vsmall: "only screen and (max-height: 481px)";
+$phone_small: "only screen and (max-height: 666px)";
+$phone_square: "only screen and (min-aspect-ratio: 32/56)";
 $landscape: "(orientation:landscape)";
 $portrait: "(orientation:portrait)";
 
