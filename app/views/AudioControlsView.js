@@ -125,7 +125,7 @@ define([
         },
 
 	    updateElapsed: function() {
-            var elapsed = this.media.getCurrentPosition();
+            var elapsed = this.media.getProgress();
             if(elapsed < 0) {
                 //not playing
                 return;
