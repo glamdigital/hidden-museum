@@ -9,6 +9,7 @@ define([
         'app/mixins/overlay',
         'hbs!app/templates/overlay_interactive_inner',
         'app/views/VideoControlsView',
+        'app/media',
         'move'
     ],
     
@@ -23,6 +24,7 @@ define([
         overlayMixin,
         interactiveInnerTemplate,
         VideoControlsView,
+        mediaUtil,
         move
     ) {
         
@@ -33,13 +35,13 @@ define([
         var LodestoneInteractView = Backbone.View.extend({
             template: lodestoneTemplate,
 
-            tapKeySound: new Audio('audio/lodestone/quiet_clunk.wav'),
-            keyInSound: new Audio('audio/lodestone/keyIn.wav'),
-            ratchetSound: new Audio('audio/lodestone/ratchet.wav'),
-            addWeightSound: new Audio('audio/lodestone/add_weight.wav'),
-            fullWindSound: new Audio('audio/lodestone/click_in_place.wav'),
-            fallStartSound: new Audio('audio/lodestone/fall_loud.wav'),
-            fallSound: new Audio('audio/lodestone/fall.wav'),
+            tapKeySound: mediaUtil.createAudioObj('audio/lodestone/quiet_clunk.wav'),
+            keyInSound: mediaUtil.createAudioObj('audio/lodestone/keyIn.wav'),
+            ratchetSound: mediaUtil.createAudioObj('audio/lodestone/ratchet.wav'),
+            addWeightSound: mediaUtil.createAudioObj('audio/lodestone/add_weight.wav'),
+            fullWindSound: mediaUtil.createAudioObj('audio/lodestone/click_in_place.wav'),
+            fallStartSound: mediaUtil.createAudioObj('audio/lodestone/fall_loud.wav'),
+            fallSound: mediaUtil.createAudioObj('audio/lodestone/fall.wav'),
 
 
             initialize: function() {
@@ -316,6 +318,15 @@ define([
 
             cleanup: function() {
                 this.overlayCleanup();
+                
+                //clean up audio
+                tapKeySound.cleanup();
+                keyInSound.cleanup();
+                ratchetSound.cleanup();
+                addWeightSound.cleanup();
+                fullWindSound.cleanup();
+                fallStartSound.cleanup();
+                fallSound.cleanup();
             }
         });
     
