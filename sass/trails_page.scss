@@ -64,6 +64,9 @@ div.trails-list-container {
         position: relative;
         color: white;
         font-size: 24px;
+        @media #{$phone_small} {
+            font-size: 18px; 
+        }
       }
       
       .background {
