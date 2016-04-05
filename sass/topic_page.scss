@@ -89,9 +89,6 @@
               //      text-align: left;
               //        padding-right: 1em;
               font-size: 1.0em;
-              @media #{$phone_vsmall} {
-                font-size: 0.8em;
-              }
               font-weight: bold;
               line-height: 0.9em;
             }

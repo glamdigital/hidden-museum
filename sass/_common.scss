@@ -70,10 +70,7 @@ $markerDiameter: 30px;
         padding-left: 1em;
     }
     @media #{$phone_small} {
-      font-size: 0.8em;
-    }
-    @media #{$phone_vsmall} {
-      font-size: 0.8em;
+      font-size: 0.95em;
     }
 }
 
