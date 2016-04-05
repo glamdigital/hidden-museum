@@ -79,8 +79,10 @@
       @include objectTitle;
       height: $topicListItemHeight / 3;
       width: 68%;
+      @media #{$phone_vsmall} {
+        height: $topicListItemHeight / 3 * 0.9;
+      }
     }
-
   }
   ul {
     margin:0px;
