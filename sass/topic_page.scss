@@ -172,7 +172,7 @@
 .overlay {
   background: rgba(0,0,0,1);
   width: 100%;
-  height: $iphone6Height - $headerSystemStatusClearance;
+  height: 100%;
   display: none;
   position: fixed;
   top: $headerSystemStatusClearance;
@@ -180,6 +180,9 @@
   z-index: 10000;
   &.overlay-image {
     text-align: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
     i.close-overlay {
       font-size: 3em;
       float: right;
