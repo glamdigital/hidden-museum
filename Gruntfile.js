@@ -237,9 +237,17 @@ module.exports = function(grunt) {
                 {   src: ["index-built.html"],
                     dest: "www/index.html" },
                 {
-		            src: ["app/libs/font-awesome/css/font-awesome.min.css"],
-		            dest: "www/css/font-awesome.min.css"
-	            },
+  		            src: ["app/libs/font-awesome/css/font-awesome.min.css"],
+  		            dest: "www/css/font-awesome.min.css"
+	              },
+                {
+  		            src: ["app/libs/owl.carousel/dist/assets/owl.carousel.min.css"],
+  		            dest: "www/css/owl.carousel.min.css"
+	              },
+                {
+  		            src: ["app/libs/owl.carousel/dist/assets/owl.theme.default.css"],
+  		            dest: "www/css/owl.theme.default.css"
+	              },
                 {
 	                expand: true,
 	                flatten: true,
