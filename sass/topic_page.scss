@@ -199,16 +199,27 @@
     }
     .map-container-div {
       transform: rotate(90deg);
+      position: relative;
+
       width: 600px;
       top: 200px;
       left: -112px;
       height: 288px;
-      position: relative;
+      @media #{$phone_small} {
+        width: 508px;
+        top: 147px;
+        left: -112px;
+      }
+      @media #{$phone_vsmall} {
+        width: 431px;
+        top: 98px;
+        left: -92px;
+      }
     }
     .map {
       position: absolute;
       background-color: white;
-      width: 600px;
+      width:100%;
       top: 0px;
       left: 0px;
     }
