@@ -131,6 +131,9 @@
         border-bottom: 1px solid black;
         text-align: left;
         height:75px;
+        @media #{$phone_vsmall} {
+          height: 50px;
+        }
       }
       
       a {
@@ -138,7 +141,10 @@
         color: white;
         display: block;
         padding: 14px 14px 14px 10px;
-        
+        @media #{$phone_vsmall} {
+          padding: 0 14px 0 10px;
+        }
+      
         .interact-chevron {
           position: relative;
           float: right;
