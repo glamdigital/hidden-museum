@@ -2,6 +2,7 @@ define([
         'backbone',
         'underscore',
         'owlcarousel',
+        'panzoom',
         'hbs!app/templates/interactive/blackboard_gallery',
         'app/collections/BlackboardsCollection',
         'app/mixins/overlay',
@@ -10,6 +11,7 @@ define([
       Backbone,
       _,
       owlCarousel,
+      panzoom,
       blackboardGalleryTemplate,
       BlackboardsCollection,
       overlayMixin
@@ -102,6 +104,7 @@ define([
                     $('.ui .gallery .zoom-view').removeClass('hidden');
                     $('.ui .gallery .scroll-container').addClass('hidden');
                     $('.ui .gallery .thumbnail').addClass('hidden');
+                    $(".ui .gallery .zoom-view").panzoom();
                 }
                 else {
                     $('.ui .gallery .zoom-view').addClass('hidden');

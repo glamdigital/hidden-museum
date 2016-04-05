@@ -20,6 +20,7 @@ require.config({
     victor: "app/libs/victor/build/victor",
     three: "app/libs/three.js/three",
     owlcarousel: "app/libs/owl.carousel/dist/owl.carousel",
+    panzoom: "app/libs/jquery.panzoom/dist/jquery.panzoom",
   },
   packages: [
 
