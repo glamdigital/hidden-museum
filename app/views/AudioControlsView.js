@@ -27,23 +27,7 @@ define([
         initialize: function(params) {
             this.audio = params.audio;
             this.caption = params.caption;
-	        this.duration = parseInt(params.duration).toMSS();
-            
-            //use Media plugin, for Android playback
-            // if(typeof(Media) !== 'undefined') {
-            //     this.media_obj = new Media(this.getAudioURL(),
-            //         //success
-            //         function () {},
-            //         //failure
-            //         function (err) {
-            //             console.log("Failed to create audio object:" + err.code + " " + err.message );
-            //         }
-            //     );
-            // } else {
-            //     this.media = null;
-            //     //pick element after render
-            // }
-
+            this.duration = parseInt(params.duration).toMSS();
             this.media = mediaUtil.createAudioObj(this.getAudioURL());
             this.paused = true;
 
