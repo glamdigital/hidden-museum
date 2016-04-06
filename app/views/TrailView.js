@@ -42,6 +42,8 @@ define([
                 //position the map markers
                 this.trails.each(function (trail) {
                     var $trailMap = $('#floorplan-' + trail.attributes.slug);
+                    $trailMap.height(360/750 * $('.content').width())+5;
+
                     //position markers
                     trail.topics.each(function (topic) {
                         var $marker = $('#map-marker-' + topic.attributes.slug);
