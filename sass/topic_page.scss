@@ -11,7 +11,10 @@
 
   .header {
     width:100%;
-    height: $iphone6Height - $headerTotalHeight;
+    height: $iphone6Height - $headerHeight;
+    body.ios & {
+      height: $iphone6Height - $headerTotalHeight;
+    }
     background-position: top;
     background-size: contain;
     &.nearby {
@@ -175,7 +178,11 @@
   height: 100%;
   display: none;
   position: fixed;
-  top: $headerSystemStatusClearance;
+  top: 0px;
+  body.ios & {
+    top: $headerSystemStatusClearance;
+  }
+
   left: 0px;
   z-index: 10000;
   &.overlay-image {

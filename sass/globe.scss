@@ -12,7 +12,10 @@ $paragraphHeight: 140px;
         font-weight: bold;
     }
     #globe-view {
-        height: $iphone6Height - $headerTotalHeight - $paragraphHeight;
+        height: $iphone6Height - $headerHeight - $paragraphHeight;
+        body.ios & {
+          height: $iphone6Height - $headerTotalHeight - $paragraphHeight;
+        }
         .sphere-container {
             height: 100%;
             

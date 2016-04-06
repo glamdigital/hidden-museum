@@ -135,6 +135,9 @@
   color: $mapColor;
   position: absolute;
   bottom: 8px;
+  @media #{$phone_vsmall} {
+    bottom: 5px;
+  }
   border-radius: $markerDiameter;
   height: $markerDiameter;
   width: $markerDiameter;

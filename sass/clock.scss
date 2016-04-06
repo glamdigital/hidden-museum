@@ -8,7 +8,10 @@
 
 #interact-clock {
     background: url(../img/objects/armillary/clock-bg.png);
-    height: $iphone6Height - $headerTotalHeight;
+    height: $iphone6Height - $headerHeight;
+    body.ios & {
+      height: $iphone6Height - $headerTotalHeight;
+    }
 }
 
 .clock-face {
@@ -106,7 +109,11 @@ $globeHeight: 230px;
 
 #globe-clock {
   position: relative;
-  top: $iphone6Height - $globeHeight - $headerTotalHeight;
+  top: $iphone6Height - $globeHeight - $headerHeight;
+  body.ios & {
+    top: $iphone6Height - $globeHeight - $headerTotalHeight;
+  }
+
   background: url(../img/objects/armillary/stars.png);
   background-size: contain;
   .sphere-container {

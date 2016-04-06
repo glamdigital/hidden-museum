@@ -94,7 +94,10 @@ $blackboardHeight: 260px;
         .scroll-container {
             margin-top: 10px;
             position: relative;
-            height: $iphone6Height - $headerTotalHeight - $blackboardHeight - $controlsHeight - 10px;
+            height: $iphone6Height - $headerHeight - $blackboardHeight - $controlsHeight - 10px;
+            body.ios & {
+              height: $iphone6Height - $headerTotalHeight - $blackboardHeight - $controlsHeight - 10px;
+            }
             overflow-y: auto;
             
             &.hidden {

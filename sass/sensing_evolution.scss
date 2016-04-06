@@ -75,11 +75,18 @@ video {
 
 .content {
   position: absolute;
-  top: $headerTotalHeight;
+  top: $headerHeight;
+  body.ios & {
+    top: $headerTotalHeight;
+  }
+
   left: 0;
   right: 0;
   bottom: 0;
-  height: $iphone6Height - $headerTotalHeight;
+  height: $iphone6Height - $headerHeight;
+  body.ios & {
+    height: $iphone6Height - $headerTotalHeight;
+  }
   
   background-color: transparent;
   color: $contentTextColor;

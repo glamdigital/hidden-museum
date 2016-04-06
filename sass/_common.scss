@@ -72,6 +72,9 @@ $markerDiameter: 30px;
     @media #{$phone_small} {
       font-size: 0.95em;
     }
+    @media #{$phone_vsmall} {
+      font-size: 1.1em;
+    }
 }
 
 @mixin interactiveButton {
