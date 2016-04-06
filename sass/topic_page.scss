@@ -44,6 +44,11 @@
     width: 100%;
     text-align: center;
     height: $topicListItemHeight / 3;
+    @media #{$tablet} {
+      height: $topicListItemHeight /2;
+      padding: $topicListItemHeight /6;
+    }
+
     background: url("../img/find-on-flooplan-button.jpg") no-repeat center center ;
     background-size: cover;
     text-decoration: none;
