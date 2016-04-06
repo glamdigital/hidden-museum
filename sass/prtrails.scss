@@ -241,6 +241,9 @@ div.scan-container {
     position: absolute;
     top: 0px;
     padding:10px;
+    .skip-image-recognition {
+      float: right;
+    }
   }
   .upper-background {
     background-color: $upperGalleryColor;
