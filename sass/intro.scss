@@ -1,6 +1,10 @@
+@import "_common.scss";
 img#intro-image {
     position: fixed;
     top: 0px;
-    padding-top: 20px;
+    padding-top: 0px;
+    body.ios & {
+      padding-top: $headerSystemStatusClearance;
+    }
     width: 100%;
 }
