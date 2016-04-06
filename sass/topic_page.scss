@@ -207,13 +207,15 @@
       height: 288px;
       @media #{$phone_small} {
         width: 508px;
-        top: 147px;
-        left: -112px;
+        top: 169px;
+        left: -93px;
+        height: 244px;
       }
       @media #{$phone_vsmall} {
         width: 431px;
-        top: 98px;
-        left: -92px;
+        top: 138px;
+        left: -54px;
+        height: 207px;
       }
     }
     .map {
@@ -224,7 +226,6 @@
       left: 0px;
     }
     .map-marker {
-      position: absolute;
       margin: 10px;
       position: absolute;
       bottom: 3px;
