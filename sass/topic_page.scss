@@ -11,9 +11,9 @@
 
   .header {
     width:100%;
-    height: $iphone6Height - $headerHeight;
+    height: $ipadHeight - $headerHeight;
     body.ios & {
-      height: $iphone6Height - $headerTotalHeight;
+      height: $ipadHeight - $headerTotalHeight;
     }
     background-position: top;
     background-size: contain;
@@ -44,6 +44,11 @@
     width: 100%;
     text-align: center;
     height: $topicListItemHeight / 3;
+    @media #{$tablet} {
+      height: $topicListItemHeight /2;
+      padding: $topicListItemHeight /6;
+    }
+
     background: url("../img/find-on-flooplan-button.jpg") no-repeat center center ;
     background-size: cover;
     text-decoration: none;
@@ -212,6 +217,12 @@
       top: 200px;
       left: -112px;
       height: 288px;
+      @media #{$tablet} {
+        width: 974px;
+        top: 299px;
+        left: -92px;
+        height: 468px;
+      }
       @media #{$phone_small} {
         width: 508px;
         top: 169px;
