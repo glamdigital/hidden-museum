@@ -68,7 +68,9 @@ define(["backbone", "hbs!app/templates/interactive/almanac"],
         
         setLatitudeIndicator: function($indicator, label, angle) {
             var $parent = $($indicator).parent();
-            var parentHeight = 270;//$($parent).height();
+            // var parentHeight = 270;//$($parent).height();
+            var parentHeight = $($parent).height();
+            console.log("parentHeight", parentHeight);
             var parentTop = $($parent).offset().top;
             // convert from degrees to radians
             var latRad = angle*Math.PI/180;

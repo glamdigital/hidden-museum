@@ -359,12 +359,22 @@ div.item-title {
       background-image: url(../img/parchment-tan.jpg);
       background-color: #edddc1;
       background-size: 375px;
+      height: 140px;
+      width: 100%;
+      line-height: 1.4em;
+      font-weight: bold;
       &.view-1{
         background-image: none;
         background:rgba(237,221,193,0.7);
+        height:100%;
       }
-      line-height: 1.4em;
-      font-weight: bold;
+
+      @media #{$phone_small} {
+          height:initial;
+      }
+      @media #{$phone_vsmall} {
+          height:initial;
+      }
       
       ol {
         padding-top: $standardPadding;
@@ -376,11 +386,6 @@ div.item-title {
         padding-top: $standardPadding+3px;
         text-align: center;
       }
-      height: 140px;
-      &.view-1{
-        height:100%;
-      }
-      width: 100%;
     }
     
     #viewfinder {
@@ -398,13 +403,19 @@ div.item-title {
       
       #captured-image {
         position: absolute;
-        top: 138.5px;
+        // top: 138.5px;
         width: 50%;
         height: $sextantCapturedImageHeight;
         background-size: 380px;
         background-position-y: -240px;
         z-index: 1000;
         display: inline;
+        // @media #{$phone_small} {
+        //   top: 138.5px;
+        // }
+        // @media #{$phone_vsmall} {
+        //   top: 138.5px;
+        // }
         
         #alignment-indicator {
           position: relative;
@@ -468,12 +479,22 @@ div.item-title {
           height: 150px;
           display: block;
           background-image: url(../img/parchment-tan.jpg);
+          @media #{$phone_vsmall} {
+            height: 57px;
+          }
         }
         img#sextant-angle-reader {
           z-index: 999;
           margin: 0 113px;
           height: 150px;
           width: auto;
+          @media #{$phone_small} {
+              margin: 0 83px;
+          }
+          @media #{$phone_vsmall} {
+              margin: 0px 131px;
+              height: 57px;
+          }
         }
       }
       
@@ -501,6 +522,13 @@ div.item-title {
       z-index: 10000;
       position: absolute;
       left: (375px - $sextantCapturedImageHeight + 10px)/2;
+      @media #{$phone_small} {
+          left: (320px - $sextantCapturedImageHeight + 10px)/2;
+      }
+      @media #{$phone_vsmall} {
+          left: (320px - $sextantCapturedImageHeight + 10px)/2;
+      }
+
     }
     
     #controls {
@@ -512,13 +540,27 @@ div.item-title {
       width: 100%;
       background: #333;
       z-index: 1001;  //just above canvas for reading
-      
+      @media #{$phone_small} {
+          height: 50px;
+      }
+      @media #{$phone_vsmall} {
+          height: 40px;
+      }
       &.image-recognised {
         background: white;
       }
       
       .button {
         @include interactiveButton;
+        @media #{$phone_small} {
+          margin-top:3px;
+          line-height: 6px;
+        }
+        @media #{$phone_vsmall} {
+          margin-top:2px;
+          line-height: 4px;
+        }
+
       }
     }
     
@@ -577,10 +619,18 @@ div.item-title {
         position: fixed;
         bottom: 90px;
         height: 270px;
+        @media #{$phone_small} {
+            height: 180px;
+        }
+        @media #{$phone_vsmall} {
+            height: 150px;
+        }
+        
         width: 100%;
         background-image: url(../img/navigation-map.jpg);
         background-position: center top;
-        background-size: auto 270px;
+        // background-size: auto 270px;
+        background-size: cover;
       }
       
       #value-indicator {
