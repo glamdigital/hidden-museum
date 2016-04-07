@@ -443,18 +443,7 @@ div.item-title {
       background: white;
       z-index: 1000;
       
-      #value-indicator {
-        border-top: 2px solid red;
-        color: $contentTextColor;
-        text-shadow: 2px 2px #edddc1;
-        font-size: 1.3em;
-        position:absolute;
-        text-align: right;
-        padding-right: $standardPadding * 2;
-        width:100%;
-      }
-      
-      #sextant {
+    #sextant {
         width: 100%;
         z-index: 500;
         border-top: 4px solid black;
