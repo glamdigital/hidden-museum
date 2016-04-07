@@ -356,7 +356,13 @@ div.item-title {
     }
     #instructions {
       padding: 2px;
-      background:rgba(237,221,193,0.7);
+      background-image: url(../img/parchment-tan.jpg);
+      background-color: #edddc1;
+      background-size: 375px;
+      &.view-1{
+        background-image: none;
+        background:rgba(237,221,193,0.7);
+      }
       line-height: 1.4em;
       font-weight: bold;
       
@@ -370,7 +376,10 @@ div.item-title {
         padding-top: $standardPadding+3px;
         text-align: center;
       }
-      
+      height: 140px;
+      &.view-1{
+        height:100%;
+      }
       width: 100%;
     }
     
@@ -531,7 +540,7 @@ div.item-title {
         position: absolute;
         width: 100%;
         background-position: 0 -1*$tabHeight;
-        
+        height: initial;
         &.pole-star {
           background-image: url(../img/parchment-green.jpg); 
           background-size: 375px;
