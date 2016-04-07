@@ -350,11 +350,13 @@ div.item-title {
   width: 100%;
   
   &#sextant {
+    &.view-1{
+      background-image: url(../img/latitude.png);
+      background-size: cover;
+    }
     #instructions {
       padding: 2px;
-      background-image: url(../img/parchment-tan.jpg);
-      background-color: #edddc1;
-      background-size: 375px;
+      background:rgba(237,221,193,0.7);
       line-height: 1.4em;
       font-weight: bold;
       
@@ -369,7 +371,6 @@ div.item-title {
         text-align: center;
       }
       
-      height:140px;
       width: 100%;
     }
     
@@ -528,8 +529,6 @@ div.item-title {
     &.view-1 {
       #instructions {
         position: absolute;
-        top: $tabHeight;
-        height: 315px;
         width: 100%;
         background-position: 0 -1*$tabHeight;
         
@@ -543,6 +542,23 @@ div.item-title {
       
       #message {
         display:none;
+      }
+      #latitude-calculation {
+        background:rgba(255,255,255,0.6);
+        top: 25%;
+        position: relative;
+        color: black;
+        text-shadow: 2px 2px #edddc1;
+        font-size: 1.3em;
+        font-weight: bold;
+        padding: 5px 0;
+        span#latitude-indicator {
+            float: right;
+            padding-right: 3%;
+        }
+        span#angle-indicator {
+            padding-left: 39%;
+        }
       }
       
       #feedback {

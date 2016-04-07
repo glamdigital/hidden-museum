@@ -82,13 +82,13 @@ define(["backbone", "hbs!app/templates/interactive/almanac"],
             var y  = parentHeight - parentHeight*mercN/(Math.PI * topProportion);
             $($indicator).offset({left: $($indicator).offset().left, top: parentTop + y});
             // this.setLatitudeIndicatorText($indicator, label + ": " + angle.toPrecision(5).toString() + "&deg; North: "+this.stateModel.attributes.angle.toPrecision(3).toString());
-            // this.setLatitudeIndicatorText($("#latitude-calculation"), "North:"+angle.toPrecision(5).toString(), this.stateModel.attributes.angle.toPrecision(3).toString()+ "&deg;");
+            this.setLatitudeIndicatorText($("#latitude-calculation"), "North:"+angle.toPrecision(5).toString(), this.stateModel.attributes.angle.toPrecision(3).toString()+ "&deg;");
   
         },
         
         setLatitudeIndicatorText: function($indicator, latitude, angle) {
-            $indicator.children[0].innerHTML = angle;
-            $indicator.children[1].innerHTML = latitude;
+            $indicator.find("#angle-indicator").html(angle);
+            $indicator.find("#latitude-indicator").html(latitude);
         },
         
         showReferenceLatitude: function() {
