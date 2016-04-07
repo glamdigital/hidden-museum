@@ -540,6 +540,8 @@ div.item-title {
         position: absolute;
         width: 100%;
         background-position: 0 -1*$tabHeight;
+        background-image: none;
+        background:rgba(255,255,255,0.6);
         height: initial;
         &.pole-star {
           background-image: url(../img/parchment-green.jpg); 
