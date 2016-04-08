@@ -48,7 +48,6 @@ define([
                       .load(function() {
                           pic_real_width = this.width;   // Note: $(this).width() will not
                           pic_real_height = this.height; // work for in memory images.
-                          console.log(pic_real_width, pic_real_height);
                           if (pic_real_width>pic_real_height) {
                             $("#blackboard-gallery-top-padding-"+index).addClass("landscape");
                           }
