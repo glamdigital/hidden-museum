@@ -1,5 +1,14 @@
-define(["backbone", "hbs!app/templates/interactive/almanac"],
-    function(Backbone, almanacTemplate) {
+define([
+  "backbone",
+  "hbs!app/templates/interactive/almanac",
+  "app/mixins/overlay",
+  "hbs!app/templates/overlay_interactive_inner"
+], function(
+  Backbone,
+  almanacTemplate,
+  overlayMixin,
+  interactiveInnerTemplate
+) {
 
     var AlmanacView = Backbone.View.extend({
         template: almanacTemplate,
@@ -29,6 +38,8 @@ define(["backbone", "hbs!app/templates/interactive/almanac"],
             };
             
             this.stateModel.on('change', this.render, this);
+            this.overlayInitialize({ displayOnArrival: false });
+            this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
         },
         
         afterRender: function() {
@@ -130,9 +141,10 @@ define(["backbone", "hbs!app/templates/interactive/almanac"],
         },
         
         cleanup: function() {
-          
+          this.overlayCleanup();
         }
     });
-    
+    _.extend(AlmanacView.prototype, overlayMixin);
+
     return AlmanacView;
 });
