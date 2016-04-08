@@ -53,6 +53,15 @@ $blackboardHeight: 260px;
             display: none;
         }
         
+        .blackboard-gallery-top-padding {
+          height: 5px;
+          &.landscape {
+            @media #{$phone_vsmall} {
+              height: 0px;
+            }
+          }
+        }
+
         .blackboard {
             display: block;
             margin-left: auto;
@@ -71,6 +80,7 @@ $blackboardHeight: 260px;
                 position: relative;
                 display: inline-block;
                 height: 100%;
+
             }
             
             .blackboard {
@@ -180,9 +190,6 @@ $blackboardHeight: 260px;
             }
         }
     }
-}
-.owl-carousel {
-  padding-top: 5px;
 }
 .owl-theme .owl-dots .owl-dot span {
   margin: 5px 3px;
