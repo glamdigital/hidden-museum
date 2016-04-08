@@ -6,6 +6,7 @@ define([
         'hbs!app/templates/interactive/blackboard_gallery',
         'app/collections/BlackboardsCollection',
         'app/mixins/overlay',
+        'hbs!app/templates/overlay_interactive_inner'
     ],function (
       Backbone,
       _,
@@ -13,7 +14,8 @@ define([
       panzoom,
       blackboardGalleryTemplate,
       BlackboardsCollection,
-      overlayMixin
+      overlayMixin,
+      interactiveInnerTemplate
     ) {
         var BlackboardGalleryView = Backbone.View.extend({
             template: blackboardGalleryTemplate,
@@ -27,6 +29,8 @@ define([
                     this.render();
                   }.bind(this)
                 });
+                this.overlayInitialize({ displayOnArrival: true });
+                this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
             },
 
             serialize: function () {
@@ -57,7 +61,7 @@ define([
                     $('.ui .gallery .close').removeClass('hidden');
                     $('.ui .gallery .scroll-container').addClass('hidden');
                     $('.ui .gallery .thumbnail').addClass('hidden');
-                    $(".ui .gallery .zoom-view").panzoom();
+                    $(".ui .gallery .zoom-view").panzoom({contain:'invert'});
                 }
                 else {
                     $('.ui .gallery .zoom-view').addClass('hidden');
