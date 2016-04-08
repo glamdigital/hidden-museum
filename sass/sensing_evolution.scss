@@ -358,7 +358,7 @@ div.item-title {
       padding: 2px;
       background-image: url(../img/parchment-tan.jpg);
       background-color: #edddc1;
-      background-size: 375px;
+      background-size: cover;
       height: 140px;
       width: 100%;
       line-height: 1.4em;
@@ -405,7 +405,7 @@ div.item-title {
       
       @media #{$tablet} {
         position: absolute;
-        top: 33%;
+        top: 27%;
       }
       
       #captured-image {
@@ -477,6 +477,13 @@ div.item-title {
       @media #{$phone_vsmall} {
           height: 84px;
           bottom: 60px;
+          width: 100%;
+          border-left: 60px solid black;
+          border-right: 60px solid black;
+      }
+      @media #{$tablet} {
+          height: 300px;
+          bottom: 90px;
       }
     #sextant {
         width: 100%;
@@ -493,8 +500,12 @@ div.item-title {
           height: 150px;
           display: block;
           background-image: url(../img/parchment-tan.jpg);
+          background-size: cover;
           @media #{$phone_vsmall} {
             height: 80px;
+          }
+          @media #{$tablet} {
+            height: 300px;
           }
         }
         img#sextant-angle-reader {
@@ -507,6 +518,11 @@ div.item-title {
               height: 85px;
               margin: 0 -44px;
           }
+          @media #{$tablet} {
+            height: 300px;
+            margin: 0 -150px;
+          }
+
         }
       }
       
