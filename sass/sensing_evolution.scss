@@ -371,9 +371,11 @@ div.item-title {
 
       @media #{$phone_small} {
           height:initial;
+          font-size: 0.9em;
       }
       @media #{$phone_vsmall} {
           height:initial;
+          font-size: 0.8em;
       }
       
       ol {
@@ -400,6 +402,11 @@ div.item-title {
       -webkit-mask-size:$sextantCapturedImageHeight - 10px;
       -webkit-mask-repeat: no-repeat;
       clip-path: circle(60px at center);
+      
+      @media #{$tablet} {
+        position: absolute;
+        top: 33%;
+      }
       
       #captured-image {
         position: absolute;
@@ -457,13 +464,20 @@ div.item-title {
     }
     
     #feedback {
-      position: relative;
-      bottom: 0;
+      position: absolute;
+      bottom: 90px;
       height: 150px;
       width: 100%;
       background: white;
       z-index: 1000;
-      
+      @media #{$phone_small} {
+          height: 150px;
+          bottom: 60px;
+      }
+      @media #{$phone_vsmall} {
+          height: 84px;
+          bottom: 60px;
+      }
     #sextant {
         width: 100%;
         z-index: 500;
@@ -480,20 +494,18 @@ div.item-title {
           display: block;
           background-image: url(../img/parchment-tan.jpg);
           @media #{$phone_vsmall} {
-            height: 57px;
+            height: 80px;
           }
         }
         img#sextant-angle-reader {
           z-index: 999;
-          margin: 0 113px;
+          left:50%;
+          margin: 0 -75px;
           height: 150px;
           width: auto;
-          @media #{$phone_small} {
-              margin: 0 83px;
-          }
           @media #{$phone_vsmall} {
-              margin: 0px 131px;
-              height: 57px;
+              height: 85px;
+              margin: 0 -44px;
           }
         }
       }
@@ -521,14 +533,8 @@ div.item-title {
       background-size:cover;
       z-index: 10000;
       position: absolute;
-      left: (375px - $sextantCapturedImageHeight + 10px)/2;
-      @media #{$phone_small} {
-          left: (320px - $sextantCapturedImageHeight + 10px)/2;
-      }
-      @media #{$phone_vsmall} {
-          left: (320px - $sextantCapturedImageHeight + 10px)/2;
-      }
-
+      margin-left: -($sextantCapturedImageHeight - 10px)/2;
+      left: 50%;
     }
     
     #controls {
@@ -541,10 +547,10 @@ div.item-title {
       background: #333;
       z-index: 1001;  //just above canvas for reading
       @media #{$phone_small} {
-          height: 50px;
+          height: 60px;
       }
       @media #{$phone_vsmall} {
-          height: 40px;
+          height: 60px;
       }
       &.image-recognised {
         background: white;
@@ -553,12 +559,12 @@ div.item-title {
       .button {
         @include interactiveButton;
         @media #{$phone_small} {
-          margin-top:3px;
-          line-height: 6px;
+          margin-top:2px;
+          line-height: 23px;
         }
         @media #{$phone_vsmall} {
           margin-top:2px;
-          line-height: 4px;
+          line-height: 23px;
         }
 
       }
@@ -621,9 +627,11 @@ div.item-title {
         height: 270px;
         @media #{$phone_small} {
             height: 180px;
+            bottom: 60px;
         }
         @media #{$phone_vsmall} {
             height: 150px;
+            bottom: 60px;
         }
         
         width: 100%;
