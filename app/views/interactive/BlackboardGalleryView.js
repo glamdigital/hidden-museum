@@ -62,6 +62,10 @@ define([
                     $('.ui .gallery .scroll-container').addClass('hidden');
                     $('.ui .gallery .thumbnail').addClass('hidden');
                     $(".ui .gallery .zoom-view").panzoom({contain:'invert'});
+                    $(".back-link").click(function (ev) {
+                      this.onBlackboard();
+                      ev.preventDefault();
+                    }.bind(this));
                 }
                 else {
                     $('.ui .gallery .zoom-view').addClass('hidden');
@@ -69,6 +73,7 @@ define([
                     $('.ui .gallery .scroll-container').removeClass('hidden');
                     $('.ui .gallery .thumbnail').removeClass('hidden');
                     $(".ui .gallery .zoom-view").panzoom("destroy");
+                    $(".back-link").off("click");
                 }
             },
             
