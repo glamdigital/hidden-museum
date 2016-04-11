@@ -11,7 +11,10 @@
 
   .header {
     width:100%;
-    height: $iphone6Height - $headerTotalHeight;
+    height: $ipadHeight - $headerHeight;
+    body.ios & {
+      height: $ipadHeight - $headerTotalHeight;
+    }
     background-position: top;
     background-size: contain;
     &.nearby {
@@ -41,6 +44,11 @@
     width: 100%;
     text-align: center;
     height: $topicListItemHeight / 3;
+    @media #{$tablet} {
+      height: $topicListItemHeight /2;
+      padding: $topicListItemHeight /6;
+    }
+
     background: url("../img/find-on-flooplan-button.jpg") no-repeat center center ;
     background-size: cover;
     text-decoration: none;
@@ -131,19 +139,28 @@
         border-bottom: 1px solid black;
         text-align: left;
         height:75px;
+        @media #{$phone_vsmall} {
+          height: 50px;
+        }
       }
       
       a {
         text-decoration: none;
         color: white;
         display: block;
-        padding: 14px 14px 14px 10px;
-        
+        padding: 14px 14px 14px 4px;
+        @media #{$phone_vsmall} {
+          padding: 0 4px 0 0;
+        }
+      
         .interact-chevron {
           position: relative;
           float: right;
           right: -19px;
           top: -19px;
+          @media #{$phone_vsmall} {
+            top: -13px;
+          }
         }
       }
     }
@@ -166,14 +183,21 @@
 .overlay {
   background: rgba(0,0,0,1);
   width: 100%;
-  height: $iphone6Height - $headerSystemStatusClearance;
+  height: 100%;
   display: none;
   position: fixed;
-  top: $headerSystemStatusClearance;
+  top: 0px;
+  body.ios & {
+    top: $headerSystemStatusClearance;
+  }
+
   left: 0px;
   z-index: 10000;
   &.overlay-image {
     text-align: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
     i.close-overlay {
       font-size: 3em;
       float: right;
@@ -189,22 +213,41 @@
       }
     }
     .map-container-div {
+      -webkit-transform: rotate(90deg);
       transform: rotate(90deg);
+      position: relative;
+
       width: 600px;
       top: 200px;
       left: -112px;
       height: 288px;
-      position: relative;
+      @media #{$tablet} {
+        width: 974px;
+        top: 299px;
+        left: -92px;
+        height: 468px;
+      }
+      @media #{$phone_small} {
+        width: 508px;
+        top: 169px;
+        left: -93px;
+        height: 244px;
+      }
+      @media #{$phone_vsmall} {
+        width: 431px;
+        top: 138px;
+        left: -54px;
+        height: 207px;
+      }
     }
     .map {
       position: absolute;
       background-color: white;
-      width: 600px;
+      width:100%;
       top: 0px;
       left: 0px;
     }
     .map-marker {
-      position: absolute;
       margin: 10px;
       position: absolute;
       bottom: 3px;

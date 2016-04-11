@@ -11,7 +11,10 @@ $frameOffsetY: -35px;
 
 #lodestone-display {
   width: 100%;
-  height: $iphone6Height - $headerTotalHeight;
+  height: $iphone6Height - $headerHeight;
+  body.ios & {
+    height: $iphone6Height - $headerTotalHeight;
+  }
   position:relative;
   overflow: hidden;
   background: url(../img/objects/lodestone/lodestone-bg.png);

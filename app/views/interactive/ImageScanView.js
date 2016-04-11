@@ -137,7 +137,15 @@ define(['backbone',
 				}
 
 			},
-
+			
+			skipImageRecognition: function () {
+				this.onFoundItem();
+			},
+			
+			events: {
+					"click .skip-image-recognition": "onFoundItem"
+			},
+			
 			cleanup: function() {
 				this.overlayCleanup();
 				if(typeof(MS4Plugin) !== 'undefined')

@@ -42,6 +42,8 @@ define([
                 //position the map markers
                 this.trails.each(function (trail) {
                     var $trailMap = $('#floorplan-' + trail.attributes.slug);
+                    $trailMap.height(360/750 * $('.content').width() + 4);
+
                     //position markers
                     trail.topics.each(function (topic) {
                         var $marker = $('#map-marker-' + topic.attributes.slug);
@@ -52,6 +54,17 @@ define([
                     });
                 });
                 this.doAccordianMagic(0);
+                this.adjustHeights();
+            },
+
+            adjustHeights: function() {
+                var contentHeight = $('.content').height();
+                var trailTitle = $('.trail-title').outerHeight();
+                var trailFloorplan = 360/750 * $('.content').width();
+                var itemHeight = (contentHeight - trailFloorplan - 3*trailTitle);
+                $("#upper_gallery .topic-list-item").outerHeight(itemHeight / 2 - 1);
+                $("#entrance_gallery .topic-list-item").outerHeight(itemHeight / 2 - 1);
+                $("#basement_gallery .topic-list-item").outerHeight(itemHeight / 3 - 1);
             },
             
             serialize: function() {
