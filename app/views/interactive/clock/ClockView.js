@@ -103,6 +103,13 @@ define([
                 el: $('#digital-clock'),
             });
             this.digitalClockView.render();
+            
+            //set heights etc
+            var contentHeight = $('.content').height();
+            $('#interact-clock').height(contentHeight);
+            
+            var globeheight = contentHeight * 0.35;
+            $('#globe-clock').height(globeheight).css('top', contentHeight - globeheight);
 
             //sphere
             this.sphereModel = new Backbone.Model({
