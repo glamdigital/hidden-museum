@@ -126,7 +126,7 @@ define([
                     case 0:
                         this.step = 1;
                         $target.text("Angle of the Sun");
-                        // $target.hide();
+                        $target.hide();
                         this.takeHorizonImage(ev);
                         this.hasSetHorizon = true;
                         //this.startTrackingOrientation(ev);
@@ -278,9 +278,8 @@ define([
                 var delay = DIAGRAM_PREROTATE_PAUSE;
                 
                 this.animateTimeout = setInterval(function () {
-                    // if(angle <= this.stateModel.attributes.angle) {
                     if(delay > 0) { delay -= 10; }
-                    else if(angle <= 45) { 
+                    else if(angle <= this.stateModel.attributes.angle) {
                         angle += 0.5;
                         setSextantArmAngle(angle);
                         console.log('new angle = ', angle);
