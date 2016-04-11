@@ -56,9 +56,9 @@ define([
                 this.currentDeviceOrientation = {alpha:0, beta:0, gamma:0};
                 this.startingDeviceOrientation = {alpha:0, beta:0, gamma:0};
                 this.angle = 0;
-                this.instructions = ["<ol><li>Hold the phone straight up in front of you so the red line is level with with the sea horizon</li><li>Press the 'Set Horizon' button</li></ol>",
-                    "<ol><li>Tilt the camera upwards and watch for an image of the sun</li><li>Line up the sun with the horizon line</li><li>Press the 'Angle of the Sun' button</li></ol>",
-                    "<p>This mimics a reading of the Pole Star, where the angle is the same as your latitude. For the Sun or other bodies you would need an almanac to get a latitude from the angle</p>"];
+                this.instructions = ["Hold the phone straight up in front of you and tilt it until the red line is level with the sea horizon. Then press the 'Set Horizon' button.",
+                    "<ol><li>Mimic movement of the sextant arm by tilting the camera upwards</li><li>Watch for the reflected image of the sun</li><li>Line sun up with the horizon line</li><li>Press the 'Angle of the Sun' button</li></ol>",
+                    "<p>You have measured that the noon sun is NN.Ndeg above the horizon.</p>But to calculate latitude from this reading navigators would need to look up the angle in a reference book called an almanac.</p><p>Press the 'Find Latitude' button to simulate looking in the almanac.</p>"];
                 this.instructionsColors = ['url(img/parchment-tan.jpg)', 'url(img/parchment-tan-dark.jpg)', 'url(img/parchment-tan.jpg)'];
                 var tapEnabled = true; //enable tap take picture
                 var dragEnabled = false; //enable preview box drag across the screen

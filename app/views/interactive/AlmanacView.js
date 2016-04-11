@@ -29,10 +29,9 @@ define([
             this.tab = 1;
             this.item = params.item;
             this.instructions = { 
-                'sun': "<p>Assuming you are in the Northern Hemisphere, your measurement for the noon day Sun today " +
-                       "shows that you are " + this.stateModel.getLatitude().toPrecision(5).toString() +
-                       "&deg; North of the Equator.</p>",
-                       
+                'sun': "<p>Assuming you are in the nothern hemisphere, the almanac shows that according to your " +
+                "measurement of the noon sun you are located "+ this.stateModel.getLatitude().toPrecision(5).toString()
+                + "&deg; north of the equator.</p>"
                 // 'pole star': "<p>In the Northern Hemisphere, the height of the Pole Star above the horizon is " +
                 //              "coincidentally always the same as your latitude because it is directly above the North Pole.</p>"
             };
