@@ -274,22 +274,73 @@ define([
                 $('canvas#sextant-reading').css('background-image', this.instructionsColors[this.step]); 
                 $('#message').show();
                 
+                EYE_X = 1;
+                MIRROR_1_X = 0.3;
+                MIRROR_1_Y = 0.5;
+                MIRROR_2_X = 0.48;
+                MIRROR_2_Y = 0.25;
+                
                 var angle = 0;
                 var delay = DIAGRAM_PREROTATE_PAUSE;
                 
                 this.animateTimeout = setInterval(function () {
+                    
+                    
+                    
+                    //update line on the canvas
+                    var canvas = $('#sextant-lines')[0];
+                    var eyex = EYE_X * canvas.width;
+                    var mirror1x = MIRROR_1_X * canvas.width;
+                    var mirror1y = MIRROR_1_Y * canvas.height + 75;
+                    var mirror2x = MIRROR_2_X * canvas.width;
+                    var mirror2y = MIRROR_2_Y * canvas.height + 75;
+                    
+                    var sunDist = 150;
+                    var sunAngleRad = angle * Math.PI/180;
+                    var sunX = mirror2x - sunDist * Math.cos(sunAngleRad);
+                    var sunY = mirror2y - sunDist * Math.sin(sunAngleRad);
+                    
+                    var ctx = canvas.getContext('2d');
+                    
+                    
+                    
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+
+                    //lines
+                    ctx.beginPath();
+                    ctx.moveTo(eyex, mirror1y);
+                    ctx.lineTo(mirror1x, mirror1y);
+                    ctx.lineTo(mirror2x, mirror2y);
+                    ctx.lineTo(sunX, sunY);
+                                        
+                    // ctx.strokeStyle.width = 5;
+                    ctx.strokeStyle="#ff0000";
+                    ctx.stroke();
+                    
+                    //sun
+                    ctx.beginPath();
+                    ctx.arc(sunX, sunY, 10, 0, Math.PI*2);
+                    ctx.stroke();
+                    
+                    
                     if(delay > 0) { delay -= 10; }
-                    else if(angle <= this.stateModel.attributes.angle) {
+                    // else if(angle <= this.stateModel.attributes.angle) {
+                    else if(angle <= 45) { 
                         angle += 0.5;
                         setSextantArmAngle(angle);
-                        console.log('new angle = ', angle);
+                        // console.log('new angle = ', angle);
+                        
+
+                        
+                        
                     } else {
                         setTimeout(function () {
-                            $('.sextant-diagram').fadeTo(DIAGRAM_FADE, 0.2, this.showMessage.bind(this));
+                            // $('.sextant-diagram').fadeTo(DIAGRAM_FADE, 0.2, this.showMessage.bind(this));
                         }.bind(this), DIAGRAM_PREFADE_PAUSE);
                         clearInterval(this.animateTimeout);
                     }
-                }.bind(this), 10);
+                }.bind(this), 100);
             },
             
             showMessage: function () {
