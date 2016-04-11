@@ -27,6 +27,10 @@ define([
         DEFAULT_HORIZON = -10;
         MIN_CAPTURE_SUN_ANGLE = 25;
         
+        DIAGRAM_PREROTATE_PAUSE = 500;
+        DIAGRAM_PREFADE_PAUSE = 600;
+        DIAGRAM_FADE = 1500;
+        
         LOG_DATA = false;
         
         setSextantArmAngle = function (deg) {
@@ -122,7 +126,7 @@ define([
                     case 0:
                         this.step = 1;
                         $target.text("Angle of the Sun");
-                        $target.hide();
+                        // $target.hide();
                         this.takeHorizonImage(ev);
                         this.hasSetHorizon = true;
                         //this.startTrackingOrientation(ev);
@@ -136,13 +140,19 @@ define([
                     case 1:
                         this.step = 2;
                         this.stopTrackingOrientation(ev);
-                        this.showMessage();
+                        $('#main-button').hide();
+                        this.showDiagram();
                         this.hideHorizonIndicator();
                         $('#captured-image').css("background-image", "none");
                         $target.text("Calculate Latitude");
                         break;
-                    
+                        
                     case 2:
+                        this.step = 3;
+                        // this.hideDiagram();
+                        this.showMessage();
+                    
+                    case 3:
                         this.step = 0;
                         Backbone.history.navigate('#/interact/' + this.item.attributes.slug + '/' + this.item.attributes.type + '/1');
                         break;
@@ -260,13 +270,35 @@ define([
                 $('canvas#sextant-reading').css('background-image', this.instructionsColors[this.step]); 
             },
             
-            showMessage: function () {
+            showDiagram: function () {
+                $('canvas#sextant-reading').css('background-image', this.instructionsColors[this.step]); 
                 $('#message').show();
+                
+                var angle = 0;
+                var delay = DIAGRAM_PREROTATE_PAUSE;
+                
+                this.animateTimeout = setInterval(function () {
+                    // if(angle <= this.stateModel.attributes.angle) {
+                    if(delay > 0) { delay -= 10; }
+                    else if(angle <= 45) { 
+                        angle += 0.5;
+                        setSextantArmAngle(angle);
+                        console.log('new angle = ', angle);
+                    } else {
+                        setTimeout(function () {
+                            $('.sextant-diagram').fadeTo(DIAGRAM_FADE, 0.2, this.showMessage.bind(this));
+                        }.bind(this), DIAGRAM_PREFADE_PAUSE);
+                        clearInterval(this.animateTimeout);
+                    }
+                }.bind(this), 10);
+            },
+            
+            showMessage: function () {
                 //$('#message')[0].innerHTML = "<p>The angle you measured was "  + this.angle.toPrecision(4).toString() + "&deg;. If the object you lined up had been the Pole Star, the angle would be the same as your latitude. The Pole Star is 90&deg; above the horizon at the North Pole, which has a latitude of 90&deg; North. The star appears right on the horizon at the equator, at 0&deg;. Oxford is 51.7&deg; North. Usually navigators measured the Sun and other stars and calculated latitude using reference books called almanacs.</p><p>To line up the object with the horizon you tilted the phone. On a sextant you'd move the main arm to tilt a mirror.</p>";
                 //$('#message')[0].innerHTML = "<p>The angle you measured was " + this.angle.toPrecision(4).toString() + "&deg;. Navigators could use this measurement to calculate their latitude, or north/south position, often by looking it up in a book called an almanac. The North Pole is 90&deg North and the equator is 0&deg. Oxford's latitude is 51.7&deg North." +
                 //"<br><br>To line up the object with the horizon you tilted the phone. On a sextant the object and horizon are lined up by moving the main arm to tilt the mirror.</p>";
-                $('#message')[0].innerHTML = "<p>You have measured that the noon sun is " + this.stateModel.attributes.angle.toPrecision(3).toString() + "&deg; above the horizon. You could also measure other known celestial objects, such as the Pole Star.</p><p>To calculate latitude from this measurement, navigators would consult a reference book called an almanac.</p><p>Press the 'Calculate Latitude' button to simulate this calculation.</p>";
-                $('canvas#sextant-reading').css('background-image', this.instructionsColors[this.step]); 
+                $('#message-text')[0].innerHTML = "<p>You have measured that the noon sun is " + this.stateModel.attributes.angle.toPrecision(3).toString() + "&deg; above the horizon. You could also measure other known celestial objects, such as the Pole Star.</p><p>To calculate latitude from this measurement, navigators would consult a reference book called an almanac.</p><p>Press the 'Calculate Latitude' button to simulate this calculation.</p>";
+                $('#main-button').hide();
             },
             
             hideMessage: function () {
@@ -321,6 +353,8 @@ define([
                 if (typeof cordova !== "undefined") {
                     cordova.plugins.camerapreview.stopCamera();
                 }
+                
+                this.stopTrackingOrientation(null);
                 
                 this.overlayCleanup();
             }

@@ -433,13 +433,11 @@ div.item-title {
         width: 100%;
         float: right;
         position: relative;
-            
             #sun {
                 position: absolute;
                 left: 45%;
             }
-        
-      }
+        }
     }
 
     #message {
@@ -458,6 +456,17 @@ div.item-title {
         padding-bottom: $standardPadding + 3px;
         text-align: center;
         font-weight: bold;
+      }
+      
+      .sextant-diagram {
+          width: 100%;
+          position: relative;
+          margin-left: auto;
+          margin-right: auto;
+          img {
+              width: 100%;
+              position: absolute;
+          }
       }
     }
     
