@@ -168,7 +168,7 @@ define([
                                     .end(_.bind(function() {
                                         this.fallSound.play();
                                         if( navigator.notification ) { navigator.notification.vibrate(100); }
-                                        move(cradle).y(-MAX_WIND_HEIGHT - 10)
+                                        move(cradle).y(-MAX_WIND_HEIGHT - 7)
                                         .ease('in-out')
                                         .duration('0.2s')
                                         .end(_.bind(function() {
@@ -233,7 +233,7 @@ define([
                 var frameHeight = $("#crown-container").height();
                 $('#crown-holder #crown').height(frameHeight * 0.27);
                 
-                var crownTop = 0.09*frameHeight + MAX_WIND_HEIGHT * this.windModel.attributes.angle / MAX_WIND_ANGLE;
+                var crownTop = (0.1*frameHeight + MAX_WIND_HEIGHT * this.windModel.attributes.angle / MAX_WIND_ANGLE) + 30*(frameHeight-620)/620;
                 $('#crown-holder').css({'top': crownTop});
             },
             
