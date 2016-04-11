@@ -4,10 +4,19 @@ define([
         "app/views/interactive/SextantReadingView",
         "hbs!app/templates/interactive/sextant",
         "app/mixins/overlay",
-        'hbs!app/templates/overlay_interactive_inner'
+        'hbs!app/templates/overlay_interactive_inner',
+        "moment",
     ],
     
-    function (Backbone, SextantModel/*UNUSED*/, SextantReadingView, sextantTemplate, overlayMixin, interactiveInnerTemplate, ft /* We need to require FullTilt, but it ends up as a global object */) {
+    function (
+        Backbone, 
+        SextantModel/*UNUSED*/, 
+        SextantReadingView, 
+        sextantTemplate, 
+        overlayMixin, 
+        interactiveInnerTemplate, 
+        moment,
+        ft /* We need to require FullTilt, but it ends up as a global object */) {
         
         //sextant arm
         ARM_PIVOT = {x:0.0, y:-0.36};  //rotation centre for the arm as proportion of width, from geometric centre
@@ -17,6 +26,8 @@ define([
         MIN_ANGLE = -20;
         DEFAULT_HORIZON = -10;
         MIN_CAPTURE_SUN_ANGLE = 25;
+        
+        LOG_DATA = false;
         
         setSextantArmAngle = function (deg) {
             var armAngle = deg/2;
@@ -75,8 +86,14 @@ define([
                 
                 this.overlayInitialize({ displayOnArrival: true });
                 this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
+                
+                
+                //calculate the midday sun height for today's date
+                this.sunElevation = this.calculateSunElevation();
+                
+                getSunElevation = this.calculateSunElevation;
             },
-            
+                        
             afterRender: function () {
                 this.setup();
                 
@@ -186,6 +203,19 @@ define([
                 var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE + SKY_BACKGROUND_OFFSET;
                 $('#sky').css('background-position-y', skyOffsetY + 'px');
                 
+                
+                
+                var sunRelAng = (this.sunElevation * Math.PI/180) - skyAngle;
+                var sunHeight = sunRelAng * SKY_BACKGROUND_SCROLL_RATE + SKY_BACKGROUND_OFFSET;
+                
+                if(LOG_DATA) {
+                    console.log('skyAngle: ', skyAngle);
+                    console.log('sunAngle: ', this.sunElevation);
+                    console.log('sunHeight: ', sunHeight);
+                }
+                
+                $('#sun').css('bottom', sunHeight + 'px');
+                
                 //Attempt to scan left/right a little. Doesn't work well, as roll adds to gamma.
                 // If we can use something like FullTilt to transform the orientations so that they are based around
                 // device being upright, rather than device being flat, this may be worth reinstating.
@@ -242,6 +272,49 @@ define([
             hideMessage: function () {
                 var $messageDiv = $('#message')[0];
                 $('#message').hide();
+            },
+            
+            calculateSunElevation: function (params) {
+                // cos(solarZenith) = sin(solarElevation) = sin(latitude)*sin(declination) + cos(latitude)*cos(declination)*cos(hour angle)
+                // at noon, solar hour angle is 0, so we have simply:
+                //      cos(solarZenith) = sin(solarElevation) = sin(latitude)*sin(declination) + cos(latitude)*cos(declination)
+                
+                
+                params = params || {};
+                
+                //latitude in oxford
+                var latitudeDeg = params.lat || 51.7520;
+                var latitudeRad = latitudeDeg * Math.PI / 180;
+                                
+                //declination
+                //declination = -23.44 * cos[ 36/365 * (N+10)]
+                
+                //get days since jan the first
+                var today = params.date || moment();
+                var days = today.dayOfYear();
+                
+                console.log('day of year: ', days);
+                
+                var declinationDeg = -23.44 * Math.cos( (2 * Math.PI /365) * (days + 10) );
+                var declinationRad = declinationDeg * Math.PI / 180;
+                
+                console.log('declination: ', declinationDeg);
+                
+                var sinLat = Math.sin(latitudeRad);
+                var cosLat = Math.cos(latitudeRad);
+                var sinDec = Math.sin(declinationRad);
+                var cosDec = Math.cos(declinationRad);
+                var sinElevation = sinLat * sinDec + cosLat * cosDec;
+                var solarElevationRad = Math.asin(sinElevation);
+                
+                
+                
+                var solarElevationDeg = solarElevationRad * 180 / Math.PI;
+                
+                console.log('elevation: ', solarElevationDeg);
+                
+                return solarElevationDeg;
+                
             },
             
             cleanup: function () {
