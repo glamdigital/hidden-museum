@@ -482,6 +482,15 @@ div.item-title {
       }
     }
     
+    &.view-0 {
+      #feedback {
+        @media #{$phone_vsmall} {
+          border-left: 60px solid black;
+          border-right: 60px solid black;
+          width: 100%;
+        }
+      }
+    }
     #feedback {
       position: absolute;
       bottom: 90px;
@@ -496,9 +505,6 @@ div.item-title {
       @media #{$phone_vsmall} {
           height: 84px;
           bottom: 60px;
-          width: 100%;
-          border-left: 60px solid black;
-          border-right: 60px solid black;
       }
       @media #{$tablet} {
           height: 300px;
