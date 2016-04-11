@@ -16,7 +16,8 @@ $blackboardHeight: 260px;
         height: 100%;
         
         .zoom-view {
-            position: absolute;
+            position: relative;
+            height: 100%;
             top: 0;
             bottom: $controlsHeight;
             left: 0;
@@ -32,14 +33,19 @@ $blackboardHeight: 260px;
                 width: 100%;
             }
             
-            .close {
-                position: absolute;
-                display: inline-block;
-                top: 10px;
-                right: 10px;
-                font-size: 3em;
-                color: $navTextColor;
-                opacity: 0.8;
+        }
+
+        .close {
+            position: absolute;
+            display: inline-block;
+            top: 10px;
+            right: 10px;
+            font-size: 3em;
+            color: $navTextColor;
+            opacity: 0.8;
+            z-index: 2;
+            &.hidden {
+                display: none;
             }
         }
         
@@ -47,6 +53,15 @@ $blackboardHeight: 260px;
             display: none;
         }
         
+        .blackboard-gallery-top-padding {
+          height: 5px;
+          &.landscape {
+            @media #{$phone_vsmall} {
+              height: 0px;
+            }
+          }
+        }
+
         .blackboard {
             display: block;
             margin-left: auto;
@@ -57,11 +72,15 @@ $blackboardHeight: 260px;
             position: relative;
             height: $blackboardHeight;
             text-align: center;
-            
+            &.hidden {
+                display: none;
+            }
+
             .inner {
                 position: relative;
                 display: inline-block;
                 height: 100%;
+
             }
             
             .blackboard {
@@ -94,7 +113,10 @@ $blackboardHeight: 260px;
         .scroll-container {
             margin-top: 10px;
             position: relative;
-            height: $iphone6Height - $headerTotalHeight - $blackboardHeight - $controlsHeight - 10px;
+            height: $iphone6Height - $headerHeight - $blackboardHeight - $controlsHeight - 10px;
+            body.ios & {
+              height: $iphone6Height - $headerTotalHeight - $blackboardHeight - $controlsHeight - 10px;
+            }
             overflow-y: auto;
             font-size: 1.2em;
             
@@ -172,4 +194,7 @@ $blackboardHeight: 260px;
             }
         }
     }
+}
+.owl-theme .owl-dots .owl-dot span {
+  margin: 5px 3px;
 }

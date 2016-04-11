@@ -15,7 +15,10 @@ a {
 }
 
 .pr-header-container {
-  padding-top: $headerSystemStatusClearance;
+  padding-top: 0px;
+  body.ios & {
+    padding-top: $headerSystemStatusClearance;
+  }
   padding-bottom: 0;
   padding-left: 0;
   padding-right: 0;
@@ -227,7 +230,10 @@ div.code-input {
 }
 
 div.scan-container {
-  height: $iphone6Height - $headerTotalHeight;
+  height: $iphone6Height - $headerHeight;
+  body.ios & {
+    height: $iphone6Height - $headerTotalHeight;
+  }
   
   #header {
     width: 100%;
@@ -235,6 +241,9 @@ div.scan-container {
     position: absolute;
     top: 0px;
     padding:10px;
+    .skip-image-recognition {
+      float: right;
+    }
   }
   .upper-background {
     background-color: $upperGalleryColor;

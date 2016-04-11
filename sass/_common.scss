@@ -36,6 +36,7 @@ $sextantCapturedImageHeight: 222px;
 
 $topicHeaderHeight: 128px;
 $topicListItemHeight: 142px;
+$ipadHeight: 1024px;
 $iphone6Height: 667px;
 $iphone6Width: 375px;
 
@@ -68,6 +69,12 @@ $markerDiameter: 30px;
     .fa-chevron-right {
         font-size: 0.8em;
         padding-left: 1em;
+    }
+    @media #{$phone_small} {
+      font-size: 0.95em;
+    }
+    @media #{$phone_vsmall} {
+      font-size: 1.1em;
     }
 }
 
