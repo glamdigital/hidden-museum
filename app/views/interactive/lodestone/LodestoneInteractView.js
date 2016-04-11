@@ -229,8 +229,12 @@ define([
             },
 
             setCrownHeight: function() {
-                var crownHeight = 30 + MAX_WIND_HEIGHT * this.windModel.attributes.angle / MAX_WIND_ANGLE;
-                $('#crown-holder').css('top', crownHeight);
+              
+                var frameHeight = $("#crown-container").height();
+                $('#crown-holder #crown').height(frameHeight * 0.27);
+                
+                var crownTop = 0.09*frameHeight + MAX_WIND_HEIGHT * this.windModel.attributes.angle / MAX_WIND_ANGLE;
+                $('#crown-holder').css({'top': crownTop});
             },
             
             updateSmallKeys: function() {
@@ -280,9 +284,11 @@ define([
                 this.tapKeySound.play();
 
                 //animate key up towards
+                var frameHeight = $("#frame").height();
+                var frameWidth = $("#frame").width();
                 var keyL = $('#lodestone-Lkey')[0];
                 move(keyL)
-                    .translate(55, -345)
+                    .translate(frameWidth *13/100, -frameHeight *54/100)
                     .rotate(180)
                     .duration('1s')
                     .ease('in-out')
@@ -299,7 +305,7 @@ define([
                 
                 var keyR = $('#lodestone-Rkey')[0];
                 move(keyR)
-                    .translate(177, -352)
+                    .translate(frameWidth *39/100, -frameHeight *54/100)
                     .rotate(210)
                     .duration('1.2s')
                     .ease('in-out')

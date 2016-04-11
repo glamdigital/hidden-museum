@@ -103,20 +103,26 @@ $frameOffsetY: -35px;
     top: 7px;
     overflow: hidden;
     height: 100%;
-    width: $crownWidth;
+    // width: $crownWidth;
+    width: 33%;
     margin-left: auto;
     margin-right: auto;
     z-index: 1;
 
     #crown-holder {
         position: absolute;
-        width: $crownWidth;
-        height: 1000px;
+        width:100%;
+        // width: $crownWidth;
+        
+        // height: 1000px;
+        height: 100%;
       #crown {
         background: url(../img/objects/lodestone/crown.png);
         background-size: contain;
         background-repeat: no-repeat;
-        height: $crownHeight;
+        background-position-x: center;
+        // height: $crownHeight;
+        height: 27%;
         z-index: 3;
       }
 
@@ -127,7 +133,9 @@ $frameOffsetY: -35px;
         background: url(../img/objects/lodestone/weight-cradle.png);
         background-size: contain;
         background-repeat: no-repeat;
-        height: $weightCradleHeight;
+        background-position-x: center;
+        // height: $weightCradleHeight;
+        height:25%;
         z-index: 2;
 
         #weights-stack {
@@ -190,13 +198,13 @@ $frameOffsetY: -35px;
 
   img.lodestone-key {
     position: absolute;
-    bottom: 201px;
-    left: 40px;
+    bottom: 32%;
+    left: 19%;
     z-index: 100;
-    height: 40px;
+    height: 7%;
     &#lodestone-Rkey {
-      left: 45px;
-      bottom: 195px;
+      left: 19%;
+      bottom: 32%;
       transform: rotate(63deg);
     }
   }
@@ -204,10 +212,10 @@ $frameOffsetY: -35px;
   img.lodestone-key-winding {
       position: absolute;
       z-index: 100;
-      height: 40px;
-      top: 15px;
+      height: 7%;
+      top: 7%;
       &#lodestone-Rkey {
-          left: 25%;
+          left: 30%;
           transform: rotate(180deg);
       }
       &#lodestone-Lkey {
