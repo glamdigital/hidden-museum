@@ -433,7 +433,7 @@ define([
                 
                 //set height of message div                
                 $('#message-text')[0].innerHTML = "<p>You have measured that the noon sun is " + this.stateModel.attributes.angle.toPrecision(3).toString() + "&deg; above the horizon. You could also measure other known celestial objects, such as the Pole Star.</p><p>To calculate latitude from this measurement, navigators would consult a reference book called an almanac.</p><p>Press the 'Calculate Latitude' button to simulate this calculation.</p>";
-                $('#main-button').hide();
+                $('#main-button').show();
             },
             
             hideMessage: function () {
