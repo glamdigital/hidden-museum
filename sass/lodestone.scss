@@ -162,7 +162,7 @@ $frameOffsetY: -35px;
     color: white;
     padding: 5px;
     position: absolute;
-    bottom: 90px;
+    bottom: 45%;
     z-index: 200;
     text-align: center;
   }
@@ -175,7 +175,7 @@ $frameOffsetY: -35px;
     border: 2px solid grey;
     border-radius: 10px;
     position: relative;
-    top: -325px;
+    top: -75%;
     display: none;
 
     &.readout-visible {
