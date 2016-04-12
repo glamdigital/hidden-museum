@@ -135,7 +135,7 @@ define([
                         this.showMessage();
                         this.hideHorizonIndicator();
                         $('#captured-image').css("background-image", "none");
-                        $target.text("Calculate Latitude");
+                        $target.text("Find Latitude");
                         break;
                     
                     case 2:
