@@ -505,6 +505,7 @@ div.item-title {
           canvas { 
               height: 100%;
               position: absolute;
+              pointer-events: none;
           }
       }
     }
