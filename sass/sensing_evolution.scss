@@ -459,7 +459,7 @@ div.item-title {
       }
       
       .sextant-diagram {
-          width: 80%;
+          width: 66%;
           height: 100%;
           position: relative;
           margin-left: auto;
@@ -467,10 +467,12 @@ div.item-title {
           img {
               width: 100%;
               position: absolute;
-              top: 75px;
+              top: 115px;
           }
           canvas { 
-              width: 100%;
+              width: 150%;
+              height: 100%;
+              margin-left: -25%;
               position: absolute;
           }
       }

@@ -274,14 +274,28 @@ define([
                 $('canvas#sextant-reading').css('background-image', this.instructionsColors[this.step]); 
                 $('#message').show();
                 
-                EYE_X = 1;
-                MIRROR_1_X = 0.3;
+                
+                EYE_X = 0.8;
+                MIRROR_1_X = 0.36;
                 MIRROR_1_Y = 0.5;
                 MIRROR_2_X = 0.48;
-                MIRROR_2_Y = 0.25;
+                MIRROR_2_Y = 0.41;
+                // EYE_X = 1;
+                // MIRROR_1_X = 0.3;
+                // MIRROR_1_Y = 0.5;
+                // MIRROR_2_X = 0.48;
+                // MIRROR_2_Y = 0.25;
                 
                 var angle = 0;
                 var delay = DIAGRAM_PREROTATE_PAUSE;
+                
+                var $canvas = $('#sextant-lines'); 
+                var canvas = $canvas[0];
+                canvas.width = $canvas.width();
+                canvas.height = $canvas.height();
+                
+                var sunDist = 150;
+                var sunAngleMeasuredRad = this.stateModel.attributes.angle * Math.PI/180;
                 
                 this.animateTimeout = setInterval(function () {
                     
@@ -291,14 +305,13 @@ define([
                     var canvas = $('#sextant-lines')[0];
                     var eyex = EYE_X * canvas.width;
                     var mirror1x = MIRROR_1_X * canvas.width;
-                    var mirror1y = MIRROR_1_Y * canvas.height + 75;
+                    var mirror1y = eyey = MIRROR_1_Y * canvas.height;
                     var mirror2x = MIRROR_2_X * canvas.width;
-                    var mirror2y = MIRROR_2_Y * canvas.height + 75;
+                    var mirror2y = MIRROR_2_Y * canvas.height;
                     
-                    var sunDist = 150;
                     var sunAngleRad = angle * Math.PI/180;
-                    var sunX = mirror2x - sunDist * Math.cos(sunAngleRad);
-                    var sunY = mirror2y - sunDist * Math.sin(sunAngleRad);
+                    var dirX = mirror2x - (sunDist-15) * Math.cos(sunAngleRad);
+                    var dirY = mirror2y - (sunDist-15) * Math.sin(sunAngleRad);
                     
                     var ctx = canvas.getContext('2d');
                     
@@ -312,33 +325,73 @@ define([
                     ctx.moveTo(eyex, mirror1y);
                     ctx.lineTo(mirror1x, mirror1y);
                     ctx.lineTo(mirror2x, mirror2y);
-                    ctx.lineTo(sunX, sunY);
+                    ctx.lineTo(dirX, dirY);
                                         
                     // ctx.strokeStyle.width = 5;
                     ctx.strokeStyle="#ff0000";
+                    ctx.lineWidth = 1;
                     ctx.stroke();
                     
                     //sun
                     ctx.beginPath();
+                    var sunX = mirror2x - sunDist * Math.cos(sunAngleMeasuredRad);
+                    var sunY = mirror2y - sunDist * Math.sin(sunAngleMeasuredRad);
                     ctx.arc(sunX, sunY, 10, 0, Math.PI*2);
+                    ctx.strokeStyle = "#000000";
+                    ctx.lineWidth = 3;
                     ctx.stroke();
                     
                     
+                    //rays
+                    ctx.beginPath();
+                    var numRays = 9;
+                    var innerRad = 15;
+                    var outerRad = 20;
+                    
+                    for(var i =0; i<numRays; i++) {
+                        var theta = i*2*Math.PI/(numRays);
+                        ctx.moveTo(sunX + innerRad*Math.cos(theta), sunY + innerRad*Math.sin(theta));
+                        ctx.lineTo(sunX + outerRad*Math.cos(theta), sunY + outerRad*Math.sin(theta));
+                    }
+                    ctx.stroke();
+                    
+                    //eye
+                    ctx.beginPath();
+                    var eyeWidth = 20;
+                    var eyeOffset = 50;
+                    var eyeAngle = 30 * Math.PI/180;
+                    var eyePupilAngle = 10 * Math.PI/180;
+                    var pupilRadius = 10;
+                    //'lids'
+                    
+                    var eyeOriginX = eyex + eyeOffset;
+                    ctx.moveTo(eyeOriginX, eyey);
+                    ctx.lineTo(eyeOriginX - eyeWidth*1.4*Math.cos(eyeAngle), eyey - eyeWidth*1.4*Math.sin(eyeAngle));
+                    ctx.moveTo(eyeOriginX, eyey);
+                    ctx.lineTo(eyeOriginX - eyeWidth*1.4*Math.cos(eyeAngle), eyey + eyeWidth*1.4*Math.sin(eyeAngle));
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                    
+                    //cornea
+                    ctx.beginPath();
+                    ctx.arc(eyeOriginX, eyey, eyeWidth, Math.PI-eyeAngle, Math.PI+eyeAngle);
+                    ctx.stroke();
+                    
+                    
+                    
+                    
                     if(delay > 0) { delay -= 10; }
-                    // else if(angle <= this.stateModel.attributes.angle) {
-                    else if(angle <= 45) { 
+                    
+                    else if(angle <= this.stateModel.attributes.angle) {
                         angle += 0.5;
                         setSextantArmAngle(angle);
                         // console.log('new angle = ', angle);
-                        
-
-                        
                         
                     } else {
                         setTimeout(function () {
                             // $('.sextant-diagram').fadeTo(DIAGRAM_FADE, 0.2, this.showMessage.bind(this));
                         }.bind(this), DIAGRAM_PREFADE_PAUSE);
-                        clearInterval(this.animateTimeout);
+                        // clearInterval(this.animateTimeout);
                     }
                 }.bind(this), 100);
             },
