@@ -13,10 +13,12 @@ define([
         ARM_PIVOT = {x:0.0, y:-0.36};  //rotation centre for the arm as proportion of width, from geometric centre
         
         SKY_BACKGROUND_SCROLL_RATE = 1000/90;
-        SKY_BACKGROUND_OFFSET = 555;
-        MIN_ANGLE = -20;
+        SKY_BACKGROUND_OFFSET = 660;
+        MIN_ANGLE = 67;
         DEFAULT_HORIZON = -10;
-        MIN_CAPTURE_SUN_ANGLE = 25;
+        MIN_CAPTURE_SUN_ANGLE = 10;
+        
+        LOG_NEXT_EV = false;
         
         setSextantArmAngle = function (deg) {
             var armAngle = deg/2;
@@ -52,6 +54,7 @@ define([
                 this.item = params.item;
                 this.step = 0;
                 this.isTrackingOrientation = false;
+                this.isTrackingMotion = false;
                 this.hasSetHorizon = false;
                 this.currentDeviceOrientation = {alpha:0, beta:0, gamma:0};
                 this.startingDeviceOrientation = {alpha:0, beta:0, gamma:0};
@@ -104,6 +107,7 @@ define([
                 this.showHorizonIndicator();
                 this.angle = 0;
                 $(window).on('deviceorientation', this, _.bind(this.deviceOrientationHandler, this));
+                $(window).on('devicemotion', this, _.bind(this.deviceMotionHandler, this));
             },
             
             toggleButtonHandler: function (ev) {
@@ -119,7 +123,8 @@ define([
                         //this.startTrackingOrientation(ev);
                         //grab the current orientation as the initial orientation
                         //this.startingDeviceOrientation = this.currentDeviceOrientation;
-                        this.horizonOrientation = this.currentDeviceOrientation;
+                        // this.horizonOrientation = this.currentDeviceOrientation;
+                        this.horizonDeviceAngle = this.currentDeviceAngle;
                         
                         this.displayInstructions();
                         break;
@@ -142,12 +147,15 @@ define([
             
             startTrackingOrientation: function (ev) {
                 //this.startingDeviceOrientation = null;
-                this.isTrackingOrientation = true;
+                // this.isTrackingOrientation = true;
+                this.isTrackingMotion = true;
             },
             
             stopTrackingOrientation: function (ev) {
                 this.isTrackingOrientation = false;
+                this.isTrackingMotion = false;
                 $(window).off('deviceorientation', _.bind(this.deviceOrientationHandler, this));
+                $(window).off('devicemotion', _.bind(this.deviceMotionHandler, this));
             },
             
             deviceOrientationHandler: function (ev) {
@@ -157,13 +165,36 @@ define([
                     }
                     
                     this.currentDeviceOrientation = ev.originalEvent;
+                    // if(LOG_NEXT_EV) {
+                    //     console.log(ev.originalEvent);
+                    //     LOG_NEXT_EV = false;
+                    // }
                     this.updateOrientationIndicator();
                 }
             },
             
+            deviceMotionHandler: function (ev) {
+                if (this.isTrackingMotion == true) {
+                    if (this.startingDeviceMotion = null) {
+                        this.startingDeviceMotion = ev.originalEvent;
+                    }
+                    
+                    this.currentDeviceMotion = ev.originalEvent;
+                    // if(LOG_NEXT_EV) {
+                    //     console.log(ev.originalEvent);
+                    //     LOG_NEXT_EV = false;
+                    // }
+                    
+                    this.updateOrientationFromMotion();
+                    this.updateOrientationIndicator();
+                }
+            },
+                        
             updateOrientationIndicator: function() {
                 if(this.hasSetHorizon) {
-                    this.angle = this.currentDeviceOrientation.beta - this.horizonOrientation.beta;
+                    // this.angle = this.currentDeviceOrientation.beta - this.horizonOrientation.beta;
+                    this.angle = this.currentDeviceAngle - this.horizonDeviceAngle;
+                    
                     
                     //limit to 82 degrees north as this is the furthest the map can show.
                     if (this.angle > 82) {
@@ -182,10 +213,7 @@ define([
                     }
                 }
                 
-                //setSextantArmAngle(this.angle);
-                //this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", this.angle);
-                
-                var skyAngle = this.currentDeviceOrientation.beta - this.startingDeviceOrientation.beta;
+                var skyAngle = this.currentDeviceAngle;
                 
                 if(skyAngle < MIN_ANGLE) {
                     skyAngle = MIN_ANGLE;
@@ -201,6 +229,30 @@ define([
 
                 //var skyOffsetX = this.currentDeviceOrientation.gamma * SKY_BACKGROUND_SCROLL_RATE + 500;
                 //$('#sky').css('background-position-x', skyOffsetX + 'px');
+            },
+            
+            updateOrientationFromMotion: function () {
+                var gravity = {
+                    x: this.currentDeviceMotion.accelerationIncludingGravity.x - this.currentDeviceMotion.acceleration.x,
+                    y: this.currentDeviceMotion.accelerationIncludingGravity.y - this.currentDeviceMotion.acceleration.y,
+                    z: this.currentDeviceMotion.accelerationIncludingGravity.z - this.currentDeviceMotion.acceleration.z,
+                };
+                
+                var gDotY = gravity.z / Math.sqrt(gravity.x * gravity.x + gravity.y * gravity.y + gravity.z * gravity.z);
+                var angleRad = Math.acos(gDotY);
+                
+                angleRad = Math.PI - angleRad;
+                                
+                var angleDeg = angleRad * 180/Math.PI;
+                
+                if(LOG_NEXT_EV) {
+                    // console.log(ev.originalEvent);
+                    console.log('angle: ', angleDeg);
+                    LOG_NEXT_EV = false;
+                }
+                
+                
+                this.currentDeviceAngle = angleDeg;
             },
             
             showHorizonIndicator: function () {
