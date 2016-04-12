@@ -423,8 +423,8 @@ div.item-title {
       clip-path: circle(60px at center);
       
       @media #{$tablet} {
-        position: absolute;
-        top: 27%;
+        height: $sextantCapturedImageHeightIpad;
+        -webkit-mask-size: 60%;
       }
       
       #captured-image {
@@ -432,6 +432,10 @@ div.item-title {
         // top: 138.5px;
         width: 50%;
         height: $sextantCapturedImageHeight;
+        @media #{$tablet} {
+          height: $sextantCapturedImageHeightIpad;
+        }
+
         background-size: 380px;
         background-position-y: -240px;
         z-index: 1000;
@@ -454,10 +458,12 @@ div.item-title {
       #sky {
         clear: right;
         background-image: url(../img/sun_sky.png);
-        background-size: 500px;
+        // background-size: 500px;
+        background-size: 1000px;
         background-position-y: 555px; //to get the sea level in center initially
         background-position-x: -205px; //to get the sun centered left-right
         height: $sextantCapturedImageHeight;
+        height: 100%;
         width: 100%;
         float: right;
       }
@@ -576,6 +582,11 @@ div.item-title {
       position: absolute;
       margin-left: -($sextantCapturedImageHeight - 10px)/2;
       left: 50%;
+      @media #{$tablet} {
+        height: $sextantCapturedImageHeightIpad - 10px;
+        width: $sextantCapturedImageHeightIpad - 10px;
+        margin-left: -($sextantCapturedImageHeightIpad - 10px)/2;
+      }
     }
     
     #controls {
