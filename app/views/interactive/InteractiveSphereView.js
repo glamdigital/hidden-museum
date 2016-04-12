@@ -25,7 +25,7 @@ define([
             //this.defaultRotX = params.tiltTowardCam * Math.PI/180 | 0.1;
             this.defaultRotX = params.tiltTowardCam ? (params.tiltTowardCam * Math.PI/180) : 0.1;
             this.defaultRotY = params.defaultRotY || 0;
-            this.panRatio = params.panRatio || 1;
+            this.panRatio = params.panRatio || 0.3;
             this.lightFromSun = params.lightFromSun || false;
             this.stopped = false;
 
@@ -191,7 +191,7 @@ define([
 
                     if(this.lastDeltaX !== 0 ) {
                         //spin with momentum
-                        this.model.set({angle: this.model.attributes.angle + this.lastDeltaX * 0.2});
+                        this.model.set({angle: this.model.attributes.angle + this.lastDeltaX * 0.1});
                         this.model.trigger('force-change', this.model);
                     }
                 }

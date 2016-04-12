@@ -36,6 +36,7 @@ define([
                     playImmediately: this.playImmediately,
 
                     onFinalFrame: function() {
+                        screen.lockOrientation("portrait-primary");
                         Backbone.history.navigate('#/topic/' + this.item.attributes.object);
                     }.bind(this)
                 });

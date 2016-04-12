@@ -4,10 +4,20 @@
         <div id="captured-image">
             <div id="alignment-indicator"></div>
         </div>
-        <div id="sky"></div>
+        <div id="sky">
+			<img id="sun" src="img/objects/navigation/sun.png">
+		</div>
         <div class="ring"></div>
     </div>
-	<div id="message"></div>
+	<div id="message">
+		<div id="message-text"></div>
+		<div class="sextant-diagram">
+			<img id="sextant-frame" src="img/objects/navigation/sextant_frame.png">
+			<img id="sextant-arm" src="img/objects/navigation/sextant_arm.png">
+			<canvas id="sextant-lines"></canvas>
+		</div>
+			
+	</div>
 	<div id="feedback">
         <div id="sextant">
             <img id="sextant-angle-reader" src="img/sextant_angle_reader.png"/>
@@ -15,6 +25,6 @@
         </div>
 	</div>
 	<div id="controls">
-		<a class="button center toggle">Set Horizon</a>
+		<a id="main-button" class="button center toggle">Set Horizon</a>
 	</div>
 </div>
