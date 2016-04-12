@@ -60,14 +60,6 @@ define([
                     "<ol><li>Mimic movement of the sextant arm by tilting the camera upwards</li><li>Watch for the reflected image of the sun</li><li>Line sun up with the horizon line</li><li>Press the 'Angle of the Sun' button</li></ol>",
                     "<p>You have measured that the noon sun is NN.Ndeg above the horizon.</p>But to calculate latitude from this reading navigators would need to look up the angle in a reference book called an almanac.</p><p>Press the 'Find Latitude' button to simulate looking in the almanac.</p>"];
                 this.instructionsColors = ['url(img/parchment-tan.jpg)', 'url(img/parchment-tan-dark.jpg)', 'url(img/parchment-tan.jpg)'];
-                var tapEnabled = true; //enable tap take /picture
-                var dragEnabled = false; //enable preview box drag across the screen
-                var toBack = true; //send preview box to the back of the webview
-                var rect = {x: 0, y: 175, width: 380, height:280};
-                
-                if (typeof cordova !== 'undefined') {
-                    cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
-                }
                 
                 $('#content').css("background-color", "transparent");
                 this.startingDeviceOrientation = { beta: 90 + DEFAULT_HORIZON };
@@ -86,6 +78,22 @@ define([
                     stateModel: this.stateModel
                 });
                 this.readingView.render();
+                
+                
+                //initialise camera preview
+                if (typeof cordova !== 'undefined') {
+                    var tapEnabled = true; //enable tap take /picture
+                    var dragEnabled = false; //enable preview box drag across the screen
+                    var toBack = true; //send preview box to the back of the webview
+                    var $viewfinder = $('#viewfinder');
+                    var rect = {
+                        x: 0, 
+                        y: $viewfinder.offset().top, 
+                        width: $viewfinder.width(), 
+                        height: $viewfinder.height()
+                    };
+                    cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
+                }
             },
             
             setup: function () {
