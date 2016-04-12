@@ -13,8 +13,8 @@ define([
         ARM_PIVOT = {x:0.0, y:-0.36};  //rotation centre for the arm as proportion of width, from geometric centre
         
         SKY_BACKGROUND_SCROLL_RATE = 1000/90;
-        SKY_BACKGROUND_OFFSET = 555;
-        MIN_ANGLE = -20;
+        SKY_BACKGROUND_OFFSET = 660;
+        MIN_ANGLE = 67;
         DEFAULT_HORIZON = -10;
         MIN_CAPTURE_SUN_ANGLE = 10;
         
