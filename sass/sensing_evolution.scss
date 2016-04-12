@@ -472,12 +472,17 @@ div.item-title {
       padding: $standardPadding;
       position: absolute;
       top:0;
-      height:362px;
+      height:100%;
       width:100%;
       background-image: url(../img/parchment-tan.jpg);
       background-color: #edddc1;
-      background-size: 375px;
+      background-size: cover;
       line-height: 1.4em;
+      
+      #message-text {
+          position: absolute;
+          margin: 5px;
+      }
       
       p {
         margin:0;
@@ -498,9 +503,7 @@ div.item-title {
               top: 115px;
           }
           canvas { 
-              width: 150%;
               height: 100%;
-              margin-left: -25%;
               position: absolute;
           }
       }
@@ -666,6 +669,7 @@ div.item-title {
       
       #message {
         display:none;
+
       }
       #latitude-calculation {
         background:rgba(255,255,255,0.6);

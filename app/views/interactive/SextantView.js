@@ -19,7 +19,7 @@ define([
         ft /* We need to require FullTilt, but it ends up as a global object */) {
         
         //sextant arm
-        ARM_PIVOT = {x:0.0, y:-0.36};  //rotation centre for the arm as proportion of width, from geometric centre
+        ARM_PIVOT = {x:0.0, y:-0.3};  //rotation centre for the arm as proportion of width, from geometric centre
         
         SKY_BACKGROUND_SCROLL_RATE = 1000/90;
         SKY_BACKGROUND_OFFSET = 555;
@@ -126,7 +126,9 @@ define([
                     case 0:
                         this.step = 1;
                         $target.text("Angle of the Sun");
-                        $target.hide();
+                        if (typeof cordova !== 'undefined') {
+                            $target.hide();
+                        }
                         this.takeHorizonImage(ev);
                         this.hasSetHorizon = true;
                         //this.startTrackingOrientation(ev);
@@ -274,12 +276,23 @@ define([
                 $('canvas#sextant-reading').css('background-image', this.instructionsColors[this.step]); 
                 $('#message').show();
                 
+                var screenHeight = $(window).height();
+                var feedbackTop = $('#feedback').offset().top;
+                var messageTop = $('#message').offset().top;
+                var padding = 5;
+                var messageHeight = feedbackTop - messageTop - 2*padding;
+                $('#message').height(messageHeight);
                 
-                EYE_X = 0.8;
-                MIRROR_1_X = 0.36;
-                MIRROR_1_Y = 0.5;
-                MIRROR_2_X = 0.48;
-                MIRROR_2_Y = 0.41;
+                //show animation on desktop
+                if (typeof cordova == 'undefined') {
+                    this.stateModel.set({angle:45});
+                }
+                
+                EYE_X = 0.65;
+                MIRROR_1_X = 0.433;
+                MIRROR_1_Y = 0.64;
+                MIRROR_2_X = 0.5;
+                MIRROR_2_Y = 0.57;
                 // EYE_X = 1;
                 // MIRROR_1_X = 0.3;
                 // MIRROR_1_Y = 0.5;
@@ -288,11 +301,29 @@ define([
                 
                 var angle = 0;
                 var delay = DIAGRAM_PREROTATE_PAUSE;
-                
+            
+                //set up the dimensions and position of the canvas, so that the drawn lines correspond with the image correctly
                 var $canvas = $('#sextant-lines'); 
+                var $frameImg = $('#sextant-frame');
+                var frameHeight = $frameImg.height();
+                var frameWidth = $frameImg.width();
+                var frameTop = parseInt($frameImg.css('top'));
+                var frameLeft = 0;
+                
+                //make the canvas 3x the width and double the height of the image
+                var canvasHeight = frameHeight*2;
+                $canvas.height(canvasHeight);
+                $canvas.css('top', frameTop - frameHeight + 'px');
+                
+                var canvasWidth = frameWidth*3;
+                $canvas.width(canvasWidth);
+                $canvas.css('left', frameLeft - frameWidth + 'px');
+                
                 var canvas = $canvas[0];
-                canvas.width = $canvas.width();
-                canvas.height = $canvas.height();
+                canvas.width = canvasWidth;
+                canvas.height = canvasHeight;
+                
+            
                 
                 var sunDist = 150;
                 var sunAngleMeasuredRad = this.stateModel.attributes.angle * Math.PI/180;
@@ -303,6 +334,7 @@ define([
                     
                     //update line on the canvas
                     var canvas = $('#sextant-lines')[0];
+                    
                     var eyex = EYE_X * canvas.width;
                     var mirror1x = MIRROR_1_X * canvas.width;
                     var mirror1y = eyey = MIRROR_1_Y * canvas.height;
@@ -310,8 +342,8 @@ define([
                     var mirror2y = MIRROR_2_Y * canvas.height;
                     
                     var sunAngleRad = angle * Math.PI/180;
-                    var dirX = mirror2x - (sunDist-15) * Math.cos(sunAngleRad);
-                    var dirY = mirror2y - (sunDist-15) * Math.sin(sunAngleRad);
+                    var dirX = mirror2x - (sunDist-25) * Math.cos(sunAngleRad);
+                    var dirY = mirror2y - (sunDist-25) * Math.sin(sunAngleRad);
                     
                     var ctx = canvas.getContext('2d');
                     
@@ -328,7 +360,7 @@ define([
                     ctx.lineTo(dirX, dirY);
                                         
                     // ctx.strokeStyle.width = 5;
-                    ctx.strokeStyle="#ff0000";
+                    ctx.strokeStyle="#aa0000";
                     ctx.lineWidth = 1;
                     ctx.stroke();
                     
@@ -384,22 +416,22 @@ define([
                     
                     else if(angle <= this.stateModel.attributes.angle) {
                         angle += 0.5;
-                        setSextantArmAngle(angle);
-                        // console.log('new angle = ', angle);
-                        
+                        setSextantArmAngle(angle);                        
                     } else {
                         setTimeout(function () {
-                            // $('.sextant-diagram').fadeTo(DIAGRAM_FADE, 0.2, this.showMessage.bind(this));
+                            $('.sextant-diagram').fadeTo(DIAGRAM_FADE, 0.2, this.showMessage.bind(this));
                         }.bind(this), DIAGRAM_PREFADE_PAUSE);
-                        // clearInterval(this.animateTimeout);
+                        clearInterval(this.animateTimeout);
                     }
-                }.bind(this), 100);
+                }.bind(this), 10);
             },
             
             showMessage: function () {
                 //$('#message')[0].innerHTML = "<p>The angle you measured was "  + this.angle.toPrecision(4).toString() + "&deg;. If the object you lined up had been the Pole Star, the angle would be the same as your latitude. The Pole Star is 90&deg; above the horizon at the North Pole, which has a latitude of 90&deg; North. The star appears right on the horizon at the equator, at 0&deg;. Oxford is 51.7&deg; North. Usually navigators measured the Sun and other stars and calculated latitude using reference books called almanacs.</p><p>To line up the object with the horizon you tilted the phone. On a sextant you'd move the main arm to tilt a mirror.</p>";
                 //$('#message')[0].innerHTML = "<p>The angle you measured was " + this.angle.toPrecision(4).toString() + "&deg;. Navigators could use this measurement to calculate their latitude, or north/south position, often by looking it up in a book called an almanac. The North Pole is 90&deg North and the equator is 0&deg. Oxford's latitude is 51.7&deg North." +
                 //"<br><br>To line up the object with the horizon you tilted the phone. On a sextant the object and horizon are lined up by moving the main arm to tilt the mirror.</p>";
+                
+                //set height of message div                
                 $('#message-text')[0].innerHTML = "<p>You have measured that the noon sun is " + this.stateModel.attributes.angle.toPrecision(3).toString() + "&deg; above the horizon. You could also measure other known celestial objects, such as the Pole Star.</p><p>To calculate latitude from this measurement, navigators would consult a reference book called an almanac.</p><p>Press the 'Calculate Latitude' button to simulate this calculation.</p>";
                 $('#main-button').hide();
             },
