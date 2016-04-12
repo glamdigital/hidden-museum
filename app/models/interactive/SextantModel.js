@@ -12,7 +12,7 @@ define(["backbone", "moment"], function(Backbone, moment) {
         },
 
         getLatitude: function() {
-            if( this.attributes.mode == 'sun') {
+            // if( this.attributes.mode == 'sun') {
                 //Calculation based on information here http://astronavigationdemystified.com/latitude-from-the-midday-sun/
 
                 //calculated declination - angle up to the sun as a function of time of year
@@ -35,11 +35,11 @@ define(["backbone", "moment"], function(Backbone, moment) {
 
                 return latitude;
 
-            }
-            else if ( this.attributes.mode == 'pole star') {
-                //latitude is just the angle measured by the sextant
-                return this.attributes.angle;
-            }
+            // }
+            // else if ( this.attributes.mode == 'pole star') {
+            //     //latitude is just the angle measured by the sextant
+            //     return this.attributes.angle;
+            // }
         }
 
     });
