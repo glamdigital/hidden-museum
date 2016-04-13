@@ -34,6 +34,9 @@
         <false/>
     </gap:config-file>
 
+    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="FadeSplashScreenDuration" value="1000"/>
+
     <platform name="android">
        <!-- you can use any density that exists in the Android project -->
 
@@ -64,7 +67,7 @@
         <splash src="packaging/splash/Default-Landscape~ipad.png" width="1024" height="768"/>
         <splash src="packaging/splash/Default-Landscape@2x~ipad.png" width="2048" height="1536"/>
         <splash src="packaging/splash/Default-736h.png" width="1242" height="2208"/>
-        <splash src="packaging/splash/Default-Landscape-736h.png" width="2208" height="1242"/>
+        <!-- <splash src="packaging/splash/Default-Landscape-736h.png" width="2208" height="1242"/>-->
         <!-- before iphone 5 ios only supported portrait splash screens. We can fake it 
         by rotating the imagery 90% within the portrait dimenstions-->
         <splash src="packaging/splash/Default~iphone.png" width="320" height="480"/>
