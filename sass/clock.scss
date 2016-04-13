@@ -10,6 +10,9 @@ $smallClockWidth: 40%;
 $smallClockInset: 6%;
 $tenHourClockWidth: 100%;
 $tenHourClockTop: 14%;
+$tenHourClockTopTablet: 16%;
+$tenHourClockWidthTablet: 75%;
+$tenHourClockLeftTablet: 13%;
 
 #interact-clock {
     background: url(../img/objects/armillary/clock-bg.png);
@@ -48,10 +51,21 @@ $tenHourClockTop: 14%;
     height: 400px;
     width: 100%;
     top: $tenHourClockTop;
+    
+    @media #{$tablet} {
+        background-size: $tenHourClockWidthTablet;
+        top: $tenHourClockTopTablet;
+        height: 750px;
+    }
+    
     img {
       position: relative;
       width: $tenHourClockWidth;
       left: 0;
+      
+      @media #{$tablet} {
+          width: $tenHourClockWidthTablet;
+      }
     }
   }
   &#twenty-four_min {
@@ -82,6 +96,12 @@ $tenHourClockTop: 14%;
     z-index: 30;
     width: $tenHourClockWidth;
     top: $tenHourClockTop;
+    pointer-events: none;
+    @media #{$tablet} {
+        width: $tenHourClockWidthTablet;
+        left: $tenHourClockLeftTablet;
+        top: $tenHourClockTopTablet;
+    }
     // top: 41.5%;
     // left: 46%;
     // width: 9%;

@@ -108,7 +108,19 @@ define([
             var contentHeight = $('.content').height();
             $('#interact-clock').height(contentHeight);
             
+            //height of globe.
+            //make it a little lower on squarer, smaller devices (e.g. iphone 4)
+            
+            var deviceWidth = $(window).width();
+            var deviceAspectRatio = deviceWidth / $(window).height();
+            
+            var useSmallerGlobe = (deviceWidth <= 800) && (deviceAspectRatio >= 2/3);
+            
             var globeheight = contentHeight * 0.35;
+            if(useSmallerGlobe) {
+                var globeheight = contentHeight * 0.27;
+                console.log('using smaller globe size');
+            }
             $('#globe-clock').height(globeheight).css('top', contentHeight - globeheight);
 
             //sphere
