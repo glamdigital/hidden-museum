@@ -16,7 +16,7 @@
       height: $ipadHeight - $headerTotalHeight;
     }
     background-position: top;
-    background-size: contain;
+    background-size: cover;
     &.nearby {
       border: 1px solid red;
     }
@@ -28,6 +28,10 @@
       position: relative;
       top: 0px;
       z-index: 100;
+      
+      @media #{$tablet} {
+          font-size: 3em;
+      }
     }
 
   }
@@ -45,8 +49,9 @@
     text-align: center;
     height: $topicListItemHeight / 3;
     @media #{$tablet} {
-      height: $topicListItemHeight /2;
-      padding: $topicListItemHeight /6;
+      height: $topicListItemHeightTablet;
+      padding: $topicListItemHeightTablet /2;
+      font-size: 1.5em;
     }
 
     background: url("../img/find-on-flooplan-button.jpg") no-repeat center center ;
@@ -76,9 +81,22 @@
         border-top: 1px solid $mapColor;
         border-bottom: 1px solid black;
         padding: 0px;
+        
+          @media #{$tablet} {
+              height: 90px;
+              padding: 5px;
+          }
+        
         .audio {
           height: $audioHeight;
           line-height: $audioHeight * 0.5;
+          @media #{$tablet} {
+              height: $audioHeightTablet;
+              line-height: $audioHeightTablet * 0.5;
+              font-size: 1.5em;
+              padding-left: 2%;
+              padding-right: 2%;
+          }
           margin-top: 5px;
           margin-bottom: 0px;
           text-align: left;
@@ -163,6 +181,9 @@
           }
         }
       }
+      
+
+      
     }
   }
 
@@ -177,6 +198,14 @@
       display: block;
       text-align: left;
     }
+    
+    @media #{$tablet} {
+        height: 80px;
+        font-size: 1.5em;
+        line-height: 2em;
+        padding-left: 2%;
+    }
+    
   }
 }
 
@@ -301,6 +330,18 @@
   .container-blackboard &, .container-marconi &, .container-lodestone & {
       background-color: $basementGalleryColor;
   }
+  
+  @media #{$tablet} {
+      font-size: 1.5em;
+  }
+ 
+   &.title {
+       @media #{$tablet} {
+           height: $topicListItemHeightTablet / 2;
+           line-height: 1.5em;
+       }
+   }
+  
 }
 
 .topic-item {
