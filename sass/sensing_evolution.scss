@@ -425,6 +425,8 @@ div.item-title {
       @media #{$tablet} {
         height: $sextantCapturedImageHeightIpad;
         -webkit-mask-size: 60%;
+        -webkit-clip-path: circle(212px at 50% 214px);
+        clip-path: circle(212px at 50% 214px);
       }
       
       #captured-image {
