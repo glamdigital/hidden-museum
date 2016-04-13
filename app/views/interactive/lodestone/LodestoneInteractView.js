@@ -158,21 +158,25 @@ define([
                                 //animate fall
                                 var cradle = $('#weight-cradle')[0];
                                 var fallDist = MAX_WIND_HEIGHT;
+                                if (window.innerWidth >= 768) {
+                                  fallDist = 1.7*MAX_WIND_HEIGHT;
+                                }
+
                                 move(cradle)
                                     //fall
                                     .duration('0.2s')
                                     .ease('in')
-                                    .y(-MAX_WIND_HEIGHT + 30)
+                                    .y(-fallDist + 30)
                                     
                                     //bounce
                                     .end(_.bind(function() {
                                         this.fallSound.play();
                                         if( navigator.notification ) { navigator.notification.vibrate(100); }
-                                        move(cradle).y(-MAX_WIND_HEIGHT - 7)
+                                        move(cradle).y(-fallDist - 7)
                                         .ease('in-out')
                                         .duration('0.2s')
                                         .end(_.bind(function() {
-                                            move(cradle).y(-MAX_WIND_HEIGHT)
+                                            move(cradle).y(-fallDist)
                                             .ease('in-out')
                                             .duration('0.1s')
                                             .end(_.bind(function() {
