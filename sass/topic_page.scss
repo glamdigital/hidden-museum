@@ -224,8 +224,10 @@
       @media #{$tablet} {
         width: 974px;
         top: 299px;
-        left: -92px;
+        left: -104px;
         height: 468px;
+        -webkit-transform: scale(0.8);
+        transform: scale(0.8);
       }
       @media #{$phone_small} {
         width: 508px;
