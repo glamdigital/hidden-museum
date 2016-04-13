@@ -460,14 +460,18 @@ div.item-title {
       #sky {
         clear: right;
         background-image: url(../img/sun_sky.png);
-        // background-size: 500px;
-        background-size: 1000px;
+        background-size: 500px;
         background-position-y: 555px; //to get the sea level in center initially
         background-position-x: -205px; //to get the sun centered left-right
         height: $sextantCapturedImageHeight;
         height: 100%;
         width: 100%;
         float: right;
+        @media #{$tablet} {
+          background-size: 1000px;
+          background-position-y: 1112px;
+          background-position-x: -410px;
+        }
       }
     }
 
