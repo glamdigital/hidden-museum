@@ -38,6 +38,9 @@ define(['backbone',
 				if(typeof(MS4Plugin) !== 'undefined') {
 					this.initRecognition(this.item.attributes.slug);
 				}
+				
+				var contentHeight = $('.content').height();
+				$('.scan-container').height(contentHeight);
 			},
 
 			//'targets' is a dictionary mapping matching images
