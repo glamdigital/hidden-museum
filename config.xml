@@ -39,13 +39,6 @@
 
     <platform name="android">
        <!-- you can use any density that exists in the Android project -->
-
-        <splash src="packaging/splash/splash-land-ldpi.png" density="land-ldpi"/>
-        <splash src="packaging/splash/splash-land-hdpi.png" density="land-hdpi"/>
-        <splash src="packaging/splash/splash-land-mdpi.png" density="land-mdpi"/>
-        <splash src="packaging/splash/splash-land-xhdpi.png" density="land-xhdpi"/>
-        <splash src="packaging/splash/splash-land-xxhdpi.png" density="land-xxhdpi"/>
-        <splash src="packaging/splash/splash-land-xxxhdpi.png" density="land-xxxhdpi"/>
         <splash src="packaging/splash/splash-port-ldpi.png" density="port-ldpi"/>
         <splash src="packaging/splash/splash-port-hdpi.png" density="port-hdpi"/>
         <splash src="packaging/splash/splash-port-mdpi.png" density="port-mdpi"/>
@@ -64,10 +57,7 @@
         
         <splash src="packaging/splash/Default-Portrait~ipad.png" width="768" height="1024"/>
         <splash src="packaging/splash/Default-Portrait@2x~ipad.png" width="1536" height="2048"/>
-        <splash src="packaging/splash/Default-Landscape~ipad.png" width="1024" height="768"/>
-        <splash src="packaging/splash/Default-Landscape@2x~ipad.png" width="2048" height="1536"/>
         <splash src="packaging/splash/Default-736h.png" width="1242" height="2208"/>
-        <!-- <splash src="packaging/splash/Default-Landscape-736h.png" width="2208" height="1242"/>-->
         <!-- before iphone 5 ios only supported portrait splash screens. We can fake it 
         by rotating the imagery 90% within the portrait dimenstions-->
         <splash src="packaging/splash/Default~iphone.png" width="320" height="480"/>
