@@ -10,9 +10,9 @@ $smallClockWidth: 40%;
 $smallClockInset: 6%;
 $tenHourClockWidth: 100%;
 $tenHourClockTop: 14%;
-$tenHourClockTopTablet: 16%;
-$tenHourClockWidthTablet: 75%;
-$tenHourClockLeftTablet: 13%;
+$tenHourClockTopTablet: 17%;
+$tenHourClockWidthTablet: 85%;
+$tenHourClockLeftTablet: 8%;
 
 #interact-clock {
     background: url(../img/objects/armillary/clock-bg.png);
@@ -174,7 +174,7 @@ $globeHeight: 230px;
   }
 
   background: url(../img/objects/armillary/stars.png);
-  background-size: contain;
+  background-size: cover;
   .sphere-container {
     height: $globeHeight;
   }
