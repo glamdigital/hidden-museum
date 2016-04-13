@@ -23,8 +23,8 @@ define([
         
         SKY_BACKGROUND_SCROLL_RATE = 1000/90;
         SKY_BACKGROUND_OFFSET_TABLET = 160;
-        SKY_BACKGROUND_OFFSET = 660;
-        MIN_ANGLE = 67;
+        SKY_BACKGROUND_OFFSET = 555;
+        MIN_ANGLE = -33;
         DEFAULT_HORIZON = -10;
         MIN_CAPTURE_SUN_ANGLE = 10;
         
@@ -302,7 +302,7 @@ define([
                 }
                 
                 
-                this.currentDeviceAngle = angleDeg;
+                this.currentDeviceAngle = angleDeg - 90;
             },
             
             showHorizonIndicator: function () {
