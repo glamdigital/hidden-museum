@@ -94,7 +94,7 @@ define([
             },
             
             routes: {
-                "": "intro",
+                "": "trails",
                 "home": "trails",
                 "trails": "trails",
                 "trail/:trail": "trail",

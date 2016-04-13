@@ -39,7 +39,8 @@ define([
 
         afterRender: function () {
             var $container = $('.sphere-container', this.$el);
-            this.camera = new three.PerspectiveCamera(35, $container.width()/$container.height(), 0.1, 150);
+            $container.height(this.$el.height());
+            this.camera = new three.PerspectiveCamera(25, $container.width()/$container.height(), 0.1, 150);
             this.camera.position.z = 80;
             this.scene = new three.Scene();
 
@@ -106,7 +107,7 @@ define([
             if(this.markers) {
                 this._addMarkers(this.markers);
             }
-
+            
         },
 
         _addMarkers: function(markers) {
