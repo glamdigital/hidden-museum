@@ -2,6 +2,7 @@
 
 $controlsHeight: 32px;
 $blackboardHeight: 260px;
+$blackboardHeightTablet: 600px;
 
 .explanations {
     display: none;
@@ -71,6 +72,12 @@ $blackboardHeight: 260px;
         .thumbnail {
             position: relative;
             height: $blackboardHeight;
+            @media #{$tablet} {
+              height: $blackboardHeightTablet;
+              img.blackboard {
+                  width: 420px;
+              }
+            }
             text-align: center;
             &.hidden {
                 display: none;
@@ -83,14 +90,10 @@ $blackboardHeight: 260px;
 
             }
             
-            .blackboard {
-                height: 100%;
-            }
-            
             .zoom {
                 position: absolute;
                 display: inline-block;
-                bottom: 5px;
+                top: 5px;
                 right: 10px;
                 font-size: 3em;
                 color: $navTextColor;
@@ -114,8 +117,27 @@ $blackboardHeight: 260px;
             margin-top: 10px;
             position: relative;
             height: $iphone6Height - $headerHeight - $blackboardHeight - $controlsHeight - 10px;
+            @media #{$tablet} {
+              height: $ipadHeight - $headerHeight - $blackboardHeightTablet - $controlsHeight - 10px;
+            }
+            @media #{$phone_small} {
+              height: $phoneSmallHeight - $headerHeight - $blackboardHeight - $controlsHeight - 10px;
+            }
+            @media #{$phone_vsmall} {
+              height: $phoneVSmallHeight - $headerHeight - $blackboardHeight - $controlsHeight - 10px;
+            }
             body.ios & {
               height: $iphone6Height - $headerTotalHeight - $blackboardHeight - $controlsHeight - 10px;
+              @media #{$tablet} {
+                height: $ipadHeight - $headerTotalHeight - $blackboardHeightTablet - $controlsHeight - 10px;
+              }
+              @media #{$phone_small} {
+                height: $phoneSmallHeight - $headerTotalHeight - $blackboardHeight - $controlsHeight - 10px;
+              }
+              @media #{$phone_vsmall} {
+                height: $phoneVSmallHeight - $headerTotalHeight - $blackboardHeight - $controlsHeight - 10px;
+              }
+
             }
             overflow-y: auto;
             
