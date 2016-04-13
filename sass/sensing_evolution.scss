@@ -459,7 +459,7 @@ div.item-title {
       
       #sky {
         clear: right;
-        background-image: url(../img/sun_sky.png);
+        background-image: url(../img/objects/navigation/sky.png);
         background-size: 500px;
         background-position-y: 555px; //to get the sea level in center initially
         background-position-x: -205px; //to get the sun centered left-right
@@ -467,30 +467,58 @@ div.item-title {
         height: 100%;
         width: 100%;
         float: right;
+        position: relative;
+            #sun {
+                position: absolute;
+                left: 45%;
+            }
         @media #{$tablet} {
           background-size: 1000px;
           background-position-y: 1112px;
           background-position-x: -410px;
         }
-      }
+        }
     }
 
     #message {
       padding: $standardPadding;
       position: absolute;
       top:0;
-      height:362px;
+      height:100%;
       width:100%;
       background-image: url(../img/parchment-tan.jpg);
       background-color: #edddc1;
-      background-size: 375px;
+      background-size: cover;
       line-height: 1.4em;
+      
+      #message-text {
+          position: absolute;
+          margin: 5px;
+      }
       
       p {
         margin:0;
         padding-bottom: $standardPadding + 3px;
         text-align: center;
         font-weight: bold;
+      }
+      
+      .sextant-diagram {
+          width: 66%;
+          height: 100%;
+          position: relative;
+          margin-left: auto;
+          margin-right: auto;
+          img {
+              width: 100%;
+              position: absolute;
+              top: 115px;
+          }
+          canvas { 
+              height: 100%;
+              position: absolute;
+              pointer-events: none;
+          }
       }
     }
     
@@ -659,6 +687,7 @@ div.item-title {
       
       #message {
         display:none;
+
       }
       #latitude-calculation {
         background:rgba(255,255,255,0.6);

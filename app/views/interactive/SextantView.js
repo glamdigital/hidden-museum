@@ -4,13 +4,22 @@ define([
         "app/views/interactive/SextantReadingView",
         "hbs!app/templates/interactive/sextant",
         "app/mixins/overlay",
-        'hbs!app/templates/overlay_interactive_inner'
+        'hbs!app/templates/overlay_interactive_inner',
+        "moment",
     ],
     
-    function (Backbone, SextantModel/*UNUSED*/, SextantReadingView, sextantTemplate, overlayMixin, interactiveInnerTemplate, ft /* We need to require FullTilt, but it ends up as a global object */) {
+    function (
+        Backbone, 
+        SextantModel/*UNUSED*/, 
+        SextantReadingView, 
+        sextantTemplate, 
+        overlayMixin, 
+        interactiveInnerTemplate, 
+        moment,
+        ft /* We need to require FullTilt, but it ends up as a global object */) {
         
         //sextant arm
-        ARM_PIVOT = {x:0.0, y:-0.36};  //rotation centre for the arm as proportion of width, from geometric centre
+        ARM_PIVOT = {x:0.0, y:-0.3};  //rotation centre for the arm as proportion of width, from geometric centre
         
         SKY_BACKGROUND_SCROLL_RATE = 1000/90;
         SKY_BACKGROUND_OFFSET_TABLET = 160;
@@ -20,6 +29,12 @@ define([
         MIN_CAPTURE_SUN_ANGLE = 10;
         
         LOG_NEXT_EV = false;
+        
+        DIAGRAM_PREROTATE_PAUSE = 500;
+        DIAGRAM_PREFADE_PAUSE = 600;
+        DIAGRAM_FADE = 1500;
+        
+        LOG_DATA = false;
         
         setSextantArmAngle = function (deg) {
             var armAngle = deg/2;
@@ -71,8 +86,14 @@ define([
                 
                 this.overlayInitialize({ displayOnArrival: true });
                 this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
+                
+                
+                //calculate the midday sun height for today's date
+                this.sunElevation = this.calculateSunElevation();
+                
+                getSunElevation = this.calculateSunElevation;
             },
-            
+                        
             afterRender: function () {
                 if (this.$el[0].clientWidth >= 768) {
                   this.sky_background_offset = SKY_BACKGROUND_OFFSET_TABLET;
@@ -125,7 +146,9 @@ define([
                     case 0:
                         this.step = 1;
                         $target.text("Angle of the Sun");
-                        $target.hide();
+                        if (typeof cordova !== 'undefined') {
+                            $target.hide();
+                        }
                         this.takeHorizonImage(ev);
                         this.hasSetHorizon = true;
                         //this.startTrackingOrientation(ev);
@@ -140,13 +163,19 @@ define([
                     case 1:
                         this.step = 2;
                         this.stopTrackingOrientation(ev);
-                        this.showMessage();
+                        $('#main-button').hide();
+                        this.showDiagram();
                         this.hideHorizonIndicator();
                         $('#captured-image').css("background-image", "none");
                         $target.text("Find Latitude");
                         break;
-                    
+                        
                     case 2:
+                        this.step = 3;
+                        // this.hideDiagram();
+                        this.showMessage();
+                    
+                    case 3:
                         this.step = 0;
                         Backbone.history.navigate('#/interact/' + this.item.attributes.slug + '/' + this.item.attributes.type + '/1');
                         break;
@@ -230,6 +259,19 @@ define([
                 var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE + this.sky_background_offset;
                 $('#sky').css('background-position-y', skyOffsetY + 'px');
                 
+                
+                
+                var sunRelAng = (this.sunElevation * Math.PI/180) - skyAngle;
+                var sunHeight = sunRelAng * SKY_BACKGROUND_SCROLL_RATE + SKY_BACKGROUND_OFFSET;
+                
+                if(LOG_DATA) {
+                    console.log('skyAngle: ', skyAngle);
+                    console.log('sunAngle: ', this.sunElevation);
+                    console.log('sunHeight: ', sunHeight);
+                }
+                
+                $('#sun').css('bottom', sunHeight + 'px');
+                
                 //Attempt to scan left/right a little. Doesn't work well, as roll adds to gamma.
                 // If we can use something like FullTilt to transform the orientations so that they are based around
                 // device being upright, rather than device being flat, this may be worth reinstating.
@@ -298,13 +340,168 @@ define([
                 $('canvas#sextant-reading').css('background-image', this.instructionsColors[this.step]); 
             },
             
-            showMessage: function () {
+            showDiagram: function () {
+                $('canvas#sextant-reading').css('background-image', this.instructionsColors[this.step]); 
                 $('#message').show();
+                
+                var screenHeight = $(window).height();
+                var feedbackTop = $('#feedback').offset().top;
+                var messageTop = $('#message').offset().top;
+                var padding = 5;
+                var messageHeight = feedbackTop - messageTop - 2*padding;
+                $('#message').height(messageHeight);
+                
+                //show animation on desktop
+                if (typeof cordova == 'undefined') {
+                    this.stateModel.set({angle:45});
+                }
+                
+                EYE_X = 0.65;
+                MIRROR_1_X = 0.433;
+                MIRROR_1_Y = 0.64;
+                MIRROR_2_X = 0.5;
+                MIRROR_2_Y = 0.57;
+                // EYE_X = 1;
+                // MIRROR_1_X = 0.3;
+                // MIRROR_1_Y = 0.5;
+                // MIRROR_2_X = 0.48;
+                // MIRROR_2_Y = 0.25;
+                
+                var angle = 0;
+                var delay = DIAGRAM_PREROTATE_PAUSE;
+            
+                //set up the dimensions and position of the canvas, so that the drawn lines correspond with the image correctly
+                var $canvas = $('#sextant-lines'); 
+                var $frameImg = $('#sextant-frame');
+                var frameHeight = $frameImg.height();
+                var frameWidth = $frameImg.width();
+                var frameTop = parseInt($frameImg.css('top'));
+                var frameLeft = 0;
+                
+                //make the canvas 3x the width and double the height of the image
+                var canvasHeight = frameHeight*2;
+                $canvas.height(canvasHeight);
+                $canvas.css('top', frameTop - frameHeight + 'px');
+                
+                var canvasWidth = frameWidth*3;
+                $canvas.width(canvasWidth);
+                $canvas.css('left', frameLeft - frameWidth + 'px');
+                
+                var canvas = $canvas[0];
+                canvas.width = canvasWidth;
+                canvas.height = canvasHeight;
+                
+            
+                
+                var sunDist = 150;
+                var sunAngleMeasuredRad = this.stateModel.attributes.angle * Math.PI/180;
+                
+                this.animateTimeout = setInterval(function () {
+                    
+                    
+                    
+                    //update line on the canvas
+                    var canvas = $('#sextant-lines')[0];
+                    
+                    var eyex = EYE_X * canvas.width;
+                    var mirror1x = MIRROR_1_X * canvas.width;
+                    var mirror1y = eyey = MIRROR_1_Y * canvas.height;
+                    var mirror2x = MIRROR_2_X * canvas.width;
+                    var mirror2y = MIRROR_2_Y * canvas.height;
+                    
+                    var sunAngleRad = angle * Math.PI/180;
+                    var dirX = mirror2x - (sunDist-25) * Math.cos(sunAngleRad);
+                    var dirY = mirror2y - (sunDist-25) * Math.sin(sunAngleRad);
+                    
+                    var ctx = canvas.getContext('2d');
+                    
+                    
+                    
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+
+                    //lines
+                    ctx.beginPath();
+                    ctx.moveTo(eyex, mirror1y);
+                    ctx.lineTo(mirror1x, mirror1y);
+                    ctx.lineTo(mirror2x, mirror2y);
+                    ctx.lineTo(dirX, dirY);
+                                        
+                    // ctx.strokeStyle.width = 5;
+                    ctx.strokeStyle="#aa0000";
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                    
+                    //sun
+                    ctx.beginPath();
+                    var sunX = mirror2x - sunDist * Math.cos(sunAngleMeasuredRad);
+                    var sunY = mirror2y - sunDist * Math.sin(sunAngleMeasuredRad);
+                    ctx.arc(sunX, sunY, 10, 0, Math.PI*2);
+                    ctx.strokeStyle = "#000000";
+                    ctx.lineWidth = 3;
+                    ctx.stroke();
+                    
+                    
+                    //rays
+                    ctx.beginPath();
+                    var numRays = 9;
+                    var innerRad = 15;
+                    var outerRad = 20;
+                    
+                    for(var i =0; i<numRays; i++) {
+                        var theta = i*2*Math.PI/(numRays);
+                        ctx.moveTo(sunX + innerRad*Math.cos(theta), sunY + innerRad*Math.sin(theta));
+                        ctx.lineTo(sunX + outerRad*Math.cos(theta), sunY + outerRad*Math.sin(theta));
+                    }
+                    ctx.stroke();
+                    
+                    //eye
+                    ctx.beginPath();
+                    var eyeWidth = 20;
+                    var eyeOffset = 50;
+                    var eyeAngle = 30 * Math.PI/180;
+                    var eyePupilAngle = 10 * Math.PI/180;
+                    var pupilRadius = 10;
+                    //'lids'
+                    
+                    var eyeOriginX = eyex + eyeOffset;
+                    ctx.moveTo(eyeOriginX, eyey);
+                    ctx.lineTo(eyeOriginX - eyeWidth*1.4*Math.cos(eyeAngle), eyey - eyeWidth*1.4*Math.sin(eyeAngle));
+                    ctx.moveTo(eyeOriginX, eyey);
+                    ctx.lineTo(eyeOriginX - eyeWidth*1.4*Math.cos(eyeAngle), eyey + eyeWidth*1.4*Math.sin(eyeAngle));
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                    
+                    //cornea
+                    ctx.beginPath();
+                    ctx.arc(eyeOriginX, eyey, eyeWidth, Math.PI-eyeAngle, Math.PI+eyeAngle);
+                    ctx.stroke();
+                    
+                    
+                    
+                    
+                    if(delay > 0) { delay -= 10; }
+                    
+                    else if(angle <= this.stateModel.attributes.angle) {
+                        angle += 0.5;
+                        setSextantArmAngle(angle);                        
+                    } else {
+                        setTimeout(function () {
+                            $('.sextant-diagram').fadeTo(DIAGRAM_FADE, 0.2, this.showMessage.bind(this));
+                        }.bind(this), DIAGRAM_PREFADE_PAUSE);
+                        clearInterval(this.animateTimeout);
+                    }
+                }.bind(this), 10);
+            },
+            
+            showMessage: function () {
                 //$('#message')[0].innerHTML = "<p>The angle you measured was "  + this.angle.toPrecision(4).toString() + "&deg;. If the object you lined up had been the Pole Star, the angle would be the same as your latitude. The Pole Star is 90&deg; above the horizon at the North Pole, which has a latitude of 90&deg; North. The star appears right on the horizon at the equator, at 0&deg;. Oxford is 51.7&deg; North. Usually navigators measured the Sun and other stars and calculated latitude using reference books called almanacs.</p><p>To line up the object with the horizon you tilted the phone. On a sextant you'd move the main arm to tilt a mirror.</p>";
                 //$('#message')[0].innerHTML = "<p>The angle you measured was " + this.angle.toPrecision(4).toString() + "&deg;. Navigators could use this measurement to calculate their latitude, or north/south position, often by looking it up in a book called an almanac. The North Pole is 90&deg North and the equator is 0&deg. Oxford's latitude is 51.7&deg North." +
                 //"<br><br>To line up the object with the horizon you tilted the phone. On a sextant the object and horizon are lined up by moving the main arm to tilt the mirror.</p>";
-                $('#message')[0].innerHTML = "<p>You have measured that the noon sun is " + this.stateModel.attributes.angle.toPrecision(3).toString() + "&deg; above the horizon. You could also measure other known celestial objects, such as the Pole Star.</p><p>To calculate latitude from this measurement, navigators would consult a reference book called an almanac.</p><p>Press the 'Calculate Latitude' button to simulate this calculation.</p>";
-                $('canvas#sextant-reading').css('background-image', this.instructionsColors[this.step]); 
+                
+                //set height of message div                
+                $('#message-text')[0].innerHTML = "<p>You have measured that the noon sun is " + this.stateModel.attributes.angle.toPrecision(3).toString() + "&deg; above the horizon. You could also measure other known celestial objects, such as the Pole Star.</p><p>To calculate latitude from this measurement, navigators would consult a reference book called an almanac.</p><p>Press the 'Calculate Latitude' button to simulate this calculation.</p>";
+                $('#main-button').show();
             },
             
             hideMessage: function () {
@@ -312,10 +509,55 @@ define([
                 $('#message').hide();
             },
             
+            calculateSunElevation: function (params) {
+                // cos(solarZenith) = sin(solarElevation) = sin(latitude)*sin(declination) + cos(latitude)*cos(declination)*cos(hour angle)
+                // at noon, solar hour angle is 0, so we have simply:
+                //      cos(solarZenith) = sin(solarElevation) = sin(latitude)*sin(declination) + cos(latitude)*cos(declination)
+                
+                
+                params = params || {};
+                
+                //latitude in oxford
+                var latitudeDeg = params.lat || 51.7520;
+                var latitudeRad = latitudeDeg * Math.PI / 180;
+                                
+                //declination
+                //declination = -23.44 * cos[ 36/365 * (N+10)]
+                
+                //get days since jan the first
+                var today = params.date || moment();
+                var days = today.dayOfYear();
+                
+                console.log('day of year: ', days);
+                
+                var declinationDeg = -23.44 * Math.cos( (2 * Math.PI /365) * (days + 10) );
+                var declinationRad = declinationDeg * Math.PI / 180;
+                
+                console.log('declination: ', declinationDeg);
+                
+                var sinLat = Math.sin(latitudeRad);
+                var cosLat = Math.cos(latitudeRad);
+                var sinDec = Math.sin(declinationRad);
+                var cosDec = Math.cos(declinationRad);
+                var sinElevation = sinLat * sinDec + cosLat * cosDec;
+                var solarElevationRad = Math.asin(sinElevation);
+                
+                
+                
+                var solarElevationDeg = solarElevationRad * 180 / Math.PI;
+                
+                console.log('elevation: ', solarElevationDeg);
+                
+                return solarElevationDeg;
+                
+            },
+            
             cleanup: function () {
                 if (typeof cordova !== "undefined") {
                     cordova.plugins.camerapreview.stopCamera();
                 }
+                
+                this.stopTrackingOrientation(null);
                 
                 this.overlayCleanup();
             }
