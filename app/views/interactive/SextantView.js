@@ -22,10 +22,13 @@ define([
         ARM_PIVOT = {x:0.0, y:-0.3};  //rotation centre for the arm as proportion of width, from geometric centre
         
         SKY_BACKGROUND_SCROLL_RATE = 1000/90;
-        SKY_BACKGROUND_OFFSET = 555;
-        MIN_ANGLE = -20;
+        SKY_BACKGROUND_OFFSET_TABLET = 160;
+        SKY_BACKGROUND_OFFSET = 660;
+        MIN_ANGLE = 67;
         DEFAULT_HORIZON = -10;
-        MIN_CAPTURE_SUN_ANGLE = 25;
+        MIN_CAPTURE_SUN_ANGLE = 10;
+        
+        LOG_NEXT_EV = false;
         
         DIAGRAM_PREROTATE_PAUSE = 500;
         DIAGRAM_PREFADE_PAUSE = 600;
@@ -67,6 +70,7 @@ define([
                 this.item = params.item;
                 this.step = 0;
                 this.isTrackingOrientation = false;
+                this.isTrackingMotion = false;
                 this.hasSetHorizon = false;
                 this.currentDeviceOrientation = {alpha:0, beta:0, gamma:0};
                 this.startingDeviceOrientation = {alpha:0, beta:0, gamma:0};
@@ -75,14 +79,6 @@ define([
                     "<ol><li>Mimic movement of the sextant arm by tilting the camera upwards</li><li>Watch for the reflected image of the sun</li><li>Line sun up with the horizon line</li><li>Press the 'Angle of the Sun' button</li></ol>",
                     "<p>You have measured that the noon sun is NN.Ndeg above the horizon.</p>But to calculate latitude from this reading navigators would need to look up the angle in a reference book called an almanac.</p><p>Press the 'Find Latitude' button to simulate looking in the almanac.</p>"];
                 this.instructionsColors = ['url(img/parchment-tan.jpg)', 'url(img/parchment-tan-dark.jpg)', 'url(img/parchment-tan.jpg)'];
-                var tapEnabled = true; //enable tap take /picture
-                var dragEnabled = false; //enable preview box drag across the screen
-                var toBack = true; //send preview box to the back of the webview
-                var rect = {x: 0, y: 175, width: 380, height:280};
-                
-                if (typeof cordova !== 'undefined') {
-                    cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
-                }
                 
                 $('#content').css("background-color", "transparent");
                 this.startingDeviceOrientation = { beta: 90 + DEFAULT_HORIZON };
@@ -99,6 +95,13 @@ define([
             },
                         
             afterRender: function () {
+                if (this.$el[0].clientWidth >= 768) {
+                  this.sky_background_offset = SKY_BACKGROUND_OFFSET_TABLET;
+                } else {
+                  this.sky_background_offset = SKY_BACKGROUND_OFFSET;
+                }
+
+
                 this.setup();
                 
                 //create the view for the reading
@@ -107,6 +110,22 @@ define([
                     stateModel: this.stateModel
                 });
                 this.readingView.render();
+                
+                
+                //initialise camera preview
+                if (typeof cordova !== 'undefined') {
+                    var tapEnabled = true; //enable tap take /picture
+                    var dragEnabled = false; //enable preview box drag across the screen
+                    var toBack = true; //send preview box to the back of the webview
+                    var $viewfinder = $('#viewfinder');
+                    var rect = {
+                        x: 0, 
+                        y: $viewfinder.offset().top, 
+                        width: $viewfinder.width(), 
+                        height: $viewfinder.height()
+                    };
+                    cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
+                }
             },
             
             setup: function () {
@@ -117,6 +136,7 @@ define([
                 this.showHorizonIndicator();
                 this.angle = 0;
                 $(window).on('deviceorientation', this, _.bind(this.deviceOrientationHandler, this));
+                $(window).on('devicemotion', this, _.bind(this.deviceMotionHandler, this));
             },
             
             toggleButtonHandler: function (ev) {
@@ -134,7 +154,8 @@ define([
                         //this.startTrackingOrientation(ev);
                         //grab the current orientation as the initial orientation
                         //this.startingDeviceOrientation = this.currentDeviceOrientation;
-                        this.horizonOrientation = this.currentDeviceOrientation;
+                        // this.horizonOrientation = this.currentDeviceOrientation;
+                        this.horizonDeviceAngle = this.currentDeviceAngle;
                         
                         this.displayInstructions();
                         break;
@@ -146,7 +167,7 @@ define([
                         this.showDiagram();
                         this.hideHorizonIndicator();
                         $('#captured-image').css("background-image", "none");
-                        $target.text("Calculate Latitude");
+                        $target.text("Find Latitude");
                         break;
                         
                     case 2:
@@ -163,12 +184,15 @@ define([
             
             startTrackingOrientation: function (ev) {
                 //this.startingDeviceOrientation = null;
-                this.isTrackingOrientation = true;
+                // this.isTrackingOrientation = true;
+                this.isTrackingMotion = true;
             },
             
             stopTrackingOrientation: function (ev) {
                 this.isTrackingOrientation = false;
+                this.isTrackingMotion = false;
                 $(window).off('deviceorientation', _.bind(this.deviceOrientationHandler, this));
+                $(window).off('devicemotion', _.bind(this.deviceMotionHandler, this));
             },
             
             deviceOrientationHandler: function (ev) {
@@ -178,13 +202,36 @@ define([
                     }
                     
                     this.currentDeviceOrientation = ev.originalEvent;
+                    // if(LOG_NEXT_EV) {
+                    //     console.log(ev.originalEvent);
+                    //     LOG_NEXT_EV = false;
+                    // }
                     this.updateOrientationIndicator();
                 }
             },
             
+            deviceMotionHandler: function (ev) {
+                if (this.isTrackingMotion == true) {
+                    if (this.startingDeviceMotion = null) {
+                        this.startingDeviceMotion = ev.originalEvent;
+                    }
+                    
+                    this.currentDeviceMotion = ev.originalEvent;
+                    // if(LOG_NEXT_EV) {
+                    //     console.log(ev.originalEvent);
+                    //     LOG_NEXT_EV = false;
+                    // }
+                    
+                    this.updateOrientationFromMotion();
+                    this.updateOrientationIndicator();
+                }
+            },
+                        
             updateOrientationIndicator: function() {
                 if(this.hasSetHorizon) {
-                    this.angle = this.currentDeviceOrientation.beta - this.horizonOrientation.beta;
+                    // this.angle = this.currentDeviceOrientation.beta - this.horizonOrientation.beta;
+                    this.angle = this.currentDeviceAngle - this.horizonDeviceAngle;
+                    
                     
                     //limit to 82 degrees north as this is the furthest the map can show.
                     if (this.angle > 82) {
@@ -203,16 +250,13 @@ define([
                     }
                 }
                 
-                //setSextantArmAngle(this.angle);
-                //this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", this.angle);
-                
-                var skyAngle = this.currentDeviceOrientation.beta - this.startingDeviceOrientation.beta;
+                var skyAngle = this.currentDeviceAngle;
                 
                 if(skyAngle < MIN_ANGLE) {
                     skyAngle = MIN_ANGLE;
                 }
                 
-                var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE + SKY_BACKGROUND_OFFSET;
+                var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE + this.sky_background_offset;
                 $('#sky').css('background-position-y', skyOffsetY + 'px');
                 
                 
@@ -235,6 +279,30 @@ define([
 
                 //var skyOffsetX = this.currentDeviceOrientation.gamma * SKY_BACKGROUND_SCROLL_RATE + 500;
                 //$('#sky').css('background-position-x', skyOffsetX + 'px');
+            },
+            
+            updateOrientationFromMotion: function () {
+                var gravity = {
+                    x: this.currentDeviceMotion.accelerationIncludingGravity.x - this.currentDeviceMotion.acceleration.x,
+                    y: this.currentDeviceMotion.accelerationIncludingGravity.y - this.currentDeviceMotion.acceleration.y,
+                    z: this.currentDeviceMotion.accelerationIncludingGravity.z - this.currentDeviceMotion.acceleration.z,
+                };
+                
+                var gDotY = gravity.z / Math.sqrt(gravity.x * gravity.x + gravity.y * gravity.y + gravity.z * gravity.z);
+                var angleRad = Math.acos(gDotY);
+                
+                angleRad = Math.PI - angleRad;
+                                
+                var angleDeg = angleRad * 180/Math.PI;
+                
+                if(LOG_NEXT_EV) {
+                    // console.log(ev.originalEvent);
+                    console.log('angle: ', angleDeg);
+                    LOG_NEXT_EV = false;
+                }
+                
+                
+                this.currentDeviceAngle = angleDeg;
             },
             
             showHorizonIndicator: function () {
