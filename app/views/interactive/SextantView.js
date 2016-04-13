@@ -13,8 +13,8 @@ define([
         ARM_PIVOT = {x:0.0, y:-0.36};  //rotation centre for the arm as proportion of width, from geometric centre
         
         SKY_BACKGROUND_SCROLL_RATE = 1000/90;
-        SKY_BACKGROUND_OFFSET = 160;
-        // SKY_BACKGROUND_OFFSET = 660;
+        SKY_BACKGROUND_OFFSET_TABLET = 160;
+        SKY_BACKGROUND_OFFSET = 660;
         MIN_ANGLE = 67;
         DEFAULT_HORIZON = -10;
         MIN_CAPTURE_SUN_ANGLE = 10;
@@ -74,6 +74,13 @@ define([
             },
             
             afterRender: function () {
+                if (this.$el[0].clientWidth >= 768) {
+                  this.sky_background_offset = SKY_BACKGROUND_OFFSET_TABLET;
+                } else {
+                  this.sky_background_offset = SKY_BACKGROUND_OFFSET;
+                }
+
+
                 this.setup();
                 
                 //create the view for the reading
@@ -220,7 +227,7 @@ define([
                     skyAngle = MIN_ANGLE;
                 }
                 
-                var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE + SKY_BACKGROUND_OFFSET;
+                var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE + this.sky_background_offset;
                 $('#sky').css('background-position-y', skyOffsetY + 'px');
                 
                 //Attempt to scan left/right a little. Doesn't work well, as roll adds to gamma.
