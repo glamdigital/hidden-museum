@@ -101,6 +101,9 @@
           
           .audio-info {
             margin-left: 5px;
+            @media #{$tablet} {
+              margin-left: 15px;
+            }
             display: inline-block;
             text-align: left;
             #media-caption {
@@ -122,6 +125,7 @@
             padding-right: 4px;
             @media #{$tablet} {
               padding-top: 7px;
+              padding-left: 7px;
               &#restart-audio {
                   padding-right: 20px;
               }
@@ -306,6 +310,9 @@
 
 .object-content .title {
   padding: 15px 15px 15px 44px;
+  @media #{$tablet} {
+    padding: 15px 15px 15px 60px;
+  }
 }
 
 .title, .topic-item {
