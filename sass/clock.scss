@@ -6,12 +6,32 @@
   src: url("../fonts/digital-7.ttf");
 }
 
+$smallClockWidth: 40%;
+$smallClockInset: 6%;
+$tenHourClockWidth: 100%;
+$tenHourClockTop: 14%;
+$tenHourClockTopTablet: 17%;
+$tenHourClockWidthTablet: 85%;
+$tenHourClockLeftTablet: 8%;
+
 #interact-clock {
     background: url(../img/objects/armillary/clock-bg.png);
     height: $iphone6Height - $headerHeight;
     body.ios & {
       height: $iphone6Height - $headerTotalHeight;
     }
+    
+    #clocks {
+        #twenty-four {
+            width: 50%;
+        }
+        #ten {
+            width: 50%;
+            
+        }
+        
+    }
+    
 }
 
 .clock-face {
@@ -23,22 +43,34 @@
     width: 100%;
   }
   &#ten-hr {
+      pointer-events: none;
     background: url(../img/objects/armillary/ten-hr-face.png);
-    background-size: 61%;
+    background-size: $tenHourClockWidth;
     background-repeat: no-repeat;
     background-position: 50% 0px;
     height: 400px;
     width: 100%;
-    top: 20%;
+    top: $tenHourClockTop;
+    
+    @media #{$tablet} {
+        background-size: $tenHourClockWidthTablet;
+        top: $tenHourClockTopTablet;
+        height: 750px;
+    }
+    
     img {
       position: relative;
-      top: 54px;
-      width: 50%;
-      left: 2px;
+      width: $tenHourClockWidth;
+      left: 0;
+      
+      @media #{$tablet} {
+          width: $tenHourClockWidthTablet;
+      }
     }
   }
   &#twenty-four_min {
-    width: 50%;
+    width: $smallClockWidth;
+    left: $smallClockInset;
     z-index: 20;
   }
   &#twenty-four_hour {
@@ -46,13 +78,15 @@
     background: url(../img/objects/armillary/twelve-hr-face.png);
     background-size: contain;
     background-repeat: no-repeat;
-    width: 50%;
+    width: $smallClockWidth;
+    left: $smallClockInset;
   }
   
 }
 
 #twenty-four-cap {
-    width: 50%;
+    width: $smallClockWidth;
+    left: $smallClockInset;
     position: absolute;
     z-index: 30;
 }
@@ -60,9 +94,17 @@
 #ten-hr-cap {
     position: absolute;
     z-index: 30;
-    top: 41.5%;
-    left: 46%;
-    width: 9%;
+    width: $tenHourClockWidth;
+    top: $tenHourClockTop;
+    pointer-events: none;
+    @media #{$tablet} {
+        width: $tenHourClockWidthTablet;
+        left: $tenHourClockLeftTablet;
+        top: $tenHourClockTopTablet;
+    }
+    // top: 41.5%;
+    // left: 46%;
+    // width: 9%;
 }
 
 #digital-clock {
@@ -70,18 +112,21 @@
   left: 50%;
   font-family: "digital7";
   background: url(../img/objects/armillary/digital-face.png);
-  background-size: 150px;
+  background-size: 80%;
   background-position: 0px 0px;
   background-repeat: no-repeat;
   width: 50%;
-  height: 200px;
+  height: 40%;
   font-size: 2em;
   .increase-time {
     display: inline;
     float: right;
     position: absolute;
-    top: 20px;
-    right: 8px;
+    top: 10%;
+    right: 5%;
+    @media #{$tablet} {
+        font-size: 1.5em;
+    }
     i {
       pointer-events: none;
     }
@@ -89,19 +134,33 @@
   .decrease-time {
     display: inline;
     position: absolute;
-    bottom: 80px;
-    right: 8px;
+    bottom: 50%;
+    @media #{$phone_vsmall} {
+        bottom: 38%;
+    }
+    right: 5%;
+    @media #{$tablet} {
+        font-size: 1.5em;
+        bottom: 38%;
+    }
     i {
       pointer-events: none;
     }
   }
   .digital-time {
-    font-size: 0.9em;
+    font-size: 1em;
+    @media #{$tablet} {
+        font-size: 200%;
+        top: 35%;
+    }
     text-align: center;
     display: inline;
     position: absolute;
-    top: 61px;
-    left: 43px;
+    top: 26%;
+    @media #{$phone_vsmall} {
+        top: 32%;
+    }
+    left: 20%;
   }
 }
 
@@ -115,7 +174,7 @@ $globeHeight: 230px;
   }
 
   background: url(../img/objects/armillary/stars.png);
-  background-size: contain;
+  background-size: cover;
   .sphere-container {
     height: $globeHeight;
   }

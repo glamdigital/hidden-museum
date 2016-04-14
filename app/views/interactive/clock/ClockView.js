@@ -103,6 +103,25 @@ define([
                 el: $('#digital-clock'),
             });
             this.digitalClockView.render();
+            
+            //set heights etc
+            var contentHeight = $('.content').height();
+            $('#interact-clock').height(contentHeight);
+            
+            //height of globe.
+            //make it a little lower on squarer, smaller devices (e.g. iphone 4)
+            
+            var deviceWidth = $(window).width();
+            var deviceAspectRatio = deviceWidth / $(window).height();
+            
+            var useSmallerGlobe = (deviceWidth <= 800) && (deviceAspectRatio >= 2/3);
+            
+            var globeheight = contentHeight * 0.35;
+            if(useSmallerGlobe) {
+                var globeheight = contentHeight * 0.27;
+                console.log('using smaller globe size');
+            }
+            $('#globe-clock').height(globeheight).css('top', contentHeight - globeheight);
 
             //sphere
             this.sphereModel = new Backbone.Model({
@@ -119,8 +138,12 @@ define([
                 texture: 'img/objects/globe/map_texture_9.jpg',
                 canRotateUpDown: false,
                 lightFromSun: true,
-                tiltTowardCan: 0,
-                markers: [{lat: 51.7519, lng:1.2578 }],
+                tiltTowardCam: 10,
+                markerRadius: 0.5,
+                // markers: [{lat: 51.752, lng:1.2577 }],   
+                //correct latitude ends up in the wrong place.
+                //Don't want to risk breaking the all souls globe, so just fudging the numbers here
+                markers: [{lat: 52.2519, lng:-7.2578 }],
                 defaultRotY: 210,
                 panRatio: 1.0,
             });
