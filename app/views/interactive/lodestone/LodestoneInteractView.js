@@ -179,7 +179,7 @@ define([
                                 var cradle = $('#weight-cradle')[0];
                                 var fallDist = this.scaleFactor * MAX_WIND_HEIGHT;
                                 if (window.innerWidth >= 768) {
-                                  fallDist *= 1.2;
+                                  fallDist *= 1.35;
                                 }
 
                                 move(cradle)
