@@ -1,4 +1,25 @@
 /*global module:false*/
+
+    var plugins = [
+        'cordova-plugin-device',
+        'com.darktalker.cordova.screenshot',
+        'https://github.com/ox-it/CordovaCameraPreview.git',    //com.mbppower.camerapreview
+        'cordova-plugin-ble',
+        'cordova-plugin-camera',
+        'cordova-plugin-file',
+        'cordova-plugin-media',
+        'cordova-plugin-screen-orientation',
+        'cordova-plugin-statusbar',
+        'cordova-plugin-vibration'
+        //add further plugins here
+    ]
+    
+    var platforms = [
+        'ios',
+        // 'android@3.7.1'
+        //add further platforms here
+    ]
+
 module.exports = function(grunt) {
 
   // Project configuration.
@@ -219,7 +240,23 @@ module.exports = function(grunt) {
 				  command: 'run',
 				  platforms: ['ios']
 			  }
-		  }
+		  },
+          add_plugins: {
+              options: {
+                command: 'plugin',
+                action: 'add',  
+                plugins: plugins,
+            }
+          },
+          add_platforms: {
+              options: {
+                  command: 'platform',
+                  action: 'add',
+                  platforms: platforms
+              }
+          }
+          
+          
 	  },
 	  copy: {
         main: {
@@ -310,5 +347,9 @@ module.exports = function(grunt) {
   grunt.registerTask('convertData', 'convert csv data to json format required by the app', ['convert:trails', 'convert:topics', 'convert:items', 'convert:blackboards']);
 
   grunt.registerTask('test', 'Run jasmine tests', ['jasmine']);
+  
+  grunt.registerTask('plugins', 'cordovacli:add_plugins');
+  grunt.registerTask('platforms', 'cordovacli:add_platforms');
+  grunt.registerTask('setup', ['cordovacli:add_platforms', 'cordovacli:add_plugins', 'copy:schema'] );
 
 };
