@@ -38,8 +38,8 @@
     "photograph_cropped": "objects/moon_globe/selenographia-main.jpg",
     "map": "maps/entrance_floorplan.jpg",
     "beaconID": "61866",
-    "mapX": "0.651",
-    "mapY": "0.572"
+    "mapX": "0.349",
+    "mapY": "0.2"
   },
   {
     "id": "armillary",
@@ -52,7 +52,7 @@
     "photograph_cropped": "objects/armillary/armillary-sphere-main.jpg",
     "map": "maps/entrance_floorplan.jpg",
     "beaconID": "30098",
-    "mapX": "0.693",
+    "mapX": "0.3",
     "mapY": "0.389"
   },
   {
