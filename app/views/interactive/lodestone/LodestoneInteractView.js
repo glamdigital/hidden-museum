@@ -78,7 +78,7 @@ define([
                 this.windModel = new Backbone.Model({
                     angle: 0,
                     handleMinHeight: null,
-                    handleWidth: 100
+                    handleWidth: $(window).width() * 100/375
                 });
 
                 this.listenTo(this.stateModel, 'change:state', this.render);
