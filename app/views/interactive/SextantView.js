@@ -30,27 +30,37 @@ define([
         
         LOG_NEXT_EV = false;
         
-        DIAGRAM_PREROTATE_PAUSE = 500;
+        DIAGRAM_PREROTATE_PAUSE = 1500;
+        DIAGRAM_ROTATE_TIME = 3;    //in seconds
         DIAGRAM_PREFADE_PAUSE = 600;
         DIAGRAM_FADE = 1500;
         
         LOG_DATA = false;
+        DRAW_RAYS = true;
+        MOVE_ARM = false;
         
-        setSextantArmAngle = function (deg) {
-            var armAngle = deg/2;
-            var rad = armAngle * Math.PI / 180;
-            var r00 = Math.cos(rad);
-            var r11 = r00;
-            var r01 = -Math.sin(rad);
-            var r10 = -1 * r01;
-            var width = $('#sextant-arm').width();
-            var x = ARM_PIVOT.x * width;
-            var y = ARM_PIVOT.y * width;
-            var tx = x - r00*x - r01*y;
-            var ty = y - r10*x -r11*y;
+        setSextantArmAngle = function (a) {
+            var setImageAngle = function (deg, selector) {
+                var armAngle = deg/2;
+                var rad = armAngle * Math.PI / 180;
+                var r00 = Math.cos(rad);
+                var r11 = r00;
+                var r01 = -Math.sin(rad);
+                var r10 = -1 * r01;
+                var width = $('#sextant-arm').width();
+                var x = ARM_PIVOT.x * width;
+                var y = ARM_PIVOT.y * width;
+                var tx = x - r00*x - r01*y;
+                var ty = y - r10*x -r11*y;
+                
+                var matrix = "matrix(" + r00 + "," + r10 + "," + r01 + "," + r11 + "," + tx + "," + ty + ")";
+                
+                $(selector).css('-webkit-transition', '-webkit-transform ' + DIAGRAM_ROTATE_TIME + 's ease-in-out')
+                $(selector).css("transform", matrix);
+            }
             
-            var matrix = "matrix(" + r00 + "," + r10 + "," + r01 + "," + r11 + "," + tx + "," + ty + ")";
-            $('#sextant-arm').css("transform", matrix);
+            setImageAngle(a, '#sextant-arm');
+            setImageAngle(2*a, '#sextant-ray');
         };
         
         var SextantView = Backbone.View.extend({
@@ -75,9 +85,9 @@ define([
                 this.currentDeviceOrientation = {alpha:0, beta:0, gamma:0};
                 this.startingDeviceOrientation = {alpha:0, beta:0, gamma:0};
                 this.angle = 0;
-                this.instructions = ["<p>Hold the phone straight up in front of you and tilt it until the red line is level with the sea horizon.</p><p>Then press the 'Set Horizon' button.</p>",
+                this.instructions = ["<p>Hold the phone straight up in front of you and tilt it until the red line is level with the sea horizon. Then press the 'Set Horizon' button.</p>",
                     "<ol><li>Mimic movement of the sextant arm by tilting the camera upwards</li><li>Watch for the reflected image of the sun</li><li>Line sun up with the horizon line</li><li>Press the 'Angle of the Sun' button</li></ol>",
-                    "<p>You have measured that the noon sun is NN.Ndeg above the horizon.</p>But to calculate latitude from this reading navigators would need to look up the angle in a reference book called an almanac.</p><p>Press the 'Find Latitude' button to simulate looking in the almanac.</p>"];
+                    "<p>You have measured that the noon sun is NN.N&deg above the horizon.</p>But to calculate latitude from this reading navigators would need to look up the angle in a reference book called an almanac.</p><p>Press the 'Find Latitude' button to simulate looking in the almanac.</p>"];
                 this.instructionsColors = ['url(img/parchment-tan.jpg)', 'url(img/parchment-tan-dark.jpg)', 'url(img/parchment-tan.jpg)'];
                 
                 $('#content').css("background-color", "transparent");
@@ -261,8 +271,8 @@ define([
                 
                 
                 
-                var sunRelAng = (this.sunElevation * Math.PI/180) - skyAngle;
-                var sunHeight = sunRelAng * SKY_BACKGROUND_SCROLL_RATE + SKY_BACKGROUND_OFFSET;
+                var sunRelAng = this.sunElevation - skyAngle;
+                var sunHeight = sunRelAng * SKY_BACKGROUND_SCROLL_RATE + $('#sun').height()/2;
                 
                 if(LOG_DATA) {
                     console.log('skyAngle: ', skyAngle);
@@ -361,15 +371,7 @@ define([
                 MIRROR_1_Y = 0.64;
                 MIRROR_2_X = 0.5;
                 MIRROR_2_Y = 0.57;
-                // EYE_X = 1;
-                // MIRROR_1_X = 0.3;
-                // MIRROR_1_Y = 0.5;
-                // MIRROR_2_X = 0.48;
-                // MIRROR_2_Y = 0.25;
-                
-                var angle = 0;
-                var delay = DIAGRAM_PREROTATE_PAUSE;
-            
+
                 //set up the dimensions and position of the canvas, so that the drawn lines correspond with the image correctly
                 var $canvas = $('#sextant-lines'); 
                 var $frameImg = $('#sextant-frame');
@@ -391,116 +393,107 @@ define([
                 canvas.width = canvasWidth;
                 canvas.height = canvasHeight;
                 
-            
                 
-                var sunDist = 150;
-                var sunAngleMeasuredRad = this.stateModel.attributes.angle * Math.PI/180;
+                
+                this.drawDiagramGeometry();
+                
                 
                 this.animateTimeout = setInterval(function () {
                     
-                    
-                    
-                    //update line on the canvas
-                    var canvas = $('#sextant-lines')[0];
-                    
-                    var eyex = EYE_X * canvas.width;
-                    var mirror1x = MIRROR_1_X * canvas.width;
-                    var mirror1y = eyey = MIRROR_1_Y * canvas.height;
-                    var mirror2x = MIRROR_2_X * canvas.width;
-                    var mirror2y = MIRROR_2_Y * canvas.height;
-                    
-                    var sunAngleRad = angle * Math.PI/180;
-                    var dirX = mirror2x - (sunDist-25) * Math.cos(sunAngleRad);
-                    var dirY = mirror2y - (sunDist-25) * Math.sin(sunAngleRad);
-                    
-                    var ctx = canvas.getContext('2d');
-                    
-                    
-                    
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    
-
-                    //lines
-                    ctx.beginPath();
-                    ctx.moveTo(eyex, mirror1y);
-                    ctx.lineTo(mirror1x, mirror1y);
-                    ctx.lineTo(mirror2x, mirror2y);
-                    ctx.lineTo(dirX, dirY);
+                    setSextantArmAngle(this.stateModel.attributes.angle);
                                         
-                    // ctx.strokeStyle.width = 5;
-                    ctx.strokeStyle="#aa0000";
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
-                    
-                    //sun
-                    ctx.beginPath();
-                    var sunX = mirror2x - sunDist * Math.cos(sunAngleMeasuredRad);
-                    var sunY = mirror2y - sunDist * Math.sin(sunAngleMeasuredRad);
-                    ctx.arc(sunX, sunY, 10, 0, Math.PI*2);
-                    ctx.strokeStyle = "#000000";
-                    ctx.lineWidth = 3;
-                    ctx.stroke();
-                    
-                    
-                    //rays
-                    ctx.beginPath();
-                    var numRays = 9;
-                    var innerRad = 15;
-                    var outerRad = 20;
-                    
-                    for(var i =0; i<numRays; i++) {
-                        var theta = i*2*Math.PI/(numRays);
-                        ctx.moveTo(sunX + innerRad*Math.cos(theta), sunY + innerRad*Math.sin(theta));
-                        ctx.lineTo(sunX + outerRad*Math.cos(theta), sunY + outerRad*Math.sin(theta));
-                    }
-                    ctx.stroke();
-                    
-                    //eye
-                    ctx.beginPath();
-                    var eyeWidth = 20;
-                    var eyeOffset = 50;
-                    var eyeAngle = 30 * Math.PI/180;
-                    var eyePupilAngle = 10 * Math.PI/180;
-                    var pupilRadius = 10;
-                    //'lids'
-                    
-                    var eyeOriginX = eyex + eyeOffset;
-                    ctx.moveTo(eyeOriginX, eyey);
-                    ctx.lineTo(eyeOriginX - eyeWidth*1.4*Math.cos(eyeAngle), eyey - eyeWidth*1.4*Math.sin(eyeAngle));
-                    ctx.moveTo(eyeOriginX, eyey);
-                    ctx.lineTo(eyeOriginX - eyeWidth*1.4*Math.cos(eyeAngle), eyey + eyeWidth*1.4*Math.sin(eyeAngle));
-                    ctx.lineWidth = 2;
-                    ctx.stroke();
-                    
-                    //cornea
-                    ctx.beginPath();
-                    ctx.arc(eyeOriginX, eyey, eyeWidth, Math.PI-eyeAngle, Math.PI+eyeAngle);
-                    ctx.stroke();
-                    
-                    
-                    
-                    
-                    if(delay > 0) { delay -= 10; }
-                    
-                    else if(angle <= this.stateModel.attributes.angle) {
-                        angle += 0.5;
-                        setSextantArmAngle(angle);                        
-                    } else {
-                        setTimeout(function () {
-                            $('.sextant-diagram').fadeTo(DIAGRAM_FADE, 0.2, this.showMessage.bind(this));
-                        }.bind(this), DIAGRAM_PREFADE_PAUSE);
-                        clearInterval(this.animateTimeout);
-                    }
-                }.bind(this), 10);
+                    this.fadeTimeout = setTimeout(function () {
+                        $('.sextant-diagram').fadeTo(DIAGRAM_FADE, 0.2, this.showMessage.bind(this));
+                    }.bind(this), DIAGRAM_PREFADE_PAUSE + 1000 * DIAGRAM_ROTATE_TIME);
+                    clearInterval(this.animateTimeout);
+                }.bind(this), DIAGRAM_PREROTATE_PAUSE);
+            },
+            
+            //draw the non-moving parts of the image:
+            // - eye
+            // - sun
+            // - rays as far as the second mirror
+            drawDiagramGeometry: function () {
+                var canvas = $('#sextant-lines')[0];
+                var ctx = canvas.getContext('2d');
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                var sunDist = 150;
+                var sunAngleMeasuredRad = this.stateModel.attributes.angle * Math.PI/180;
+
+                var eyex = EYE_X * canvas.width;
+                var mirror1x = MIRROR_1_X * canvas.width;
+                var mirror1y = eyey = MIRROR_1_Y * canvas.height;
+                var mirror2x = MIRROR_2_X * canvas.width;
+                var mirror2y = MIRROR_2_Y * canvas.height;
+                
+                // var sunAngleRad = angle * Math.PI/180;
+                var dirX = mirror2x - (sunDist-25) * Math.cos(sunAngleMeasuredRad);
+                var dirY = mirror2y - (sunDist-25) * Math.sin(sunAngleMeasuredRad);
+
+                //lines
+                ctx.beginPath();
+                ctx.moveTo(eyex, mirror1y);
+                ctx.lineTo(mirror1x, mirror1y);
+                ctx.lineTo(mirror2x, mirror2y);
+                // ctx.lineTo(dirX, dirY);  //now part of the image, as rotation v slow.
+                                    
+                // ctx.strokeStyle.width = 5;
+                ctx.strokeStyle="#aa0000";
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                
+                //sun
+                ctx.beginPath();
+                var sunX = mirror2x - sunDist * Math.cos(sunAngleMeasuredRad);
+                var sunY = mirror2y - sunDist * Math.sin(sunAngleMeasuredRad);
+                ctx.arc(sunX, sunY, 10, 0, Math.PI*2);
+                ctx.strokeStyle = "#000000";
+                ctx.lineWidth = 3;
+                ctx.stroke();
+                
+                
+                //rays
+                ctx.beginPath();
+                var numRays = 9;
+                var innerRad = 15;
+                var outerRad = 20;
+                
+                for(var i =0; i<numRays; i++) {
+                    var theta = i*2*Math.PI/(numRays);
+                    ctx.moveTo(sunX + innerRad*Math.cos(theta), sunY + innerRad*Math.sin(theta));
+                    ctx.lineTo(sunX + outerRad*Math.cos(theta), sunY + outerRad*Math.sin(theta));
+                }
+                ctx.stroke();
+                
+                //eye
+                ctx.beginPath();
+                var eyeWidth = 20;
+                var eyeOffset = 50;
+                var eyeAngle = 30 * Math.PI/180;
+                var eyePupilAngle = 10 * Math.PI/180;
+                var pupilRadius = 10;
+                //'lids'
+                
+                var eyeOriginX = eyex + eyeOffset;
+                ctx.moveTo(eyeOriginX, eyey);
+                ctx.lineTo(eyeOriginX - eyeWidth*1.4*Math.cos(eyeAngle), eyey - eyeWidth*1.4*Math.sin(eyeAngle));
+                ctx.moveTo(eyeOriginX, eyey);
+                ctx.lineTo(eyeOriginX - eyeWidth*1.4*Math.cos(eyeAngle), eyey + eyeWidth*1.4*Math.sin(eyeAngle));
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                //cornea
+                ctx.beginPath();
+                ctx.arc(eyeOriginX, eyey, eyeWidth, Math.PI-eyeAngle, Math.PI+eyeAngle);
+                ctx.stroke();
             },
             
             showMessage: function () {
-                //$('#message')[0].innerHTML = "<p>The angle you measured was "  + this.angle.toPrecision(4).toString() + "&deg;. If the object you lined up had been the Pole Star, the angle would be the same as your latitude. The Pole Star is 90&deg; above the horizon at the North Pole, which has a latitude of 90&deg; North. The star appears right on the horizon at the equator, at 0&deg;. Oxford is 51.7&deg; North. Usually navigators measured the Sun and other stars and calculated latitude using reference books called almanacs.</p><p>To line up the object with the horizon you tilted the phone. On a sextant you'd move the main arm to tilt a mirror.</p>";
-                //$('#message')[0].innerHTML = "<p>The angle you measured was " + this.angle.toPrecision(4).toString() + "&deg;. Navigators could use this measurement to calculate their latitude, or north/south position, often by looking it up in a book called an almanac. The North Pole is 90&deg North and the equator is 0&deg. Oxford's latitude is 51.7&deg North." +
-                //"<br><br>To line up the object with the horizon you tilted the phone. On a sextant the object and horizon are lined up by moving the main arm to tilt the mirror.</p>";
                 
                 //set height of message div                
-                $('#message-text')[0].innerHTML = "<p>You have measured that the noon sun is " + this.stateModel.attributes.angle.toPrecision(3).toString() + "&deg; above the horizon. You could also measure other known celestial objects, such as the Pole Star.</p><p>To calculate latitude from this measurement, navigators would consult a reference book called an almanac.</p><p>Press the 'Calculate Latitude' button to simulate this calculation.</p>";
+                $('#message-text')[0].innerHTML = this.instructions[2].replace("NN.N", this.stateModel.attributes.angle.toPrecision(3).toString());                
                 $('#main-button').show();
             },
             
@@ -513,7 +506,6 @@ define([
                 // cos(solarZenith) = sin(solarElevation) = sin(latitude)*sin(declination) + cos(latitude)*cos(declination)*cos(hour angle)
                 // at noon, solar hour angle is 0, so we have simply:
                 //      cos(solarZenith) = sin(solarElevation) = sin(latitude)*sin(declination) + cos(latitude)*cos(declination)
-                
                 
                 params = params || {};
                 
@@ -560,6 +552,9 @@ define([
                 this.stopTrackingOrientation(null);
                 
                 this.overlayCleanup();
+                
+                clearInterval(this.animateTimeout);
+                clearTimeout(this.fadeTimeout);
             }
         });
         
