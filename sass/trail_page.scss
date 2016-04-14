@@ -82,7 +82,7 @@
       height: $topicListItemHeight / 3;
       width: 68%;
       @media #{$tablet} {
-        width: 40%;
+        width: 50%;
       }
       @media #{$phone_vsmall} {
         height: $topicListItemHeight / 3 * 0.9;
@@ -165,7 +165,7 @@
   bottom: -4px;
   right: 32%;
   @media #{$tablet} {
-    right: 61%;
+    right: 50%;
   }
   line-height: 30px;
 }
