@@ -4,12 +4,17 @@ $paragraphHeight: 140px;
 
 .globe-interactive {
     background: url(../img/objects/armillary/clock-bg.png);
+    background-size: cover;
     p {
-        height: $paragraphHeight;
         padding: 20px;
         margin: 0;
         line-height: 1.5em;
         font-weight: bold;
+        @media #{$tablet} {
+            font-size: 1.2em;
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }    
     }
     #globe-view {
         height: $iphone6Height - $headerHeight - $paragraphHeight;
