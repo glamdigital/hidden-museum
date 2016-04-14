@@ -336,8 +336,13 @@ define([
                             // Must equal the display width exactly otherwise scaling will blur the image
                             // and it will be impossible to set the position-y offset correctly.
                             $('#captured-image').css("background-size", "375px");
-                            
                             $('#captured-image').css("background-position-y", "-203px");
+
+                            if ($("#sextant").width() >= 768) {
+                              $('#captured-image').css("background-size", "800px");
+                              $('#captured-image').css("background-position-x", "-10px");
+                              $('#captured-image').css("background-position-y", "-223px");
+                            }
                         }
                     });
                 }
