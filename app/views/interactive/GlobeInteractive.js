@@ -714,7 +714,8 @@ define([
                     defaultRotY: -70,
                     markerColor: 0x00ff00,
                     markerRadius: 0.1,
-                    markers: coords
+                    markers: coords,
+                    markerAddInterval: 50
                 });
                 this.globeView.render();
             },
