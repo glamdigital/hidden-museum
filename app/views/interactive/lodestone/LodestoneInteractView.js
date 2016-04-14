@@ -56,7 +56,7 @@ define([
                 //};
 
                 //scale factor used in various places to compensate for size being different than iphone 6
-                this.scaleFactor = $(window).width()/375;
+                this.scaleFactor = $(window).height()/667;
                 
                 this.resetState();
                 this.model.set({state: 'winding'});
@@ -178,9 +178,9 @@ define([
                                 //animate fall
                                 var cradle = $('#weight-cradle')[0];
                                 var fallDist = this.scaleFactor * MAX_WIND_HEIGHT;
-                                // if (window.innerWidth >= 768) {
-                                //   fallDist = 1.7*MAX_WIND_HEIGHT;
-                                // }
+                                if (window.innerWidth >= 768) {
+                                  fallDist *= 1.2;
+                                }
 
                                 move(cradle)
                                     //fall
@@ -227,6 +227,20 @@ define([
                 
                 //move when the winding changes
                 this.listenTo(this.windModel, 'change', _.bind(function(source) {
+                    //check if it's at the top or at the bottom
+                    if (this.windModel.attributes.angle <0) {
+                        this.windModel.set({angle: 0});
+                    }
+                    
+                    if (this.windModel.attributes.angle > MAX_WIND_ANGLE) {
+                        this.stopListening(this.windModel);
+                        this.windModel.attributes.angle = MAX_WIND_ANGLE;
+                        
+                        this.fullWindSound.play();
+                        
+                        this.stateModel.set({state: 'adding'});
+                    }
+                    
                     //move the crown up
                     this.setCrownHeight();
 
@@ -236,19 +250,6 @@ define([
                     
                     this.updateRatchetArm();
                     
-                    //check if it's at the top or at the bottom
-                    if (this.windModel.attributes.angle <0) {
-                        this.windModel.set({angle: 0});
-                    }
-                    
-                    if (this.windModel.attributes.angle > MAX_WIND_ANGLE) {
-                        this.stopListening(this.windModel);
-                        this.windModel.attributes.angle = MAX_WIND_ANGLE;
-
-                        this.fullWindSound.play();
-
-                        this.stateModel.set({state: 'adding'});
-                    }
                 }, this));
             },
 
@@ -257,8 +258,12 @@ define([
                 var frameHeight = $("#crown-container").height();
                 $('#crown-holder #crown').height(frameHeight * 0.27);
                 
-                var crownTop = (0.1*frameHeight + this.scaleFactor * MAX_WIND_HEIGHT * this.windModel.attributes.angle / MAX_WIND_ANGLE) + 30*(frameHeight-620)/620;
+                var progress = this.windModel.attributes.angle / MAX_WIND_ANGLE;
+                
+                // var crownTop = (0.1*frameHeight + this.scaleFactor * MAX_WIND_HEIGHT * progress)/* + 30*(frameHeight-620)/620/*;
+                var crownTop = (0.1*frameHeight + this.scaleFactor * MAX_WIND_HEIGHT * progress);
                 $('#crown-holder').css({'top': crownTop});
+                
             },
             
             updateSmallKeys: function() {

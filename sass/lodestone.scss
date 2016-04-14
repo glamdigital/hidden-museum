@@ -227,6 +227,7 @@ $frameOffsetY: -35px;
       left: 19%;
       bottom: 32%;
       transform: rotate(63deg);
+      -webkit-transform: rotate(63deg);
     }
   }
   
@@ -237,10 +238,12 @@ $frameOffsetY: -35px;
       top: 7%;
       &#lodestone-Lkey {
           left: 32%;
+          -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
       }
       &#lodestone-Rkey {
           left: 56%;
+          -webkit-transform: rotate(210deg);
           transform: rotate(210deg);
       }
   }
