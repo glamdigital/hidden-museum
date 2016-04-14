@@ -94,6 +94,8 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
                 if (this.characteristicRead && this.characteristicWrite && this.descriptorNotification)
                 {
                     console.log('RX/TX services found.');
+                    this.writeData(new Uint8Array([1]));
+                    this.close();
                 }
                 else
                 {
@@ -116,12 +118,6 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
                     console.log('write: ' + handle + ' error: ' + errorCode);
                 });
             },
-            turnOnLed: function() {
-                this.writeData(new Uint8Array([1]));
-            },
-            turnOffLed: function() {
-                this.writeData(new Uint8Array([0]));
-            },
             close:function() {
                 evothings.ble.close(this.deviceHandle);
             }
@@ -140,7 +136,6 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             this.model = params.model;
             this.overlayInitialize({ displayOnArrival: false});
             this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
-            this.blecontroller.initialize();
             $('#content').css("background-color", "transparent");
         },
         afterRender: function() {
@@ -164,7 +159,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
         },
         wirelessButtonHandler: function(ev) {
             var $target = $(ev.target);
-            this.blecontroller.turnOnLed();
+            this.blecontroller.initialize();
         },
 	    cleanup: function() {
             this.blecontroller.close();
