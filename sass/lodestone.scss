@@ -72,7 +72,14 @@ $frameOffsetY: -35px;
         p {
           background: #fff;
           border: solid 1px white;
+          border-radius: 5px;
           margin:0px;
+          padding: 5px;
+          
+          @media #{$tablet} {
+              font-size: 1.5em;
+          }
+          
         }
       }
 
@@ -83,11 +90,15 @@ $frameOffsetY: -35px;
         padding: 5px;
         font-size: 1.2em;
         background:lightgrey;
-        position:relative;
-        bottom:25px;
+        // position:relative;
+        margin-top: 10%;
         border: 1px solid darkgrey;
         border-radius: 5px;
         line-height: 2.5;
+        
+        @media #{$tablet} {
+            font-size: 1.5em;
+        }
 
       }
 
@@ -153,6 +164,10 @@ $frameOffsetY: -35px;
     bottom: 5%;
     z-index: 200;
     text-align: center;
+    
+    @media #{$tablet} {
+        font-size: 1.5em;
+    }
   }
 
   #readout {
@@ -206,7 +221,7 @@ $frameOffsetY: -35px;
     position: absolute;
     bottom: 32%;
     left: 19%;
-    z-index: 100;
+    z-index: 101;
     height: 7%;
     &#lodestone-Rkey {
       left: 19%;
@@ -217,7 +232,7 @@ $frameOffsetY: -35px;
   
   img.lodestone-key-winding {
       position: absolute;
-      z-index: 100;
+      z-index: 101;
       height: 7%;
       top: 7%;
       &#lodestone-Lkey {
