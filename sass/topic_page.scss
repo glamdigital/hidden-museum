@@ -120,6 +120,12 @@
             float: right;
             padding: 0;
             padding-right: 4px;
+            @media #{$tablet} {
+              padding-top: 7px;
+              &#restart-audio {
+                  padding-right: 20px;
+              }
+            }
             font-size: 1.5em;
             &.pause {
               display: none;
@@ -161,6 +167,9 @@
         padding: 14px 14px 14px 4px;
         @media #{$phone_vsmall} {
           padding: 0 4px 0 0;
+        }
+        @media #{$tablet} {
+          padding: 11px 14px 14px 4px;
         }
       
         .interact-chevron {
