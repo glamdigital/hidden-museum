@@ -55,6 +55,8 @@ define([
                 //    'ended': 'video/lodestone/outro.mp4'
                 //};
 
+                //scale factor used in various places to compensate for size being different than iphone 6
+                this.scaleFactor = $(window).width()/375;
                 
                 this.resetState();
                 this.model.set({state: 'winding'});
@@ -65,6 +67,7 @@ define([
                 this.playRatchetAudio = _.bind(_.throttle(function(){
                     this.ratchetSound.play();
                 }, 300),this);
+                
             },
 
             resetState: function() {
@@ -78,7 +81,7 @@ define([
                 this.windModel = new Backbone.Model({
                     angle: 0,
                     handleMinHeight: null,
-                    handleWidth: $(window).width() * 100/375
+                    handleWidth: 100 * this.scaleFactor
                 });
 
                 this.listenTo(this.stateModel, 'change:state', this.render);
@@ -157,10 +160,10 @@ define([
 
                                 //animate fall
                                 var cradle = $('#weight-cradle')[0];
-                                var fallDist = MAX_WIND_HEIGHT;
-                                if (window.innerWidth >= 768) {
-                                  fallDist = 1.7*MAX_WIND_HEIGHT;
-                                }
+                                var fallDist = this.scaleFactor * MAX_WIND_HEIGHT;
+                                // if (window.innerWidth >= 768) {
+                                //   fallDist = 1.7*MAX_WIND_HEIGHT;
+                                // }
 
                                 move(cradle)
                                     //fall
@@ -237,7 +240,7 @@ define([
                 var frameHeight = $("#crown-container").height();
                 $('#crown-holder #crown').height(frameHeight * 0.27);
                 
-                var crownTop = (0.1*frameHeight + MAX_WIND_HEIGHT * this.windModel.attributes.angle / MAX_WIND_ANGLE) + 30*(frameHeight-620)/620;
+                var crownTop = (0.1*frameHeight + this.scaleFactor * MAX_WIND_HEIGHT * this.windModel.attributes.angle / MAX_WIND_ANGLE) + 30*(frameHeight-620)/620;
                 $('#crown-holder').css({'top': crownTop});
             },
             
@@ -309,7 +312,7 @@ define([
                 
                 var keyR = $('#lodestone-Rkey')[0];
                 move(keyR)
-                    .translate(frameWidth *39/100, -frameHeight *54/100)
+                    .translate(frameWidth *37/100, -frameHeight *54/100)
                     .rotate(210)
                     .duration('1.2s')
                     .ease('in-out')
@@ -330,13 +333,13 @@ define([
                 this.overlayCleanup();
                 
                 //clean up audio
-                tapKeySound.cleanup();
-                keyInSound.cleanup();
-                ratchetSound.cleanup();
-                addWeightSound.cleanup();
-                fullWindSound.cleanup();
-                fallStartSound.cleanup();
-                fallSound.cleanup();
+                this.tapKeySound.cleanup();
+                this.keyInSound.cleanup();
+                this.ratchetSound.cleanup();
+                this.addWeightSound.cleanup();
+                this.fullWindSound.cleanup();
+                this.fallStartSound.cleanup();
+                this.fallSound.cleanup();
             }
         });
     
