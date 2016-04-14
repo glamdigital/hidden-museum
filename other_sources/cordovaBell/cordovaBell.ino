@@ -60,17 +60,8 @@ void loop()
 		if (c != 0)
 		{
 
-			// Non-zero input means "turn on LED".
-                       // uint32_t current, total;
-                        //if (sfx.trackTime(&current, &total) && current > 0 && current < total) {
-                        sfx.reset();
-                        //}
-                        //Serial.print(current); Serial.print("seconds");
-                       // Serial.print(total); Serial.print("seconds");
+
                         sfx.playTrack("T00     WAV");
-                        delay(500);
-                        sfx.stop();
-                         
                         
                         int i = 0;
                         
