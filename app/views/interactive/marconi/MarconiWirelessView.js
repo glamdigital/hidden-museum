@@ -12,9 +12,11 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             characteristicWrite: 0,
             characteristicRead: 0,
             descriptorNotification: 0,
-            initialize: function() {
- 
+            initialize: function(success, error) {
+                this.successCallback = success;
+                this.errorCallback = error;
                 var connectDevice = _.bind(this.connectDevice, this);
+                var timeOutHandler = _.bind(this.handleScanTimeOut, this);
                 if (typeof evothings !== 'undefined') {
                     evothings.ble.startScan(
                         connectDevice,
@@ -23,6 +25,8 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
                             console.log('BLE startScan error: ' + errorCode);
                         }
                     );
+                    //need to cancel if successful
+                    this.scanTimer = setTimeout(timeOutHandler, 1000);
                 }
 
             },
@@ -39,9 +43,17 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
                             console.log('BLE connect error: ' + errorCode);
                         }
                     );
+                    clearTimeout(this.scanTimer);
                     evothings.ble.stopScan();
                 }
 
+            },
+            handleScanTimeOut: function() {
+                console.log("scan timed out" + this.deviceHandle);
+                if (!this.deviceHandle) {
+                    evothings.ble.stopScan();
+                    this.errorCallback();
+                }
             },
             handleDeviceConnected: function(info) {
                 this.deviceHandle = info.deviceHandle;
@@ -95,31 +107,41 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
                 {
                     console.log('RX/TX services found.');
                     this.writeData(new Uint8Array([1]));
-                    this.close();
                 }
                 else
                 {
                     console.log('ERROR: RX/TX services not found!');
+                    this.errorCallback();
                 }
 
             },
 
             writeData: function(value) {
+                var successHandler = _.bind(this.handleWriteSuccess, this);
+                var errorHandler = _.bind(this.handleWriteError, this);
                 evothings.ble.writeCharacteristic(
-                this.deviceHandle,
-                this.characteristicWrite,
-                value,
-                function()
-                {
-                    console.log('write: ' + handle + ' success.');
-                },
-                function(errorCode)
-                {
-                    console.log('write: ' + handle + ' error: ' + errorCode);
-                });
+                    this.deviceHandle,
+                    this.characteristicWrite,
+                    value,
+                    successHandler,
+                    errorHandler
+                );
+            },
+            handleWriteSuccess: function()
+            {
+                console.log('write: ' + this.deviceHandle + ' success.');
+                this.successCallback();
+                this.close();
+            },
+            handleWriteError:    function(errorCode)
+            {
+                console.log('write: ' + this.deviceHandle + ' error: ' + errorCode);
+                this.close();
             },
             close:function() {
+                console.log("closing connection");
                 evothings.ble.close(this.deviceHandle);
+                this.deviceHandle = 0;
             }
         },
 
@@ -159,7 +181,15 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
         },
         wirelessButtonHandler: function(ev) {
             var $target = $(ev.target);
-            this.blecontroller.initialize();
+            this.blecontroller.initialize(
+                function() {
+                    console.log("BLE Success");
+                },
+                function() {
+                    console.log("BLE Failure");
+                    //try again 
+                }
+            );
         },
 	    cleanup: function() {
             this.blecontroller.close();
