@@ -127,9 +127,19 @@ define([
                             //position keys exactly where they should be
                             var $frame = $('#frame');
                             
-                            var tableTopHeight = $frame.height() * (1 - 670/1024);
+                            //use a slightly different calculation if the background fit is constrained by width instead of by height
+                            var aspectRatio = $(window).width() / $(window).height();
+                            var iPadRatio = 768/1024;
+                            var isSquare = Math.abs(aspectRatio - iPadRatio) < 0.01;
+                            if(isSquare) {
+                                //full width of bg shown
+                                var tableTopHeight = $frame.height() - $frame.width() * 670/768;
+                            } else {
+                                //full height of bg shown
+                                var tableTopHeight = $frame.height() - ($frame.height() * 670/1024);
+                            }
                             $('#lodestone-Lkey').css('bottom', tableTopHeight+ 'px');
-                            $('#lodestone-Rkey').css('bottom', (tableTopHeight - 5) + 'px');
+                            $('#lodestone-Rkey').css('bottom', (tableTopHeight - 0.01 * $frame.height()) + 'px');
                             
                             break;
                             
