@@ -22,7 +22,7 @@ define([
         ARM_PIVOT = {x:0.0, y:-0.3};  //rotation centre for the arm as proportion of width, from geometric centre
         
         SKY_BACKGROUND_SCROLL_RATE = 1000/90;
-        SKY_BACKGROUND_OFFSET_TABLET = 160;
+        SKY_BACKGROUND_OFFSET_TABLET = 1175;
         SKY_BACKGROUND_OFFSET = 555;
         MIN_ANGLE = -33;
         DEFAULT_HORIZON = -10;
@@ -261,14 +261,12 @@ define([
                 }
                 
                 var skyAngle = this.currentDeviceAngle;
-                console.log("--",skyAngle * SKY_BACKGROUND_SCROLL_RATE + this.sky_background_offset);
                 
                 if(skyAngle < MIN_ANGLE) {
                     skyAngle = MIN_ANGLE;
                 }
                 
                 var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE + this.sky_background_offset;
-                console.log(this.sky_background_offset);
                 $('#sky').css('background-position-y', skyOffsetY + 'px');
                 
                 
