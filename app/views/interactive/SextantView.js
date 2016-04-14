@@ -261,12 +261,14 @@ define([
                 }
                 
                 var skyAngle = this.currentDeviceAngle;
+                console.log("--",skyAngle * SKY_BACKGROUND_SCROLL_RATE + this.sky_background_offset);
                 
                 if(skyAngle < MIN_ANGLE) {
                     skyAngle = MIN_ANGLE;
                 }
                 
                 var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE + this.sky_background_offset;
+                console.log(this.sky_background_offset);
                 $('#sky').css('background-position-y', skyOffsetY + 'px');
                 
                 
