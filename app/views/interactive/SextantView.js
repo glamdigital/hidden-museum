@@ -101,6 +101,8 @@ define([
                 //calculate the midday sun height for today's date
                 this.sunElevation = this.calculateSunElevation();
                 
+                this.scrollSky = true;
+                
                 getSunElevation = this.calculateSunElevation;
             },
                         
@@ -110,8 +112,7 @@ define([
                 } else {
                   this.sky_background_offset = SKY_BACKGROUND_OFFSET;
                 }
-
-
+                
                 this.setup();
                 
                 //create the view for the reading
@@ -266,21 +267,23 @@ define([
                     skyAngle = MIN_ANGLE;
                 }
                 
-                var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE + this.sky_background_offset;
-                $('#sky').css('background-position-y', skyOffsetY + 'px');
-                
-                
-                
-                var sunRelAng = this.sunElevation - skyAngle;
-                var sunHeight = sunRelAng * SKY_BACKGROUND_SCROLL_RATE + $('#sun').height()/2;
-                
-                if(LOG_DATA) {
-                    console.log('skyAngle: ', skyAngle);
-                    console.log('sunAngle: ', this.sunElevation);
-                    console.log('sunHeight: ', sunHeight);
+                if(this.scrollSky) {
+                    var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE + this.sky_background_offset;
+                    $('#sky').css('background-position-y', skyOffsetY + 'px');
+                    
+                    
+                    
+                    var sunRelAng = this.sunElevation - skyAngle;
+                    var sunHeight = sunRelAng * SKY_BACKGROUND_SCROLL_RATE + $('#sun').height()/2;
+                    
+                    if(LOG_DATA) {
+                        console.log('skyAngle: ', skyAngle);
+                        console.log('sunAngle: ', this.sunElevation);
+                        console.log('sunHeight: ', sunHeight);
+                    }
+                    
+                    $('#sun').css('bottom', sunHeight + 'px');
                 }
-                
-                $('#sun').css('bottom', sunHeight + 'px');
                 
                 //Attempt to scan left/right a little. Doesn't work well, as roll adds to gamma.
                 // If we can use something like FullTilt to transform the orientations so that they are based around
@@ -343,8 +346,14 @@ define([
                               $('#captured-image').css("background-position-x", "-10px");
                               $('#captured-image').css("background-position-y", "-223px");
                             }
+                            
+                            //suspend scrolling for a moment, so that the rendering can catch up and show the screenshot.
+                            this.scrollSky = false;
+                            setTimeout(function () {
+                                this.scrollSky = true;
+                            }.bind(this), 500);
                         }
-                    });
+                    }.bind(this));
                 }
             },
             
