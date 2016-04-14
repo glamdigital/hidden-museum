@@ -124,6 +124,13 @@ define([
                     switch (this.stateModel.attributes.state) {
                         case 'start':
                             //add keys as touch hotspot
+                            //position keys exactly where they should be
+                            var $frame = $('#frame');
+                            
+                            var tableTopHeight = $frame.height() * (1 - 670/1024);
+                            $('#lodestone-Lkey').css('bottom', tableTopHeight+ 'px');
+                            $('#lodestone-Rkey').css('bottom', (tableTopHeight - 5) + 'px');
+                            
                             break;
                             
                         case 'winding':
@@ -293,9 +300,26 @@ define([
                 //animate key up towards
                 var frameHeight = $("#frame").height();
                 var frameWidth = $("#frame").width();
-                var keyL = $('#lodestone-Lkey')[0];
+                var $keyL = $('#lodestone-Lkey');
+                var keyL = $keyL[0];
+                var $keyR = $('#lodestone-Rkey');
+                var keyR = $keyR[0];
+                
+                var keyLTargetX = frameWidth * 32/100; //same as in .scss
+                var keyLCurrentX = frameWidth * 19/100;
+                
+                var keyRTargetX = frameWidth * 56/100; //same as in .scss
+                var keyRCurrentX = frameWidth * 19/100;
+                
+                var keyTargetY = frameHeight * 7/100 + $keyL.height();  //add key height to compensate for bottom vs top positioning
+                // var keyLCurrentY = (frameHeight * (100-32)/100);
+                var keyLCurrentY = frameHeight - parseInt($keyL.css('bottom'));
+                var keyRCurrentY = frameHeight - parseInt($keyR.css('bottom'));
+                
+                
                 move(keyL)
-                    .translate(frameWidth *13/100, -frameHeight *54/100)
+                    // .translate(frameWidth *13/100, -frameHeight *54/100)
+                    .translate(keyLTargetX - keyLCurrentX, keyTargetY - keyLCurrentY)
                     .rotate(180)
                     .duration('1s')
                     .ease('in-out')
@@ -310,9 +334,8 @@ define([
                         }, this), 500);
                     },this));
                 
-                var keyR = $('#lodestone-Rkey')[0];
                 move(keyR)
-                    .translate(frameWidth *37/100, -frameHeight *54/100)
+                    .translate(keyRTargetX - keyRCurrentX, keyTargetY - keyRCurrentY)
                     .rotate(210)
                     .duration('1.2s')
                     .ease('in-out')
