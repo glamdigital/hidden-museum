@@ -268,14 +268,16 @@ div.scan-container {
   }
   
   .preview {
-    width: 100%;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
     height: 100%;
     background-size: contain !important;
     background-repeat: no-repeat !important;
     opacity:0.4;
     background-color: white;
     background-size: 500px;
-    background-position-y: 50px;
+    background-position-y: 50%;
   }
   
   img {
