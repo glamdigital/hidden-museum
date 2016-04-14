@@ -45,8 +45,8 @@
     text-align: center;
     height: $topicListItemHeight / 3;
     @media #{$tablet} {
-      height: $topicListItemHeight /2;
-      padding: $topicListItemHeight /6;
+      height: $topicListItemHeight /1.5;
+      padding: $topicListItemHeight /4;
     }
 
     background: url("../img/find-on-flooplan-button.jpg") no-repeat center center ;
@@ -72,6 +72,9 @@
       
       &.topic-audio {
         height: 50px;
+        @media #{$tablet} {
+          height: 75px
+        }
         background: $mapColor;
         border-top: 1px solid $mapColor;
         border-bottom: 1px solid black;
@@ -81,6 +84,13 @@
           line-height: $audioHeight * 0.5;
           margin-top: 5px;
           margin-bottom: 0px;
+          @media #{$tablet} {
+            height: $audioHeight * 2;
+            line-height: $audioHeight * 0.7;
+            margin-top: 10px;
+            margin-bottom: 0px;
+          }
+
           text-align: left;
           background: transparent;
           color: $navTextColor;

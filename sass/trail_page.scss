@@ -50,7 +50,11 @@
     border: none;
     height: 45px;
     line-height: 1.4em;
-    
+    @media #{$tablet} {
+      font-size: 24px;
+      height: 60px;
+      line-height: 1.6em;
+    }    
     &.current {
       background-color: red;
     }
