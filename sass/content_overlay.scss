@@ -43,8 +43,8 @@ $innerBorder: 20px;
             
             @media #{$tablet} {
                 margin: 10%;
-                font-size: 1.5em;
-                line-height: 1.5em;
+                font-size: 1.3em;
+                line-height: 1.3em;
             }
         }
     }
@@ -70,7 +70,7 @@ $innerBorder: 20px;
         display: block;
         margin-left: auto;
         margin-right: auto;
-        width: 50%;
+        width: 45%;
     }
     
     h1 {
@@ -87,7 +87,7 @@ $innerBorder: 20px;
         text-align: justify;
         line-height: 18px;
         @media #{$tablet} {
-            line-height: 1.5em;
+            line-height: 1.3em;
         }
     }
     
