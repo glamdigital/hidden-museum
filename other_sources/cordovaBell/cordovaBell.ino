@@ -59,21 +59,10 @@ void loop()
 		int c = ble_read();
 		if (c != 0)
 		{
-
-
                         sfx.playTrack("T00     WAV");
-                        
-                        int i = 0;
-                        
-                        while (i < 5) {
-			        digitalWrite(LED_PIN, HIGH);
-                                delay(100);
-                                digitalWrite(LED_PIN, LOW);
-                                delay(100);
-                                i++;
-                        }
-                        
-                        
+                        digitalWrite(LED_PIN, HIGH);
+                        delay(500);
+                        digitalWrite(LED_PIN, LOW);
 		}
 		else
 		{
