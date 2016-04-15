@@ -23,7 +23,7 @@ define([
         
         SKY_BACKGROUND_SCROLL_RATE = 1000/90;
         SKY_BACKGROUND_OFFSET_TABLET = 1220;
-        SKY_BACKGROUND_OFFSET = 555;
+        SKY_BACKGROUND_OFFSET = 63;
         SKY_UPDATE_INTERVAL = 50;
         MIN_ANGLE = -33;
         DEFAULT_HORIZON = -10;
@@ -105,6 +105,7 @@ define([
                 this.scrollSky = true;
                 
                 getSunElevation = this.calculateSunElevation;
+                
             },
                         
             afterRender: function () {
@@ -138,6 +139,8 @@ define([
                     };
                     cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
                 }
+                
+                window.requestAnimationFrame(this.updateOrientationIndicator.bind(this));
             },
             
             setup: function () {
@@ -219,7 +222,7 @@ define([
                     //     console.log(ev.originalEvent);
                     //     LOG_NEXT_EV = false;
                     // }
-                    this.updateOrientationIndicator();
+                    // this.updateOrientationIndicator();
                 }
             },
             
@@ -236,7 +239,7 @@ define([
                     // }
                     
                     this.updateOrientationFromMotion();
-                    this.updateOrientationIndicator();
+                    // this.updateOrientationIndicator();
                 }
             },
                         
@@ -253,7 +256,7 @@ define([
                     else if (this.angle < MIN_ANGLE) {
                         this.angle = MIN_ANGLE;
                     }
-                    
+                                        
                     //set the angle on the state model
                     this.stateModel.set({angle: this.angle});
                     
@@ -264,15 +267,21 @@ define([
                 }
                 
                 var skyAngle = this.currentDeviceAngle;
+                // var skyAngle = 5;
                 
                 if(skyAngle < MIN_ANGLE) {
                     skyAngle = MIN_ANGLE;
                 }
                 
                 if(this.scrollSky) {
-                    var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE;
-                    $('#sky').css('bottom', -skyOffsetY + 'px');
-                    
+                    var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE + SKY_BACKGROUND_OFFSET;
+                    // $('#sky').css('bottom', -skyOffsetY + 'px');
+                    var $canvas = $('canvas#sky-canvas');
+                    var canvas = $canvas[0];
+                    var ctx=canvas.getContext("2d");
+                    var img = $('#sky')[0];
+                    ctx.clearRect(0,0,canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, skyOffsetY);
                     
                     
                     var sunRelAng = this.sunElevation - skyAngle;
@@ -284,8 +293,13 @@ define([
                         console.log('sunHeight: ', sunHeight);
                     }
                     
-                    $('#sun').css('bottom', sunHeight + 'px');
+                    // $('#sun').css('bottom', sunHeight + 'px');
+                    var sunImg = $('#sun')[0];
+                    ctx.drawImage(sunImg, 0.5 * canvas.width, sunHeight);
                 }
+                
+                window.requestAnimationFrame(this.updateOrientationIndicator.bind(this));
+                //TODO don't request next frame if we've finished
                 
                 //Attempt to scan left/right a little. Doesn't work well, as roll adds to gamma.
                 // If we can use something like FullTilt to transform the orientations so that they are based around
