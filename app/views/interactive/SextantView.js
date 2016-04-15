@@ -85,9 +85,20 @@ define([
                 this.currentDeviceOrientation = {alpha:0, beta:0, gamma:0};
                 this.startingDeviceOrientation = {alpha:0, beta:0, gamma:0};
                 this.angle = 0;
-                this.instructions = ["<p>Hold the phone straight up in front of you and tilt it until the red line is level with the sea horizon. Then press the 'Set Horizon' button.</p>",
-                    "<ol><li>Mimic movement of the sextant arm by tilting the camera upwards</li><li>Watch for the reflected image of the sun</li><li>Line sun up with the horizon line</li><li>Press the 'Angle of the Sun' button</li></ol>",
+                this.instructions = [
+                    "<p>Hold the phone straight up in front of you and tilt it until the red line is level with the sea horizon. Then press the 'Set Horizon' button.</p>",
+                    
+                    "<ol>" + 
+                    "<li>Mimic movement of the sextant arm by tilting the camera upwards</li>" +
+                     
+                    "<li>Watch for the reflected sun image</li>" + 
+                    
+                    "<li>Line sun up with the horizon line</li>" + 
+                    "<li>Press the 'Angle of the Sun' button</li>" + 
+                    "</ol>",
+                    
                     "<p>You have measured that the noon sun is NN.N&deg above the horizon.</p><p>But to calculate latitude from this reading, navigators would need to look up the angle in a reference book called an almanac.</p><p>Press the 'Find Latitude' button to simulate looking in the almanac.</p>"];
+                
                 this.instructionsColors = ['url(img/parchment-tan.jpg)', 'url(img/parchment-tan-dark.jpg)', 'url(img/parchment-tan.jpg)'];
                 
                 $('#content').css("background-color", "transparent");
@@ -338,14 +349,15 @@ define([
                             
                             // Must equal the display width exactly otherwise scaling will blur the image
                             // and it will be impossible to set the position-y offset correctly.
-                            $('#captured-image').css("background-size", "375px");
-                            $('#captured-image').css("background-position-y", "-203px");
-
-                            if ($("#sextant").width() >= 768) {
-                              $('#captured-image').css("background-size", "800px");
-                              $('#captured-image').css("background-position-x", "-10px");
-                              $('#captured-image').css("background-position-y", "-223px");
-                            }
+                            $('#captured-image').css("background-size", $(window).width() + "px");
+                            var offset = -$('#captured-image').offset().top;
+                            $('#captured-image').css("background-position-y", offset + "px");
+                            $('#alignment-indicator').hide();
+                            // if ($("#sextant").width() >= 768) {
+                            //   $('#captured-image').css("background-size", "800px");
+                            //   $('#captured-image').css("background-position-x", "-10px");
+                            //   $('#captured-image').css("background-position-y", "-223px");
+                            // }
                             
                             //suspend scrolling for a moment, so that the rendering can catch up and show the screenshot.
                             this.scrollSky = false;
