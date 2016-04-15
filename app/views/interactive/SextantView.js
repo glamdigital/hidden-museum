@@ -382,11 +382,6 @@ define([
                             var offset = -$('#captured-image').offset().top;
                             $('#captured-image').css("background-position-y", offset + "px");
                             $('#alignment-indicator').hide();
-                            // if ($("#sextant").width() >= 768) {
-                            //   $('#captured-image').css("background-size", "800px");
-                            //   $('#captured-image').css("background-position-x", "-10px");
-                            //   $('#captured-image').css("background-position-y", "-223px");
-                            // }
                             
                             //suspend scrolling for a moment, so that the rendering can catch up and show the screenshot.
                             this.scrollSky = false;
