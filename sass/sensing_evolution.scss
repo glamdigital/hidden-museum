@@ -389,11 +389,11 @@ div.item-title {
       }
 
       @media #{$phone_small} {
-          height:initial;
+          height:19%;
           font-size: 0.9em;
       }
       @media #{$phone_vsmall} {
-          height:initial;
+          height:19%;
           font-size: 0.8em;
       }
       
@@ -676,7 +676,8 @@ div.item-title {
         background-position: 0 -1*$tabHeight;
         background-image: none;
         background:rgba(255,255,255,0.6);
-        height: initial;
+        background-size: cover;
+        height: 19%;
         &.pole-star {
           background-image: url(../img/parchment-green.jpg); 
           background-size: 375px;
