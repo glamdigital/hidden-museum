@@ -26,8 +26,7 @@ define(['backbone',
 				this.gallery = params.gallery;
 				this.overlayInitialize({ displayOnArrival: true });
 				this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
-				this.background = $("body").css("background");
-				$("body").css({"background": "transparent"})
+				$("body").addClass("transparent-background");
 			},
 
 			serialize: function() {
@@ -153,8 +152,7 @@ define(['backbone',
 			
 			cleanup: function() {
 				this.overlayCleanup();
-				this.background = $("body").css("background");
-				$("body").css({"background": this.background});
+				$("body").removeClass("transparent-background");
 				if(typeof(MS4Plugin) !== 'undefined')
 				{
 					console.log("Cleaning up Scan View.", "Dismissing MS4Plugin");

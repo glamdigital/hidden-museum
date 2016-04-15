@@ -37,6 +37,9 @@ body {
   line-height: 1.2em;
   overflow: hidden;
   background: $headerColour;
+  &.transparent-background {
+    background: transparent;
+  }
 }
 
 h1 {
