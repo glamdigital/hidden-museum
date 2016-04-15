@@ -171,6 +171,7 @@ $blackboardHeightTablet: 600px;
               
               span.title {
                   font-weight: bold;
+                  color: inherit;
               }
           }
       }
@@ -221,5 +222,16 @@ $blackboardHeightTablet: 600px;
   }
   .owl-theme .owl-dots .owl-dot span {
     margin: 5px 3px;
+  }
+  
+  .owl-dot {
+      span {
+          background: #b9b9b9;
+      }
+      &.active {
+          span {
+              background: #363d3a;
+          }
+      }
   }
 }
