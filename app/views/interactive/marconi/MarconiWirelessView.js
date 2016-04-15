@@ -1,11 +1,14 @@
 define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins/overlay",
-        "hbs!app/templates/overlay_interactive_inner", "app/views/interactive/ImageScanView"],
+        "hbs!app/templates/overlay_interactive_inner", "app/views/interactive/ImageScanView", 'app/media'],
     function(Backbone, marconiWirelessTemplate, overlayMixin,
-        interactiveInnerTemplate, ImageScanView) {
+        interactiveInnerTemplate, ImageScanView, mediaUtil) {
 
 
     var MarconiWirelessView = Backbone.View.extend({
         template: marconiWirelessTemplate,
+
+        transmitSound: mediaUtil.createAudioObj('audio/marconi/buzz.wav'),
+        humSound: mediaUtil.createAudioObj('audio/marconi/hum.wav'),
 
         blecontroller: {
             deviceHandle: 0,
@@ -45,6 +48,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
                     );
                     clearTimeout(this.scanTimer);
                     evothings.ble.stopScan();
+                    this.successCallback();
                 }
 
             },
@@ -130,7 +134,6 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             handleWriteSuccess: function()
             {
                 console.log('write: ' + this.deviceHandle + ' success.');
-                this.successCallback();
                 this.close();
             },
             handleWriteError:    function(errorCode)
@@ -159,6 +162,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             this.overlayInitialize({ displayOnArrival: false});
             this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
             $('#content').css("background-color", "transparent");
+
         },
         afterRender: function() {
             $('#controls').hide();
@@ -180,21 +184,37 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
 
         },
         wirelessButtonHandler: function(ev) {
-            var $target = $(ev.target);
+            var scanSuccessCallback = _.bind(this.scanSuccessCallback, this);
+            var scanErrorCallback = _.bind(this.scanErrorCallback, this);
             this.blecontroller.initialize(
-                function() {
-                    console.log("BLE Success");
-                },
-                function() {
-                    console.log("BLE Failure");
-                    //try again 
-                }
+                scanSuccessCallback,
+                scanErrorCallback
             );
+            this.humSound.play();
+        },
+        scanSuccessCallback: function() {
+            console.log("BLE Success" + this.humSound);
+            clearTimeout(this.transmitTimer);
+            this.humSound.pause();
+            this.humSound.currentTime = 0;
+            this.transmitSound.play();
+        },
+        scanErrorCallback: function() {
+            console.log("BLE Failure" + this);
+            
+            if (this.scanErrors < 2) {
+                this.scanErrors++
+                this.transmitTimer = setTimeout(_.bind(this.wirelessButtonHandler, this), 2000);
+            }
+            else {
+                this.scanErrors = 0;
+            }
         },
 	    cleanup: function() {
             this.blecontroller.close();
             this.overlayCleanup();
             this.irView.remove();
+            clearTimeout(this.transmitTimer);
 	    },
     });
 
