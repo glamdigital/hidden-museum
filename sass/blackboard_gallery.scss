@@ -91,6 +91,9 @@ $blackboardHeightTablet: 600px;
                   position: relative;
                   display: inline-block;
                   height: 100%;
+                  &.landscape {
+                      transform: rotate(90deg);
+                  }
 
               }
               
@@ -102,6 +105,11 @@ $blackboardHeightTablet: 600px;
                   font-size: 3em;
                   color: $navTextColor;
                   opacity: 0.8;
+                  
+                  &.landscape {
+                      right: initial;
+                      left: 10px;
+                  }
               }
           }
           
