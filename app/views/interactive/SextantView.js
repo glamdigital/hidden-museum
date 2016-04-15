@@ -125,7 +125,7 @@ define([
                         
             afterRender: function () {
                 this.oceanSound.play();
-                setInterval(function() {
+                this.oceanInterval = setInterval(function() {
                   this.oceanSound.play();
                 }.bind(this), 60000);
 
@@ -206,14 +206,16 @@ define([
                         break;
                         
                     case 2:
+                        this.turnPageSound.setTime(0);
                         this.turnPageSound.play();
-                        this.step = 3;
-                        // this.hideDiagram();
-                        this.showMessage();
-                    
+                          this.step = 3;
+                          // this.hideDiagram();
+                          this.showMessage();
                     case 3:
-                        this.step = 0;
-                        Backbone.history.navigate('#/interact/' + this.item.attributes.slug + '/' + this.item.attributes.type + '/1');
+                        setTimeout(function () {
+                          this.step = 0;
+                          Backbone.history.navigate('#/interact/' + this.item.attributes.slug + '/' + this.item.attributes.type + '/1');
+                        }.bind(this), 522);
                         break;
                 }
             },
@@ -602,7 +604,7 @@ define([
                 this.clickSound.cleanup();
                 this.oceanSound.cleanup();
                 this.turnPageSound.cleanup();
-
+                clearInterval(this.oceanInterval);
                 if (typeof cordova !== "undefined") {
                     cordova.plugins.camerapreview.stopCamera();
                 }
