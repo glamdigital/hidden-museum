@@ -5,6 +5,7 @@ define([
         "hbs!app/templates/interactive/sextant",
         "app/mixins/overlay",
         'hbs!app/templates/overlay_interactive_inner',
+        'app/media',
         "moment",
     ],
     
@@ -15,6 +16,7 @@ define([
         sextantTemplate, 
         overlayMixin, 
         interactiveInnerTemplate, 
+        mediaUtil,
         moment,
         ft /* We need to require FullTilt, but it ends up as a global object */) {
         
@@ -65,7 +67,11 @@ define([
         
         var SextantView = Backbone.View.extend({
             template: sextantTemplate,
-            
+            moveSound: mediaUtil.createAudioObj('audio/sextant/sextant_move.mp3'),
+            clickSound: mediaUtil.createAudioObj('audio/sextant/click.mp3'),
+            oceanSound: mediaUtil.createAudioObj('audio/sextant/ocean.mp3'),
+            turnPageSound: mediaUtil.createAudioObj('audio/sextant/turn_page.mp3'),
+
             events: {
               "click .toggle": "toggleButtonHandler"
             },
@@ -107,6 +113,11 @@ define([
             },
                         
             afterRender: function () {
+                this.oceanSound.play();
+                setInterval(function() {
+                  this.oceanSound.play();
+                }.bind(this), 60000);
+
                 if (this.$el[0].clientWidth >= 768) {
                   this.sky_background_offset = SKY_BACKGROUND_OFFSET_TABLET;
                 } else {
@@ -152,9 +163,10 @@ define([
             
             toggleButtonHandler: function (ev) {
                 var $target = $(ev.target);
-                
+              
                 switch (this.step) {
                     case 0:
+                        this.clickSound.play();
                         this.step = 1;
                         $target.text("Angle of the Sun");
                         if (typeof cordova !== 'undefined') {
@@ -172,6 +184,7 @@ define([
                         break;
                     
                     case 1:
+                        this.clickSound.play();
                         this.step = 2;
                         this.stopTrackingOrientation(ev);
                         $('#main-button').hide();
@@ -182,6 +195,7 @@ define([
                         break;
                         
                     case 2:
+                        this.turnPageSound.play();
                         this.step = 3;
                         // this.hideDiagram();
                         this.showMessage();
@@ -252,9 +266,21 @@ define([
                         this.angle = MIN_ANGLE;
                     }
                     
+                    // check if a big change in angle happened, and play the changeSound
+                    // var nowTime = Date.now();
+                    // if (this.angleTime) {
+                    //   var prevAngle = this.stateModel.get("angle");
+                    //   var angleChange = (this.angle - prevAngle) / (nowTime - this.angleTime);
+                    //   if (Math.abs(angleChange)>0.4){
+                    //     console.log("angleChange", angleChange);
+                    //     this.moveSound.setTime(0);
+                    //     this.moveSound.play();
+                    //   }
+                    // }
+
                     //set the angle on the state model
                     this.stateModel.set({angle: this.angle});
-                    
+                    // this.angleTime = nowTime;
                     if (this.angle > MIN_CAPTURE_SUN_ANGLE) {
                         $button = $('#controls').find('.button');
                         $button.show();
@@ -413,11 +439,12 @@ define([
                 
                 
                 this.animateTimeout = setInterval(function () {
-                    
+                    this.moveSound.play();
                     setSextantArmAngle(this.stateModel.attributes.angle);
                                         
                     this.fadeTimeout = setTimeout(function () {
                         $('.sextant-diagram').fadeTo(DIAGRAM_FADE, 0.2, this.showMessage.bind(this));
+                        clearInterval(this.soundTimeout);
                     }.bind(this), DIAGRAM_PREFADE_PAUSE + 1000 * DIAGRAM_ROTATE_TIME);
                     clearInterval(this.animateTimeout);
                 }.bind(this), DIAGRAM_PREROTATE_PAUSE);
@@ -559,6 +586,11 @@ define([
             },
             
             cleanup: function () {
+                this.moveSound.cleanup();
+                this.clickSound.cleanup();
+                this.oceanSound.cleanup();
+                this.turnPageSound.cleanup();
+
                 if (typeof cordova !== "undefined") {
                     cordova.plugins.camerapreview.stopCamera();
                 }
