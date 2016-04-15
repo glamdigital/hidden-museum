@@ -6,6 +6,7 @@ define([
         'hbs!app/templates/interactive/blackboard_gallery',
         'app/collections/BlackboardsCollection',
         'app/mixins/overlay',
+        'app/media',
         'hbs!app/templates/overlay_interactive_inner'
     ],function (
       Backbone,
@@ -15,10 +16,13 @@ define([
       blackboardGalleryTemplate,
       BlackboardsCollection,
       overlayMixin,
+      mediaUtil,
       interactiveInnerTemplate
     ) {
         var BlackboardGalleryView = Backbone.View.extend({
             template: blackboardGalleryTemplate,
+            chalkSound: mediaUtil.createAudioObj('audio/blackboard_gallery/chalk.mp3'),
+            shortChalkSound: mediaUtil.createAudioObj('audio/blackboard_gallery/short_chalk.mp3'),
 
             initialize: function (params) {
                 this.isZoomed = false;
@@ -60,6 +64,10 @@ define([
                   items:1,
                   loop:false,
                   dots:true,
+                  onChanged: function () {
+                    this.shortChalkSound.setTime(0);
+                    this.shortChalkSound.play();
+                  }.bind(this)
                 });
                 
             },
@@ -70,6 +78,8 @@ define([
             },
             
             onBlackboard: function (event) {
+                this.chalkSound.setTime(0);
+                this.chalkSound.play();
                 this.isZoomed = !this.isZoomed;
                 if (this.isZoomed) {
                     $('.ui .gallery .zoom-view').removeClass('hidden');
@@ -93,7 +103,9 @@ define([
             },
             
             cleanup: function () {
-                this.overlayCleanup();
+              this.chalkSound.cleanup();
+              this.shortChalkSound.cleanup();
+              this.overlayCleanup();
             }
         });
         
