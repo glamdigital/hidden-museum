@@ -263,7 +263,7 @@ div.scan-container {
   }
   
   .preview {
-    width: 80%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     height: 100%;
@@ -273,6 +273,7 @@ div.scan-container {
     background-color: white;
     background-size: 500px;
     background-position-y: 50%;
+    background-position-x: 50%;
   }
   
   img {
