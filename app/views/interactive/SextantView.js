@@ -24,6 +24,7 @@ define([
         SKY_BACKGROUND_SCROLL_RATE = 1000/90;
         SKY_BACKGROUND_OFFSET_TABLET = 1220;
         SKY_BACKGROUND_OFFSET = 555;
+        SKY_UPDATE_INTERVAL = 50;
         MIN_ANGLE = -33;
         DEFAULT_HORIZON = -10;
         MIN_CAPTURE_SUN_ANGLE = 10;
@@ -146,8 +147,9 @@ define([
                 this.hideMessage();
                 this.showHorizonIndicator();
                 this.angle = 0;
-                $(window).on('deviceorientation', this, _.bind(this.deviceOrientationHandler, this));
-                $(window).on('devicemotion', this, _.bind(this.deviceMotionHandler, this));
+                // $(window).on('deviceorientation', this, _.bind(this.deviceOrientationHandler, this));
+                // $(window).on('devicemotion', this, _.throttle(_.bind(this.deviceMotionHandler, this), 50));
+                $(window).on('devicemotion', this, _.throttle(_.bind(this.deviceMotionHandler, this), SKY_UPDATE_INTERVAL));
             },
             
             toggleButtonHandler: function (ev) {
@@ -202,7 +204,7 @@ define([
             stopTrackingOrientation: function (ev) {
                 this.isTrackingOrientation = false;
                 this.isTrackingMotion = false;
-                $(window).off('deviceorientation', _.bind(this.deviceOrientationHandler, this));
+                // $(window).off('deviceorientation', _.bind(this.deviceOrientationHandler, this));
                 $(window).off('devicemotion', _.bind(this.deviceMotionHandler, this));
             },
             
@@ -268,8 +270,8 @@ define([
                 }
                 
                 if(this.scrollSky) {
-                    var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE + this.sky_background_offset;
-                    $('#sky').css('background-position-y', skyOffsetY + 'px');
+                    var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE;
+                    $('#sky').css('bottom', -skyOffsetY + 'px');
                     
                     
                     

@@ -457,27 +457,35 @@ div.item-title {
         }
       }
       
-      #sky {
-        clear: right;
-        background-image: url(../img/objects/navigation/sky.png);
-        background-size: 500px;
-        background-position-y: 555px; //to get the sea level in center initially
-        background-position-x: -205px; //to get the sun centered left-right
-        height: $sextantCapturedImageHeight;
-        height: 100%;
-        width: 100%;
-        float: right;
-        position: relative;
-            #sun {
-                position: absolute;
-                left: 45%;
+      #sky-holder {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          
+          #sky {
+            clear: right;
+            // background-image: url(../img/objects/navigation/sky.png);
+            // background-size: 500px;
+            // background-position-y: 555px; //to get the sea level in center initially
+            // background-position-x: -205px; //to get the sun centered left-right
+            // height: $sextantCapturedImageHeight;
+            height: 300%;
+            width: 300%;
+            // float: right;
+            position: absolute;
+            bottom: 0px;
+            left: -150%;
+                #sun {
+                    position: absolute;
+                    left: 45%;
+                }
+            @media #{$tablet} {
+              background-size: 1000px;
+              background-position-y: 1112px;
+              background-position-x: -410px;
             }
-        @media #{$tablet} {
-          background-size: 1000px;
-          background-position-y: 1112px;
-          background-position-x: -410px;
         }
-        }
+    }
     }
 
     #message {
