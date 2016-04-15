@@ -121,6 +121,8 @@ define([
                 this.scrollSky = true;
                 
                 getSunElevation = this.calculateSunElevation;
+                this.background = $("body").css("background");
+                $("body").css({"background": "transparent"})
             },
                         
             afterRender: function () {
@@ -605,6 +607,9 @@ define([
                 this.oceanSound.cleanup();
                 this.turnPageSound.cleanup();
                 clearInterval(this.oceanInterval);
+                this.background = $("body").css("background");
+                $("body").css({"background": this.background});
+
                 if (typeof cordova !== "undefined") {
                     cordova.plugins.camerapreview.stopCamera();
                 }
