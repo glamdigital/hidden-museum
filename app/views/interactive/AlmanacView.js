@@ -14,7 +14,6 @@ define([
         template: almanacTemplate,
         
         events: {
-          // "click .tab": "tabButtonHandler",
           "click #done-button": "done"
         },
         
@@ -32,8 +31,6 @@ define([
                 'sun': "<p>Assuming you are in the nothern hemisphere, the almanac shows that according to your " +
                 "measurement of the noon sun you are located "+ this.stateModel.getLatitude().toPrecision(5).toString()
                 + "&deg; north of the equator.</p>"
-                // 'pole star': "<p>In the Northern Hemisphere, the height of the Pole Star above the horizon is " +
-                //              "coincidentally always the same as your latitude because it is directly above the North Pole.</p>"
             };
             
             this.stateModel.on('change', this.render, this);
@@ -42,31 +39,12 @@ define([
         },
         
         afterRender: function() {
-            // switch (this.stateModel.attributes.mode) {
-            //     case "sun": $('#instructions').removeClass("pole-star");    break;
-            //     case "pole star": $('#instructions').addClass("pole-star"); break;
-            // }
-            
             this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", this.stateModel.getLatitude());
         },
         
         setup: function() {
       
         },
-        
-        // tabButtonHandler: function(ev) {
-        //     var $target = $(ev.target);
-        //     
-        //     switch ($target.attr("id")) {
-        //         case "sun":
-        //             this.stateModel.set({mode:"sun"});
-        //             break;
-        //         
-        //         case "pole-star":
-        //             this.stateModel.set({mode:"pole star"});
-        //             break;
-        //     }
-        // },
         
         showLatitudeIndicator: function() {
             $('#value-indicator').show();
@@ -78,7 +56,6 @@ define([
         
         setLatitudeIndicator: function($indicator, label, angle) {
             var $parent = $($indicator).parent();
-            // var parentHeight = 270;//$($parent).height();
             var parentHeight = $($parent).height();
             console.log("parentHeight", parentHeight);
             var parentTop = $($parent).offset().top;
@@ -93,7 +70,6 @@ define([
             
             var y  = parentHeight - parentHeight*mercN/(Math.PI * topProportion);
             $($indicator).offset({left: $($indicator).offset().left, top: parentTop + y});
-            // this.setLatitudeIndicatorText($indicator, label + ": " + angle.toPrecision(5).toString() + "&deg; North: "+this.stateModel.attributes.angle.toPrecision(3).toString());
             this.setLatitudeIndicatorText($("#latitude-calculation"), "North:"+angle.toPrecision(5).toString(), this.stateModel.attributes.angle.toPrecision(3).toString()+ "&deg;");
   
         },
@@ -111,30 +87,6 @@ define([
              $('#reference-indicator').hide();
         },
         
-        // displayInstructions: function() {
-        //     var $instructionsDiv = $('#instructions')[0];
-        //     // switch (this.stateModel.attributes.mode) {
-        //     //     case 'sun':
-        //             $instructionsDiv.innerHTML = "<p>Assuming you are in the Northern Hemisphere, your measurement for " +
-        //                                          "the noon day Sun today shows that you are " + this.stateModel.getLatitude().toPrecision(5).toString() +
-        //                                          "&deg; North of the Equator.</p>";
-        //     //         break;
-        //     //         
-        //     //     case 'pole star':
-        //     //         $instructionsDiv.innerHTML = "<p>In the Northern Hemisphere, the height of the Pole Star above the " +
-        //     //                                      "horizon is coincidentally always the same as your latitude because it " +
-        //     //                                      "is directly above the North Pole.</p>";
-        //     //         break;
-        //     // }
-        // },
-        
-        // showMessage: function() {
-        //     $('#message').show();
-        //     $('#message')[0].innerHTML = "";
-        //     var $messageDiv = $('#message')[0];
-        //     $('#message').hide();
-        // },
-
         done: function() {
             Backbone.history.navigate('#/topic/' + this.item.attributes.topic);
         },
