@@ -47,6 +47,12 @@ define([
                   dots:true,
                 });
                 
+                var scrollContainerHeight = $('.content').height() - $('.thumbnail').height() - $('.owl-dots').height();
+                if($(window).width() >= 700) { scrollContainerHeight -= 20; }
+                
+                $('.scroll-container').height(scrollContainerHeight + 'px');
+                $('.owl-dot span').css('margin', '3px');
+                
             },
             
             events: {

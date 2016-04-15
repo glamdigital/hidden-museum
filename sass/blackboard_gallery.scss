@@ -129,29 +129,6 @@ $blackboardHeightTablet: 600px;
               margin-top: 10px;
               color: $navTextColor;
               position: relative;
-              height: $iphone6Height - $headerHeight - $blackboardHeight - $controlsHeight - 10px;
-              @media #{$tablet} {
-                height: $ipadHeight - $headerHeight - $blackboardHeightTablet - $controlsHeight - 10px;
-              }
-              @media #{$phone_small} {
-                height: $phoneSmallHeight - $headerHeight - $blackboardHeight - $controlsHeight - 10px;
-              }
-              @media #{$phone_vsmall} {
-                height: $phoneVSmallHeight - $headerHeight - $blackboardHeight - $controlsHeight - 10px;
-              }
-              body.ios & {
-                height: $iphone6Height - $headerTotalHeight - $blackboardHeight - $controlsHeight - 10px;
-                @media #{$tablet} {
-                  height: $ipadHeight - $headerTotalHeight - $blackboardHeightTablet - $controlsHeight - 10px;
-                }
-                @media #{$phone_small} {
-                  height: $phoneSmallHeight - $headerTotalHeight - $blackboardHeight - $controlsHeight - 10px;
-                }
-                @media #{$phone_vsmall} {
-                  height: $phoneVSmallHeight - $headerTotalHeight - $blackboardHeight - $controlsHeight - 10px;
-                }
-
-              }
               overflow-y: auto;
               
               &.hidden {
