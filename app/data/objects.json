@@ -1,8 +1,9 @@
 [
   {
     "id": "navigation",
-    "title": "Navigation at Sea",
+    "title": "Navigation at sea",
     "description": "",
+    "action_title": "Travel the world",
     "gallery": "upper_gallery",
     "photograph": "objects/navigation/Navigation.jpg",
     "sketch": "objects/navigation/Navigation_cropped.jpg",
@@ -14,8 +15,9 @@
   },
   {
     "id": "globe",
-    "title": "All Soul's Globe ",
+    "title": "A changing world",
     "description": "",
+    "action_title": "A changing world",
     "gallery": "upper_gallery",
     "photograph": "objects/globe/All-Souls-Globe.jpg",
     "sketch": "objects/globe/All-Souls-Globe_cropped.jpg",
@@ -27,8 +29,9 @@
   },
   {
     "id": "moon_globe",
-    "title": "Selenographia",
+    "title": "Explore the Moon",
     "description": "",
+    "action_title": "Explore the Moon",
     "gallery": "entrance_gallery",
     "photograph": "objects/moon_globe/Selenographia2.jpg",
     "sketch": "objects/moon_globe/Selenographia_cropped.jpg",
@@ -40,8 +43,9 @@
   },
   {
     "id": "armillary",
-    "title": "Janvier armillary Sphere",
+    "title": "A Revolutionary clock",
     "description": "",
+    "action_title": "A Revolutionary clock",
     "gallery": "entrance_gallery",
     "photograph": "objects/armillary/9061-Armillary-sphere.jpg",
     "sketch": "objects/armillary/9061-Armillary-sphere_cropped.jpg",
@@ -53,8 +57,9 @@
   },
   {
     "id": "blackboard",
-    "title": "Einstein's Blackboard",
+    "title": "Einstein's blackboard",
     "description": "",
+    "action_title": "Einstein's blackboard",
     "gallery": "basement_gallery",
     "photograph": "objects/blackboard/Einstein_blackboard.jpg",
     "sketch": "objects/blackboard/Einstein_cropped.jpg",
@@ -66,8 +71,9 @@
   },
   {
     "id": "marconi",
-    "title": "Marconi Collection",
+    "title": "Wireless wonder",
     "description": "",
+    "action_title": "Wireless wonder",
     "gallery": "basement_gallery",
     "photograph": "objects/marconi/Marconi.jpg",
     "sketch": "objects/marconi/Marconi_cropped.jpg",
@@ -79,8 +85,9 @@
   },
   {
     "id": "lodestone",
-    "title": "Westmorland Lodestone",
+    "title": "Nature’s magnet",
     "description": "",
+    "action_title": "Nature’s magnet",
     "gallery": "basement_gallery",
     "photograph": "objects/lodestone/imu-media.jpg",
     "sketch": "objects/lodestone/Lodestone_cropped.jpg",

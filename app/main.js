@@ -32,9 +32,9 @@ require([
         window.firstRun = true;
         
         console.log("Device Ready");
-        Location.init();
+        // Location.init();
         //Location.startRangingRegion(Location_UUID_ios);
-        Location.startRangingRegion(Location_UUID_beacons);
+        // Location.startRangingRegion(Location_UUID_beacons);
 
         //lock in portrait
         if (screen && typeof screen.lockOrientation == 'function') {

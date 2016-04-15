@@ -55,7 +55,6 @@ define(["backbone", "jquery", "hbs!app/templates/trails", "app/mixins/overlay"],
       
       adjustPosition: function() {
           var contentHeight = $('.content').height();
-          console.log(contentHeight);
           $('.trails-list-container>a').height(contentHeight/3);
       },
       

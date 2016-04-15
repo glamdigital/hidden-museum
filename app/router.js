@@ -246,7 +246,7 @@ define([
                                 break;
                                 
                             case '1':
-                                interactView = new AlmanacView({ item: item, stateModel:this.sextantModel });
+                                interactView = new AlmanacView({ item: item, model:item, stateModel:this.sextantModel });
                                 break;
                         }
                         break;
