@@ -1,23 +1,22 @@
 define(['backbone',
 		'hbs!app/templates/interactive/image_scanning',
 		'app/mixins/overlay',
+		'app/media',
 		'hbs!app/templates/overlay_interactive_inner'
 	],
 	function(
 		Backbone,
 		imageScanningTemplate,
 		overlayMixin,
+		mediaUtil,
 		interactiveInnerTemplate
 	) {
 
 		App = window.App || {};
 
-
-
-
-
 		var ScanView = Backbone.View.extend({
 			template: imageScanningTemplate,
+			unlockSound: mediaUtil.createAudioObj('audio/ir_unlock.mp3'),
 
 			initialize: function(params) {
 				this.item = params.item;
@@ -85,6 +84,7 @@ define(['backbone',
 									navigator.notification.vibrate(200);
 								}
 								console.log("found our target");
+								this.unlockSound.play();
 								this.onFoundItem();
 							}
 						}, this),
@@ -142,12 +142,13 @@ define(['backbone',
 
 			},
 			
-			skipImageRecognition: function () {
+			goToFoundItem: function () {
+				this.unlockSound.play();
 				this.onFoundItem();
 			},
 			
 			events: {
-					"click .skip-image-recognition": "onFoundItem"
+					"click .skip-image-recognition": "goToFoundItem"
 			},
 			
 			cleanup: function() {
