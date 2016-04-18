@@ -14,12 +14,14 @@ define([
    var DigitalClockView = Backbone.View.extend( {
        template: digitalClockTemplate,
        clockSound: mediaUtil.createAudioObj('audio/armillary/clock.mp3'),
+       clockMinutesSound: mediaUtil.createAudioObj('audio/armillary/clock-minutes.mp3'),
 
        initialize: function() {
            //this.listenTo(this.model, 'change', this.render);
 
            //listen for touch start/end events anywhere.
            this.soundHours = 0;
+           this.soundMinutes = 0;
            this.numTouches = 0;
            this.decreaseInterval = null;
            this.increaseInterval = null;
@@ -52,11 +54,16 @@ define([
 
        _updateTime: function() {
           $('.digital-time').html(this.model.attributes.time.format("HH:mm"));
+          if (Math.abs(this.soundMinutes - this.model.attributes.time.minutes()) >= 5 ) {
+            this.clockMinutesSound.setTime(0);
+            this.clockMinutesSound.play();
+            this.soundMinutes = this.model.attributes.time.minutes();
+          }
           if (Math.abs(this.soundHours - this.model.attributes.time.hours()) >= 1 ) {
             this.clockSound.setTime(0);
             this.clockSound.play();
+            this.soundHours = this.model.attributes.time.hours();
           }
-          this.soundHours = this.model.attributes.time.hours();
        },
 
        events: {
@@ -67,23 +74,33 @@ define([
        increaseTime: function() {
            this.model.attributes.time.add(1, 'minute');
            this.model.trigger('change', this);
-
+           if (Math.abs(this.soundMinutes - this.model.attributes.time.minutes()) >= 5 ) {
+             this.clockMinutesSound.setTime(0);
+             this.clockMinutesSound.play();
+             this.soundMinutes = this.model.attributes.time.minutes();
+           }
            if (Math.abs(this.soundHours - this.model.attributes.time.hours()) >= 1 ) {
              this.clockSound.setTime(0);
              this.clockSound.play();
+             this.soundHours = this.model.attributes.time.hours();
            }
-           this.soundHours = this.model.attributes.time.hours();
        },
 
        decreaseTime: function() {
            this.model.attributes.time.subtract(1, 'minute');
            this.model.trigger('change', this);
 
+           console.log(this.model.attributes.time.minutes());
+           if (Math.abs(this.soundMinutes - this.model.attributes.time.minutes()) >= 5 ) {
+             this.clockMinutesSound.setTime(0);
+             this.clockMinutesSound.play();
+             this.soundMinutes = this.model.attributes.time.minutes();
+           }
            if (Math.abs(this.soundHours - this.model.attributes.time.hours()) >= 1 ) {
              this.clockSound.setTime(0);
              this.clockSound.play();
+             this.soundHours = this.model.attributes.time.hours();
            }
-           this.soundHours = this.model.attributes.time.hours();
        },
 
        onTouchStart: function(ev) {
@@ -122,8 +139,8 @@ define([
        cleanup: function() {
            $('#digital-clock').off('touchstart');
            $('#digital-clock').off('touchend');
+           this.clockMinutesSound.cleanup();
            this.clockSound.cleanup();
-
        }
    });
 
