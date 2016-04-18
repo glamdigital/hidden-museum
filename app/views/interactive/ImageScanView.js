@@ -152,6 +152,7 @@ define(['backbone',
 			},
 			
 			cleanup: function() {
+				this.unlockSound.cleanup();
 				this.overlayCleanup();
 				$("body").removeClass("transparent-background");
 				if(typeof(MS4Plugin) !== 'undefined')

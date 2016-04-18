@@ -241,6 +241,8 @@ define([
         },
 
         cleanup: function() {
+            this.spinSound.cleanup();
+            this.stopSpinSound.cleanup();
             this.stopped = true;
             delete(this.scene);
             delete(this.renderer);
