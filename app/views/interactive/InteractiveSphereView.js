@@ -1,12 +1,14 @@
 define([
         'backbone',
         'three',
+        'app/media',
         'hbs!app/templates/interactive/sphere'
     ],
     
     function(
         Backbone,
         three,
+        mediaUtil,
         sphereTemplate
     )
 {
@@ -15,6 +17,8 @@ define([
 
     var InteractiveSphereView = Backbone.View.extend({
         template: sphereTemplate,
+        spinSound: mediaUtil.createAudioObj('audio/globe/spin.mp3'),
+        stopSpinSound: mediaUtil.createAudioObj('audio/globe/stop_spin.mp3'),
 
         initialize: function(params) {
             this.texture = params.texture;
@@ -193,10 +197,19 @@ define([
                     this.extraRotX = this.startExtraRotX + extraDist * this.panRatio * Math.PI / 180;
                 }
             }
+
         },
 
         onTouchEnd: function(ev) {
             this.numTouches--;
+            if (this.lastDeltaX == 0) {
+              this.spinSound.pause();
+              this.stopSpinSound.setTime(0);
+              this.stopSpinSound.play();
+            } else {
+              this.spinSound.setTime(0);
+              this.spinSound.play();
+            }
         },
         animate: function() {
             if(!this.stopped) {
