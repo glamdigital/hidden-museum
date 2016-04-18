@@ -17,8 +17,7 @@ define([
 
     var InteractiveSphereView = Backbone.View.extend({
         template: sphereTemplate,
-        spinSound: mediaUtil.createAudioObj('audio/globe/spin.mp3'),
-        stopSpinSound: mediaUtil.createAudioObj('audio/globe/stop_spin.mp3'),
+        tapSound: mediaUtil.createAudioObj('audio/globe/tap.mp3'),
 
         initialize: function(params) {
             this.texture = params.texture;
@@ -175,6 +174,8 @@ define([
             this.lastDeltaX = 0;
 
             this.startExtraRotX = this.extraRotX;
+            this.tapSound.setTime(0);
+            this.tapSound.play();
         },
 
         onTouchMove: function(ev) {
@@ -202,16 +203,6 @@ define([
 
         onTouchEnd: function(ev) {
             this.numTouches--;
-            if(Backbone.history.getFragment().indexOf("globe") >= 0) {
-              if (this.lastDeltaX == 0) {
-                this.spinSound.pause();
-                this.stopSpinSound.setTime(0);
-                this.stopSpinSound.play();
-              } else {
-                this.spinSound.setTime(0);
-                this.spinSound.play();
-              }
-            }
         },
         animate: function() {
             if(!this.stopped) {
@@ -241,8 +232,7 @@ define([
         },
 
         cleanup: function() {
-            this.spinSound.cleanup();
-            this.stopSpinSound.cleanup();
+            this.tapSound.cleanup();
             this.stopped = true;
             delete(this.scene);
             delete(this.renderer);

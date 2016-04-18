@@ -64,7 +64,7 @@ define([
                   items:1,
                   loop:false,
                   dots:true,
-                  onChanged: function () {
+                  onDrag: function () {
                     this.shortChalkSound.setTime(0);
                     this.shortChalkSound.play();
                   }.bind(this)

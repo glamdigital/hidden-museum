@@ -85,7 +85,9 @@ define(['backbone',
 								}
 								console.log("found our target");
 								this.unlockSound.play();
-								this.onFoundItem();
+								setTimeout(function () {
+									this.onFoundItem();
+								}.bind(this), 210);
 							}
 						}, this),
 						//error
@@ -144,7 +146,9 @@ define(['backbone',
 			
 			goToFoundItem: function () {
 				this.unlockSound.play();
-				this.onFoundItem();
+				setTimeout(function () {
+					this.onFoundItem();
+				}.bind(this), 210);
 			},
 			
 			events: {
