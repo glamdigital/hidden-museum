@@ -202,13 +202,15 @@ define([
 
         onTouchEnd: function(ev) {
             this.numTouches--;
-            if (this.lastDeltaX == 0) {
-              this.spinSound.pause();
-              this.stopSpinSound.setTime(0);
-              this.stopSpinSound.play();
-            } else {
-              this.spinSound.setTime(0);
-              this.spinSound.play();
+            if(Backbone.history.getFragment().indexOf("globe") >= 0) {
+              if (this.lastDeltaX == 0) {
+                this.spinSound.pause();
+                this.stopSpinSound.setTime(0);
+                this.stopSpinSound.play();
+              } else {
+                this.spinSound.setTime(0);
+                this.spinSound.play();
+              }
             }
         },
         animate: function() {
