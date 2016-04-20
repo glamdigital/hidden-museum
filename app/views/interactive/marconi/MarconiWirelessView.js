@@ -1,14 +1,14 @@
 define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins/overlay",
-        "hbs!app/templates/overlay_interactive_inner", "app/views/interactive/ImageScanView", 'app/media'],
+        "hbs!app/templates/overlay_interactive_inner", "app/views/interactive/ImageScanView", 'app/media', 'move'],
     function(Backbone, marconiWirelessTemplate, overlayMixin,
-        interactiveInnerTemplate, ImageScanView, mediaUtil) {
+        interactiveInnerTemplate, ImageScanView, mediaUtil, move) {
 
 
     var MarconiWirelessView = Backbone.View.extend({
         template: marconiWirelessTemplate,
 
-        transmitSound: mediaUtil.createAudioObj('audio/marconi/buzz.wav'),
-        humSound: mediaUtil.createAudioObj('audio/marconi/hum.wav'),
+        transmitSound: mediaUtil.createAudioObj('audio/marconi/zap.mp3'),
+        humSound: mediaUtil.createAudioObj('audio/marconi/charging.mp3'),
 
         blecontroller: {
             deviceHandle: 0,
@@ -166,6 +166,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
         },
         afterRender: function() {
             $('#controls').hide();
+            $('#feedback').hide();
             this.irView = new ImageScanView({
                                     el: $('#ir-view'),
                                     model: this.item,
@@ -180,6 +181,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
         },
         showControls: function() { 
             $('#controls').show();
+            $('#feedback').show();
             $('.preview').hide();
 
         },
@@ -190,25 +192,68 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
                 scanSuccessCallback,
                 scanErrorCallback
             );
-            this.humSound.play();
+            this.startChargingAnimation();
         },
         scanSuccessCallback: function() {
             console.log("BLE Success" + this.humSound);
             clearTimeout(this.transmitTimer);
-            this.humSound.pause();
-            this.humSound.currentTime = 0;
-            this.transmitSound.play();
+            this.stopChargingAnimation();        
+            this.spark();
         },
         scanErrorCallback: function() {
-            console.log("BLE Failure" + this);
-            
+            console.log("BLE Failure" + this);           
             if (this.scanErrors < 2) {
                 this.scanErrors++
-                this.transmitTimer = setTimeout(_.bind(this.wirelessButtonHandler, this), 2000);
+                this.transmitTimer = setTimeout(_.bind(this.wirelessButtonHandler, this), 3000);
             }
             else {
                 this.scanErrors = 0;
+                this.stopChargingAnimation();
             }
+        },
+        startChargingAnimation: function() {
+            this.humSound.play();
+            move('#charging-text')
+                .duration(0)
+                .y(-40)
+                .end();
+            move('#charging-indicator')
+                .duration(6000)
+                .set('height', '400px')               
+                .end();           
+        },
+        stopChargingAnimation: function () {
+            this.humSound.pause();
+            this.humSound.currentTime = 0;
+            move('#charging-text')
+                .duration(0)    
+                .y(40)
+                .end();
+            move('#charging-indicator')
+                .set('height', 0)
+                .end();
+            this.spark();
+        },
+        spark: function() {
+            if( navigator.notification ) { navigator.notification.vibrate(100); }
+            this.transmitSound.play();
+            move('#marconi')
+                .duration(100)
+                .set('background-color', 'rgba(255,255,255,0.8)')
+                .then()
+                    .duration(100)
+                    .set('background-color', 'transparent')
+                    .then()
+                        .duration(100)
+                        .set('background-color', 'rgba(255,255,255,0.5)')
+                        .then()
+                            .duration(100)
+                            .set('background-color', 'transparent')
+                            .pop()
+                        .pop()
+                    .pop()
+                .end();
+
         },
 	    cleanup: function() {
             this.blecontroller.close();
