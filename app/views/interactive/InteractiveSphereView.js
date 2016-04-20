@@ -25,9 +25,10 @@ define([
             //this.defaultRotX = params.tiltTowardCam * Math.PI/180 | 0.1;
             this.defaultRotX = params.tiltTowardCam ? (params.tiltTowardCam * Math.PI/180) : 0.1;
             this.defaultRotY = params.defaultRotY || 0;
-            this.panRatio = params.panRatio || 1;
+            this.panRatio = params.panRatio || 0.3;
             this.lightFromSun = params.lightFromSun || false;
             this.stopped = false;
+            this.markerAddInterval = params.markerAddInterval || 0;
 
             //used for 'momentum' spin
             this.lastDeltaX = 0;
@@ -114,21 +115,46 @@ define([
             var color = (typeof this.markerColor === 'number') ? this.markerColor : 0xff0000;
             var radius = (typeof this.markerRadius === 'number') ? this.markerRadius : 1.0;
 
-            var markerMaterial = new three.MeshBasicMaterial({
+            this.markerMaterial = new three.MeshBasicMaterial({
                 color: color
             });
-            var markerGeometry = new three.SphereGeometry(radius, 1, 1);
+            this.markerGeometry = new three.SphereGeometry(radius, 1, 1);
 
             //position
-            markerGeometry.translate(this.globeRadius, 0,0);
-
-            _.each(markers, _.bind(function(marker) {
-                var markerMesh = new three.Mesh( markerGeometry, markerMaterial);
-                //lat/lng
-                markerMesh.rotateY((marker.lng) * Math.PI/180);
-                markerMesh.rotateZ(marker.lat* Math.PI/180);
-                this.mesh.add(markerMesh);
-            },this));
+            this.markerGeometry.translate(this.globeRadius, 0,0);
+            
+            if(!this.markerAddInterval) {
+                _.each(markers, _.bind(function(marker) {
+                    // var markerMesh = new three.Mesh( markerGeometry, markerMaterial);
+                    // //lat/lng
+                    // markerMesh.rotateY((marker.lng) * Math.PI/180);
+                    // markerMesh.rotateZ(marker.lat* Math.PI/180);
+                    // this.mesh.add(markerMesh);
+                    this._addMarker(marker);
+                },this));
+            } else {
+                this.currentMarkerIndex = 0;
+                this.markerInterval = setInterval(this.addNextMarker.bind(this), this.markerAddInterval);
+            }
+        },
+        
+        addNextMarker: function () {
+            //draw next marker
+            this._addMarker(this.markers[this.currentMarkerIndex]);
+            
+            this.currentMarkerIndex++;
+            if(this.currentMarkerIndex >= this.markers.length) {
+                //all done
+                clearInterval(this.markerInterval);
+            }
+        },
+        
+        _addMarker: function (marker) {
+            var markerMesh = new three.Mesh( this.markerGeometry, this.markerMaterial);
+            //lat/lng
+            markerMesh.rotateY((marker.lng) * Math.PI/180);
+            markerMesh.rotateZ(marker.lat* Math.PI/180);
+            this.mesh.add(markerMesh);
         },
 
         events: {
@@ -192,7 +218,7 @@ define([
 
                     if(this.lastDeltaX !== 0 ) {
                         //spin with momentum
-                        this.model.set({angle: this.model.attributes.angle + this.lastDeltaX * 0.2});
+                        this.model.set({angle: this.model.attributes.angle + this.lastDeltaX * 0.1});
                         this.model.trigger('force-change', this.model);
                     }
                 }
@@ -204,6 +230,9 @@ define([
             delete(this.scene);
             delete(this.renderer);
             delete(this.mesh);
+            if(this.markerInterval) {
+                clearInterval(this.markerAddInterval);
+            }
         }
     });
 

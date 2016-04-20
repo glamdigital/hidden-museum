@@ -118,6 +118,7 @@ $blackboardHeight: 260px;
               height: $iphone6Height - $headerTotalHeight - $blackboardHeight - $controlsHeight - 10px;
             }
             overflow-y: auto;
+            font-size: 1.2em;
             
             &.hidden {
                 display: none;

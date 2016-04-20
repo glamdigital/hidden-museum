@@ -29,7 +29,7 @@ a {
     height: $headerHeight;
     width: 100%;
     position: relative;
-    background-color: #1d2b23;
+    background-color: $headerColour;
     
     .nav-button {
       height: 100%;
@@ -264,13 +264,16 @@ div.scan-container {
   
   .preview {
     width: 100%;
+    margin-left: auto;
+    margin-right: auto;
     height: 100%;
     background-size: contain !important;
     background-repeat: no-repeat !important;
     opacity:0.4;
     background-color: white;
     background-size: 500px;
-    background-position-y: 50px;
+    background-position-y: 50%;
+    background-position-x: 50%;
   }
   
   img {
