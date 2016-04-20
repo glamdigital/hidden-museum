@@ -183,7 +183,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             $('#controls').show();
             $('#feedback').show();
             $('.preview').hide();
-
+            $('#header').hide();
         },
         wirelessButtonHandler: function(ev) {
             var scanSuccessCallback = _.bind(this.scanSuccessCallback, this);
