@@ -1,12 +1,14 @@
 define([
         'backbone',
         'three',
+        'app/media',
         'hbs!app/templates/interactive/sphere'
     ],
     
     function(
         Backbone,
         three,
+        mediaUtil,
         sphereTemplate
     )
 {
@@ -18,6 +20,7 @@ define([
 
         initialize: function(params) {
             this.texture = params.texture;
+            this.tapSound = mediaUtil.createAudioObj(params.tapSound)
             this.numTouches = 0;
             //this.defaultRotX = 17 * Math.PI/180;
             this.extraRotX = 0;
@@ -171,6 +174,10 @@ define([
             this.lastDeltaX = 0;
 
             this.startExtraRotX = this.extraRotX;
+            if (this.tapSound) {
+              this.tapSound.setTime(0);
+              this.tapSound.play();
+            }
         },
 
         onTouchMove: function(ev) {
@@ -193,6 +200,7 @@ define([
                     this.extraRotX = this.startExtraRotX + extraDist * this.panRatio * Math.PI / 180;
                 }
             }
+
         },
 
         onTouchEnd: function(ev) {
@@ -226,6 +234,7 @@ define([
         },
 
         cleanup: function() {
+            if (this.tapSound) this.tapSound.cleanup();
             this.stopped = true;
             delete(this.scene);
             delete(this.renderer);

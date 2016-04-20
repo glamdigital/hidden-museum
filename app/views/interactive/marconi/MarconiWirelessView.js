@@ -142,9 +142,11 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
                 this.close();
             },
             close:function() {
+              if (typeof evothings !== 'undefined') {
                 console.log("closing connection");
                 evothings.ble.close(this.deviceHandle);
                 this.deviceHandle = 0;
+              }
             }
         },
 
