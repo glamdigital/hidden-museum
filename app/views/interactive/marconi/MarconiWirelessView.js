@@ -162,7 +162,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             this.overlayInitialize({ displayOnArrival: false});
             this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
             $('#content').css("background-color", "transparent");
-
+            this.scanErrors = 0;
         },
         afterRender: function() {
             $('#controls').hide();
@@ -198,7 +198,6 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             console.log("BLE Success" + this.humSound);
             clearTimeout(this.transmitTimer);
             this.stopChargingAnimation();        
-            this.spark();
         },
         scanErrorCallback: function() {
             console.log("BLE Failure" + this);           
@@ -218,7 +217,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
                 .y(-40)
                 .end();
             move('#charging-indicator')
-                .duration(6000)
+                .duration(7000)
                 .set('height', '400px')               
                 .end();           
         },
