@@ -44,21 +44,6 @@ define([
             },
 
             afterRender: function () {
-                this.blackboards.each(function (blackboard, index) {
-                  var img = $(".thumbnail img.blackboard")[index]; // Get my img elem
-                  var pic_real_width, pic_real_height;
-                  $("<img/>") // Make in memory copy of image to avoid css issues
-                      .attr("src", $(img).attr("src"))
-                      .load(function() {
-                          pic_real_width = this.width;   // Note: $(this).width() will not
-                          pic_real_height = this.height; // work for in memory images.
-                          if (pic_real_width>pic_real_height) {
-                            $("#blackboard-gallery-top-padding-"+index).addClass("landscape");
-                          }
-                      });
-                  
-                });
-                
                 $('.blackboard-gallery').owlCarousel({
                   center: true,
                   items:1,
@@ -69,6 +54,12 @@ define([
                     this.shortChalkSound.play();
                   }.bind(this)
                 });
+                
+                var scrollContainerHeight = $('.content').height() - $('.thumbnail').height() - $('.owl-dots').height();
+                if($(window).width() >= 700) { scrollContainerHeight -= 20; }
+                
+                $('.scroll-container').height(scrollContainerHeight + 'px');
+                $('.owl-dot span').css('margin', '3px');
                 
             },
             

@@ -5,12 +5,33 @@
     overflow: hidden;
     .video-player {
       top:180px;
-      
     }
 
     .transport-controls {
       display:none;
     }
+}
+@media #{$tablet} {
+  .interactive.blackboard:before {
+      content:"";
+      background-image: url(../img/objects/blackboard/einsteins-blackboard-main.jpg);
+      background-size: cover;
+      background-position: center;
+      -webkit-filter: blur(8px);
+      filter: blur(8px);
+      position: absolute;
+      left: -5%;
+      top: -5%;
+      height: 110%;
+      width: 110%;
+      z-index: -1;
+  }
+  .interactive.blackboard{
+    background-color: transparent;
+    .video-player {
+      top:100px;
+    }
+  }
 }
 
 video::-webkit-media-controls-start-playback-button {

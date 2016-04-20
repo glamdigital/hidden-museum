@@ -2,199 +2,224 @@
 
 $controlsHeight: 32px;
 $blackboardHeight: 260px;
+$blackboardHeightTablet: 600px;
 
-.explanations {
-    display: none;
-}
+.interactive.blackboard-gallery {
+  background-color: $mapColor;
+  
+  .explanations {
+      display: none;
+  }
 
-.ui {
-    position: relative;
-    height: 100%;
-    
-    .gallery {
-        position: relative;
-        height: 100%;
-        
-        .zoom-view {
-            position: relative;
-            height: 100%;
-            top: 0;
-            bottom: $controlsHeight;
-            left: 0;
-            right: 0;
-            z-index: 2;
-            
-            &.hidden {
-                display: none;
-            }
-            
-            .blackboard {
-                height: auto;
-                width: 100%;
-            }
-            
-        }
+  .ui {
+      position: relative;
+      height: 100%;
+      
+      .gallery {
+          position: relative;
+          height: 100%;
+          .zoom-view {
+              position: relative;
+              height: 100%;
+              top: 0;
+              bottom: $controlsHeight;
+              left: 0;
+              right: 0;
+              z-index: 2;
+              
+              &.hidden {
+                  display: none;
+              }
+              
+              .blackboard {
+                  height: auto;
+                  width: 100%;
+              }
+              
+          }
 
-        .close {
-            position: absolute;
-            display: inline-block;
-            top: 10px;
-            right: 10px;
-            font-size: 3em;
-            color: $navTextColor;
-            opacity: 0.8;
-            z-index: 2;
-            &.hidden {
-                display: none;
-            }
-        }
-        
-        .background {
-            display: none;
-        }
-        
-        .blackboard-gallery-top-padding {
-          height: 5px;
-          &.landscape {
-            @media #{$phone_vsmall} {
-              height: 0px;
+          .close {
+              position: absolute;
+              display: inline-block;
+              top: 10px;
+              right: 10px;
+              font-size: 3em;
+              color: $navTextColor;
+              opacity: 0.8;
+              z-index: 2;
+              &.hidden {
+                  display: none;
+              }
+          }
+          
+          .background {
+              display: none;
+          }
+          
+          .blackboard-gallery-top-padding {
+            height: 5px;
+            &.landscape {
+              @media #{$phone_vsmall} {
+                height: 0px;
+              }
             }
           }
-        }
 
-        .blackboard {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .thumbnail {
-            position: relative;
-            height: $blackboardHeight;
-            text-align: center;
-            &.hidden {
-                display: none;
-            }
+          .blackboard {
+              display: block;
+              margin-left: auto;
+              margin-right: auto;
+              height: 100%;
+              width: auto;
+          }
+          
+          .thumbnail {
+              position: relative;
+              height: $blackboardHeight;
+              @media #{$tablet} {
+                height: $blackboardHeightTablet;
+                img.blackboard {
+                    width: 420px;
+                }
+              }
+              text-align: center;
+              &.hidden {
+                  display: none;
+              }
 
-            .inner {
-                position: relative;
-                display: inline-block;
-                height: 100%;
+              .inner {
+                  position: relative;
+                  display: inline-block;
+                  height: 100%;
+                  &.landscape {
+                      transform: rotate(90deg);
+                  }
 
-            }
-            
-            .blackboard {
-                height: 100%;
-            }
-            
-            .zoom {
-                position: absolute;
-                display: inline-block;
-                bottom: 5px;
-                right: 10px;
-                font-size: 3em;
-                color: $navTextColor;
-                opacity: 0.8;
-            }
-        }
-        
-        .name {
-            // background-color: green;
-        }
-        
-        .roles {
-            // background-color: yellow;
-        }
-        
-        .descriptive-text {
-            // background-color: teal;
-        }
-        
-        .scroll-container {
-            margin-top: 10px;
-            position: relative;
-            height: $iphone6Height - $headerHeight - $blackboardHeight - $controlsHeight - 10px;
-            body.ios & {
-              height: $iphone6Height - $headerTotalHeight - $blackboardHeight - $controlsHeight - 10px;
-            }
-            overflow-y: auto;
+              }
+              
+              .zoom {
+                  position: absolute;
+                  display: inline-block;
+                  top: 5px;
+                  right: 10px;
+                  font-size: 3em;
+                  color: $navTextColor;
+                  opacity: 0.8;
+                  
+                  &.landscape {
+                      right: initial;
+                      left: 10px;
+                  }
+              }
+          }
+          
+          .name {
+              // background-color: green;
+          }
+          
+          .roles {
+              // background-color: yellow;
+          }
+          
+          .descriptive-text {
+              // background-color: teal;
+          }
+          
+          .scroll-container {
+              margin-top: 10px;
+              color: $navTextColor;
+              position: relative;
+              overflow-y: auto;
             font-size: 1.2em;
-            
-            &.hidden {
-                display: none;
-            }
-        }
-        
-        p {
-            margin-left: 10px;
-            margin-right: 10px;
-            text-align: justify;
-            
-            &.author {
-                margin-top: 0;
-                text-align: center;
-                font-weight: bold;
-            }
-            
-            &.role {
-                font-style: italic;
-                font-size: 85%;
-            }
-            
-            span.postscript {
-                font-size: 85%;
-            }
-            
-            span.title {
-                font-weight: bold;
-            }
-        }
-    }
-    
-    .controls {
-        position: fixed;
-        width: 100%;
-        bottom: 0;
-        text-align: center;
-        background-color: white;
-        padding-top: 3px;
-        padding-bottom: 3px;
-        height: $controlsHeight;
-        box-sizing: initial;
-        
-        .background {
-            display: none;
-        }
-        
-        .previous {
-            float: left;
-            width: 90px;
-            text-align: left;
-            padding-left: 10px;
-        }
-        
-        .next {
-            float: right;
-            width: 90px;
-            text-align: right;
-            padding-right: 10px;
-        }
-        
-        .progress {
-            display: inline-block;
-            height: $controlsHeight;
-            line-height: $controlsHeight;
-            
-            .index {
-                
-            }
-            
-            .total {
-                
-            }
-        }
-    }
-}
-.owl-theme .owl-dots .owl-dot span {
-  margin: 5px 3px;
+              
+              &.hidden {
+                  display: none;
+              }
+          }
+          
+          p {
+              margin-left: 10px;
+              margin-right: 10px;
+              text-align: justify;
+              
+              &.author {
+                  margin-top: 0;
+                  text-align: center;
+                  font-weight: bold;
+              }
+              
+              &.role {
+                  font-style: italic;
+                  font-size: 85%;
+              }
+              
+              span.postscript {
+                  font-size: 85%;
+              }
+              
+              span.title {
+                  font-weight: bold;
+                  color: inherit;
+              }
+          }
+      }
+      
+      .controls {
+          position: fixed;
+          width: 100%;
+          bottom: 0;
+          text-align: center;
+          background-color: white;
+          padding-top: 3px;
+          padding-bottom: 3px;
+          height: $controlsHeight;
+          box-sizing: initial;
+          
+          .background {
+              display: none;
+          }
+          
+          .previous {
+              float: left;
+              width: 90px;
+              text-align: left;
+              padding-left: 10px;
+          }
+          
+          .next {
+              float: right;
+              width: 90px;
+              text-align: right;
+              padding-right: 10px;
+          }
+          
+          .progress {
+              display: inline-block;
+              height: $controlsHeight;
+              line-height: $controlsHeight;
+              
+              .index {
+                  
+              }
+              
+              .total {
+                  
+              }
+          }
+      }
+  }
+  .owl-theme .owl-dots .owl-dot span {
+    margin: 5px 3px;
+  }
+  
+  .owl-dot {
+      span {
+          background: #b9b9b9;
+      }
+      &.active {
+          span {
+              background: #363d3a;
+          }
+      }
+  }
 }
