@@ -3,15 +3,15 @@
       <div class="ui">
           <div class="gallery">
             <div class="background"></div>
-                <div id="blackboard-gallery-top-padding-{{@index}}" class="blackboard-gallery-top-padding"></div>
+                <div id="blackboard-gallery-top-padding" class="blackboard-gallery-top-padding {{#if landscape}}landscape{{/if}}"></div>
               <div class="zoom-view hidden">
                   <img class="blackboard" src="img/objects/blackboard/gallery/{{image}}_zoomed.jpg">
               </div>
               <i class="fa fa-times-circle-o close hidden"></i>
               <div class="thumbnail">
-                  <div class="inner">
-                      <img class="blackboard" src="img/objects/blackboard/gallery/{{image}}.jpg">
-                      <i class="fa fa-arrows-alt zoom"></i>
+                  <div class="inner {{#if landscape}}landscape{{/if}}">
+                      <img class="blackboard" src="img/objects/blackboard/gallery/{{image}}_zoomed.jpg">
+                      <i class="fa fa-arrows-alt zoom {{#if landscape}}landscape{{/if}}"></i>
                   </div>
               </div>
               <div class="scroll-container">
