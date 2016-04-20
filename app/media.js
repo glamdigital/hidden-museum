@@ -26,7 +26,7 @@ define([
 			//use html5 audio object
             sound = new Audio(options);
 			sound.cleanup = function () {
-				sound.stop();
+				sound.pause();
 			}
 			
 			sound.getProgress = function () {

@@ -1,11 +1,19 @@
-define(["backbone", "hbs!app/templates/interactive/almanac"],
-    function(Backbone, almanacTemplate) {
+define([
+  "backbone",
+  "hbs!app/templates/interactive/almanac",
+  "app/mixins/overlay",
+  "hbs!app/templates/overlay_interactive_inner"
+], function(
+  Backbone,
+  almanacTemplate,
+  overlayMixin,
+  interactiveInnerTemplate
+) {
 
     var AlmanacView = Backbone.View.extend({
         template: almanacTemplate,
         
         events: {
-          "click .tab": "tabButtonHandler",
           "click #done-button": "done"
         },
         
@@ -20,42 +28,22 @@ define(["backbone", "hbs!app/templates/interactive/almanac"],
             this.tab = 1;
             this.item = params.item;
             this.instructions = { 
-                'sun': "<p>Assuming you are in the Northern Hemisphere, your measurement for the noon day Sun today " +
-                       "shows that you are " + this.stateModel.getLatitude().toPrecision(5).toString() +
-                       "&deg; North of the Equator.</p>",
-                       
-                'pole star': "<p>In the Northern Hemisphere, the height of the Pole Star above the horizon is " +
-                             "coincidentally always the same as your latitude because it is directly above the North Pole.</p>"
+                'sun': "<p>Assuming you are in the nothern hemisphere, the almanac shows that according to your " +
+                "measurement of the noon sun you are located "+ this.stateModel.getLatitude().toPrecision(5).toString()
+                + "&deg; north of the equator.</p>"
             };
             
             this.stateModel.on('change', this.render, this);
+            this.overlayInitialize({ displayOnArrival: false });
+            this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
         },
         
         afterRender: function() {
-            switch (this.stateModel.attributes.mode) {
-                case "sun": $('#instructions').removeClass("pole-star");    break;
-                case "pole star": $('#instructions').addClass("pole-star"); break;
-            }
-            
             this.setLatitudeIndicator($('#value-indicator')[0], "Latitude", this.stateModel.getLatitude());
         },
         
         setup: function() {
       
-        },
-        
-        tabButtonHandler: function(ev) {
-            var $target = $(ev.target);
-            
-            switch ($target.attr("id")) {
-                case "sun":
-                    this.stateModel.set({mode:"sun"});
-                    break;
-                
-                case "pole-star":
-                    this.stateModel.set({mode:"pole star"});
-                    break;
-            }
         },
         
         showLatitudeIndicator: function() {
@@ -68,7 +56,8 @@ define(["backbone", "hbs!app/templates/interactive/almanac"],
         
         setLatitudeIndicator: function($indicator, label, angle) {
             var $parent = $($indicator).parent();
-            var parentHeight = 270;//$($parent).height();
+            var parentHeight = $($parent).height();
+            console.log("parentHeight", parentHeight);
             var parentTop = $($parent).offset().top;
             // convert from degrees to radians
             var latRad = angle*Math.PI/180;
@@ -81,11 +70,13 @@ define(["backbone", "hbs!app/templates/interactive/almanac"],
             
             var y  = parentHeight - parentHeight*mercN/(Math.PI * topProportion);
             $($indicator).offset({left: $($indicator).offset().left, top: parentTop + y});
-            this.setLatitudeIndicatorText($indicator, label + ": " + angle.toPrecision(5).toString() + "&deg; North");
+            this.setLatitudeIndicatorText($("#latitude-calculation"), "North:"+angle.toPrecision(5).toString(), this.stateModel.attributes.angle.toPrecision(3).toString()+ "&deg;");
+  
         },
         
-        setLatitudeIndicatorText: function($indicator, text) {
-            $indicator.innerHTML = text;
+        setLatitudeIndicatorText: function($indicator, latitude, angle) {
+            $indicator.find("#angle-indicator").html(angle);
+            $indicator.find("#latitude-indicator").html(latitude);
         },
         
         showReferenceLatitude: function() {
@@ -96,38 +87,15 @@ define(["backbone", "hbs!app/templates/interactive/almanac"],
              $('#reference-indicator').hide();
         },
         
-        displayInstructions: function() {
-            var $instructionsDiv = $('#instructions')[0];
-            switch (this.stateModel.attributes.mode) {
-                case 'sun':
-                    $instructionsDiv.innerHTML = "<p>Assuming you are in the Northern Hemisphere, your measurement for " +
-                                                 "the noon day Sun today shows that you are " + this.stateModel.getLatitude().toPrecision(5).toString() +
-                                                 "&deg; North of the Equator.</p>";
-                    break;
-                    
-                case 'pole star':
-                    $instructionsDiv.innerHTML = "<p>In the Northern Hemisphere, the height of the Pole Star above the " +
-                                                 "horizon is coincidentally always the same as your latitude because it " +
-                                                 "is directly above the North Pole.</p>";
-                    break;
-            }
-        },
-        
-        showMessage: function() {
-            $('#message').show();
-            $('#message')[0].innerHTML = "";
-            var $messageDiv = $('#message')[0];
-            $('#message').hide();
-        },
-
         done: function() {
             Backbone.history.navigate('#/topic/' + this.item.attributes.topic);
         },
         
         cleanup: function() {
-          
+          this.overlayCleanup();
         }
     });
-    
+    _.extend(AlmanacView.prototype, overlayMixin);
+
     return AlmanacView;
 });

@@ -130,6 +130,7 @@ $blackboardHeightTablet: 600px;
               color: $navTextColor;
               position: relative;
               overflow-y: auto;
+            font-size: 1.2em;
               
               &.hidden {
                   display: none;

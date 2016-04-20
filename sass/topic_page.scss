@@ -107,9 +107,7 @@
             display: inline-block;
             text-align: left;
             #media-caption {
-              //      text-align: left;
-              //        padding-right: 1em;
-              font-size: 1.0em;
+              font-size: 0.9em;
               font-weight: bold;
               line-height: 0.9em;
             }
@@ -316,7 +314,7 @@
 }
 
 .title, .topic-item {
-  @include objectTitle;
+  @include contentTitle;
   position: relative;
   height: $topicListItemHeight / 3;
   width: 68%;

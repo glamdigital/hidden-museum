@@ -55,6 +55,8 @@ define([
                 //    'ended': 'video/lodestone/outro.mp4'
                 //};
 
+                //scale factor used in various places to compensate for size being different than iphone 6
+                this.scaleFactor = $(window).height()/667;
                 
                 this.resetState();
                 this.model.set({state: 'winding'});
@@ -65,6 +67,7 @@ define([
                 this.playRatchetAudio = _.bind(_.throttle(function(){
                     this.ratchetSound.play();
                 }, 300),this);
+                
             },
 
             resetState: function() {
@@ -78,7 +81,7 @@ define([
                 this.windModel = new Backbone.Model({
                     angle: 0,
                     handleMinHeight: null,
-                    handleWidth: 100
+                    handleWidth: 100 * this.scaleFactor
                 });
 
                 this.listenTo(this.stateModel, 'change:state', this.render);
@@ -121,6 +124,23 @@ define([
                     switch (this.stateModel.attributes.state) {
                         case 'start':
                             //add keys as touch hotspot
+                            //position keys exactly where they should be
+                            var $frame = $('#frame');
+                            
+                            //use a slightly different calculation if the background fit is constrained by width instead of by height
+                            var aspectRatio = $(window).width() / $(window).height();
+                            var iPadRatio = 768/1024;
+                            var isSquare = Math.abs(aspectRatio - iPadRatio) < 0.01;
+                            if(isSquare) {
+                                //full width of bg shown
+                                var tableTopHeight = $frame.height() - $frame.width() * 670/768;
+                            } else {
+                                //full height of bg shown
+                                var tableTopHeight = $frame.height() - ($frame.height() * 670/1024);
+                            }
+                            $('#lodestone-Lkey').css('bottom', tableTopHeight+ 'px');
+                            $('#lodestone-Rkey').css('bottom', (tableTopHeight - 0.01 * $frame.height()) + 'px');
+                            
                             break;
                             
                         case 'winding':
@@ -157,22 +177,26 @@ define([
 
                                 //animate fall
                                 var cradle = $('#weight-cradle')[0];
-                                var fallDist = MAX_WIND_HEIGHT;
+                                var fallDist = this.scaleFactor * MAX_WIND_HEIGHT;
+                                if (window.innerWidth >= 768) {
+                                  fallDist *= 1.35;
+                                }
+
                                 move(cradle)
                                     //fall
                                     .duration('0.2s')
                                     .ease('in')
-                                    .y(-MAX_WIND_HEIGHT + 30)
+                                    .y(-fallDist + 30)
                                     
                                     //bounce
                                     .end(_.bind(function() {
                                         this.fallSound.play();
                                         if( navigator.notification ) { navigator.notification.vibrate(100); }
-                                        move(cradle).y(-MAX_WIND_HEIGHT - 10)
+                                        move(cradle).y(-fallDist - 7)
                                         .ease('in-out')
                                         .duration('0.2s')
                                         .end(_.bind(function() {
-                                            move(cradle).y(-MAX_WIND_HEIGHT)
+                                            move(cradle).y(-fallDist)
                                             .ease('in-out')
                                             .duration('0.1s')
                                             .end(_.bind(function() {
@@ -203,6 +227,20 @@ define([
                 
                 //move when the winding changes
                 this.listenTo(this.windModel, 'change', _.bind(function(source) {
+                    //check if it's at the top or at the bottom
+                    if (this.windModel.attributes.angle <0) {
+                        this.windModel.set({angle: 0});
+                    }
+                    
+                    if (this.windModel.attributes.angle > MAX_WIND_ANGLE) {
+                        this.stopListening(this.windModel);
+                        this.windModel.attributes.angle = MAX_WIND_ANGLE;
+                        
+                        this.fullWindSound.play();
+                        
+                        this.stateModel.set({state: 'adding'});
+                    }
+                    
                     //move the crown up
                     this.setCrownHeight();
 
@@ -212,25 +250,20 @@ define([
                     
                     this.updateRatchetArm();
                     
-                    //check if it's at the top or at the bottom
-                    if (this.windModel.attributes.angle <0) {
-                        this.windModel.set({angle: 0});
-                    }
-                    
-                    if (this.windModel.attributes.angle > MAX_WIND_ANGLE) {
-                        this.stopListening(this.windModel);
-                        this.windModel.attributes.angle = MAX_WIND_ANGLE;
-
-                        this.fullWindSound.play();
-
-                        this.stateModel.set({state: 'adding'});
-                    }
                 }, this));
             },
 
             setCrownHeight: function() {
-                var crownHeight = 30 + MAX_WIND_HEIGHT * this.windModel.attributes.angle / MAX_WIND_ANGLE;
-                $('#crown-holder').css('top', crownHeight);
+              
+                var frameHeight = $("#crown-container").height();
+                $('#crown-holder #crown').height(frameHeight * 0.27);
+                
+                var progress = this.windModel.attributes.angle / MAX_WIND_ANGLE;
+                
+                // var crownTop = (0.1*frameHeight + this.scaleFactor * MAX_WIND_HEIGHT * progress)/* + 30*(frameHeight-620)/620/*;
+                var crownTop = (0.1*frameHeight + this.scaleFactor * MAX_WIND_HEIGHT * progress);
+                $('#crown-holder').css({'top': crownTop});
+                
             },
             
             updateSmallKeys: function() {
@@ -280,9 +313,28 @@ define([
                 this.tapKeySound.play();
 
                 //animate key up towards
-                var keyL = $('#lodestone-Lkey')[0];
+                var frameHeight = $("#frame").height();
+                var frameWidth = $("#frame").width();
+                var $keyL = $('#lodestone-Lkey');
+                var keyL = $keyL[0];
+                var $keyR = $('#lodestone-Rkey');
+                var keyR = $keyR[0];
+                
+                var keyLTargetX = frameWidth * 32/100; //same as in .scss
+                var keyLCurrentX = frameWidth * 19/100;
+                
+                var keyRTargetX = frameWidth * 56/100; //same as in .scss
+                var keyRCurrentX = frameWidth * 19/100;
+                
+                var keyTargetY = frameHeight * 7/100 + $keyL.height();  //add key height to compensate for bottom vs top positioning
+                // var keyLCurrentY = (frameHeight * (100-32)/100);
+                var keyLCurrentY = frameHeight - parseInt($keyL.css('bottom'));
+                var keyRCurrentY = frameHeight - parseInt($keyR.css('bottom'));
+                
+                
                 move(keyL)
-                    .translate(55, -345)
+                    // .translate(frameWidth *13/100, -frameHeight *54/100)
+                    .translate(keyLTargetX - keyLCurrentX, keyTargetY - keyLCurrentY)
                     .rotate(180)
                     .duration('1s')
                     .ease('in-out')
@@ -297,9 +349,8 @@ define([
                         }, this), 500);
                     },this));
                 
-                var keyR = $('#lodestone-Rkey')[0];
                 move(keyR)
-                    .translate(177, -352)
+                    .translate(keyRTargetX - keyRCurrentX, keyTargetY - keyRCurrentY)
                     .rotate(210)
                     .duration('1.2s')
                     .ease('in-out')
@@ -320,13 +371,13 @@ define([
                 this.overlayCleanup();
                 
                 //clean up audio
-                tapKeySound.cleanup();
-                keyInSound.cleanup();
-                ratchetSound.cleanup();
-                addWeightSound.cleanup();
-                fullWindSound.cleanup();
-                fallStartSound.cleanup();
-                fallSound.cleanup();
+                this.tapKeySound.cleanup();
+                this.keyInSound.cleanup();
+                this.ratchetSound.cleanup();
+                this.addWeightSound.cleanup();
+                this.fullWindSound.cleanup();
+                this.fallStartSound.cleanup();
+                this.fallSound.cleanup();
             }
         });
     
