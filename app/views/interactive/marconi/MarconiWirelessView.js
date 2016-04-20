@@ -256,7 +256,11 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
 
         },
 	    cleanup: function() {
-            this.blecontroller.close();
+            if (typeof evothings !== 'undefined') {
+                this.blecontroller.close();
+            }
+            this.transmitSound.cleanup();
+            this.humSound.cleanup();
             this.overlayCleanup();
             this.irView.remove();
             clearTimeout(this.transmitTimer);
