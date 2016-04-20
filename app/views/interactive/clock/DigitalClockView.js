@@ -3,19 +3,23 @@
  */
 define([
         'backbone',
+        'app/media',
         'hbs!app/templates/interactive/digitalClock'
             ], function(
         Backbone,
+        mediaUtil,
         digitalClockTemplate
     ) {
 
    var DigitalClockView = Backbone.View.extend( {
        template: digitalClockTemplate,
+       clockMinutesSound: mediaUtil.createAudioObj('audio/armillary/clock-minutes.mp3'),
 
        initialize: function() {
            //this.listenTo(this.model, 'change', this.render);
 
            //listen for touch start/end events anywhere.
+           this.soundMinutes = 0;
            this.numTouches = 0;
            this.decreaseInterval = null;
            this.increaseInterval = null;
@@ -44,10 +48,17 @@ define([
            return out;
        },
 
-
+       playClockSounds: function () {
+         if (Math.abs(this.soundMinutes - this.model.attributes.time.minutes()) >= 5 ) {
+           this.clockMinutesSound.setTime(0);
+           this.clockMinutesSound.play();
+           this.soundMinutes = this.model.attributes.time.minutes();
+         }
+       },
 
        _updateTime: function() {
-           $('.digital-time').html(this.model.attributes.time.format("HH:mm"));
+          $('.digital-time').html(this.model.attributes.time.format("HH:mm"));
+          this.playClockSounds();
        },
 
        events: {
@@ -58,11 +69,13 @@ define([
        increaseTime: function() {
            this.model.attributes.time.add(1, 'minute');
            this.model.trigger('change', this);
+           this.playClockSounds();
        },
 
        decreaseTime: function() {
            this.model.attributes.time.subtract(1, 'minute');
            this.model.trigger('change', this);
+           this.playClockSounds();
        },
 
        onTouchStart: function(ev) {
@@ -101,6 +114,7 @@ define([
        cleanup: function() {
            $('#digital-clock').off('touchstart');
            $('#digital-clock').off('touchend');
+           this.clockMinutesSound.cleanup();
        }
    });
 

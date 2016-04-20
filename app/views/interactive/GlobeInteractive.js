@@ -709,6 +709,7 @@ define([
                     texture: 'img/objects/globe/earthmap1k.jpg',
                     bump: 'img/objects/globe/earthbump1k.jpg',
                     specular: 'img/objects/globe/earthspec1k.jpg',
+                    tapSound: 'audio/globe/tap.mp3',
                     canRotateUpDown: true,
                     tiltTowardCam: 10,
                     defaultRotY: -70,
