@@ -27,6 +27,7 @@ define([
             sound = new Audio(options);
 			sound.cleanup = function () {
 				sound.pause();
+				sound.currentTime = 0;
 			}
 			
 			sound.getProgress = function () {

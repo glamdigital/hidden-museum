@@ -16,5 +16,27 @@
 				line-height: 91px;
 			}
 		}
+		#feedback {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			z-index: -1000;
+			#charging-indicator {
+			    position: absolute;
+			    bottom: 120px;
+			    left: 0;
+			    height: 0;
+			    width: 100%;
+			    background: rgba(0, 255, 0, 0.5);
+			}
+		    #charging-text	{
+		    	position: absolute;
+		    	width: 100%;
+		    	text-align: center;
+		    	padding: $standardPadding;
+		    	bottom:80px;
+		    	color: navBackgroundColor;
+		    }		
+		}
 	}
 }
