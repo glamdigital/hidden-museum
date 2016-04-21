@@ -2,12 +2,14 @@ define([
   "backbone",
   "hbs!app/templates/interactive/almanac",
   "app/mixins/overlay",
-  "hbs!app/templates/overlay_interactive_inner"
+  "hbs!app/templates/overlay_interactive_inner",
+  "moment"
 ], function(
   Backbone,
   almanacTemplate,
   overlayMixin,
-  interactiveInnerTemplate
+  interactiveInnerTemplate,
+  moment
 ) {
 
     var AlmanacView = Backbone.View.extend({
@@ -29,7 +31,7 @@ define([
             this.item = params.item;
             this.instructions = { 
                 'sun': "<p>Assuming you are in the nothern hemisphere, the almanac shows that according to your " +
-                "measurement of the noon sun you are located "+ this.stateModel.getLatitude().toPrecision(5).toString()
+                "measurement of the noon sun you are located "+ this.stateModel.getLatitude().toPrecision(3).toString()
                 + "&deg; north of the equator.</p>"
             };
             
@@ -70,11 +72,13 @@ define([
             
             var y  = parentHeight - parentHeight*mercN/(Math.PI * topProportion);
             $($indicator).offset({left: $($indicator).offset().left, top: parentTop + y});
-            this.setLatitudeIndicatorText($("#latitude-calculation"), "North:"+angle.toPrecision(5).toString(), this.stateModel.attributes.angle.toPrecision(3).toString()+ "&deg;");
+            this.setLatitudeIndicatorText($("#latitude-calculation"), "Lat: "+angle.toPrecision(3).toString()+ "&deg;", "Sun: "+this.stateModel.attributes.angle.toPrecision(3).toString()+ "&deg;");
   
         },
         
         setLatitudeIndicatorText: function($indicator, latitude, angle) {
+            var now = moment().format("DD MMM");
+            $indicator.find("#date-indicator").html(now);
             $indicator.find("#angle-indicator").html(angle);
             $indicator.find("#latitude-indicator").html(latitude);
         },

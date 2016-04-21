@@ -374,7 +374,7 @@ div.item-title {
   
   &#sextant {
     &.view-1{
-      background-image: url(../img/latitude.png);
+      background-image: url(../img/objects/navigation/latitude.jpg);
       background-size: cover;
     }
     #instructions {
@@ -677,17 +677,8 @@ div.item-title {
       #instructions {
         position: absolute;
         width: 100%;
-        background-position: 0 -1*$tabHeight;
-        background-image: none;
-        background:rgba(255,255,255,0.6);
-        background-size: cover;
-        height: 21%;
-        &.pole-star {
-          background-image: url(../img/parchment-green.jpg); 
-          background-size: 375px;
-          background-position: 0 -1*$tabHeight;
-          color: white;
-        }
+        background:linear-gradient(to bottom, rgba(224,221,179, 1) 20%, rgba(224,221,179, 1), rgba(224,221,179,0));
+        height: 30%;
       }
       
       #message {
@@ -695,20 +686,31 @@ div.item-title {
 
       }
       #latitude-calculation {
-        background:rgba(255,255,255,0.6);
+        background:rgba(224,221,179, 0.8);
         top: 25%;
         position: relative;
         color: black;
         text-shadow: 2px 2px #edddc1;
-        font-size: 1.3em;
+        font-size: 1.1em;
         font-weight: bold;
         padding: 5px 0;
-        span#latitude-indicator {
-            float: right;
-            padding-right: 3%;
-        }
-        span#angle-indicator {
-            padding-left: 39%;
+        span {
+          display: inline-block; 
+          border-right: 1px solid black;       
+          text-align: center;
+          &#date-indicator {
+            width: 20%;
+          }
+          &#time-indicator {
+            width: 18%;
+          }
+          &#angle-indicator {
+            width: 26%;
+          }
+          &#latitude-indicator {
+            border: none;
+            width: 30%;
+          }
         }
       }
       
