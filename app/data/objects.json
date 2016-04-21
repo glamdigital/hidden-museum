@@ -15,7 +15,7 @@
   },
   {
     "id": "globe",
-    "title": "A changing world",
+    "title": "All Soul's Globe",
     "description": "",
     "action_title": "A changing world",
     "gallery": "upper_gallery",
@@ -29,7 +29,7 @@
   },
   {
     "id": "moon_globe",
-    "title": "Explore the Moon",
+    "title": "Selenographia",
     "description": "",
     "action_title": "Explore the Moon",
     "gallery": "entrance_gallery",
@@ -43,7 +43,7 @@
   },
   {
     "id": "armillary",
-    "title": "A Revolutionary clock",
+    "title": "Janvier Armillary Sphere",
     "description": "",
     "action_title": "A Revolutionary clock",
     "gallery": "entrance_gallery",
@@ -57,7 +57,7 @@
   },
   {
     "id": "blackboard",
-    "title": "Einstein's blackboard",
+    "title": "Einstein's Blackboard",
     "description": "",
     "action_title": "Einstein's blackboard",
     "gallery": "basement_gallery",
@@ -71,7 +71,7 @@
   },
   {
     "id": "marconi",
-    "title": "Wireless wonder",
+    "title": "Marconi Collection",
     "description": "",
     "action_title": "Wireless wonder",
     "gallery": "basement_gallery",
@@ -85,7 +85,7 @@
   },
   {
     "id": "lodestone",
-    "title": "Nature’s magnet",
+    "title": "Westmorland Lodestone",
     "description": "",
     "action_title": "Nature’s magnet",
     "gallery": "basement_gallery",
