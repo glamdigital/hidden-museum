@@ -31,6 +31,12 @@ define(['backbone',
 			serialize: function() {
 				data = this.item.toJSON();
 				data.gallery = this.gallery;
+				if (this.useLandscapeImage) {
+					// inject "_landscape" in image name
+					var imgName = data.IRTargetImage;
+					var pos = imgName.lastIndexOf(".")
+					data.IRTargetImage = [imgName.slice(0, pos), "_landscape", imgName.slice(pos)].join('');
+				}
 				return data;
 			},
 

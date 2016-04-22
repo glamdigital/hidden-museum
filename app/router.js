@@ -91,6 +91,8 @@ define([
                 this.contentView = new ContentView({el:$('#content')});
                 this.headerView = new HeaderView({el:$('#prheader'), prevLink:null, nextLink:null, logoLink:"#"});
                 this.headerView.render();
+                if ($('#content').width() >= 768) App.isIpad = true;
+                else App.isIpad = false;
             },
             
             routes: {
@@ -284,6 +286,7 @@ define([
                                     item: item,
                                     gallery: 'basement',
                                     target: 'blackboard',        //a substring in the title of all relevant reference images in the moodstocks library
+                                    useLandscapeImage: App.isIpad,    //image recognition should use a rotated image if true
                                     onFoundItem: _.bind(function() {
                                         Backbone.history.navigate(nextRoute);
                                     }, this)
