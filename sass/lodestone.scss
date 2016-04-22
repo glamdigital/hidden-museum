@@ -82,19 +82,32 @@ $frameOffsetY: -35px;
           
         }
       }
+      #buttons {
+            bottom: 0px;
+            width: 100%;
+            position: absolute;
+            .lodestone-button {
+                @include interactiveButton;
+                margin: 2%;
+                width: 46%;
+                float: left;
+                height: 60px;
+                line-height: 50px;
+                @media #{$phone_vsmall} {
+                  height: 40px;
+                  line-height: 35px;
+                }
+                @media #{$phone_small} {
+                  height: 45px;
+                  line-height: 40px;
+                }
+                @media #{$tablet} {
+                  height: 70px;
+                  line-height: 60px;
+                  font-size: 1em;
+                }
 
-      .lodestone-button {
-        width: auto;
-        margin-left: 2%;
-        margin-right: 2%;
-        padding: 5px;
-        font-size: 1.2em;
-        background:lightgrey;
-        // position:relative;
-        margin-top: 10%;
-        border: 1px solid darkgrey;
-        border-radius: 5px;
-        line-height: 2.5;
+            }
         
         @media #{$tablet} {
             font-size: 1.5em;
@@ -161,11 +174,17 @@ $frameOffsetY: -35px;
     color: white;
     padding: 5px;
     position: absolute;
-    bottom: 5%;
+    bottom: 12%;
     z-index: 200;
     text-align: center;
-    
+    @media #{$phone_small} {
+      bottom: 11%;
+    }
+    @media #{$phone_vsmall} {
+      bottom: 30%;
+    }
     @media #{$tablet} {
+        bottom: 10%;
         font-size: 1.5em;
     }
   }

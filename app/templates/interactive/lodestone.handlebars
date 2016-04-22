@@ -29,11 +29,11 @@
         </div>
         {{/if}}
         <div id="controls-holder">
-            {{#if renderContinueButton}}
-                <div id="continue-button" class="lodestone-button">Learn more about the Lodestone <i class="fa fa-chevron-right"></i></div>
-            {{/if}}
-            {{#if renderRetryButton}}
+            {{#if renderEndButtons}}
+              <div id="buttons">
                 <div id="retry-button" class="lodestone-button">Try again</div>
+                <div id="continue-button" class="lodestone-button">Done</div>
+              </div>
             {{/if}}
         </div>
     </div>

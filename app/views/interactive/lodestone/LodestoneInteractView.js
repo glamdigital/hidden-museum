@@ -98,8 +98,7 @@ define([
                 out.shouldShowKeyOnTable = (state === 'start');
                 out.showRatchet = (state == 'winding');
                 out.instruction = out.instructions[state];
-                out.renderContinueButton = (state === 'fallen');
-                out.renderRetryButton = (state === 'failed' );
+                out.renderEndButtons = ((state === 'fallen') || (state === 'failed'));
                 return out;
             },
             
