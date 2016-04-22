@@ -32,7 +32,7 @@ define([
         
         LOG_NEXT_EV = false;
         
-        DIAGRAM_PREROTATE_PAUSE = 1500;
+        DIAGRAM_PREROTATE_PAUSE = 700;
         DIAGRAM_ROTATE_TIME = 3;    //in seconds
         DIAGRAM_PREFADE_PAUSE = 600;
         DIAGRAM_FADE = 1500;
