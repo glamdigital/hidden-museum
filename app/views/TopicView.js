@@ -3,6 +3,7 @@ define([
         "underscore",
         "app/views/AudioControlsView",
         "app/mixins/overlay",
+        "app/preloadImages",
         "hbs!app/templates/topic"
     ],
     
@@ -11,6 +12,7 @@ define([
             _,
             AudioControlsView,
             overlayMixin,
+            preloadImages,
             topicTemplate
         ) {
         
@@ -59,6 +61,7 @@ define([
                 $marker.css('top', top + 'px');
                 var left = $map.width() * this.topic.get("mapX")+12;
                 $marker.css('left', left + 'px');
+                preloadImages.preload(this.topic.get("slug"));
             },
             
             cleanup: function () {
