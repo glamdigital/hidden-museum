@@ -3,9 +3,6 @@ define([
 ], function (
 	Backbone
 ) {
-	// var images = {
-	// 	"lodestone": "tst.png",
-	// },
 	
 	var preload = function (view) {
 		var images = {
