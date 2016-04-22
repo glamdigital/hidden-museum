@@ -63,6 +63,9 @@ define([
             
             cleanup: function () {
                 this.overlayCleanup();
+                _.each(this.audioViews, function (audioView) {
+                  audioView.cleanup();
+                })
             },
             
             events: {
