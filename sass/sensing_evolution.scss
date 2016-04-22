@@ -374,12 +374,12 @@ div.item-title {
   
   &#sextant {
     &.view-1{
-      background-image: url(../img/latitude.png);
+      background-image: url(../img/objects/sextant/latitude.png);
       background-size: cover;
     }
     #instructions {
       padding: 2px;
-      background-image: url(../img/parchment-tan.jpg);
+      background-image: url(../img/objects/sextant/parchment-tan.jpg);
       background-color: #edddc1;
       background-size: cover;
       height: 140px;
@@ -419,8 +419,8 @@ div.item-title {
       height: $sextantCapturedImageHeight;
       //mask-type: luminance;
       -webkit-mask-source-type: luminance;
-      mask-image: url(../img/circle_mask.png);
-      -webkit-mask-image: url(../img/circle_mask.png);
+      mask-image: url(../img/objects/sextant/circle_mask.png);
+      -webkit-mask-image: url(../img/objects/sextant/circle_mask.png);
       -webkit-mask-position-x: 50%;
       -webkit-mask-size:$sextantCapturedImageHeight - 10px;
       -webkit-mask-repeat: no-repeat;
@@ -490,7 +490,7 @@ div.item-title {
       top:0;
       height:100%;
       width:100%;
-      background-image: url(../img/parchment-tan.jpg);
+      background-image: url(../img/objects/sextant/parchment-tan.jpg);
       background-color: #edddc1;
       background-size: cover;
       line-height: 1.4em;
@@ -568,7 +568,7 @@ div.item-title {
           width: 100%;
           height: 150px;
           display: block;
-          background-image: url(../img/parchment-tan.jpg);
+          background-image: url(../img/objects/sextant/parchment-tan.jpg);
           background-size: cover;
           @media #{$phone_vsmall} {
             height: 80px;
@@ -614,7 +614,7 @@ div.item-title {
       width: $sextantCapturedImageHeight - 10px;
       margin-left: auto;
       margin-right: auto;
-      background-image: url(../img/sextant_eye_piece.png);
+      background-image: url(../img/objects/sextant/sextant_eye_piece.png);
       background-size:cover;
       z-index: 10000;
       position: absolute;
@@ -683,7 +683,7 @@ div.item-title {
         background-size: cover;
         height: 21%;
         &.pole-star {
-          background-image: url(../img/parchment-green.jpg); 
+          background-image: url(../img/objects/sextant/parchment-green.jpg); 
           background-size: 375px;
           background-position: 0 -1*$tabHeight;
           color: white;
@@ -727,7 +727,7 @@ div.item-title {
         }
         
         width: 100%;
-        background-image: url(../img/navigation-map.jpg);
+        background-image: url(../img/objects/sextant/navigation-map.jpg);
         background-position: center top;
         // background-size: auto 270px;
         background-size: cover;
@@ -747,12 +747,12 @@ div.item-title {
       
       #tabs {
         #sun {
-          background-image: url(../img/parchment-tan.jpg);
+          background-image: url(../img/objects/sextant/parchment-tan.jpg);
           background-size: 375px;
         }
         
         #pole-star {
-          background-image: url(../img/parchment-green.jpg);
+          background-image: url(../img/objects/sextant/parchment-green.jpg);
           background-size: 375px;
           background-position-x: -100%;
           color: white;
