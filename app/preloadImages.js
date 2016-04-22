@@ -9,6 +9,30 @@ define([
 	
 	var preload = function (view) {
 		var images = {
+			"trails":[
+				"img/maps/upper_gallery_floorplan.jpg",
+				"img/objects/navigation/Navigation_cropped.jpg",
+				"img/objects/globe/All-Souls-Globe_cropped.jpg",
+				"img/maps/entrance_floorplan.jpg",
+				"img/objects/moon_globe/Selenographia_cropped.jpg",
+				"img/objects/armillary/9061-Armillary-sphere_cropped.jpg",
+				"img/maps/basement_floorplan.jpg",
+				"img/objects/blackboard/Einstein_cropped.jpg",
+				"img/objects/marconi/Marconi_cropped.jpg",
+				"img/objects/lodestone/Lodestone_cropped.jpg",
+			],
+
+			"trail":[
+				"img/find-on-flooplan-button.jpg",
+				"img/objects/navigation/navigation-display-main.jpg",
+				"img/objects/globe/all-souls-globe-main.jpg",
+				"img/objects/moon_globe/selenographia-main.jpg",
+				"img/objects/armillary/9061-Armillary-sphere.jpg",
+				"img/objects/blackboard/einsteins-blackboard-main.jpg",
+				"img/objects/marconi/marconi-main.jpg",
+				"img/objects/lodestone/lodestone_main.jpg",
+			],
+
 			"navigation":[
 				"img/objects/sextant/circle_mask.png",
 				"img/objects/sextant/parchment-tan-dark.jpg",
@@ -19,7 +43,7 @@ define([
 				"img/objects/sextant/sextant_angle_reader.png",
 				"img/objects/navigation/sextant_arm.png",
 				"img/objects/navigation/sextant_frame.png",
-				"img/objects/navigation/ray.png",
+				"img/objects/navigation/sextant_ray.png",
 				"img/objects/navigation/sextant.png",
 				"img/objects/navigation/sky.png",
 				"img/objects/navigation/sun.png",
