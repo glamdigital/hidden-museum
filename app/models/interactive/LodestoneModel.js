@@ -15,7 +15,7 @@ define([
             defaults: {
                 state: 'start',      // 'start' | 'winding' | 'adding' | 'fallen' | 'ended'
                 height: 0,           // 0.0 .. 1.0
-                maxWeight: 150,      //
+                maxWeight: 160,      //
                 maxHeight: 100,
                 availableWeights: {
                     '40': {
@@ -47,7 +47,7 @@ define([
                     'start': 'Tap on the winding keys to begin',
                     'winding': 'Turn the key to raise the lodestone',
                     'adding': 'Tap a weight to add it to the lodestone',
-                    'fallen': 'The lodestone could hold up to 150lbs of weight',
+                    'fallen': 'The lodestone could hold up to 160lbs of weight',
                     'failed': 'You have added as many weights as you can'
                 }
             },
