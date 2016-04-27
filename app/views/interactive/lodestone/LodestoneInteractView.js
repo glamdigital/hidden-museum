@@ -35,13 +35,13 @@ define([
         var LodestoneInteractView = Backbone.View.extend({
             template: lodestoneTemplate,
 
-            tapKeySound: mediaUtil.createAudioObj('audio/lodestone/quiet_clunk.wav'),
-            keyInSound: mediaUtil.createAudioObj('audio/lodestone/keyIn.wav'),
-            ratchetSound: mediaUtil.createAudioObj('audio/lodestone/ratchet.wav'),
-            addWeightSound: mediaUtil.createAudioObj('audio/lodestone/add_weight.wav'),
-            fullWindSound: mediaUtil.createAudioObj('audio/lodestone/click_in_place.wav'),
-            fallStartSound: mediaUtil.createAudioObj('audio/lodestone/fall_loud.wav'),
-            fallSound: mediaUtil.createAudioObj('audio/lodestone/fall.wav'),
+            tapKeySound: mediaUtil.createAudioObj('audio/lodestone/quiet_clunk.mp3'),
+            keyInSound: mediaUtil.createAudioObj('audio/lodestone/keyIn.mp3'),
+            ratchetSound: mediaUtil.createAudioObj('audio/lodestone/ratchet.mp3'),
+            addWeightSound: mediaUtil.createAudioObj('audio/lodestone/add_weight.mp3'),
+            fullWindSound: mediaUtil.createAudioObj('audio/lodestone/click_in_place.mp3'),
+            fallStartSound: mediaUtil.createAudioObj('audio/lodestone/fall_loud.mp3'),
+            fallSound: mediaUtil.createAudioObj('audio/lodestone/fall.mp3'),
 
 
             initialize: function() {
