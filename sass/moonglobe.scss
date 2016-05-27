@@ -14,6 +14,15 @@
       bottom: -60px;
     }
 }
+.android {
+  
+  .transport-controls {
+    bottom: -110px;
+  }
+  .video-player {
+    top: -110px;
+  }
+}
 
 video::-webkit-media-controls-start-playback-button {
   display: none;
