@@ -24,6 +24,22 @@ define(['backbone', 'hbs!app/templates/header'], function(Backbone, headerTempla
             this.prevURL = params.prevURL;
             this.nextURL = params.nextURL;
             this.logoURL = params.logoURL;
+            document.addEventListener("backbutton", function() {
+              var fragment = Backbone.history.getFragment();
+              if (fragment == "trails" || fragment =="") {
+                // if we currently are in the starting view
+                navigator.app.exitApp();
+              } else {
+                if ($(".back-link").length) {
+                  // if there is a back button
+                  Backbone.history.navigate($(".back-link").attr("href"));
+                } else {
+                  // if this is a video or interactive view
+                  return false;
+                }
+              }
+            }.bind(this), false);
+
         },
         
         events: {
