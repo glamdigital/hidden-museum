@@ -240,7 +240,7 @@ define([
             delete(this.renderer);
             delete(this.mesh);
             if(this.markerInterval) {
-                clearInterval(this.markerAddInterval);
+                clearInterval(this.markerInterval);
             }
         }
     });
