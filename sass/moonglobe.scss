@@ -1,8 +1,10 @@
 @import "_common.scss";
 
+
 .interactive.moonglobe {
     background-color: #000;
     overflow: hidden;
+
     
     .video-player {
         //fill screen
@@ -14,16 +16,17 @@
       bottom: -60px;
     }
 }
+
 .android {
-  
-  .transport-controls {
-    bottom: -110px;
-  }
-  .video-player {
-    top: -110px;
+  .interactive.moonglobe {
+    .transport-controls {
+      bottom: -110px;
+    }
+    .video-player {
+      top: -110px;
+    }
   }
 }
-
 video::-webkit-media-controls-start-playback-button {
   display: none;
 }
