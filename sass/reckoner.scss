@@ -14,7 +14,17 @@
       display:none;
     }
 }
-
+.android {
+  .interactive.reckoner {
+    .transport-controls {
+      display: block;
+      bottom: -40px;
+    }
+    .video-player {
+      top: -40px;
+    }
+  }
+}
 video::-webkit-media-controls-start-playback-button {
   display: none;
 }
