@@ -160,6 +160,15 @@ define([
                     };
                     cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
                 }
+                // for android devices the position of the mask is relative to the screen's top-left
+                // so we have to calculate the top value of the mask
+                if(device.platform.toLowerCase() === "android") {
+                  var yMaskPos = $("#prheader").height() + $("#instructions").height() + 110;
+                  $(".android #sextant #viewfinder").css({
+                    "clip-path": "circle(105px at center "+ yMaskPos +"px )",
+                    "-webkit-clip-path": "circle(105px at center "+ yMaskPos +"px )",
+                  });
+                }
             },
             
             setup: function () {
@@ -350,10 +359,11 @@ define([
                 
                 if(LOG_NEXT_EV) {
                     // console.log(ev.originalEvent);
+                    
+                    console.log('gravity: ', gravity);
                     console.log('angle: ', angleDeg);
                     LOG_NEXT_EV = false;
                 }
-                
                 
                 this.currentDeviceAngle = angleDeg - 90;
             },
