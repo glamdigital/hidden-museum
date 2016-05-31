@@ -84,6 +84,7 @@ define([
             
             initialize: function (params) {
                 this.item = params.item;
+                this.deviceInitialMotionZPositive = null;
                 this.step = 0;
                 this.isTrackingOrientation = false;
                 this.isTrackingMotion = false;
@@ -160,6 +161,15 @@ define([
                     };
                     cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
                 }
+                // for android devices the position of the mask is relative to the screen's top-left
+                // so we have to calculate the top value of the mask
+                if(device && device.platform.toLowerCase() === "android") {
+                  var yMaskPos = $("#prheader").height() + $("#instructions").height() + 110;
+                  $(".android #sextant #viewfinder").css({
+                    "clip-path": "circle(105px at center "+ yMaskPos +"px )",
+                    "-webkit-clip-path": "circle(105px at center "+ yMaskPos +"px )",
+                  });
+                }
             },
             
             setup: function () {
@@ -182,7 +192,7 @@ define([
                         this.step = 1;
                         $target.text("Angle of the Sun");
                         if (typeof cordova !== 'undefined') {
-                            $target.hide();
+                            $target.css('visibility', 'hidden');
                         }
                         this.takeHorizonImage(ev);
                         this.hasSetHorizon = true;
@@ -199,7 +209,7 @@ define([
                         this.clickSound.play();
                         this.step = 2;
                         this.stopTrackingOrientation(ev);
-                        $('#main-button').hide();
+                        $('#main-button').css('visibility', 'hidden');
                         this.showDiagram();
                         this.hideHorizonIndicator();
                         $('#captured-image').css("background-image", "none");
@@ -297,7 +307,7 @@ define([
                     // this.angleTime = nowTime;
                     if (this.angle > MIN_CAPTURE_SUN_ANGLE) {
                         $button = $('#controls').find('.button');
-                        $button.show();
+                        $button.css('visibility', 'visible');
                     }
                 }
                 
@@ -340,7 +350,16 @@ define([
                     y: this.currentDeviceMotion.accelerationIncludingGravity.y - this.currentDeviceMotion.acceleration.y,
                     z: this.currentDeviceMotion.accelerationIncludingGravity.z - this.currentDeviceMotion.acceleration.z,
                 };
-                
+                // on (most?) android devices the gravity.z value is positive when holding the device face up
+                // check the gravity.z when the values are read for the first time, if it is positive it will be inverted
+                if(device && device.platform.toLowerCase() === "android") {
+                  if (this.deviceInitialMotionZPositive == null) {
+                    this.deviceInitialMotionZPositive = (gravity.z > 0) ? true : false ;
+                  }
+                  if(this.deviceInitialMotionZPositive) {
+                    gravity.z = -1 * gravity.z;
+                  }
+                }
                 var gDotY = gravity.z / Math.sqrt(gravity.x * gravity.x + gravity.y * gravity.y + gravity.z * gravity.z);
                 var angleRad = Math.acos(gDotY);
                 
@@ -350,10 +369,11 @@ define([
                 
                 if(LOG_NEXT_EV) {
                     // console.log(ev.originalEvent);
+                    
+                    console.log('gravity: ', gravity);
                     console.log('angle: ', angleDeg);
                     LOG_NEXT_EV = false;
                 }
-                
                 
                 this.currentDeviceAngle = angleDeg - 90;
             },
@@ -545,7 +565,8 @@ define([
                 
                 //set height of message div                
                 $('#message-text')[0].innerHTML = this.instructions[2].replace("NN.N", this.stateModel.attributes.angle.toPrecision(3).toString());                
-                $('#main-button').show();
+                $('#main-button').css('visibility', 'visible');
+
             },
             
             hideMessage: function () {
