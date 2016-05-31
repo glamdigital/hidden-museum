@@ -30,8 +30,8 @@ define([
 				sound.currentTime = 0;
 			}
 			
-			sound.getProgress = function () {
-				return sound.currentTime;
+			sound.getProgress = function (cb) {
+				cb(sound.currentTime);
 			}
 			sound.setTime = function (time) {
 				sound.currentTime = time;

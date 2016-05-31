@@ -109,12 +109,13 @@ define([
         },
 
 	    updateElapsed: function() {
-            var elapsed = this.media.getProgress();
-            if(elapsed < 0) {
-                //not playing
-                return;
-            }
-            $('#media-elapsed', this.$el).html(elapsed.toMSS());
+            this.media.getProgress(function (elapsed) {
+                if(elapsed < 0) {
+                    //not playing
+                    return;
+                }
+                $('#media-elapsed', this.$el).html(elapsed.toMSS());
+            }.bind(this));
 	    },
 
         cleanup: function() {
