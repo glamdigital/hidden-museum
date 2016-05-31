@@ -126,6 +126,12 @@ $innerBorder: 20px;
         overflow-y: scroll;
       }
     }
+    &.main-info-overlay {
+      div {
+        max-height: initial;
+        overflow-y: hidden;
+      }
+    }
     div.start, a {
         display: block;
         padding: 10px;
