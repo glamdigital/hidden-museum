@@ -220,9 +220,9 @@ define([
 
                 //drift back to default tilt if not touching
                 if(this.numTouches == 0) {
-                    if(Math.abs(this.extraRotX) > 0.01) {
-                        this.extraRotX -= Math.sign(this.extraRotX) * 0.02;
-                    }
+                    // if(Math.abs(this.extraRotX) > 0.01) {
+                    //     this.extraRotX -= Math.sign(this.extraRotX) * 0.02;
+                    // }
 
                     if(this.lastDeltaX !== 0 ) {
                         //spin with momentum

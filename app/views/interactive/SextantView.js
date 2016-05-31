@@ -32,7 +32,7 @@ define([
         
         LOG_NEXT_EV = false;
         
-        DIAGRAM_PREROTATE_PAUSE = 1500;
+        DIAGRAM_PREROTATE_PAUSE = 700;
         DIAGRAM_ROTATE_TIME = 3;    //in seconds
         DIAGRAM_PREFADE_PAUSE = 600;
         DIAGRAM_FADE = 1500;
@@ -105,7 +105,7 @@ define([
                     
                     "<p>You have measured that the noon sun is NN.N&deg above the horizon.</p><p>But to calculate latitude from this reading, navigators would need to look up the angle in a reference book called an almanac.</p><p>Press the 'Find Latitude' button to simulate looking in the almanac.</p>"];
                 
-                this.instructionsColors = ['url(img/parchment-tan.jpg)', 'url(img/parchment-tan-dark.jpg)', 'url(img/parchment-tan.jpg)'];
+                this.instructionsColors = ['url(img/objects/sextant/parchment-tan.jpg)', 'url(img/objects/sextant/parchment-tan-dark.jpg)', 'url(img/objects/sextant/parchment-tan.jpg)'];
                 
                 $('#content').css("background-color", "transparent");
                 this.startingDeviceOrientation = { beta: 90 + DEFAULT_HORIZON };
