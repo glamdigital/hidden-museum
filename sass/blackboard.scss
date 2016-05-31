@@ -27,6 +27,17 @@
     }
   }
 }
+.android {
+  .interactive.blackboard {
+    .transport-controls {
+      display: block;
+      bottom: 127px;
+    }
+    .video-player {
+      bottom: -110px;
+    }
+  }
+}
 
 video::-webkit-media-controls-start-playback-button {
   display: none;
