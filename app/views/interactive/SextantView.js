@@ -192,7 +192,7 @@ define([
                         this.step = 1;
                         $target.text("Angle of the Sun");
                         if (typeof cordova !== 'undefined') {
-                            $target.hide();
+                            $target.css('visibility', 'hidden');
                         }
                         this.takeHorizonImage(ev);
                         this.hasSetHorizon = true;
@@ -209,7 +209,7 @@ define([
                         this.clickSound.play();
                         this.step = 2;
                         this.stopTrackingOrientation(ev);
-                        $('#main-button').hide();
+                        $('#main-button').css('visibility', 'hidden');
                         this.showDiagram();
                         this.hideHorizonIndicator();
                         $('#captured-image').css("background-image", "none");
@@ -307,7 +307,7 @@ define([
                     // this.angleTime = nowTime;
                     if (this.angle > MIN_CAPTURE_SUN_ANGLE) {
                         $button = $('#controls').find('.button');
-                        $button.show();
+                        $button.css('visibility', 'visible');
                     }
                 }
                 
@@ -561,7 +561,8 @@ define([
                 
                 //set height of message div                
                 $('#message-text')[0].innerHTML = this.instructions[2].replace("NN.N", this.stateModel.attributes.angle.toPrecision(3).toString());                
-                $('#main-button').show();
+                $('#main-button').css('visibility', 'visible');
+
             },
             
             hideMessage: function () {
