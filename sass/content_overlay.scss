@@ -65,7 +65,30 @@ $innerBorder: 20px;
         text-transform: uppercase;
         font-style: normal;
     }
-    
+    .overlay-description {
+      padding-top: 5%;
+    }
+    .overlay-title {
+      font-weight: bold;
+      font-size: 1.1em;
+      &.title-listen {
+        color: $upperGalleryColor;
+      }
+      &.title-watch {
+        color: $entranceGalleryColor;
+      }
+      &.title-try {
+        color: $basementGalleryColor;
+      }
+    }
+    .museum-logo {
+      text-align: center;
+      padding-top: 15%;
+      img {
+        width: initial;
+      }
+    }
+
     img {
         display: block;
         margin-left: auto;
