@@ -3,9 +3,13 @@
   src: url("../fonts/Century Gothic.ttf");
 }
 
-* {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none; /* Disable selection/copy in UIWebView */
+
+*{
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-modify: none;
 }
 
 $headerSystemStatusClearance: 20px;
