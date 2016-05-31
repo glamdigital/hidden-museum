@@ -352,11 +352,13 @@ define([
                 };
                 // on (most?) android devices the gravity.z value is positive when holding the device face up
                 // check the gravity.z when the values are read for the first time, if it is positive it will be inverted
-                if (this.deviceInitialMotionZPositive == null) {
-                  this.deviceInitialMotionZPositive = (gravity.z > 0) ? true : false ;
-                }
-                if(this.deviceInitialMotionZPositive) {
-                  gravity.z = -1 * gravity.z;
+                if(device && device.platform.toLowerCase() === "android") {
+                  if (this.deviceInitialMotionZPositive == null) {
+                    this.deviceInitialMotionZPositive = (gravity.z > 0) ? true : false ;
+                  }
+                  if(this.deviceInitialMotionZPositive) {
+                    gravity.z = -1 * gravity.z;
+                  }
                 }
                 var gDotY = gravity.z / Math.sqrt(gravity.x * gravity.x + gravity.y * gravity.y + gravity.z * gravity.z);
                 var angleRad = Math.acos(gDotY);
