@@ -3,10 +3,17 @@ define([
         "underscore",
         "app/models/Trail",
         "hbs!app/templates/trail",
+        "app/preloadImages",
         "app/mixins/overlay"
-    ],
-    
-    function(Backbone, _, Trail, trail, overlayMixin) {
+    ], function(
+      Backbone,
+      _,
+      Trail,
+      trail,
+      preloadImages,
+      overlayMixin
+        ) {
+          
         var TrailView = Backbone.View.extend({
             
             template: trail,
@@ -55,6 +62,7 @@ define([
                 });
                 this.doAccordianMagic(0);
                 this.adjustHeights();
+                preloadImages.preload("trail");
             },
 
             adjustHeights: function() {

@@ -1,4 +1,16 @@
-define(["backbone", "jquery", "hbs!app/templates/trails", "app/mixins/overlay"], function(Backbone, $, trailsTemplate, overlayMixin) {
+define([
+  "backbone",
+  "jquery",
+  "hbs!app/templates/trails",
+  "app/preloadImages",
+  "app/mixins/overlay"
+], function(
+  Backbone,
+  $,
+  trailsTemplate,
+  preloadImages,
+  overlayMixin
+) {
 
   var TrailsView = Backbone.View.extend({
       template: trailsTemplate,
@@ -51,6 +63,7 @@ define(["backbone", "jquery", "hbs!app/templates/trails", "app/mixins/overlay"],
       
       afterRender: function() {
         this.adjustPosition();
+        preloadImages.preload("trails");
       },
       
       adjustPosition: function() {
