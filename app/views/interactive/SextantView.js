@@ -350,6 +350,8 @@ define([
                     y: this.currentDeviceMotion.accelerationIncludingGravity.y - this.currentDeviceMotion.acceleration.y,
                     z: this.currentDeviceMotion.accelerationIncludingGravity.z - this.currentDeviceMotion.acceleration.z,
                 };
+                // on (most?) android devices the gravity.z value is positive when holding the device face up
+                // check the gravity.z when the values are read for the first time, if it is positive it will be inverted
                 if (this.deviceInitialMotionZPositive == null) {
                   this.deviceInitialMotionZPositive = (gravity.z > 0) ? true : false ;
                 }
