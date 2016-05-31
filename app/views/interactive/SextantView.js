@@ -84,6 +84,7 @@ define([
             
             initialize: function (params) {
                 this.item = params.item;
+                this.deviceInitialMotionZPositive = null;
                 this.step = 0;
                 this.isTrackingOrientation = false;
                 this.isTrackingMotion = false;
@@ -162,7 +163,7 @@ define([
                 }
                 // for android devices the position of the mask is relative to the screen's top-left
                 // so we have to calculate the top value of the mask
-                if(device.platform.toLowerCase() === "android") {
+                if(device && device.platform.toLowerCase() === "android") {
                   var yMaskPos = $("#prheader").height() + $("#instructions").height() + 110;
                   $(".android #sextant #viewfinder").css({
                     "clip-path": "circle(105px at center "+ yMaskPos +"px )",
@@ -349,7 +350,12 @@ define([
                     y: this.currentDeviceMotion.accelerationIncludingGravity.y - this.currentDeviceMotion.acceleration.y,
                     z: this.currentDeviceMotion.accelerationIncludingGravity.z - this.currentDeviceMotion.acceleration.z,
                 };
-                
+                if (this.deviceInitialMotionZPositive == null) {
+                  this.deviceInitialMotionZPositive = (gravity.z > 0) ? true : false ;
+                }
+                if(this.deviceInitialMotionZPositive) {
+                  gravity.z = -1 * gravity.z;
+                }
                 var gDotY = gravity.z / Math.sqrt(gravity.x * gravity.x + gravity.y * gravity.y + gravity.z * gravity.z);
                 var angleRad = Math.acos(gDotY);
                 
