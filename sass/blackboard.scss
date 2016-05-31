@@ -14,22 +14,27 @@
 @media #{$tablet} {
   .interactive.blackboard:before {
       content:"";
-      background-image: url(../img/objects/blackboard/einsteins-blackboard-main.jpg);
+      background-image: url(../img/objects/blackboard/einsteins-video-background.jpg);
       background-size: cover;
-      background-position: center;
-      -webkit-filter: blur(8px);
-      filter: blur(8px);
       position: absolute;
-      left: -5%;
-      top: -5%;
-      height: 110%;
-      width: 110%;
-      z-index: -1;
+      height: 100%;
+      width: 100%;
   }
   .interactive.blackboard{
     background-color: transparent;
     .video-player {
       top:100px;
+    }
+  }
+}
+.android {
+  .interactive.blackboard {
+    .transport-controls {
+      display: block;
+      bottom: 127px;
+    }
+    .video-player {
+      bottom: -110px;
     }
   }
 }
