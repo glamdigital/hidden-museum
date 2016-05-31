@@ -86,6 +86,7 @@ Steps from scratch:
  - Accept to overwrite the file when prompted.
  - Add the moodstocks libraries by dragging the `moodstocks-eclipse-4.x.x/libs` folder onto the root MainActivity folder.
  - Accept to overwrite when prompted.
+ - Add the API key and secret to MS4Plugin.java
  - Build/Run the project by right-clicking on the root MainActivity and selecting 'Run As > Android Application'
 
 N.B. I initially encountered an issue whereby the project's javascript plugin files weren't being correctly added. It may be necessary to clean and rebuild the project, and it may also help to add the ['Hybrid Mobile' plugin](https://github.com/eclipse/thym) to Eclipse.
