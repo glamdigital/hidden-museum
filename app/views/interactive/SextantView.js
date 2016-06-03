@@ -389,13 +389,17 @@ define([
             takeHorizonImage: function (ev) {
             //capture the screen, rather than taking an actual photo, since this is much faster.
                 if (typeof navigator.screenshot !== 'undefined') {
-                    navigator.screenshot.save(function (error, res) {
+                    navigator.screenshot.URI(function(error,res){
                         if (error) {
                             console.error(error);
                         } else {
                             console.log('screenshot ok', res.filePath);
-                            $('#captured-image').css("background", "url(" + res.filePath + ")");
-                            
+                            if(device && device.platform.toLowerCase() === "android") {
+                              // if the device is android the screenshot doesn't include camera preview
+                              // instead this area is black, so it is converted to transparent
+                              res.URI = this.imageBlackToTransparent(res.URI);
+                            } 
+                            $('#captured-image').css("background", "url(" + res.URI + ")");
                             // Must equal the display width exactly otherwise scaling will blur the image
                             // and it will be impossible to set the position-y offset correctly.
                             $('#captured-image').css("background-size", $(window).width() + "px");
@@ -411,6 +415,28 @@ define([
                         }
                     }.bind(this));
                 }
+            },
+            
+            imageBlackToTransparent: function (uri) {
+                var img = new Image;
+                img.src = uri;
+                var canvas = document.createElement("canvas");
+                var ctx = canvas.getContext("2d");
+                var originalPixels = null;
+                var currentPixels = null;
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, img.width, img.height);
+                originalPixels = ctx.getImageData(0, 0, img.width, img.height);
+                currentPixels = ctx.getImageData(0, 0, img.width, img.height);
+                for(var i = 0, l = originalPixels.data.length; i < l; i += 4) {
+                  // if r,g,b values are all low then the color is close to black-> make it transparent
+                  if ((currentPixels.data[i] < 50) && (currentPixels.data[i + 1] < 50) && (currentPixels.data[i + 2] < 50)) {
+                    currentPixels.data[i + 3] = 0;
+                  }
+                }
+                ctx.putImageData(currentPixels, 0, 0);
+                return canvas.toDataURL("image/png");
             },
             
             displayInstructions: function () {
