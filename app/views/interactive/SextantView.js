@@ -319,7 +319,12 @@ define([
                 
                 if(this.scrollSky) {
                     var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE + this.sky_background_offset;
-                    $('#sky').css('background-position-y', skyOffsetY + 'px');
+                    // on android devices the left part of the captured image is transparent
+                    // so the left part of the sky should stop moving 
+                    if (this.step == 0){
+                      $('#sky-left').css('background-position-y', skyOffsetY + 'px');
+                    }
+                    $('#sky-right').css('background-position-y', skyOffsetY + 'px');
                     
                     
                     
