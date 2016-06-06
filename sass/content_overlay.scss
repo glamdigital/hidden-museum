@@ -134,7 +134,7 @@ $innerBorder: 20px;
     }
     div.start, a {
         display: block;
-        padding: 10px;
+        padding: 5%;
         border: 1px solid white;
         margin-top: 20px;
         @media #{$phone_small} {
@@ -144,6 +144,16 @@ $innerBorder: 20px;
           margin-top: 5px;
         }
         text-align: center;
+    }
+    div.start {
+      float: right;
+      width: 80%;
+      background-color: rgba(255, 255, 255, 0.7);
+      color: black;
+      font-size: 1.2em;
+    }
+    a {
+      float: left; 
     }
     
     a:link {

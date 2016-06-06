@@ -83,7 +83,7 @@ define([
             },
             
             toggleVisibility: function (event) {
-                if (event && (event.target.localName !== 'a')) {
+                if (event && (event.target.localName !== 'a') && (event.target.localName !== 'i')) {
                     event.preventDefault();
                 }
                 
