@@ -4,6 +4,8 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
         interactiveInnerTemplate, ImageScanView, mediaUtil, move) {
 
 
+    WRITE_DELAY = 100;
+
     var MarconiWirelessView = Backbone.View.extend({
         template: marconiWirelessTemplate,
 
@@ -61,6 +63,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             },
             handleDeviceConnected: function(info) {
                 this.deviceHandle = info.deviceHandle;
+                console.log('state', info.state);
                 if (info.state == 2) {
                     console.log("handledConnection");
                     var servicesHandler = _.bind(this.handleServices, this);
@@ -110,7 +113,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
                 if (this.characteristicRead && this.characteristicWrite && this.descriptorNotification)
                 {
                     console.log('RX/TX services found.');
-                    this.writeData(new Uint8Array([1]));
+                    this.writeData(new Uint8Array([0x01]));
                 }
                 else
                 {
@@ -123,13 +126,16 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             writeData: function(value) {
                 var successHandler = _.bind(this.handleWriteSuccess, this);
                 var errorHandler = _.bind(this.handleWriteError, this);
-                evothings.ble.writeCharacteristic(
-                    this.deviceHandle,
-                    this.characteristicWrite,
-                    value,
-                    successHandler,
-                    errorHandler
-                );
+                //leave a small delay
+                _.delay(function () {
+                    evothings.ble.writeCharacteristicWithoutResponse(
+                        this.deviceHandle,
+                        this.characteristicWrite,
+                        value,
+                        successHandler,
+                        errorHandler
+                    );
+                }.bind(this), WRITE_DELAY);
             },
             handleWriteSuccess: function()
             {
