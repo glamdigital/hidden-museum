@@ -15,6 +15,20 @@
     .transport-controls {
       bottom: -60px;
     }
+    @media #{$tablet} {
+      .video-player video {
+        position: relative;
+        width: 85%;
+        bottom: 0px;
+        top: -30%;
+        height: 140%
+      }
+      .transport-controls {
+        bottom: 0px;
+      }
+
+    }
+
 }
 
 .android {
@@ -27,6 +41,7 @@
     }
   }
 }
+
 video::-webkit-media-controls-start-playback-button {
   display: none;
 }
