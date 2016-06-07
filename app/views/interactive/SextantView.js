@@ -153,22 +153,34 @@ define([
                     var dragEnabled = false; //enable preview box drag across the screen
                     var toBack = true; //send preview box to the back of the webview
                     var $viewfinder = $('#viewfinder');
-                    var rect = {
-                        x: 0, 
-                        y: $viewfinder.offset().top, 
-                        width: $viewfinder.width(), 
-                        height: $viewfinder.height()
-                    };
-                    cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
-                }
-                // for android devices the position of the mask is relative to the screen's top-left
-                // so we have to calculate the top value of the mask
-                if(device && device.platform.toLowerCase() === "android") {
-                  var yMaskPos = $("#prheader").height() + $("#instructions").height() + 110;
-                  $(".android #sextant #viewfinder").css({
-                    "clip-path": "circle(105px at center "+ yMaskPos +"px )",
-                    "-webkit-clip-path": "circle(105px at center "+ yMaskPos +"px )",
-                  });
+                    if(device && device.platform.toLowerCase() === "android") {
+                      var contentHeight = $("#content").outerHeight();
+                      var sumHeight = $("#instructions").outerHeight() + $("#viewfinder").outerHeight();
+                      sumHeight += $("#feedback").outerHeight() + $("#controls").outerHeight();
+                      // in some android devices there is a gap between the viewfinder and the feedback div
+                      // the instructions div becomes bigger in these devices
+                      if (sumHeight < contentHeight) {
+                        $("#instructions").outerHeight($("#instructions").outerHeight() + contentHeight - sumHeight);
+                        $("#instructions").css({"font-size": "1.4em"});
+                      }
+                      // for android devices the position of the mask is relative to the screen's top-left
+                      // so we have to calculate the top value of the mask
+                      var yMaskPos = $("#prheader").height() + $("#instructions").height() + 110;
+                      $(".android #sextant #viewfinder").css({
+                        "clip-path": "circle(105px at center "+ yMaskPos +"px )",
+                        "-webkit-clip-path": "circle(105px at center "+ yMaskPos +"px )",
+                      });
+                    }
+                    CameraPreview.startCamera({
+                      x: 0, 
+                      y: $viewfinder.offset().top, 
+                      width: $viewfinder.width(), 
+                      height: $viewfinder.height(),
+                      camera: "back",
+                      tapPhoto: true,
+                      previewDrag: true,
+                      toBack: true
+                    });
                 }
             },
             
@@ -656,7 +668,9 @@ define([
                 $("body").removeClass("transparent-background");
 
                 if (typeof cordova !== "undefined") {
-                    cordova.plugins.camerapreview.stopCamera();
+                    // cordova.plugins.camerapreview.stopCamera();
+                    CameraPreview.stopCamera();
+                    
                 }
                 
                 this.stopTrackingOrientation(null);
