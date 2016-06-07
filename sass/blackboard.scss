@@ -1,7 +1,7 @@
 @import "_common.scss";
 
 .interactive.blackboard {
-    background-color: #000;
+    background-color: $headerColour;
     overflow: hidden;
     .video-player {
       top:180px;

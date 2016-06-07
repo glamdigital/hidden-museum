@@ -2,7 +2,7 @@
 
 .interactive.reckoner {
     overflow: hidden;
-    background-color: #000;
+    background-color: $headerColour;
     
     .video-player {
         //fill screen
@@ -12,6 +12,15 @@
     }
     .transport-controls {
       display:none;
+    }
+    @media #{$tablet} {
+      .video-player video {
+        width: 75%;
+      }
+      .transport-controls {
+        bottom: -35px;
+        display: block;
+      }
     }
 }
 .android {

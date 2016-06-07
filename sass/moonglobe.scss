@@ -2,7 +2,7 @@
 
 
 .interactive.moonglobe {
-    background-color: #000;
+    background-color: $headerColour;
     overflow: hidden;
 
     
@@ -21,7 +21,7 @@
         width: 85%;
         bottom: 0px;
         top: -30%;
-        height: 140%
+        height: 140%;
       }
       .transport-controls {
         bottom: 0px;
