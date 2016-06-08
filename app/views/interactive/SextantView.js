@@ -153,22 +153,34 @@ define([
                     var dragEnabled = false; //enable preview box drag across the screen
                     var toBack = true; //send preview box to the back of the webview
                     var $viewfinder = $('#viewfinder');
-                    var rect = {
-                        x: 0, 
-                        y: $viewfinder.offset().top, 
-                        width: $viewfinder.width(), 
-                        height: $viewfinder.height()
-                    };
-                    cordova.plugins.camerapreview.startCamera(rect, "back", tapEnabled, dragEnabled, toBack);
-                }
-                // for android devices the position of the mask is relative to the screen's top-left
-                // so we have to calculate the top value of the mask
-                if(device && device.platform.toLowerCase() === "android") {
-                  var yMaskPos = $("#prheader").height() + $("#instructions").height() + 110;
-                  $(".android #sextant #viewfinder").css({
-                    "clip-path": "circle(105px at center "+ yMaskPos +"px )",
-                    "-webkit-clip-path": "circle(105px at center "+ yMaskPos +"px )",
-                  });
+                    if(device && device.platform.toLowerCase() === "android") {
+                      var contentHeight = $("#content").outerHeight();
+                      var sumHeight = $("#instructions").outerHeight() + $("#viewfinder").outerHeight();
+                      sumHeight += $("#feedback").outerHeight() + $("#controls").outerHeight();
+                      // in some android devices there is a gap between the viewfinder and the feedback div
+                      // the instructions div becomes bigger in these devices
+                      if (sumHeight < contentHeight) {
+                        $("#instructions").outerHeight($("#instructions").outerHeight() + contentHeight - sumHeight);
+                        $("#instructions").css({"font-size": "1.4em"});
+                      }
+                      // for android devices the position of the mask is relative to the screen's top-left
+                      // so we have to calculate the top value of the mask
+                      var yMaskPos = $("#prheader").height() + $("#instructions").height() + 110;
+                      $(".android #sextant #viewfinder").css({
+                        "clip-path": "circle(105px at center "+ yMaskPos +"px )",
+                        "-webkit-clip-path": "circle(105px at center "+ yMaskPos +"px )",
+                      });
+                    }
+                    CameraPreview.startCamera({
+                      x: 0, 
+                      y: $viewfinder.offset().top, 
+                      width: $viewfinder.width(), 
+                      height: $viewfinder.height(),
+                      camera: "back",
+                      tapPhoto: true,
+                      previewDrag: true,
+                      toBack: true
+                    });
                 }
             },
             
@@ -319,7 +331,12 @@ define([
                 
                 if(this.scrollSky) {
                     var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE + this.sky_background_offset;
-                    $('#sky').css('background-position-y', skyOffsetY + 'px');
+                    // on android devices the left part of the captured image is transparent
+                    // so the left part of the sky should stop moving 
+                    if (this.step == 0){
+                      $('#sky-left').css('background-position-y', skyOffsetY + 'px');
+                    }
+                    $('#sky-right').css('background-position-y', skyOffsetY + 'px');
                     
                     
                     
@@ -389,13 +406,17 @@ define([
             takeHorizonImage: function (ev) {
             //capture the screen, rather than taking an actual photo, since this is much faster.
                 if (typeof navigator.screenshot !== 'undefined') {
-                    navigator.screenshot.save(function (error, res) {
+                    navigator.screenshot.URI(function(error,res){
                         if (error) {
                             console.error(error);
                         } else {
                             console.log('screenshot ok', res.filePath);
-                            $('#captured-image').css("background", "url(" + res.filePath + ")");
-                            
+                            if(device && device.platform.toLowerCase() === "android") {
+                              // if the device is android the screenshot doesn't include camera preview
+                              // instead this area is black, so it is converted to transparent
+                              res.URI = this.imageBlackToTransparent(res.URI);
+                            } 
+                            $('#captured-image').css("background", "url(" + res.URI + ")");
                             // Must equal the display width exactly otherwise scaling will blur the image
                             // and it will be impossible to set the position-y offset correctly.
                             $('#captured-image').css("background-size", $(window).width() + "px");
@@ -411,6 +432,28 @@ define([
                         }
                     }.bind(this));
                 }
+            },
+            
+            imageBlackToTransparent: function (uri) {
+                var img = new Image;
+                img.src = uri;
+                var canvas = document.createElement("canvas");
+                var ctx = canvas.getContext("2d");
+                var originalPixels = null;
+                var currentPixels = null;
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, img.width, img.height);
+                originalPixels = ctx.getImageData(0, 0, img.width, img.height);
+                currentPixels = ctx.getImageData(0, 0, img.width, img.height);
+                for(var i = 0, l = originalPixels.data.length; i < l; i += 4) {
+                  // if r,g,b values are all low then the color is close to black-> make it transparent
+                  if ((currentPixels.data[i] < 50) && (currentPixels.data[i + 1] < 50) && (currentPixels.data[i + 2] < 50)) {
+                    currentPixels.data[i + 3] = 0;
+                  }
+                }
+                ctx.putImageData(currentPixels, 0, 0);
+                return canvas.toDataURL("image/png");
             },
             
             displayInstructions: function () {
@@ -625,7 +668,9 @@ define([
                 $("body").removeClass("transparent-background");
 
                 if (typeof cordova !== "undefined") {
-                    cordova.plugins.camerapreview.stopCamera();
+                    // cordova.plugins.camerapreview.stopCamera();
+                    CameraPreview.stopCamera();
+                    
                 }
                 
                 this.stopTrackingOrientation(null);
