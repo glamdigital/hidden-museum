@@ -24,10 +24,13 @@ define(['backbone',
 				this.gallery = params.gallery;
 				this.overlayInitialize({ displayOnArrival: true });
 				this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
+				
 				$("body").addClass("transparent-background");
 				
 				//sounds
 				this.unlockSound = mediaUtil.createAudioObj('audio/ir_unlock.mp3');
+				
+				this.listenTo(this.overlayView, 'overlayDismissed', this.onOverlayDismissed)
 			},
 
 			serialize: function() {
@@ -43,12 +46,14 @@ define(['backbone',
 			},
 
 			afterRender: function() {
-				if(typeof(MS4Plugin) !== 'undefined') {
-					this.initRecognition(this.item.attributes.slug);
-				}
-				
 				var contentHeight = $('.content').height();
 				$('.scan-container').height(contentHeight);
+			},
+			
+			onOverlayDismissed: function () {
+				if(typeof(navigator.VuforiaPlugin) !== 'undefined') {
+					this.initRecognition_vuforia(this.item.attributes.slug);
+				}
 			},
 
 			//'targets' is a dictionary mapping matching images
@@ -150,6 +155,22 @@ define(['backbone',
 					startScan();
 				}
 
+			},
+			
+			initRecognition_vuforia: function (item_slug) {
+				navigator.VuforiaPlugin.startVuforia(
+				  'www/targets/PocketCurator.xml',
+				  ['globe_interact'],
+				  'Point your camera at a test image...',
+				  'AfOrSYL/////AAAAAXGVS+ob7UQ6gKHlPNX5+C9b6gQCj7opl93dY/TdsQiIGScyH24PHQrvYADcmydL9mXuDebbJ3bXWMzW+f3NgA/zeIXx4LpxoRIGp7YWDqREULzbnavwwX9iV2tcaP3eCYXGaLChIZhlwRMqm2pTpNWh1eY1MGdTWCgIA0X+IljNhju2/1v6gHDQ3Zu43cmCG5N+4tej2dJhAiUTeL2fF5lIM765MGF7TPSwzFuDQxElyUwpO9Xkjg4j0TBvngzYPXeHEpus6pqEdlZUZyyoTCWYmcGzU2JdFvW9GCD8OXOEAdhCPZEJKtrU3V8G5tkN6Eb7srID2Y/oTHTrlNtCJW9ocF7Ic82OL8dhJw8otsMH',
+				  function(data){
+				    console.log(data);
+				    alert("Image found: "+data.imageName);
+				  },
+				  function(data) {
+				    alert("Error: " + data);
+				  }
+				);
 			},
 			
 			goToFoundItem: function () {

@@ -93,6 +93,8 @@
         <icon src="packaging/icons/icon-50.png" width="50" height="50" />
         <icon src="packaging/icons/icon-50@2x.png" width="100" height="100" />
        
+        <resource-file src="www/targets/PocketCurator.xml" target="assets/PocketCurator.xml" />
+        <resource-file src="www/targets/PocketCurator.dat" target="assets/PocketCurator.dat" />
     </platform>
 
 </widget>
