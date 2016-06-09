@@ -7,9 +7,6 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
     var MarconiWirelessView = Backbone.View.extend({
         template: marconiWirelessTemplate,
 
-        transmitSound: mediaUtil.createAudioObj('audio/marconi/zap.mp3'),
-        humSound: mediaUtil.createAudioObj('audio/marconi/charging.mp3'),
-
         blecontroller: {
             deviceHandle: 0,
             characteristicWrite: 0,
@@ -156,6 +153,9 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             $('#content').css("background-color", "transparent");
             this.scanErrors = 0;
             this.wirelessButtonClicks = 0;
+            //sounds
+            this.transmitSound = mediaUtil.createAudioObj('audio/marconi/zap.mp3');
+            this.humSound = mediaUtil.createAudioObj('audio/marconi/charging.mp3');
         },
         afterRender: function() {
             $('#controls').hide();

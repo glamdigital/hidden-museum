@@ -21,8 +21,6 @@ define([
     ) {
         var BlackboardGalleryView = Backbone.View.extend({
             template: blackboardGalleryTemplate,
-            chalkSound: mediaUtil.createAudioObj('audio/blackboard_gallery/chalk.mp3'),
-            shortChalkSound: mediaUtil.createAudioObj('audio/blackboard_gallery/short_chalk.mp3'),
 
             initialize: function (params) {
                 this.isZoomed = false;
@@ -35,6 +33,10 @@ define([
                 });
                 this.overlayInitialize({ displayOnArrival: true });
                 this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
+                
+                //sounds
+                this.chalkSound = mediaUtil.createAudioObj('audio/blackboard_gallery/chalk.mp3');
+                this.shortChalkSound = mediaUtil.createAudioObj('audio/blackboard_gallery/short_chalk.mp3');
             },
 
             serialize: function () {

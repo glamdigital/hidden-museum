@@ -16,7 +16,6 @@ define(['backbone',
 
 		var ScanView = Backbone.View.extend({
 			template: imageScanningTemplate,
-			unlockSound: mediaUtil.createAudioObj('audio/ir_unlock.mp3'),
 
 			initialize: function(params) {
 				this.item = params.item;
@@ -26,6 +25,9 @@ define(['backbone',
 				this.overlayInitialize({ displayOnArrival: true });
 				this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
 				$("body").addClass("transparent-background");
+				
+				//sounds
+				this.unlockSound = mediaUtil.createAudioObj('audio/ir_unlock.mp3');
 			},
 
 			serialize: function() {
