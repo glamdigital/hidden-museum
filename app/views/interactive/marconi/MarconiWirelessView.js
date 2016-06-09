@@ -135,8 +135,14 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             }
         },
         
+        warningButtonHandler: function(){
+          console.log("warningButtonHandler");
+          $("#full-screen-warning").hide();
+        },
+        
         events: {
-          "click #wireless-button": "wirelessButtonHandler"
+          "click #wireless-button": "wirelessButtonHandler",
+          "click #ok-button": "warningButtonHandler"
         },
 
         serialize: function() {
@@ -150,6 +156,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
             $('#content').css("background-color", "transparent");
             this.scanErrors = 0;
+            this.wirelessButtonClicks = 0;
         },
         afterRender: function() {
             $('#controls').hide();
@@ -173,21 +180,29 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             $('#header').hide();
         },
         wirelessButtonHandler: function(ev) {
-            var scanSuccessCallback = _.bind(this.scanSuccessCallback, this);
-            var scanErrorCallback = _.bind(this.scanErrorCallback, this);
-            this.blecontroller.initialize(
-                scanSuccessCallback,
-                scanErrorCallback
-            );
-            this.startChargingAnimation();
+            this.wirelessButtonClicks++;
+            if (this.wirelessButtonClicks > 5) {
+              $("#warning-message").html("You pressed the button 5 times. If you are not hearing a bell then something might be wrong with the exhibit.");
+              $("#full-screen-warning").show();
+              this.wirelessButtonClicks = 0;
+            } else {
+              var scanSuccessCallback = _.bind(this.scanSuccessCallback, this);
+              var scanErrorCallback = _.bind(this.scanErrorCallback, this);
+              this.blecontroller.initialize(
+                  scanSuccessCallback,
+                  scanErrorCallback
+              );
+              this.startChargingAnimation();
+            }
         },
         scanSuccessCallback: function() {
             console.log("BLE Success" + this.humSound);
             clearTimeout(this.transmitTimer);
-            this.stopChargingAnimation();        
+            this.stopChargingAnimation();
         },
+        // you pressed the button 10 times . if you are not hearing a sound the something might be wrong with the exhibit
         scanErrorCallback: function() {
-            console.log("BLE Failure" + this);           
+            console.log("BLE Failure" + this);
             if (this.scanErrors < 2) {
                 this.scanErrors++
                 this.transmitTimer = setTimeout(_.bind(this.wirelessButtonHandler, this), 3000);
@@ -195,6 +210,8 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             else {
                 this.scanErrors = 0;
                 this.stopChargingAnimation();
+                $("#warning-message").html("This exhibit doesn't work right now. Try again later.");
+                $("#full-screen-warning").show();
             }
         },
         startChargingAnimation: function() {
