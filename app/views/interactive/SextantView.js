@@ -67,10 +67,6 @@ define([
         
         var SextantView = Backbone.View.extend({
             template: sextantTemplate,
-            moveSound: mediaUtil.createAudioObj('audio/sextant/sextant_move.mp3'),
-            clickSound: mediaUtil.createAudioObj('audio/sextant/click.mp3'),
-            oceanSound: mediaUtil.createAudioObj('audio/sextant/ocean.mp3'),
-            turnPageSound: mediaUtil.createAudioObj('audio/sextant/turn_page.mp3'),
 
             events: {
               "click .toggle": "toggleButtonHandler"
@@ -123,6 +119,12 @@ define([
                 
                 getSunElevation = this.calculateSunElevation;
                 $("body").addClass("transparent-background");
+                
+                //sounds
+                this.moveSound = mediaUtil.createAudioObj('audio/sextant/sextant_move.mp3');
+                this.clickSound = mediaUtil.createAudioObj('audio/sextant/click.mp3');
+                this.oceanSound = mediaUtil.createAudioObj('audio/sextant/ocean.mp3');
+                this.turnPageSound = mediaUtil.createAudioObj('audio/sextant/turn_page.mp3');
             },
                         
             afterRender: function () {

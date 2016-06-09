@@ -13,7 +13,6 @@ define([
 
    var DigitalClockView = Backbone.View.extend( {
        template: digitalClockTemplate,
-       clockMinutesSound: mediaUtil.createAudioObj('audio/armillary/clock-minutes.mp3'),
 
        initialize: function() {
            //this.listenTo(this.model, 'change', this.render);
@@ -24,6 +23,9 @@ define([
            this.decreaseInterval = null;
            this.increaseInterval = null;
            this.updateTime = _.bind(this._updateTime, this);
+           
+           //sounds
+           this.clockMinutesSound = mediaUtil.createAudioObj('audio/armillary/clock-minutes.mp3');
        },
 
        afterRender: function() {

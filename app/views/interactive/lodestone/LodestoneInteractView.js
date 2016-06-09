@@ -35,15 +35,6 @@ define([
         var LodestoneInteractView = Backbone.View.extend({
             template: lodestoneTemplate,
 
-            tapKeySound: mediaUtil.createAudioObj('audio/lodestone/quiet_clunk.mp3'),
-            keyInSound: mediaUtil.createAudioObj('audio/lodestone/keyIn.mp3'),
-            ratchetSound: mediaUtil.createAudioObj('audio/lodestone/ratchet.mp3'),
-            addWeightSound: mediaUtil.createAudioObj('audio/lodestone/add_weight.mp3'),
-            fullWindSound: mediaUtil.createAudioObj('audio/lodestone/click_in_place.mp3'),
-            fallStartSound: mediaUtil.createAudioObj('audio/lodestone/fall_loud.mp3'),
-            fallSound: mediaUtil.createAudioObj('audio/lodestone/fall.mp3'),
-
-
             initialize: function() {
 
                 //this.videos = {
@@ -63,6 +54,15 @@ define([
 
                 this.overlayInitialize({ displayOnArrival: true });
                 this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
+
+                //sounds
+                this.tapKeySound = mediaUtil.createAudioObj('audio/lodestone/quiet_clunk.mp3');
+                this.keyInSound = mediaUtil.createAudioObj('audio/lodestone/keyIn.mp3');
+                this.ratchetSound = mediaUtil.createAudioObj('audio/lodestone/ratchet.mp3');
+                this.addWeightSound = mediaUtil.createAudioObj('audio/lodestone/add_weight.mp3');
+                this.fullWindSound = mediaUtil.createAudioObj('audio/lodestone/click_in_place.mp3');
+                this.fallStartSound = mediaUtil.createAudioObj('audio/lodestone/fall_loud.mp3');
+                this.fallSound = mediaUtil.createAudioObj('audio/lodestone/fall.mp3');
 
                 this.playRatchetAudio = _.bind(_.throttle(function(){
                     this.ratchetSound.play();
