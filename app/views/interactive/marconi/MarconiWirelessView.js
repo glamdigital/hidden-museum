@@ -107,16 +107,15 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
                   successHandler,
                   errorHandler
                 );
+                _.delay(_.bind(this.close,this), 1000);
             },
             handleWriteSuccess: function()
             {
                 console.log('write: ' + this.deviceHandle + ' success.');
-                this.close();
             },
             handleWriteError:    function(errorCode)
             {
                 console.log('write: ' + this.deviceHandle + ' error: ' + errorCode);
-                this.close();
             },
             close:function() {
               if (typeof ble !== 'undefined') {
