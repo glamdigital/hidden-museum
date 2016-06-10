@@ -53,7 +53,7 @@ define([
 			"moon_globe": [
 			],
 			"armillary": [
-				"img/objects/armillary/clock-bg.png",
+				"img/objects/lodestone/lodestone-bg.jpg",
 				"img/objects/armillary/decimal-clock.png",
 				"img/objects/armillary/digital-face.png",
 				"img/objects/armillary/stars.png",
