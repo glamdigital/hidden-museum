@@ -121,7 +121,7 @@ define([
 					"img/objects/lodestone/key.png",
 					"img/objects/lodestone/ratchet-handle.png",
 					"img/objects/lodestone/weight40.png",
-					"img/objects/lodestone/lodestone-bg.png",
+					"img/objects/lodestone/lodestone-bg.jpg",
 					"img/objects/lodestone/weight5-in-cradle.png",
 					"img/objects/lodestone/crown.png",
 					"img/objects/lodestone/weight-cradle.png",
