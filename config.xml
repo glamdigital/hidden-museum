@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="uk.ac.ox.museums.pocketcurator" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>The Hidden Museum</name>
+    <name>Pocket Curator</name>
     <description>
-        Hidden Museum research application
+        Pocket Curator - unlock secrets at the University of Oxford's Museum of History of Science
     </description>
     <author email="apps@maillist.ox.ac.uk" href="http://www.it.ox.ac.uk">
         Mobile and Web Applications Team - Oxford University

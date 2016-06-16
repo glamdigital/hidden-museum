@@ -5,7 +5,7 @@
         'com.darktalker.cordova.screenshot',
         'https://github.com/ox-it/CordovaCameraPreview.git',    //com.mbppower.camerapreview
         'https://github.com/ox-it/MS4Plugin.git',    //moodstocks
-        'cordova-plugin-ble',
+        'cordova-plugin-ble-central',
         'cordova-plugin-camera',
         'cordova-plugin-file',
         'cordova-plugin-media',

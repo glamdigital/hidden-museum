@@ -17,8 +17,9 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
                 this.errorCallback = error;
                 var connectDevice = _.bind(this.connectDevice, this);
                 var timeOutHandler = _.bind(this.handleScanTimeOut, this);
-                if (typeof evothings !== 'undefined') {
-                    evothings.ble.startScan(
+                if (typeof ble !== 'undefined') {
+                    ble.startScan(
+                        [],
                         connectDevice,
                         function(errorCode)
                         {
@@ -31,12 +32,12 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
 
             },
             connectDevice: function(device) {
-                console.log(device);
+                console.log("connecting:", device);
                 if (device.name == "BlendMicro") {
                     console.log("connecting to BlendMicro");
                     var connectionHandler = _.bind(this.handleDeviceConnected, this);
-                    evothings.ble.connect(
-                        device.address,
+                    ble.connect(
+                        device.id,
                         connectionHandler,
                         function(errorCode)
                         {
@@ -44,7 +45,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
                         }
                     );
                     clearTimeout(this.scanTimer);
-                    evothings.ble.stopScan();
+                    ble.stopScan();
                     this.successCallback();
                 }
 
@@ -52,103 +53,92 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             handleScanTimeOut: function() {
                 console.log("scan timed out" + this.deviceHandle);
                 if (!this.deviceHandle) {
-                    evothings.ble.stopScan();
+                    ble.stopScan();
                     this.errorCallback();
                 }
             },
             handleDeviceConnected: function(info) {
-                this.deviceHandle = info.deviceHandle;
-                if (info.state == 2) {
-                    console.log("handledConnection");
-                    var servicesHandler = _.bind(this.handleServices, this);
-                    evothings.ble.readAllServiceData(
-                        this.deviceHandle,
-                        servicesHandler, 
-                        function(errorCode)
-                        {
-                            console.log('readAllServiceData error: ' + errorCode);
-                        }
-                    );
-                }
+                console.log("handleDeviceConnected", info);
+                this.deviceHandle = info.id;
+                this.handleServices(info.characteristics);
             }, 
-            handleServices: function(services) {
-                // Find handles for characteristics and descriptor needed.
-                for (var si in services)
-                {
-                    var service = services[si];
-                    console.log(service);
+            handleServices: function(characteristics) {
+                _.each(characteristics, function (characteristic) {
+                  if (characteristic.characteristic == '713D0002-503E-4C75-BA94-3148F18D941E' ||
+                    characteristic.characteristic == '713d0002-503e-4c75-ba94-3148f18d941e') {
+                    this.characteristicNotify = characteristic.characteristic;
+                  } else if (characteristic.characteristic == '713D0003-503E-4C75-BA94-3148F18D941E' ||
+                    characteristic.characteristic == '713d0003-503e-4c75-ba94-3148f18d941e') {
+                    this.characteristicWrite = characteristic.characteristic;
+                    this.characteristicService = characteristic.service;
+                  }
+                }.bind(this));
 
-                    for (var ci in service.characteristics)
-                    {
-                        var characteristic = service.characteristics[ci];
-
-                        if (characteristic.uuid == '713d0002-503e-4c75-ba94-3148f18d941e')
-                        {
-                            this.characteristicRead = characteristic.handle;
-                        }
-                        else if (characteristic.uuid == '713d0003-503e-4c75-ba94-3148f18d941e')
-                        {
-                            this.characteristicWrite = characteristic.handle;
-                        }
-
-                        for (var di in characteristic.descriptors)
-                        {
-                            var descriptor = characteristic.descriptors[di];
-
-                            if (characteristic.uuid == '713d0002-503e-4c75-ba94-3148f18d941e' &&
-                                descriptor.uuid == '00002902-0000-1000-8000-00805f9b34fb')
-                            {
-                                this.descriptorNotification = descriptor.handle;
-                            }
-                        }
-                    }
-                }
-
-                if (this.characteristicRead && this.characteristicWrite && this.descriptorNotification)
-                {
+                if (this.characteristicNotify && this.characteristicWrite ) {
                     console.log('RX/TX services found.');
-                    this.writeData(new Uint8Array([1]));
-                }
-                else
-                {
+                    var arrayBuffer = this.stringToBytes("1");
+                    this.writeData(arrayBuffer);
+                } else {
                     console.log('ERROR: RX/TX services not found!');
                     this.errorCallback();
                 }
 
             },
+            stringToBytes:function (string) {
+               var array = new Uint8Array(string.length);
+               for (var i = 0, l = string.length; i < l; i++) {
+                   array[i] = string.charCodeAt(i);
+                }
+                return array.buffer;
+            },
 
             writeData: function(value) {
+              console.log("writeData", value);
                 var successHandler = _.bind(this.handleWriteSuccess, this);
                 var errorHandler = _.bind(this.handleWriteError, this);
-                evothings.ble.writeCharacteristic(
-                    this.deviceHandle,
-                    this.characteristicWrite,
-                    value,
-                    successHandler,
-                    errorHandler
+                ble.writeWithoutResponse(
+                  this.deviceHandle,
+                  this.characteristicService,
+                  this.characteristicWrite,
+                  value,
+                  successHandler,
+                  errorHandler
                 );
+                _.delay(_.bind(this.close,this), 1000);
             },
             handleWriteSuccess: function()
             {
                 console.log('write: ' + this.deviceHandle + ' success.');
-                this.close();
             },
             handleWriteError:    function(errorCode)
             {
                 console.log('write: ' + this.deviceHandle + ' error: ' + errorCode);
-                this.close();
             },
             close:function() {
-              if (typeof evothings !== 'undefined') {
+              if (typeof ble !== 'undefined') {
                 console.log("closing connection");
-                evothings.ble.close(this.deviceHandle);
+                ble.disconnect(
+                  this.deviceHandle,
+                  function () {
+                    console.log("closing connection success");
+                  },
+                  function () {
+                    console.log("closing connection fail");
+                  }
+                );
                 this.deviceHandle = 0;
               }
             }
         },
-
+        
+        warningButtonHandler: function(){
+          console.log("warningButtonHandler");
+          $("#full-screen-warning").hide();
+        },
+        
         events: {
-          "click #wireless-button": "wirelessButtonHandler"
+          "click #wireless-button": "wirelessButtonHandler",
+          "click #ok-button": "warningButtonHandler"
         },
 
         serialize: function() {
@@ -162,7 +152,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
             $('#content').css("background-color", "transparent");
             this.scanErrors = 0;
-            
+            this.wirelessButtonClicks = 0;
             //sounds
             this.transmitSound = mediaUtil.createAudioObj('audio/marconi/zap.mp3');
             this.humSound = mediaUtil.createAudioObj('audio/marconi/charging.mp3');
@@ -189,21 +179,29 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             $('#header').hide();
         },
         wirelessButtonHandler: function(ev) {
-            var scanSuccessCallback = _.bind(this.scanSuccessCallback, this);
-            var scanErrorCallback = _.bind(this.scanErrorCallback, this);
-            this.blecontroller.initialize(
-                scanSuccessCallback,
-                scanErrorCallback
-            );
-            this.startChargingAnimation();
+            this.wirelessButtonClicks++;
+            if (this.wirelessButtonClicks > 5) {
+              $("#warning-message").html("You pressed the button 5 times. If you are not hearing a bell then something might be wrong with the exhibit.");
+              $("#full-screen-warning").show();
+              this.wirelessButtonClicks = 0;
+            } else {
+              var scanSuccessCallback = _.bind(this.scanSuccessCallback, this);
+              var scanErrorCallback = _.bind(this.scanErrorCallback, this);
+              this.blecontroller.initialize(
+                  scanSuccessCallback,
+                  scanErrorCallback
+              );
+              this.startChargingAnimation();
+            }
         },
         scanSuccessCallback: function() {
             console.log("BLE Success" + this.humSound);
             clearTimeout(this.transmitTimer);
-            this.stopChargingAnimation();        
+            this.stopChargingAnimation();
         },
+        // you pressed the button 10 times . if you are not hearing a sound the something might be wrong with the exhibit
         scanErrorCallback: function() {
-            console.log("BLE Failure" + this);           
+            console.log("BLE Failure" + this);
             if (this.scanErrors < 2) {
                 this.scanErrors++
                 this.transmitTimer = setTimeout(_.bind(this.wirelessButtonHandler, this), 3000);
@@ -211,6 +209,8 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             else {
                 this.scanErrors = 0;
                 this.stopChargingAnimation();
+                $("#warning-message").html("This exhibit doesn't work right now. Try again later.");
+                $("#full-screen-warning").show();
             }
         },
         startChargingAnimation: function() {
@@ -258,7 +258,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
 
         },
 	    cleanup: function() {
-            if (typeof evothings !== 'undefined') {
+            if (typeof ble !== 'undefined') {
                 this.blecontroller.close();
             }
             this.transmitSound.cleanup();
