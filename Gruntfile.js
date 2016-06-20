@@ -11,7 +11,8 @@
         'cordova-plugin-media',
         'cordova-plugin-screen-orientation',
         'cordova-plugin-statusbar',
-        'cordova-plugin-vibration'
+        'cordova-plugin-vibration',
+        'https://github.com/ox-it/cordova-plugin-vuforia'
         //add further plugins here
     ]
     
