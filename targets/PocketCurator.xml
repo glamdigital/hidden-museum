@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
+    <ImageTarget name="moon_globe5" size="1.000000 1.333333" />
+    <ImageTarget name="moon_globe4" size="1.000000 1.333333" />
+    <ImageTarget name="moon_globe3" size="1.000000 1.333333" />
+    <ImageTarget name="moon_globe2" size="1.000000 1.333333" />
+    <ImageTarget name="moon_globe" size="1.000000 0.562500" />
+    <ImageTarget name="globe_interact6" size="1.000000 0.750000" />
+    <ImageTarget name="globe_interact5" size="1.000000 1.777778" />
+    <ImageTarget name="globe_interact4" size="1.000000 1.333333" />
+    <ImageTarget name="blackboard4" size="1.000000 1.333333" />
+    <ImageTarget name="blackboard3" size="1.000000 1.333333" />
+    <ImageTarget name="blackboard2" size="1.000000 1.333333" />
+    <ImageTarget name="blackboard1" size="1.000000 1.333333" />
+    <ImageTarget name="marconi3" size="1.000000 1.333333" />
+    <ImageTarget name="marconi2" size="1.000000 1.333333" />
+    <ImageTarget name="marconi1" size="1.000000 1.333333" />
+    <ImageTarget name="globe_interact3" size="1.000000 1.777778" />
+    <ImageTarget name="globe_interact2" size="1.000000 1.777778" />
     <ImageTarget name="globe_interact" size="1.000000 1.333333" />
   </Tracking>
 </QCARConfig>
