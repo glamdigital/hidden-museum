@@ -156,6 +156,8 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             //sounds
             this.transmitSound = mediaUtil.createAudioObj('audio/marconi/zap.mp3');
             this.humSound = mediaUtil.createAudioObj('audio/marconi/charging.mp3');
+            
+            this.listenTo(this.overlayView, 'overlayDismissed', this.onOverlayDismissed.bind(this));
         },
         afterRender: function() {
             $('#controls').hide();
@@ -171,6 +173,10 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
                                     }, this)
                                 });
             this.irView.render();
+        },
+        onOverlayDismissed: function () {
+            //forward the event to the irView
+            this.irView.trigger('overlayDismissed');
         },
         showControls: function() { 
             $('#controls').show();
