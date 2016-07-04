@@ -179,6 +179,15 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             this.irView.trigger('overlayDismissed');
         },
         showControls: function() { 
+            
+            //turn on camera preview
+            if (typeof cordova !== 'undefined') {
+                CameraPreview.startCamera({
+                    camera: "back",
+                    toBack: true
+                });
+            }
+            
             $('#controls').show();
             $('#feedback').show();
             $('.preview').hide();
@@ -272,6 +281,11 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             this.overlayCleanup();
             this.irView.remove();
             clearTimeout(this.transmitTimer);
+            
+            if (typeof cordova !== 'undefined') {
+                CameraPreview.stopCamera();
+            }
+
 	    },
     });
 
