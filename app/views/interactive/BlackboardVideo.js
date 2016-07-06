@@ -30,13 +30,13 @@ define([
             afterRender: function() {
                 this.videoControlsView = new VideoControlsView({
                     el: $('.interactive.blackboard'),
-                    orientationMode: 'landscape-primary',
+                    // orientationMode: 'landscape-primary',
                     hidePause: true,
                     videoPath: this.item.attributes.video,
                     playImmediately: this.playImmediately,
 
                     onFinalFrame: function() {
-                        screen.lockOrientation("portrait-primary");
+                        // screen.lockOrientation("portrait-primary");
                         Backbone.history.navigate('#/topic/' + this.item.attributes.object);
                     }.bind(this)
                 });

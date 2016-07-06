@@ -387,7 +387,7 @@
     "object": "blackboard",
     "type": "blackboard-ir",
     "image": "blackboard.jpeg",
-    "IRTargetImage": "blackboard_sketch.png",
+    "IRTargetImage": "blackboard_sketch_landscape.png",
     "IRTargets": ["blackboard1", "blackboard2", "blackboard3", "blackboard4"],
     "BGColor": {"R":183, "G":108, "B":97},
     "audio": "",

@@ -469,7 +469,7 @@ define([
                 $('canvas#sextant-reading').css('background-image', this.instructionsColors[this.step]); 
                 $('#message').show();
                 
-                var screenHeight = $(window).height();
+                var screenHeight = window.windowHeight;
                 var feedbackTop = $('#feedback').offset().top;
                 var messageTop = $('#message').offset().top;
                 var padding = 5;
