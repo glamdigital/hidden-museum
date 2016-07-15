@@ -163,7 +163,7 @@ define([
                       // the instructions div becomes bigger in these devices
                       if (sumHeight < contentHeight) {
                         $("#instructions").outerHeight($("#instructions").outerHeight() + contentHeight - sumHeight);
-                        $("#instructions").css({"font-size": "1.4em"});
+                        $("#instructions").css({"font-size": "1.1em"});
                       }
                       // for android devices the position of the mask is relative to the screen's top-left
                       // so we have to calculate the top value of the mask

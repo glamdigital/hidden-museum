@@ -190,7 +190,7 @@ define([
                                     //bounce
                                     .end(_.bind(function() {
                                         this.fallSound.play();
-                                        if( navigator.notification ) { navigator.notification.vibrate(100); }
+                                        if( navigator.notification ) { navigator.notification.vibrate(250); }
                                         move(cradle).y(-fallDist - 7)
                                         .ease('in-out')
                                         .duration('0.2s')
