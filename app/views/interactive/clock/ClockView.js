@@ -157,6 +157,8 @@ define([
             this.twentyFourHourMinuteHandModel = new Backbone.Model({
                 handleMinHeight: 120,
                 handleWidth: 10,
+                vOffset: 30,
+                scale: 0.45
             });
             //update time when this changes
             this.listenTo(this.twentyFourHourMinuteHandModel, 'force-change', _.bind(function(source) {
@@ -170,7 +172,8 @@ define([
             this.twentyFourHourClockMinuteHandView = new RotateHandleView({
                 el: $('#twenty-four_min'),
                 model: this.twentyFourHourMinuteHandModel,
-                image: "img/objects/armillary/twelve-hr-minute-hand.png"
+                image: "img/objects/armillary/twelve-hr-minute-hand_cropped.png",
+                useCanvas: true
             });
             this.twentyFourHourClockMinuteHandView.render();
 
@@ -179,6 +182,8 @@ define([
             this.twentyFourHourHourHandModel = new Backbone.Model({
                 handleMinHeight: 70,
                 handleWidth: 10,
+                vOffset: 30,
+                scale: 0.35
             });
             //update time when this changes
             this.listenTo(this.twentyFourHourHourHandModel, 'force-change', _.bind(function(source) {
@@ -193,7 +198,8 @@ define([
             this.twentyFourHourClockHourHandView = new RotateHandleView({
                 el: $('#twenty-four_hour'),
                 model: this.twentyFourHourHourHandModel,
-                image: "img/objects/armillary/twelve-hr-hour-hand.png",
+                image: "img/objects/armillary/twelve-hr-hour-hand_cropped.png",
+                useCanvas: true
             });
             this.twentyFourHourClockHourHandView.render();
 
@@ -201,6 +207,8 @@ define([
             this.tenHourClockModel = new Backbone.Model({
                 handleMinHeight: 90,
                 handleWidth: 10,
+                vOffset: 55,
+                scale: 0.65
             });
             //update time when this changes
             this.listenTo(this.tenHourClockModel, 'force-change', _.bind(function() {
@@ -212,7 +220,8 @@ define([
             this.tenHourClockView = new RotateHandleView({
                 el: $('#ten-hr'),
                 model: this.tenHourClockModel,
-                image: "img/objects/armillary/ten-hr-face-hand.png",
+                image: "img/objects/armillary/ten-hr-face-hand_cropped.png",
+                useCanvas: true
             });
             this.tenHourClockView.render();
 

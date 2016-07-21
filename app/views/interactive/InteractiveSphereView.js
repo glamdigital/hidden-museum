@@ -20,7 +20,9 @@ define([
 
         initialize: function(params) {
             this.texture = params.texture;
-            this.tapSound = mediaUtil.createAudioObj(params.tapSound)
+            if(params.tapSound) {
+                this.tapSound = mediaUtil.createAudioObj(params.tapSound)
+            }
             this.numTouches = 0;
             //this.defaultRotX = 17 * Math.PI/180;
             this.extraRotX = 0;

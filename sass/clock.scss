@@ -40,7 +40,7 @@ $tenHourClockLeftTablet: 8%;
   text-align: center;
   img {
     z-index: 20;
-    width: 100%;
+    // width: 100%;
   }
   &#ten-hr {
       pointer-events: none;
@@ -60,11 +60,11 @@ $tenHourClockLeftTablet: 8%;
     
     img {
       position: relative;
-      width: $tenHourClockWidth;
+    //   width: $tenHourClockWidth;
       left: 0;
       
       @media #{$tablet} {
-          width: $tenHourClockWidthTablet;
+        //   width: $tenHourClockWidthTablet;
       }
     }
   }
@@ -79,6 +79,7 @@ $tenHourClockLeftTablet: 8%;
     background-size: contain;
     background-repeat: no-repeat;
     width: $smallClockWidth;
+    height: 100%;
     left: $smallClockInset;
   }
   
