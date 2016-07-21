@@ -78,7 +78,8 @@ define([
                     return this.time.minutes(minutes);
                 },
                 fromGlobeAngle: function(angle) {
-                    var minutes = ((angle - 210)/360)*24*60;
+                    //Setting this to use a magic number offset 60 with no real justification, but it works
+                    var minutes = ((angle - 60)/360)*24*60;
                     this.time.hours(0);
                     return this.time.minutes(minutes);
                 }
