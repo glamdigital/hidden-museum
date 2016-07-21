@@ -112,7 +112,7 @@ define([
             //make it a little lower on squarer, smaller devices (e.g. iphone 4)
             
             var deviceWidth = $(window).width();
-            var deviceAspectRatio = deviceWidth / $(window).height();
+            var deviceAspectRatio = deviceWidth / window.windowHeight;
             
             var useSmallerGlobe = (deviceWidth <= 800) && (deviceAspectRatio >= 2/3);
             

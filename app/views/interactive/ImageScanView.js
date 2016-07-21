@@ -175,6 +175,7 @@ define(['backbone',
 							}.bind(this), 210);
 						} else {
 							//cancelled/error. Go back to item page.
+							Backbone.history.navigate("#/topic/" + this.item.attributes.slug);
 						}
 					}.bind(this),
 					function(data) {

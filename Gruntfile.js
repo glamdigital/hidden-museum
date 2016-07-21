@@ -9,7 +9,7 @@
         'cordova-plugin-camera',
         'cordova-plugin-file',
         'cordova-plugin-media',
-        'cordova-plugin-screen-orientation',
+        // 'cordova-plugin-screen-orientation',     //no longer using, vuforia interferes with it
         'cordova-plugin-statusbar',
         'cordova-plugin-vibration',
         'https://github.com/ox-it/cordova-plugin-vuforia'
