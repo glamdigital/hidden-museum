@@ -41,6 +41,14 @@ define([
         DRAW_RAYS = true;
         MOVE_ARM = false;
         
+        SKY_OFFSET_SCALE = 1;
+        SKY_OFFSET_0 = 150;
+        
+        SUN_OFFSET = 0;
+        DRAW_SKY = true;
+        SUN_X = 0;
+        SUN_Y = 0;
+        
         setSextantArmAngle = function (a) {
             var setImageAngle = function (deg, selector) {
                 var armAngle = deg/2;
@@ -148,6 +156,17 @@ define([
                 });
                 this.readingView.render();
                 
+                //set up the canvas clip path
+                var $canvas = $('#sky-canvas');
+                var c = $canvas[0];
+                c.width = $canvas.width();
+                c.height = $canvas.height();
+                
+                var ctx = c.getContext('2d');
+                ctx.arc(c.width/2, c.height/2, (c.height-30)/2, 0, 2*Math.PI);
+                ctx.closePath();
+                ctx.clip();
+                
                 
                 //initialise camera preview
                 if (typeof cordova !== 'undefined') {
@@ -168,10 +187,10 @@ define([
                       // for android devices the position of the mask is relative to the screen's top-left
                       // so we have to calculate the top value of the mask
                       var yMaskPos = $("#prheader").height() + $("#instructions").height() + 110;
-                      $(".android #sextant #viewfinder").css({
-                        "clip-path": "circle(105px at center "+ yMaskPos +"px )",
-                        "-webkit-clip-path": "circle(105px at center "+ yMaskPos +"px )",
-                      });
+                    //   $(".android #sextant #viewfinder").css({
+                    //     "clip-path": "circle(105px at center "+ yMaskPos +"px )",
+                    //     "-webkit-clip-path": "circle(105px at center "+ yMaskPos +"px )",
+                    //   });
                     }
                     CameraPreview.startCamera({
                       x: 0, 
@@ -193,8 +212,11 @@ define([
                 this.hideMessage();
                 this.showHorizonIndicator();
                 this.angle = 0;
-                $(window).on('deviceorientation', this, _.bind(this.deviceOrientationHandler, this));
-                $(window).on('devicemotion', this, _.bind(this.deviceMotionHandler, this));
+                // $(window).on('deviceorientation', this, _.bind(this.deviceOrientationHandler, this));
+                // $(window).on('devicemotion', this, _.bind(this.deviceMotionHandler, this));
+                
+                //don't use jquery to bind motion event. It doesn't seem to work on moto g
+                window.ondevicemotion = this.deviceMotionHandler.bind(this);
             },
             
             toggleButtonHandler: function (ev) {
@@ -254,8 +276,9 @@ define([
             stopTrackingOrientation: function (ev) {
                 this.isTrackingOrientation = false;
                 this.isTrackingMotion = false;
-                $(window).off('deviceorientation', _.bind(this.deviceOrientationHandler, this));
-                $(window).off('devicemotion', _.bind(this.deviceMotionHandler, this));
+                // $(window).off('deviceorientation', _.bind(this.deviceOrientationHandler, this));
+                // $(window).off('devicemotion', _.bind(this.deviceMotionHandler, this));
+                window.ondevicemotion = null;
             },
             
             deviceOrientationHandler: function (ev) {
@@ -274,12 +297,13 @@ define([
             },
             
             deviceMotionHandler: function (ev) {
+                if(ev.originalEvent) { ev = ev.originalEvent; }
                 if (this.isTrackingMotion == true) {
                     if (this.startingDeviceMotion = null) {
-                        this.startingDeviceMotion = ev.originalEvent;
+                        this.startingDeviceMotion = ev;
                     }
                     
-                    this.currentDeviceMotion = ev.originalEvent;
+                    this.currentDeviceMotion = ev;
                     // if(LOG_NEXT_EV) {
                     //     console.log(ev.originalEvent);
                     //     LOG_NEXT_EV = false;
@@ -335,12 +359,35 @@ define([
                     var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE + this.sky_background_offset;
                     // on android devices the left part of the captured image is transparent
                     // so the left part of the sky should stop moving 
-                    if (this.step == 0){
-                      $('#sky-left').css('background-position-y', skyOffsetY + 'px');
+                    
+                    // if (this.step == 0){
+                    //   $('#sky-left').css('background-position-y', skyOffsetY + 'px');
+                    // }
+                    // $('#sky-right').css('background-position-y', skyOffsetY + 'px');
+                    // 
+                    
+                    var $canvas = $('#sky-canvas');
+                    var c = $canvas[0];
+                    var ctx = c.getContext('2d');
+                    var img = $('#sky-img')[0];
+                    
+                    var skyYPos = -img.height + SKY_OFFSET_0 + skyOffsetY*SKY_OFFSET_SCALE;
+                    
+                    if(DRAW_SKY) {
+                        if (this.step == 0) {
+                            //clear whole screen and draw full sea
+                            ctx.clearRect(0,0, c.width, c.height);
+                            ctx.drawImage(img, 0, skyYPos);
+                        } else {
+                            // clear and draw right half only
+                            ctx.clearRect(c.width/2, 0, c.width, c.height);
+                            ctx.drawImage(img, 
+                                          img.width/2, 0, 
+                                          img.width/2, img.height, 
+                                          c.width/2, skyYPos,
+                                          img.width, img.height);
+                        }
                     }
-                    $('#sky-right').css('background-position-y', skyOffsetY + 'px');
-                    
-                    
                     
                     var sunRelAng = this.sunElevation - skyAngle;
                     var sunHeight = sunRelAng * SKY_BACKGROUND_SCROLL_RATE + $('#sun').height()/2;
@@ -351,7 +398,19 @@ define([
                         console.log('sunHeight: ', sunHeight);
                     }
                     
-                    $('#sun').css('bottom', sunHeight + 'px');
+                    // $('#sun').css('bottom', sunHeight + 'px');
+                    var sunimg = $('#sun-img')[0];
+                    
+                    sunYPos = SUN_OFFSET - SKY_OFFSET_SCALE * sunHeight;
+                    console.log('sunrelang', sunRelAng);
+                    console.log('sunYPos', sunYPos);
+                    
+                    if(SUN_X == 0) {
+                        SUN_X = c.width * 0.5;
+                    }
+                    
+                    ctx.drawImage(sunimg, SUN_X, SUN_Y || sunYPos);
+                    
                 }
                 
                 //Attempt to scan left/right a little. Doesn't work well, as roll adds to gamma.
@@ -371,7 +430,8 @@ define([
                 };
                 // on (most?) android devices the gravity.z value is positive when holding the device face up
                 // check the gravity.z when the values are read for the first time, if it is positive it will be inverted
-                if(device && device.platform.toLowerCase() === "android") {
+                
+                if(typeof(device) !== 'undefined' && device.platform.toLowerCase() === "android") {
                   if (this.deviceInitialMotionZPositive == null) {
                     this.deviceInitialMotionZPositive = (gravity.z > 0) ? true : false ;
                   }
@@ -434,6 +494,13 @@ define([
                         }
                     }.bind(this));
                 }
+                
+                //now further clip the canvas to only draw the right hand side
+                var $canvas = $('#sky-canvas');
+                var c = $canvas[0];
+                var ctx = c.getContext('2d');
+                ctx.rect(c.width/2, 0, c.width/2, c.height);
+                ctx.clip();
             },
             
             imageBlackToTransparent: function (uri) {

@@ -416,6 +416,7 @@ div.item-title {
     #viewfinder {
       //clip-path: url(#clipping);
       width: 100%;
+      position: relative;
       height: $sextantCapturedImageHeight;
       //mask-type: luminance;
       -webkit-mask-source-type: luminance;
@@ -626,6 +627,7 @@ div.item-title {
       position: absolute;
       margin-left: -($sextantCapturedImageHeight - 10px)/2;
       left: 50%;
+      top: 0px;
       @media #{$tablet} {
         height: $sextantCapturedImageHeightIpad - 10px;
         width: $sextantCapturedImageHeightIpad - 10px;
