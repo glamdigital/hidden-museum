@@ -218,7 +218,7 @@
     "type": "moonglobe-ir",
     "image": "objects/moon_globe/Selenographia2.jpg",
     "IRTargetImage": "moon_sketch.png",
-    "IRTargets": ["moon_globe", "moon_globe2", "moon_globe3", "moon_globe4", "moon_globe5"],
+    "IRTargets": ["md1", "md2", "md3", "md4", "md5", "md6", "md7", "md8", "md9", "md10", "md11", "md12", "md13", "md14", "md15", "md16", "md17", "md18", "md19", "md20", "md21", "md22", "md23", "md24", "md25", "md26", "md27", "md28", "md29", "md30", "md31", "md32", "md33"],
     "BGColor": {"R":222, "G":175, "B":84},
     "audio": "",
     "audio_duration": "",
