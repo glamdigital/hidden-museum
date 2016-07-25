@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="md33" size="1.000000 1.333333" />
+    <ImageTarget name="md32" size="1.000000 1.333333" />
+    <ImageTarget name="md31" size="1.000000 1.333333" />
+    <ImageTarget name="md30" size="1.000000 1.333333" />
+    <ImageTarget name="md29" size="1.000000 1.333333" />
+    <ImageTarget name="md28" size="1.000000 1.333333" />
+    <ImageTarget name="md27" size="1.000000 1.333333" />
+    <ImageTarget name="md26" size="1.000000 1.333333" />
+    <ImageTarget name="md25" size="1.000000 1.333333" />
+    <ImageTarget name="md24" size="1.000000 1.333333" />
+    <ImageTarget name="md23" size="1.000000 1.333333" />
+    <ImageTarget name="md22" size="1.000000 1.333333" />
+    <ImageTarget name="md21" size="1.000000 1.333333" />
+    <ImageTarget name="md20" size="1.000000 1.333333" />
+    <ImageTarget name="md19" size="1.000000 1.333333" />
+    <ImageTarget name="md18" size="1.000000 1.333333" />
+    <ImageTarget name="md17" size="1.000000 1.333333" />
+    <ImageTarget name="md16" size="1.000000 1.333333" />
+    <ImageTarget name="md15" size="1.000000 1.333333" />
+    <ImageTarget name="md14" size="1.000000 1.333333" />
+    <ImageTarget name="md13" size="1.000000 1.333333" />
+    <ImageTarget name="md12" size="1.000000 1.333333" />
+    <ImageTarget name="md11" size="1.000000 1.333333" />
+    <ImageTarget name="md10" size="1.000000 1.333333" />
+    <ImageTarget name="md9" size="1.000000 1.333333" />
+    <ImageTarget name="md8" size="1.000000 1.333333" />
+    <ImageTarget name="md7" size="1.000000 1.333333" />
+    <ImageTarget name="md6" size="1.000000 1.333333" />
+    <ImageTarget name="md5" size="1.000000 1.333333" />
+    <ImageTarget name="md4" size="1.000000 1.333333" />
+    <ImageTarget name="md3" size="1.000000 1.333333" />
+    <ImageTarget name="md2" size="1.000000 1.333333" />
+    <ImageTarget name="md1" size="1.000000 1.333333" />
+    <ImageTarget name="globe_interact6" size="1.000000 0.750000" />
+    <ImageTarget name="globe_interact5" size="1.000000 1.777778" />
+    <ImageTarget name="globe_interact4" size="1.000000 1.333333" />
+    <ImageTarget name="blackboard4" size="1.000000 1.333333" />
+    <ImageTarget name="blackboard3" size="1.000000 1.333333" />
+    <ImageTarget name="blackboard2" size="1.000000 1.333333" />
+    <ImageTarget name="blackboard1" size="1.000000 1.333333" />
+    <ImageTarget name="marconi3" size="1.000000 1.333333" />
+    <ImageTarget name="marconi2" size="1.000000 1.333333" />
+    <ImageTarget name="marconi1" size="1.000000 1.333333" />
+    <ImageTarget name="globe_interact3" size="1.000000 1.777778" />
+    <ImageTarget name="globe_interact2" size="1.000000 1.777778" />
+    <ImageTarget name="globe_interact" size="1.000000 1.333333" />
+  </Tracking>
+</QCARConfig>

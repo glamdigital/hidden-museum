@@ -31,15 +31,20 @@ require([
         // it has served its purpose.
         window.firstRun = true;
         
+        
+        //calculate window height once - while we know webview is in portrait. 
+        // After watching a landscape video, it is transiently the landscape height
+        window.windowHeight = $(window).height();
+        
         console.log("Device Ready");
         // Location.init();
         //Location.startRangingRegion(Location_UUID_ios);
         // Location.startRangingRegion(Location_UUID_beacons);
 
         //lock in portrait
-        if (screen && typeof screen.lockOrientation == 'function') {
-            screen.lockOrientation('portrait-primary');
-        }
+        // if (screen && typeof screen.lockOrientation == 'function') {
+        //     screen.lockOrientation('portrait-primary');
+        // }
 
         //load topics and items
         Topic.loadItems(function () {

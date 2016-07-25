@@ -17,7 +17,7 @@ define(['backbone', 'hbs!app/templates/header'], function(Backbone, headerTempla
         afterRender: function () {
             //set height of 'content' div.
             var headerHeight = $('#prheader').outerHeight();
-            $('.content').height($(window).height() - headerHeight);
+            $('.content').height(window.windowHeight - headerHeight);
         },
         
         initialize: function(params) {
