@@ -55,6 +55,11 @@ require([
                 console.log("Started the app");
             })
         });
+        
+        //initialise GA
+        if(typeof(window.ga) !== 'undefined') {
+            window.ga.startTrackerWithId('UA-81271386-1');
+        }
     };
     
     //start the location service when the device is ready

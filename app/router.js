@@ -110,6 +110,11 @@ define([
                 "interact/:item/:type/:index": "interact",   //interactive view for item
                 "scan": "scan"
             },
+            // 
+            // execute: function (cb, args, name) {
+            //     console.log(args, name);
+            //     cb.apply(this, args);
+            // },
             
             intro: function() {
                 var view = new IntroView();
@@ -131,6 +136,10 @@ define([
                 this.headerView.render();
                 
                 this.floorTracker.promptToSwitch = false;
+                
+                if(typeof(window.ga) !== 'undefined') {
+                    window.ga.trackView('Galleries')
+                }
             },
             
             trail: function(trailSlug) {
@@ -157,6 +166,10 @@ define([
                 this.headerView.render();
                 
                 this.floorTracker.promptToSwitch = true;
+                
+                if(typeof(window.ga) !== 'undefined') {
+                    window.ga.trackView('Gallery: ' + trail.attributes.title);
+                }
             },
             
             topic: function(topicSlug) {
@@ -176,6 +189,10 @@ define([
                 this.headerView.render();
                 
                 this.floorTracker.promptToSwitch = false;
+                
+                if(typeof(window.ga) !== 'undefined') {
+                    window.ga.trackView('Object: ' + topic.attributes.title)
+                }
             },
             
             finished: function() {
@@ -238,6 +255,10 @@ define([
                 //set prev link
                 this.headerView.setPrevURL('#/topic/' + window.session.currentTopic.attributes.slug);
                 this.headerView.render();
+                
+                if(typeof(window.ga) !== 'undefined') {
+                    window.ga.trackView('Interact: ' + item.attributes.title + ',' + index)
+                }
                 
                 switch (interact_type) {
                     case 'sextant-interact':
