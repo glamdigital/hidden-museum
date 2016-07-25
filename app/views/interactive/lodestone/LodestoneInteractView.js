@@ -47,7 +47,7 @@ define([
                 //};
 
                 //scale factor used in various places to compensate for size being different than iphone 6
-                this.scaleFactor = $(window).height()/667;
+                this.scaleFactor = window.windowHeight/667;
                 
                 this.resetState();
                 this.model.set({state: 'winding'});
@@ -127,7 +127,7 @@ define([
                             var $frame = $('#frame');
                             
                             //use a slightly different calculation if the background fit is constrained by width instead of by height
-                            var aspectRatio = $(window).width() / $(window).height();
+                            var aspectRatio = $(window).width() / window.windowHeight;
                             var iPadRatio = 768/1024;
                             var isSquare = Math.abs(aspectRatio - iPadRatio) < 0.01;
                             if(isSquare) {

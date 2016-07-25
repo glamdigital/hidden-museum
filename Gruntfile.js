@@ -9,9 +9,10 @@
         'cordova-plugin-camera',
         'cordova-plugin-file',
         'cordova-plugin-media',
-        'cordova-plugin-screen-orientation',
+        // 'cordova-plugin-screen-orientation',     //no longer using, vuforia interferes with it
         'cordova-plugin-statusbar',
-        'cordova-plugin-vibration'
+        'cordova-plugin-vibration',
+        'https://github.com/ox-it/cordova-plugin-vuforia'
         //add further plugins here
     ]
     
@@ -270,6 +271,7 @@ module.exports = function(grunt) {
 	                    "video/**",
                         "css/**",
                         "fonts/**",
+                        "targets/**"
                         ],
                     dest: "www" },
                 {   src: ["index-built.html"],

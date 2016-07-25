@@ -37,23 +37,23 @@ define(["backbone", "underscore", "hbs!app/templates/interactive/image_scanned"]
 					$('video')[0].webkitEnterFullscreen();
 					$('video')[0].play();
 					$('.scanned-view').css('background', 'white');
-					if(typeof(screen !== 'undefined')) {
-						screen.lockOrientation('landscape');
-					}
+					// if(typeof(screen !== 'undefined')) {
+					// 	screen.lockOrientation('landscape');
+					// }
 				},
 
 				onVideoEnded: function(ev) {
 					$('video')[0].webkitExitFullscreen();
 					$('#controls').hide();
-					if(typeof(screen !== 'undefined')) {
-						screen.lockOrientation('portrait');
-					}
+					// if(typeof(screen !== 'undefined')) {
+					// 	screen.lockOrientation('portrait');
+					// }
 				},
 
 				cleanup: function() {
-					if(typeof(screen !== 'undefined')) {
-						screen.lockOrientation('portrait');
-					}
+					// if(typeof(screen !== 'undefined')) {
+					// 	screen.lockOrientation('portrait');
+					// }
 				}
 			});
 

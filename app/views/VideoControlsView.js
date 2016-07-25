@@ -64,13 +64,13 @@ define([
             },
             
             onFullscreen: function(ev) {
-              if(this.orientationMode === 'landscape-primary') {
-                screen.lockOrientation(this.orientationMode);
-              }
+            //   if(this.orientationMode === 'landscape-primary') {
+            //     screen.lockOrientation(this.orientationMode);
+            //   }
             },
             
             onEndFullscreen: function(ev) {
-              screen.lockOrientation("portrait-primary");
+            //   screen.lockOrientation("portrait-primary");
               this.onVideoEnded();
             },
             

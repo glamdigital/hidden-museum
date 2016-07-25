@@ -25,7 +25,7 @@ define(['backbone', 'jquery', 'hbs!app/templates/user_prompt'], function(Backbon
 
         afterRender: function() {
             //position at base of screen
-            var sHeight = $(window).height();
+            var sHeight = window.windowHeight;
             var elementHeight = this.$el.outerHeight();
             var offset = sHeight - elementHeight;
             this.$el.css('top', '' + offset + 'px');
