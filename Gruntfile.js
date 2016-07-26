@@ -150,7 +150,7 @@ module.exports = function(grunt) {
             name: "app/libs/almond/almond.js", // assumes a production build using almond
             out: "app/built.js",
             include: ['app/main'],
-            optimize: 'none',
+            // optimize: 'none',
           }
         }
       //}

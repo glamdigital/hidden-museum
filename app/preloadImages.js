@@ -34,7 +34,7 @@ define([
 				"img/objects/sextant/circle_mask.png",
 				"img/objects/sextant/parchment-tan-dark.jpg",
 				"img/objects/sextant/sextant_eye_piece.png",
-				"img/objects/sextant/latitude.png",
+				"img/objects/sextant/latitude.jpg",
 				"img/objects/sextant/parchment-tan.jpg",
 				"img/objects/sextant/navigation-map.jpg",
 				"img/objects/sextant/sextant_angle_reader.png",
