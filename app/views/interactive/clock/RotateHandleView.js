@@ -81,7 +81,9 @@ define([
             $hr10.height($hr10.width());
             
             _.defer(function () {
-                this.setAngle(this.model.attributes.angle);
+              _.delay(function () {
+                  this.setAngle(this.model.attributes.angle);
+              }.bind(this),500);
             }.bind(this));
         },
 
