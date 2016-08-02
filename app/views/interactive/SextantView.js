@@ -88,6 +88,7 @@ define([
             
             initialize: function (params) {
                 this.item = params.item;
+                this.lowPassResults = 0;
                 this.deviceInitialMotionZPositive = null;
                 this.step = 0;
                 this.isTrackingOrientation = false;
@@ -181,7 +182,7 @@ define([
                       // the instructions div becomes bigger in these devices
                       if (sumHeight < contentHeight) {
                         $("#instructions").outerHeight($("#instructions").outerHeight() + contentHeight - sumHeight);
-                        $("#instructions").css({"font-size": "1.1em"});
+                        $("#instructions").css({"font-size": "1em"});
                       }
                       // for android devices the position of the mask is relative to the screen's top-left
                       // so we have to calculate the top value of the mask
@@ -337,10 +338,10 @@ define([
                             // clear and draw right half only
                             ctx.clearRect(c.width/2, 0, c.width, c.height);
                             ctx.drawImage(img, 
-                                          img.width/2, 0, 
-                                          img.width/2, img.height, 
+                                          c.width/2, 0, 
+                                          c.width/2, img.height, 
                                           c.width/2, skyYPos,
-                                          img.width, img.height);
+                                          c.width/2, img.height);
                         }
                     }
                     
@@ -396,14 +397,14 @@ define([
                 angleRad = Math.PI - angleRad;
                                 
                 var angleDeg = angleRad * 180/Math.PI;
-                
+                this.lowPassResults = (.1 * angleDeg) + (.9 * this.lowPassResults);
                 if(LOG_NEXT_EV) {
                     console.log('gravity: ', gravity);
                     console.log('angle: ', angleDeg);
                     LOG_NEXT_EV = false;
                 }
                 
-                this.currentDeviceAngle = angleDeg - 90;
+                this.currentDeviceAngle = this.lowPassResults - 90;
             },
             
             showHorizonIndicator: function () {
