@@ -52,11 +52,11 @@ define([
             //determine pivot coordinates
             var $img = this.$el.find('.handle');
             
-            this.$canvas = $('canvas', this.$el);
-            this.$canvas[0].width = this.$canvas.width();
-            this.$canvas[0].height = this.$canvas.height();
             
             if(this.useCanvas) {
+                this.$canvas = $('canvas', this.$el);
+                this.$canvas[0].width = this.$canvas.width();
+                this.$canvas[0].height = this.$canvas.height();
                 this.pivot = new Victor(
                     $img.offset().left + $img.width()/2,
                     $img.offset().top + $img.height()/2
