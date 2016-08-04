@@ -1,4 +1,9 @@
 <div class="video-player {{orientation}}">
+  {{#if isAndroid}}
+    <div id="android-video-overlay" style="background-image: url('img/{{imagePath}}');">
+      <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+  {{else}}
     <video preload="auto" poster="img/{{imagePath}}">
         <source src="video/{{videoPath}}" type="video/mp4">
     </video>
@@ -13,4 +18,5 @@
             </span>
         </div>
     </div>
+  {{/if}}
 </div>
