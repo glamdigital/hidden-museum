@@ -35,6 +35,8 @@ define([
 
             //listen for events that a (nother) piece of audio has been triggered
             this.listenTo(Backbone, 'audio-player-start', _.bind(this.onAnyAudioPlayerStart, this));
+            this.end = params.duration;
+            this.sentGAFinish = false;
         },
 
         serialize: function() {
@@ -77,6 +79,7 @@ define([
             if(this.media) {
                 this.media.play();
             }
+            window.ga.trackEvent('Audio', 'Start', this.caption);
             $('#play-audio', this.$el).hide();
             $('#pause-audio', this.$el).show();
             $('#restart-audio', this.$el).show();
@@ -113,6 +116,10 @@ define([
                 if(elapsed < 0) {
                     //not playing
                     return;
+                }
+                if ( (!this.sentGAEvent) && parseInt(this.end) - elapsed < 2 ) {
+                  this.sentGAEvent = true;
+                  window.ga.trackEvent('Audio', 'Finish', this.caption);
                 }
                 $('#media-elapsed', this.$el).html(elapsed.toMSS());
             }.bind(this));
