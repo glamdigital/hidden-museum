@@ -95,7 +95,6 @@ video {
   background-color: transparent;
   color: $contentTextColor;
   z-index: 2;
-//  overflow: scroll;
 
   @include transition-property(left);
   @include transition-duration(0.25s);
@@ -243,8 +242,6 @@ div.item-title {
   //this is enabled where necessary, and always shows a scroll bar if on
 //  overflow-y: scroll;
 
-
-
   font-size: 1.1em;
 
   @media #{$tablet} {
@@ -327,7 +324,6 @@ div.item-title {
   }
   @media #{$phone} and #{$landscape} {
     max-width: 50%;
-//    float: right;
   }
 }
 
@@ -414,10 +410,9 @@ div.item-title {
     }
     
     #viewfinder {
-      //clip-path: url(#clipping);
       width: 100%;
+      position: relative;
       height: $sextantCapturedImageHeight;
-      //mask-type: luminance;
       -webkit-mask-source-type: luminance;
       mask-image: url(../img/objects/sextant/circle_mask.png);
       -webkit-mask-image: url(../img/objects/sextant/circle_mask.png);
@@ -435,7 +430,6 @@ div.item-title {
       
       #captured-image {
         position: absolute;
-        // top: 138.5px;
         width: 50%;
         height: $sextantCapturedImageHeight;
         @media #{$tablet} {
@@ -445,14 +439,7 @@ div.item-title {
         background-size: 380px;
         background-position-y: -240px;
         z-index: 1000;
-        display: inline;
-        // @media #{$phone_small} {
-        //   top: 138.5px;
-        // }
-        // @media #{$phone_vsmall} {
-        //   top: 138.5px;
-        // }
-        
+        display: inline;        
         #alignment-indicator {
           position: relative;
           top: 50%;
@@ -626,6 +613,7 @@ div.item-title {
       position: absolute;
       margin-left: -($sextantCapturedImageHeight - 10px)/2;
       left: 50%;
+      top: 0px;
       @media #{$tablet} {
         height: $sextantCapturedImageHeightIpad - 10px;
         width: $sextantCapturedImageHeightIpad - 10px;
@@ -737,7 +725,6 @@ div.item-title {
         width: 100%;
         background-image: url(../img/objects/sextant/navigation-map.jpg);
         background-position: center top;
-        // background-size: auto 270px;
         background-size: cover;
       }
       

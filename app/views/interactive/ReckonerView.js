@@ -37,7 +37,7 @@ define([
                     }).bind(this)
                 });
                 this.videoControlsView.render();
-                this.listenTo(this.overlayView, 'overlayDismissed', this.videoControlsView.transportPlay);
+                this.listenTo(this.overlayView, 'overlayDismissed', this.videoControlsView.transportPlay.bind(this.videoControlsView));
             },
             
             cleanup: function () {

@@ -3,8 +3,7 @@
     var plugins = [
         'cordova-plugin-device',
         'com.darktalker.cordova.screenshot',
-        'https://github.com/ox-it/CordovaCameraPreview.git',    //com.mbppower.camerapreview
-        'https://github.com/ox-it/MS4Plugin.git',    //moodstocks
+        'https://github.com/ox-it/cordova-plugin-camera-preview.git',    //com.mbppower.camerapreview
         'cordova-plugin-ble-central',
         'cordova-plugin-camera',
         'cordova-plugin-file',
@@ -151,7 +150,7 @@ module.exports = function(grunt) {
             name: "app/libs/almond/almond.js", // assumes a production build using almond
             out: "app/built.js",
             include: ['app/main'],
-            optimize: 'none',
+            // optimize: 'none',
           }
         }
       //}

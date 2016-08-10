@@ -5,23 +5,32 @@ define([
             "backbone",
             "move",
             "victor",
-            "hbs!app/templates/interactive/handle"
+            "hbs!app/templates/interactive/handle",
+            "hbs!app/templates/interactive/canvasHandle"
         ], function(
             Backbone,
             move,
             Victor,
-            handleTemplate
+            handleTemplate,
+            canvasHandleTemplate
         ){
 
 
 
     var HandleView = Backbone.View.extend({
         template: handleTemplate,
+        template_canvas: canvasHandleTemplate,
 
         initialize: function(params) {
             //listen to model changes and update angle
             this.onModelChange = params.onModelChange;
             this.image = params.image;
+            this.useCanvas = params.useCanvas;
+
+            //use alternative template for canvas rendering
+            if(this.useCanvas) {
+                this.template = this.template_canvas;
+            }
             this.model.set({
                 angle: 0
             });
@@ -41,24 +50,69 @@ define([
 
         afterRender: function() {
             //determine pivot coordinates
-            var $img = this.$el.find('img');
-            $img.on('load', _.bind(function() {
+            var $img = this.$el.find('.handle');
+            
+            
+            if(this.useCanvas) {
+                this.$canvas = $('canvas', this.$el);
+                this.$canvas[0].width = this.$canvas.width();
+                this.$canvas[0].height = this.$canvas.height();
                 this.pivot = new Victor(
                     $img.offset().left + $img.width()/2,
                     $img.offset().top + $img.height()/2
-                );
-            }, this));
-            //set angle based on model
-            this.setAngle(this.model.attributes.angle);
+                )
+            } else {
+                $img.on('load', _.bind(function() {
+                    this.pivot = new Victor(
+                        $img.offset().left + $img.width()/2,
+                        $img.offset().top + $img.height()/2
+                    );
+                }, this));
+            }
+            
+            //set correct sizes for canvases
+            var $min24 = $('#twenty-four_min');
+            $min24.height($min24.width());
+            
+            var $hr24 = $('#twenty-four_hour');
+            $hr24.height($hr24.width());
+            
+            var $hr10 = $('#ten-hr');
+            $hr10.height($hr10.width());
+            
+            _.defer(function () {
+              _.delay(function () {
+                  this.setAngle(this.model.attributes.angle);
+              }.bind(this),500);
+            }.bind(this));
         },
 
         setAngle: function(angle, duration) {
             duration = duration || 0;
-            var $img = this.$el.find('img');
-            move($img[0])
+            if(this.useCanvas) {
+                //todo redraw
+                var c = this.$canvas[0];
+                var ctx = c.getContext('2d');
+                ctx.clearRect(0, 0, 1000, 1000);
+                var $img = $('.handle-img', this.$el);
+                
+                ctx.setTransform(1,0,0,1,0,0); //identity
+                
+                
+                ctx.translate(c.width/2, c.height/2)
+                ctx.rotate(angle * Math.PI/180);
+                ctx.scale(this.model.attributes.scale, this.model.attributes.scale);
+                ctx.translate(-$img.width()/2, -$img.height()/2 - this.model.attributes.vOffset);
+                
+                ctx.drawImage($img[0], 0, 0);
+                
+            } else {
+                var $img = this.$el.find('img');
+                move($img[0])
                 .rotate(angle)
                 .duration(duration)
                 .end();
+            }
 
         },
 
@@ -111,7 +165,6 @@ define([
             }
 
         },
-
 
         handleTouchMove: function(ev) {
             //multitouch will cause problems, but dealing with this is beyond scope for now

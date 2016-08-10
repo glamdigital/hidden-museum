@@ -41,6 +41,14 @@ define([
         DRAW_RAYS = true;
         MOVE_ARM = false;
         
+        SKY_OFFSET_SCALE = 1;
+        SKY_OFFSET_0 = 150;
+        
+        SUN_OFFSET = 0;
+        DRAW_SKY = true;
+        SUN_X = 0;
+        SUN_Y = 0;
+        
         setSextantArmAngle = function (a) {
             var setImageAngle = function (deg, selector) {
                 var armAngle = deg/2;
@@ -80,6 +88,7 @@ define([
             
             initialize: function (params) {
                 this.item = params.item;
+                this.lowPassResults = 0;
                 this.deviceInitialMotionZPositive = null;
                 this.step = 0;
                 this.isTrackingOrientation = false;
@@ -148,7 +157,17 @@ define([
                 });
                 this.readingView.render();
                 
+                //set up the canvas clip path
+                var $canvas = $('#sky-canvas');
+                var c = $canvas[0];
+                c.width = $canvas.width();
+                c.height = $canvas.height();
                 
+                var ctx = c.getContext('2d');
+                ctx.arc(c.width/2, c.height/2, (c.height-30)/2, 0, 2*Math.PI);
+                ctx.closePath();
+                ctx.clip();
+                               
                 //initialise camera preview
                 if (typeof cordova !== 'undefined') {
                     var tapEnabled = true; //enable tap take /picture
@@ -163,15 +182,11 @@ define([
                       // the instructions div becomes bigger in these devices
                       if (sumHeight < contentHeight) {
                         $("#instructions").outerHeight($("#instructions").outerHeight() + contentHeight - sumHeight);
-                        $("#instructions").css({"font-size": "1.1em"});
+                        $("#instructions").css({"font-size": "1em"});
                       }
                       // for android devices the position of the mask is relative to the screen's top-left
                       // so we have to calculate the top value of the mask
                       var yMaskPos = $("#prheader").height() + $("#instructions").height() + 110;
-                      $(".android #sextant #viewfinder").css({
-                        "clip-path": "circle(105px at center "+ yMaskPos +"px )",
-                        "-webkit-clip-path": "circle(105px at center "+ yMaskPos +"px )",
-                      });
                     }
                     CameraPreview.startCamera({
                       x: 0, 
@@ -193,8 +208,9 @@ define([
                 this.hideMessage();
                 this.showHorizonIndicator();
                 this.angle = 0;
-                $(window).on('deviceorientation', this, _.bind(this.deviceOrientationHandler, this));
-                $(window).on('devicemotion', this, _.bind(this.deviceMotionHandler, this));
+                
+                //don't use jquery to bind motion event. It doesn't seem to work on moto g
+                window.ondevicemotion = this.deviceMotionHandler.bind(this);
             },
             
             toggleButtonHandler: function (ev) {
@@ -210,10 +226,7 @@ define([
                         }
                         this.takeHorizonImage(ev);
                         this.hasSetHorizon = true;
-                        //this.startTrackingOrientation(ev);
                         //grab the current orientation as the initial orientation
-                        //this.startingDeviceOrientation = this.currentDeviceOrientation;
-                        // this.horizonOrientation = this.currentDeviceOrientation;
                         this.horizonDeviceAngle = this.currentDeviceAngle;
                         
                         this.displayInstructions();
@@ -234,7 +247,6 @@ define([
                         this.turnPageSound.setTime(0);
                         this.turnPageSound.play();
                           this.step = 3;
-                          // this.hideDiagram();
                           this.showMessage();
                     case 3:
                         setTimeout(function () {
@@ -246,16 +258,13 @@ define([
             },
             
             startTrackingOrientation: function (ev) {
-                //this.startingDeviceOrientation = null;
-                // this.isTrackingOrientation = true;
-                this.isTrackingMotion = true;
+                 this.isTrackingMotion = true;
             },
             
             stopTrackingOrientation: function (ev) {
                 this.isTrackingOrientation = false;
                 this.isTrackingMotion = false;
-                $(window).off('deviceorientation', _.bind(this.deviceOrientationHandler, this));
-                $(window).off('devicemotion', _.bind(this.deviceMotionHandler, this));
+                window.ondevicemotion = null;
             },
             
             deviceOrientationHandler: function (ev) {
@@ -265,26 +274,18 @@ define([
                     }
                     
                     this.currentDeviceOrientation = ev.originalEvent;
-                    // if(LOG_NEXT_EV) {
-                    //     console.log(ev.originalEvent);
-                    //     LOG_NEXT_EV = false;
-                    // }
                     this.updateOrientationIndicator();
                 }
             },
             
             deviceMotionHandler: function (ev) {
+                if(ev.originalEvent) { ev = ev.originalEvent; }
                 if (this.isTrackingMotion == true) {
                     if (this.startingDeviceMotion = null) {
-                        this.startingDeviceMotion = ev.originalEvent;
+                        this.startingDeviceMotion = ev;
                     }
                     
-                    this.currentDeviceMotion = ev.originalEvent;
-                    // if(LOG_NEXT_EV) {
-                    //     console.log(ev.originalEvent);
-                    //     LOG_NEXT_EV = false;
-                    // }
-                    
+                    this.currentDeviceMotion = ev;                    
                     this.updateOrientationFromMotion();
                     this.updateOrientationIndicator();
                 }
@@ -292,9 +293,7 @@ define([
                         
             updateOrientationIndicator: function() {
                 if(this.hasSetHorizon) {
-                    // this.angle = this.currentDeviceOrientation.beta - this.horizonOrientation.beta;
                     this.angle = this.currentDeviceAngle - this.horizonDeviceAngle;
-                    
                     
                     //limit to 82 degrees north as this is the furthest the map can show.
                     if (this.angle > 82) {
@@ -304,21 +303,8 @@ define([
                         this.angle = MIN_ANGLE;
                     }
                     
-                    // check if a big change in angle happened, and play the changeSound
-                    // var nowTime = Date.now();
-                    // if (this.angleTime) {
-                    //   var prevAngle = this.stateModel.get("angle");
-                    //   var angleChange = (this.angle - prevAngle) / (nowTime - this.angleTime);
-                    //   if (Math.abs(angleChange)>0.4){
-                    //     console.log("angleChange", angleChange);
-                    //     this.moveSound.setTime(0);
-                    //     this.moveSound.play();
-                    //   }
-                    // }
-
                     //set the angle on the state model
                     this.stateModel.set({angle: this.angle});
-                    // this.angleTime = nowTime;
                     if (this.angle > MIN_CAPTURE_SUN_ANGLE) {
                         $button = $('#controls').find('.button');
                         $button.css('visibility', 'visible');
@@ -335,12 +321,29 @@ define([
                     var skyOffsetY = skyAngle * SKY_BACKGROUND_SCROLL_RATE + this.sky_background_offset;
                     // on android devices the left part of the captured image is transparent
                     // so the left part of the sky should stop moving 
-                    if (this.step == 0){
-                      $('#sky-left').css('background-position-y', skyOffsetY + 'px');
+                    
+                    var $canvas = $('#sky-canvas');
+                    var c = $canvas[0];
+                    var ctx = c.getContext('2d');
+                    var img = $('#sky-img')[0];
+                    
+                    var skyYPos = -img.height + SKY_OFFSET_0 + skyOffsetY*SKY_OFFSET_SCALE;
+                    
+                    if(DRAW_SKY) {
+                        if (this.step == 0) {
+                            //clear whole screen and draw full sea
+                            ctx.clearRect(0,0, c.width, c.height);
+                            ctx.drawImage(img, 0, skyYPos);
+                        } else {
+                            // clear and draw right half only
+                            ctx.clearRect(c.width/2, 0, c.width, c.height);
+                            ctx.drawImage(img, 
+                                          c.width/2, 0, 
+                                          c.width/2, img.height, 
+                                          c.width/2, skyYPos,
+                                          c.width/2, img.height);
+                        }
                     }
-                    $('#sky-right').css('background-position-y', skyOffsetY + 'px');
-                    
-                    
                     
                     var sunRelAng = this.sunElevation - skyAngle;
                     var sunHeight = sunRelAng * SKY_BACKGROUND_SCROLL_RATE + $('#sun').height()/2;
@@ -351,16 +354,24 @@ define([
                         console.log('sunHeight: ', sunHeight);
                     }
                     
-                    $('#sun').css('bottom', sunHeight + 'px');
+                    var sunimg = $('#sun-img')[0];
+                    
+                    sunYPos = SUN_OFFSET - SKY_OFFSET_SCALE * sunHeight;
+                    console.log('sunrelang', sunRelAng);
+                    console.log('sunYPos', sunYPos);
+                    
+                    if(SUN_X == 0) {
+                        SUN_X = c.width * 0.5;
+                    }
+                    
+                    ctx.drawImage(sunimg, SUN_X, SUN_Y || sunYPos);
+                    
                 }
                 
                 //Attempt to scan left/right a little. Doesn't work well, as roll adds to gamma.
                 // If we can use something like FullTilt to transform the orientations so that they are based around
                 // device being upright, rather than device being flat, this may be worth reinstating.
                 // Applying such a transform would also hopefully alleviate the 'pop' at alpha ~= 90 when the device is rolled slightly
-
-                //var skyOffsetX = this.currentDeviceOrientation.gamma * SKY_BACKGROUND_SCROLL_RATE + 500;
-                //$('#sky').css('background-position-x', skyOffsetX + 'px');
             },
             
             updateOrientationFromMotion: function () {
@@ -371,7 +382,8 @@ define([
                 };
                 // on (most?) android devices the gravity.z value is positive when holding the device face up
                 // check the gravity.z when the values are read for the first time, if it is positive it will be inverted
-                if(device && device.platform.toLowerCase() === "android") {
+                
+                if(typeof(device) !== 'undefined' && device.platform.toLowerCase() === "android") {
                   if (this.deviceInitialMotionZPositive == null) {
                     this.deviceInitialMotionZPositive = (gravity.z > 0) ? true : false ;
                   }
@@ -385,16 +397,14 @@ define([
                 angleRad = Math.PI - angleRad;
                                 
                 var angleDeg = angleRad * 180/Math.PI;
-                
+                this.lowPassResults = (.1 * angleDeg) + (.9 * this.lowPassResults);
                 if(LOG_NEXT_EV) {
-                    // console.log(ev.originalEvent);
-                    
                     console.log('gravity: ', gravity);
                     console.log('angle: ', angleDeg);
                     LOG_NEXT_EV = false;
                 }
                 
-                this.currentDeviceAngle = angleDeg - 90;
+                this.currentDeviceAngle = this.lowPassResults - 90;
             },
             
             showHorizonIndicator: function () {
@@ -434,6 +444,13 @@ define([
                         }
                     }.bind(this));
                 }
+                
+                //now further clip the canvas to only draw the right hand side
+                var $canvas = $('#sky-canvas');
+                var c = $canvas[0];
+                var ctx = c.getContext('2d');
+                ctx.rect(c.width/2, 0, c.width/2, c.height);
+                ctx.clip();
             },
             
             imageBlackToTransparent: function (uri) {
@@ -544,7 +561,6 @@ define([
                 var mirror2x = MIRROR_2_X * canvas.width;
                 var mirror2y = MIRROR_2_Y * canvas.height;
                 
-                // var sunAngleRad = angle * Math.PI/180;
                 var dirX = mirror2x - (sunDist-25) * Math.cos(sunAngleMeasuredRad);
                 var dirY = mirror2y - (sunDist-25) * Math.sin(sunAngleMeasuredRad);
 
@@ -553,9 +569,6 @@ define([
                 ctx.moveTo(eyex, mirror1y);
                 ctx.lineTo(mirror1x, mirror1y);
                 ctx.lineTo(mirror2x, mirror2y);
-                // ctx.lineTo(dirX, dirY);  //now part of the image, as rotation v slow.
-                                    
-                // ctx.strokeStyle.width = 5;
                 ctx.strokeStyle="#aa0000";
                 ctx.lineWidth = 1;
                 ctx.stroke();
@@ -629,9 +642,6 @@ define([
                 //latitude in oxford
                 var latitudeDeg = params.lat || 51.7520;
                 var latitudeRad = latitudeDeg * Math.PI / 180;
-                                
-                //declination
-                //declination = -23.44 * cos[ 36/365 * (N+10)]
                 
                 //get days since jan the first
                 var today = params.date || moment();

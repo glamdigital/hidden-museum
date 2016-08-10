@@ -37,11 +37,16 @@ define([
                 if (params.hasOwnProperty('onFinalFrame') && typeof params.onFinalFrame === 'function') {
                     this.onFinalFrame = params.onFinalFrame;
                 }
-                
+
+                this.isAndroid = (typeof(device) !== 'undefined') &&   (device.platform == 'Android' || device.platform == 'amazon-fireos');
+                this.videoPath = this.isAndroid ? 'file:///android_asset/www/video/' : ''
+                var videoFile = params.videoPath || ''
+                this.videoPath = this.videoPath + videoFile;
                 this.templateData = {
                     imagePath: params.imagePath || '',
-                    videoPath: params.videoPath || '',
-                    orientation: this.orientationMode
+                    videoPath: this.videoPath,
+                    orientation: this.orientationMode,
+                    isAndroid: this.isAndroid,
                 };
                 this.playImmediately = params.playImmediately;
             },
@@ -94,8 +99,9 @@ define([
                 'click .video-player video': 'transportTogglePlay',
                 'click .video-player .transport-controls .play': 'transportPlay',
                 'click .video-player .transport-controls .pause' : 'transportPause',
-                'click .video-player .transport-controls .restart' : 'transportRestart'
-            },
+                'click .video-player .transport-controls .restart' : 'transportRestart',
+                "click #android-video-overlay": "transportPlay",
+          },
             
             transportTogglePlay: function (event) {
                 var video = $('.video-player video')[0];
@@ -109,10 +115,15 @@ define([
             },
             
             transportPlay: function (event) {
-                // console.log('Play pressed');
-                
+              if (this.isAndroid) {
+                $("#android-video-overlay").hide();
+                VideoPlayer.play(this.videoPath);
+                setTimeout(this.onVideoEnded.bind(this), 2000);
+              } else {
                 var video = $('.video-player video')[0];
                 video.play();
+              }
+
             },
             
             transportPause: function (event) {
@@ -131,6 +142,7 @@ define([
             },
             
             onVideoEnded: function (event) {
+                console.log("onVideoEnded");
                 this.onFinalFrame();
             },
             
