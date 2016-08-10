@@ -134,7 +134,9 @@ define([
                 this.clickSound = mediaUtil.createAudioObj('audio/sextant/click.mp3');
                 this.oceanSound = mediaUtil.createAudioObj('audio/sextant/ocean.mp3');
                 this.turnPageSound = mediaUtil.createAudioObj('audio/sextant/turn_page.mp3');
-                window.ga.trackEvent('Interactive', 'Start', 'Sextant')
+                if (window.ga) {
+                  window.ga.trackEvent('Interactive', 'Start', this.model.get("title"))
+                }
             },
                         
             afterRender: function () {
@@ -251,7 +253,9 @@ define([
                           this.showMessage();
                     case 3:
                         setTimeout(function () {
-                          window.ga.trackEvent('Interactive', 'Finish', 'Sextant')
+                          if (window.ga) {
+                            window.ga.trackEvent('Interactive', 'Finish', this.model.get("title"))
+                          }
                           this.step = 0;
                           Backbone.history.navigate('#/interact/' + this.item.attributes.slug + '/' + this.item.attributes.type + '/1');
                         }.bind(this), 522);
