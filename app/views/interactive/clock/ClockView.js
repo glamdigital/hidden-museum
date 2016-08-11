@@ -92,6 +92,9 @@ define([
 
             this.overlayInitialize({ displayOnArrival: true});
             this.overlaySetTemplate(interactiveInnerTemplate, this.model.toJSON());
+            if (window.ga) {
+              window.ga.trackEvent('Interactive', 'Viewed', this.model.get("title"))
+            }
         },
 
         afterRender: function() {

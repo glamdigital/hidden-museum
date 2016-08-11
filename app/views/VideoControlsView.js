@@ -41,6 +41,7 @@ define([
                 this.isAndroid = (typeof(device) !== 'undefined') &&   (device.platform == 'Android' || device.platform == 'amazon-fireos');
                 this.videoPath = this.isAndroid ? 'file:///android_asset/www/video/' : ''
                 var videoFile = params.videoPath || ''
+                this.videoFileName = params.videoPath;
                 this.videoPath = this.videoPath + videoFile;
                 this.templateData = {
                     imagePath: params.imagePath || '',
@@ -49,6 +50,12 @@ define([
                     isAndroid: this.isAndroid,
                 };
                 this.playImmediately = params.playImmediately;
+                if (this.isAndroid) {
+                  // on android we can't detect if a video ends. So a "Play" event is added instead of start
+                  window.ga.trackEvent('Video', 'Android: Play', this.videoFileName)
+                } else {
+                  window.ga.trackEvent('Video', 'Start', this.videoFileName)
+                }
             },
             
             afterRender: function () {
@@ -59,7 +66,7 @@ define([
                 
                 var jVideo = $('.video-player video');
                 
-                jVideo.on('ended',   this.onVideoEnded.bind(this));
+                jVideo.on('ended',   this.onJVideoEnded.bind(this));
                 jVideo.on('pause',   this.onPause.bind(this));
                 jVideo.on('play',    this.onPlay.bind(this));
                 jVideo.on('playing', this.onPlay.bind(this));
@@ -140,9 +147,13 @@ define([
                 video.currentTime = 0;
                 video.play();
             },
+            onJVideoEnded: function (event) {
+                // this only happens on iOS: if jVideo finishes track google-analytics event
+                window.ga.trackEvent('Video', 'Finish', this.videoFileName)
+                this.onVideoEnded();
+            },
             
             onVideoEnded: function (event) {
-                console.log("onVideoEnded");
                 this.onFinalFrame();
             },
             

@@ -158,6 +158,10 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             this.humSound = mediaUtil.createAudioObj('audio/marconi/charging.mp3');
             
             this.listenTo(this.overlayView, 'overlayDismissed', this.onOverlayDismissed.bind(this));
+            this.sentGAFinish = false;
+            if (window.ga) {
+              window.ga.trackEvent('Interactive', 'Finish', this.model.get("title"))
+            }
         },
         afterRender: function() {
             $('#controls').hide();
@@ -270,7 +274,12 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
                         .pop()
                     .pop()
                 .end();
-
+            if (window.ga) {
+              if (!this.sentGAFinish) {
+                this.sentGAFinish = true;
+                window.ga.trackEvent('Interactive', 'Start', this.model.get("title"))
+              }
+            }
         },
 	    cleanup: function() {
             if (typeof ble !== 'undefined') {

@@ -37,6 +37,10 @@ define([
                 //sounds
                 this.chalkSound = mediaUtil.createAudioObj('audio/blackboard_gallery/chalk.mp3');
                 this.shortChalkSound = mediaUtil.createAudioObj('audio/blackboard_gallery/short_chalk.mp3');
+                this.sentGAFinish = false;
+                if (window.ga) {
+                  window.ga.trackEvent('Interactive', 'Start', this.model.get("title"))
+                }
             },
 
             serialize: function () {
@@ -51,10 +55,16 @@ define([
                   items:1,
                   loop:false,
                   dots:true,
-                  onDrag: function () {
+                  onDrag: function (ev,ev2,ev3) {
                     this.shortChalkSound.setTime(0);
                     this.shortChalkSound.play();
-                  }.bind(this)
+                    if (window.ga) {
+                      if ( (!this.sentGAFinish) && ev.item.count - ev.item.index == 2) {
+                        this.sentGAFinish = true;
+                        window.ga.trackEvent('Interactive', 'Finish', this.model.get("title"))
+                      }
+                    }
+                  }.bind(this),
                 });
                 
                 var scrollContainerHeight = $('.content').height() - $('.thumbnail').height() - $('.owl-dots').height();
