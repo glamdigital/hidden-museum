@@ -67,7 +67,10 @@ define([
                 this.playRatchetAudio = _.bind(_.throttle(function(){
                     this.ratchetSound.play();
                 }, 300),this);
-                
+                this.sentGAFinish = false;
+                if (window.ga) {
+                  window.ga.trackEvent('Interactive', 'Start', this.model.get("title"))
+                }
             },
 
             resetState: function() {
@@ -167,7 +170,12 @@ define([
                             
                         case 'fallen':
                             //prepare for exit
-                            
+                            if (window.ga) {
+                              if (!this.sentGAFinish) {
+                                this.sentGAFinish = true;
+                                window.ga.trackEvent('Interactive', 'Finish', this.model.get("title"))
+                              }
+                            }
                             //animate the drop after a half second wait
                             _.delay(_.bind(function() {
 
