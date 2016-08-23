@@ -6,6 +6,7 @@ $paragraphHeight: 140px;
     background: url(../img/objects/armillary/lodestone-bg.jpg);
     background-size: cover;
     p {
+        color: $mapColor;
         padding: 20px;
         margin: 0;
         line-height: 1.5em;
