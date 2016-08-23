@@ -198,7 +198,9 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             $('#header').hide();
         },
         wirelessButtonHandler: function(ev) {
-            this.wirelessButtonClicks++;
+            if (ev && ev.type == "click") {
+              this.wirelessButtonClicks++;
+            }
             if (this.wirelessButtonClicks > 5) {
               $("#warning-message").html("You pressed the button 5 times. If you are not hearing a bell then something might be wrong with the exhibit.");
               $("#full-screen-warning").show();
@@ -218,7 +220,6 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             clearTimeout(this.transmitTimer);
             this.stopChargingAnimation();
         },
-        // you pressed the button 10 times . if you are not hearing a sound the something might be wrong with the exhibit
         scanErrorCallback: function() {
             console.log("BLE Failure" + this);
             if (this.scanErrors < 2) {
