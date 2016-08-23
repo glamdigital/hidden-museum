@@ -105,7 +105,7 @@ define([
                      
                     "<li>Watch for the reflected sun image</li>" + 
                     
-                    "<li>Line sun up with the horizon line</li>" + 
+                    "<li>Line the sun up with the horizon line</li>" + 
                     "<li>Press the 'Angle of the Sun' button</li>" + 
                     "</ol>",
                     
