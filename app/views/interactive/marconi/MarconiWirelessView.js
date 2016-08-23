@@ -202,7 +202,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
               this.wirelessButtonClicks++;
             }
             if (this.wirelessButtonClicks > 5) {
-              $("#warning-message").html("You pressed the button 5 times. If you are not hearing a bell then something might be wrong with the exhibit.");
+              $("#warning-message").html("You pressed the button 5 times. If you are not hearing a bell then something may be wrong with the exhibit.");
               $("#full-screen-warning").show();
               this.wirelessButtonClicks = 0;
             } else {
@@ -229,7 +229,7 @@ define(["backbone", "hbs!app/templates/interactive/marconiWireless", "app/mixins
             else {
                 this.scanErrors = 0;
                 this.stopChargingAnimation();
-                $("#warning-message").html("This exhibit doesn't work right now. Try again later.");
+                $("#warning-message").html("This exhibit might not be working right now. Please ensure you have Bluetooth enabled and are standing near the Marconi display.");
                 $("#full-screen-warning").show();
             }
         },
