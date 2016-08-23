@@ -84,6 +84,10 @@ $innerBorder: 20px;
     .museum-logo {
       text-align: center;
       padding-top: 15%;
+      @media #{$phone_vsmall} {
+        padding-top: 0%;
+      }
+
       img {
         width: 268px;
         height: auto;
@@ -93,6 +97,9 @@ $innerBorder: 20px;
     .oxford-logo {
       text-align: center;
       padding-top: 10%;
+      @media #{$phone_vsmall} {
+        padding-top: 5%;
+      }
       img {
         width: 90px;
         height: auto;
@@ -126,13 +133,13 @@ $innerBorder: 20px;
     
     @media #{$phone_small} {
       div {
-        max-height: 160px;
+        max-height: 240px;
         overflow-y: scroll;
       }
     }  
     @media #{$phone_vsmall} {
       div {
-        max-height: 130px;
+        max-height: 180px;
         overflow-y: scroll;
       }
     }
