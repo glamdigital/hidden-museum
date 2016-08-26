@@ -34,9 +34,15 @@ define([
             this.model.set({
                 angle: 0
             });
-            this.listenTo(this.model, 'change', _.bind(function(){
-                this.setAngle(this.model.attributes.angle);
-            }, this));
+            // this.listenTo(this.model, 'change', _.bind(function(){
+            //     this.setAngle(this.model.attributes.angle);
+            // }, this));
+            setInterval(
+              _.bind(function(){
+                  this.setAngle(this.model.attributes.angle);
+              }, this)
+            , 100);
+            
             this.oneWay = !!params.oneWay;
 
         },
@@ -49,6 +55,7 @@ define([
         },
 
         afterRender: function() {
+          console.log("afterRender");
             //determine pivot coordinates
             var $img = this.$el.find('.handle');
             
@@ -88,6 +95,7 @@ define([
         },
 
         setAngle: function(angle, duration) {
+          console.log("setAngle");
             duration = duration || 0;
             if(this.useCanvas) {
                 //todo redraw
