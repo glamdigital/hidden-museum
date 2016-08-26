@@ -34,7 +34,7 @@ define([
             this.model.set({
                 angle: 0
             });
-            if (device.platform == "Android") {
+            if(typeof(device) !== 'undefined' && device.platform.toLowerCase() === "android") {
               this.updateAngleInterval = setInterval(
                 _.bind(function(){
                     this.setAngle(this.model.attributes.angle);
@@ -58,7 +58,6 @@ define([
         },
 
         afterRender: function() {
-          console.log("afterRender");
             //determine pivot coordinates
             var $img = this.$el.find('.handle');
             
@@ -89,7 +88,7 @@ define([
             
             var $hr10 = $('#ten-hr');
             $hr10.height($hr10.width());
-            if (!device.platform == "Android") {
+            if(typeof(device) !== 'undefined' && device.platform.toLowerCase() !== "android" || typeof(device) === 'undefined') {
               _.defer(function () {
                 _.delay(function () {
                     this.setAngle(this.model.attributes.angle);
@@ -99,7 +98,6 @@ define([
         },
 
         setAngle: function(angle, duration) {
-          console.log("setAngle");
             duration = duration || 0;
             if(this.useCanvas) {
                 //todo redraw
@@ -135,7 +133,7 @@ define([
         },
 
         handleTouchStart: function(ev) {
-            if (!device.platform == "Android") {
+            if(typeof(device) !== 'undefined' && device.platform.toLowerCase() === "android") {
               // on some android devices the touchmove event is only triggered once
               ev.preventDefault();
             }
@@ -214,8 +212,7 @@ define([
                 }
                 
                 this.model.trigger('force-change', this.model);
-                
-                if (!device.platform == "Android") {
+                if(typeof(device) !== 'undefined' && device.platform.toLowerCase() !== "android" || typeof(device) === 'undefined') {
                   this.setAngle(this.model.attributes.angle);
                 }
 
@@ -233,7 +230,7 @@ define([
         },
 
         cleanup: function() {
-          if (device.platform == "Android") {
+          if(typeof(device) !== 'undefined' && device.platform.toLowerCase() === "android") {
             clearInterval(this.updateAngleInterval);
           }
         }
