@@ -4,15 +4,20 @@
 define([
         'backbone',
         'app/media',
+        'moment',
         'hbs!app/templates/interactive/digitalClock'
             ], function(
         Backbone,
         mediaUtil,
+        moment,
         digitalClockTemplate
     ) {
 
+   MINSMULTIPLIER = 2;
+   
    var DigitalClockView = Backbone.View.extend( {
        template: digitalClockTemplate,
+       
 
        initialize: function() {
            //this.listenTo(this.model, 'change', this.render);
@@ -20,6 +25,10 @@ define([
            //listen for touch start/end events anywhere.
            this.soundMinutes = 0;
            this.numTouches = 0;
+           
+           this.intervalTime = null;
+           this.touchStopped = false;
+           
            this.decreaseInterval = null;
            this.increaseInterval = null;
            this.updateTime = _.bind(this._updateTime, this);
@@ -68,14 +77,35 @@ define([
            "click .decrease-time": "decreaseTime"
        },
 
+       getTimeDiff: function () {
+         var nowTime = moment();
+         var diffDigitalMillisecs = 60;
+         
+         if  (this.touchStopped) {
+           // getTimeDiff is executed once more after the onTouchEnd event because of the intervalTime.
+           // In this execution the intervalTime is set to null so that the next time a (+-) button is pressed
+           // we get a new intervalTime. Otherwise the difference is calculated between the time of this touch and the previous touch
+           this.touchStopped = false;
+           this.intervalTime = null;
+         } else {
+           if (this.intervalTime != null) {
+             diffDigitalMillisecs = MINSMULTIPLIER * ( nowTime.diff(this.intervalTime, "milliseconds"));
+           }
+           this.intervalTime = nowTime;
+         }
+         return (diffDigitalMillisecs);
+       },
+       
        increaseTime: function() {
-           this.model.attributes.time.add(1, 'minute');
+           var addedDigitalSecs = this.getTimeDiff();
+           this.model.attributes.time.add(addedDigitalSecs, 'seconds');
            this.model.trigger('change', this);
            this.playClockSounds();
        },
 
        decreaseTime: function() {
-           this.model.attributes.time.subtract(1, 'minute');
+           var addedDigitalSecs = this.getTimeDiff();
+           this.model.attributes.time.subtract(addedDigitalSecs, 'seconds');
            this.model.trigger('change', this);
            this.playClockSounds();
        },
@@ -107,6 +137,7 @@ define([
            this.increasing = this.decreasing = false;
            this.numTouches--;
 
+           this.touchStopped = true;
            clearInterval(this.increaseInterval);
            this.increaseInterval = null;
            clearInterval(this.decreaseInterval);
