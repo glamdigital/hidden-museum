@@ -34,9 +34,18 @@ define([
             this.model.set({
                 angle: 0
             });
-            this.listenTo(this.model, 'change', _.bind(function(){
-                this.setAngle(this.model.attributes.angle);
-            }, this));
+            if(typeof(device) !== 'undefined' && device.platform.toLowerCase() === "android") {
+              this.updateAngleInterval = setInterval(
+                _.bind(function(){
+                    this.setAngle(this.model.attributes.angle);
+                }, this)
+              , 100);
+            } else {
+              this.listenTo(this.model, 'change', _.bind(function(){
+                  this.setAngle(this.model.attributes.angle);
+              }, this));
+            }
+            
             this.oneWay = !!params.oneWay;
 
         },
@@ -79,12 +88,13 @@ define([
             
             var $hr10 = $('#ten-hr');
             $hr10.height($hr10.width());
-            
-            _.defer(function () {
-              _.delay(function () {
-                  this.setAngle(this.model.attributes.angle);
-              }.bind(this),500);
-            }.bind(this));
+            if(typeof(device) !== 'undefined' && device.platform.toLowerCase() !== "android" || typeof(device) === 'undefined') {
+              _.defer(function () {
+                _.delay(function () {
+                    this.setAngle(this.model.attributes.angle);
+                }.bind(this),500);
+              }.bind(this));
+            }
         },
 
         setAngle: function(angle, duration) {
@@ -123,6 +133,10 @@ define([
         },
 
         handleTouchStart: function(ev) {
+            if(typeof(device) !== 'undefined' && device.platform.toLowerCase() === "android") {
+              // on some android devices the touchmove event is only triggered once
+              ev.preventDefault();
+            }
             //just consider touch 0
             //This may behave unpredictably for multiple touches
             var touch = ev.originalEvent.changedTouches[0];
@@ -198,9 +212,9 @@ define([
                 }
                 
                 this.model.trigger('force-change', this.model);
-
-                this.setAngle(this.model.attributes.angle);
-
+                if(typeof(device) !== 'undefined' && device.platform.toLowerCase() !== "android" || typeof(device) === 'undefined') {
+                  this.setAngle(this.model.attributes.angle);
+                }
 
                 this.touchPrevPos = touchPos;
                 ev.stopPropagation();
@@ -214,6 +228,13 @@ define([
         handleTouchEnd: function(ev) {
             //no longer handling touches
         },
+
+        cleanup: function() {
+          if(typeof(device) !== 'undefined' && device.platform.toLowerCase() === "android") {
+            clearInterval(this.updateAngleInterval);
+          }
+        }
+
     });
 
     return HandleView;

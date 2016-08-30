@@ -293,6 +293,10 @@ define([
 
         cleanup: function() {
             this.sphereView.remove();
+            this.twentyFourHourClockMinuteHandView.remove();
+            this.twentyFourHourClockHourHandView.remove();
+            this.tenHourClockView.remove();
+            this.digitalClockView.remove();
             this.overlayCleanup();
         },
 
