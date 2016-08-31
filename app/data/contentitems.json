@@ -388,7 +388,7 @@
     "type": "blackboard-ir",
     "image": "blackboard.jpeg",
     "IRTargetImage": "blackboard_sketch.png",
-    "IRTargets": ["blackboard1", "blackboard2", "blackboard3", "blackboard4"],
+    "IRTargets": ["blackboard1", "blackboard2", "blackboard3", "blackboard4", "bb_1", "bb_2", "bb_3", "bb_4", "bb_5", "bb_6", "bb_7", "bb_8", "bb_9", "bb_10", "bb_11", "bb_12", "bb_13", "bb_14", "bb_15", "bb_16", "bb_17", "bb_18", "bb_19"],
     "BGColor": {"R":183, "G":108, "B":97},
     "audio": "",
     "audio_duration": "",
