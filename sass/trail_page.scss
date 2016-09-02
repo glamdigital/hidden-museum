@@ -59,7 +59,9 @@
       background-color: red;
     }
   }
-    
+  .trail-content {
+      transition: height 100ms ease-out;
+  }
   .trail-floorplan {
     width: 100%;
     margin-bottom: -4px;

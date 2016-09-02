@@ -13,6 +13,7 @@ define([
 			
 			var trailTitleHeight = 45;
 			var trailTitlePadding = 10;
+			var trailContentHeight = contentHeight - 3*(trailTitleHeight) - 4;
 			
 			var itemHeight = contentHeight - mapHeight - 3*(trailTitleHeight);
 			//set height params for each item
@@ -29,7 +30,7 @@ define([
 						return <div key={trail.slug} id={trail.slug} className="trail-container">
 							<h2 id={"trail-title-" + trail.slug} className="trail-title" style={{height:trailTitleHeight, padding:trailTitlePadding}}>{trail.title} 
 							<span className="active-fa">{trail.current ? <i className="fa fa-chevron-down"></i> : <i className="fa fa-chevron-right"></i>}</span></h2>
-							<div className="trail-content" style={{display: trail.current ? 'block':'none'}}>
+							<div className="trail-content" style={{height: trail.current ? trailContentHeight + 'px':'0px', overflow:'hidden'}}>
 								<div className="trail-floorplan" id={"floorplan-" + trail.slug} style={{height: mapHeight}}>
 									<img className="floorpan" src={"img/" + trail.map} />
 									{	trail.topics.map(function (topic, i) {
