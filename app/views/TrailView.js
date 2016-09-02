@@ -32,7 +32,7 @@ define([
                 //beacon data
                 this.beaconsDict = {
                 };
-                
+                    
                 //store the index for each object within its own gallery
                 this.trails.each(_.bind(function(trail) {
                     var topics = trail.topics;
@@ -52,22 +52,8 @@ define([
             },
             
             afterRender: function() {
-                //position the map markers
-                this.trails.each(function (trail) {
-                    var $trailMap = $('#floorplan-' + trail.attributes.slug);
-                    $trailMap.height(360/750 * $('.content').width() + 4);
+                // this.doAccordianMagic(0);
 
-                    //position markers
-                    trail.topics.each(function (topic) {
-                        var $marker = $('#map-marker-' + topic.attributes.slug);
-                        var top = $trailMap.height() * topic.attributes.mapY;
-                        $marker.css('top', top + 'px');
-                        var left = $trailMap.width() * topic.attributes.mapX;
-                        $marker.css('left', left + 'px');
-                    });
-                });
-                this.doAccordianMagic(0);
-                this.adjustHeights();
                 preloadImages.preload("trail");
             },
 
@@ -107,11 +93,13 @@ define([
                 var selectedTrail = this.trails.findWhere({'id':slug});
                 if (selectedTrail != this.selectedTrail) {
                     this.selectedTrail = selectedTrail;
-                    this.doAccordianMagic(200);
+                    // this.doAccordianMagic(200);
                 }
-                $(".active-fa").html("<i class='fa fa-chevron-right'></i>");
-                $("#"+this.selectedTrail.get("id")+" .active-fa").html("<i class='fa fa-chevron-down'></i>");
+                // $(".active-fa").html("<i class='fa fa-chevron-right'></i>");
+                // $("#"+this.selectedTrail.get("id")+" .active-fa").html("<i class='fa fa-chevron-down'></i>");
                 window.session.currentTrail = selectedTrail;
+                
+                this.render();
             },
             
             doAccordianMagic: function(duration) {
