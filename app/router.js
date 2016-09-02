@@ -156,10 +156,11 @@ define([
                 ////create intro view
                 var view = new TrailView({
                     trails: window.allTrails,
-                    selectedTrail: window.session.currentTrail
+                    selectedTrail: window.session.currentTrail,
+                    el: $('#content')
                 });
                 
-                this.contentView.setView(view);
+                // this.contentView.setView(view);
                 view.render();
                 
                 //set links

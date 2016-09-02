@@ -1,22 +1,28 @@
 define([
         "backbone",
+        "app/views/ReactView",
         "underscore",
         "app/models/Trail",
         "hbs!app/templates/trail",
+        "jsx!app/components/trail",
         "app/preloadImages",
         "app/mixins/overlay"
     ], function(
       Backbone,
+      ReactView,
       _,
       Trail,
       trail,
+      trailComponent,
       preloadImages,
       overlayMixin
         ) {
           
-        var TrailView = Backbone.View.extend({
+        var TrailView = ReactView.extend({
             
             template: trail,
+            
+            component: trailComponent,
             
             initialize: function(params) {
                 this.trails = params.trails;
