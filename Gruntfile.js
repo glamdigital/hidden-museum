@@ -90,6 +90,42 @@ module.exports = function(grunt) {
     qunit: {
       files: ['test/**/*.html']
     },
+    concurrent: {
+      options: {
+        logConcurrentOutput: true
+      },
+      startServerWatch: {
+        tasks: ["wait:develRunAndroid", "wait:develRunIos","shell:hcpserver", "watch:styles", "watch:appfiles"]
+      }
+    },
+    wait: {
+      develRunAndroid: {      
+          options: {
+              delay: 6000,
+              after : function() {
+                  grunt.task.run('develrun:android');
+              }
+          }
+      },
+      develRunIos: {      
+          // options: {
+          //     delay: 2000,
+          //     after : function() {
+          //         grunt.task.run('develrun:ios');
+          //     }
+          // }
+      }
+    },
+    watchfiles: {
+        all: [
+            // 'www/{,*/}*.html',
+            // 'www/js/{,*/,*/}*.js',
+            // 'www/css/{,*/}*.css',
+            // 'www/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          'sass/*.scss'
+        ]
+    },
+
     watch: {
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
@@ -98,6 +134,17 @@ module.exports = function(grunt) {
       lib_test: {
         files: '<%= jshint.lib_test.src %>',
         tasks: ['jshint:lib_test', 'qunit']
+      },
+      appfiles: {
+        files: [
+            'app/**/*',
+            'css/*',
+        ],
+        tasks: ['copy:devel']
+      },
+      styles: {
+        files: ['<%=watchfiles.all %>'],
+        tasks: ['compass']
       }
     },
     "phonegap-build": {
@@ -260,6 +307,15 @@ module.exports = function(grunt) {
           
           
 	  },
+    shell: {
+      hcpserver: {
+        command: 'cordova-hcp server',
+        options: {
+          stderr: true,
+          stdout: true
+        }
+      },
+    },
 	  copy: {
         main: {
             files: [
@@ -296,6 +352,24 @@ module.exports = function(grunt) {
 	            }
             ]
         },
+        devel: {
+          files: [
+            {   expand: true,
+                src: ["app/**",
+                    "img/**",
+                    "audio/**",
+                    "video/**",
+                    "css/**",
+                    "fonts/**",
+                    "targets/**"
+                    ],
+                dest: "www" },
+            {   src: ["require.config.js"],
+                dest: "www/require.config.js" },
+            {   src: ["index.html"],
+                dest: "www/index.html" }
+          ]
+        }
     },
   });
 
@@ -314,6 +388,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-cordovacli');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-concurrent');
+  grunt.loadNpmTasks('grunt-shell');
+  grunt.loadNpmTasks('grunt-wait');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
 
   grunt.registerTask('package', 'Process all source files and zip to app.zip', ['requirejs', 'compass', 'compress']);
@@ -325,7 +403,7 @@ module.exports = function(grunt) {
     grunt.config.set('phonegap-build.options.user', { token: token });
     grunt.task.run('phonegap-build');
   });
-  grunt.registerTask('packageLocal', 'prepares for local build by compiling js/css and copying assets across', ['requirejs', 'compass', 'clean', 'copy']);
+  grunt.registerTask('packageLocal', 'prepares for local build by compiling js/css and copying assets across', ['requirejs', 'compass', 'clean', 'copy:main']);
 
 	//grunt localbuild:<ios|android>
   grunt.registerTask('localbuild', "Runs the appropriate pre-build steps then invokes cordova's build command", function(arg) {
@@ -353,6 +431,24 @@ module.exports = function(grunt) {
   
   grunt.registerTask('plugins', 'cordovacli:add_plugins');
   grunt.registerTask('platforms', 'cordovacli:add_platforms');
-  grunt.registerTask('setup', ['cordovacli:add_platforms', 'cordovacli:add_plugins', 'copy:schema'] );
+  grunt.registerTask('setup', ['cordovacli:add_platforms', 'cordovacli:add_plugins'] );
+
+
+  grunt.registerTask('devel', "Copy app folder to www. Start the hot-push server. Watch for changes in the App folder", function(arg) {
+     grunt.task.run('compass');
+     grunt.task.run('clean');
+     grunt.task.run('copy:devel');
+     grunt.task.run('concurrent:startServerWatch');
+  });
+
+  grunt.registerTask('develrun', "Run the app on the device, listen to hot-push server for changes", function(arg) {
+    if (!arg) { arg='android'; }
+    grunt.task.run('cordovacli:'+ arg + '_r');
+  });
+  
+  // to use the hot-code-push plugin
+  // grunt devel-> compass, copy app and css files to www, start the server, start the clients
+  // grunt develrun:android-> start android client
+  // grunt develrun:ios-> start ios client
 
 };

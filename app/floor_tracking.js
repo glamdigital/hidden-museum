@@ -6,7 +6,7 @@ define([
         'app/logging',
         'backbone',
         'underscore',
-        'app/models/trail',
+        'app/models/Trail',
         'app/views/UserPromptView'
     ],
     

@@ -1,4 +1,4 @@
-define(["backbone", "app/collections/topicsCollection"], function(Backbone, TopicsCollection) {
+define(["backbone", "app/collections/TopicsCollection"], function(Backbone, TopicsCollection) {
 
   // Get all topics. Each Trail will build its own collection of topics which belong to it.
   window.allTopics = new TopicsCollection();
