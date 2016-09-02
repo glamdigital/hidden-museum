@@ -124,9 +124,10 @@ define([
 
             trails: function() {
                 var view = new TrailsView({
-                    trails:window.allTrails
+                    trails:window.allTrails,
+                    el: $('#content'),
                 });
-                this.contentView.setView(view);
+                // this.contentView.setView(view);
                 view.renderIfReady();
                 
                 //set links

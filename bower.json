@@ -32,7 +32,10 @@
     "requirejs": "~2.1.15",
     "three.js": "~0.72.0",
     "underscore": "~1.7.0",
-    "victor": "~1.1.0"
+    "victor": "~1.1.0",
+    "jsx-requirejs-plugin": "^0.6.2",
+    "react": "^15.3.1",
+    "text": "^2.0.15"
   },
   "devDependencies": {
     "jasmine": "~2.2.1",

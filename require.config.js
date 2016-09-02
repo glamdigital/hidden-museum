@@ -21,6 +21,11 @@ require.config({
     three: "app/libs/three.js/three",
     owlcarousel: "app/libs/owl.carousel/dist/owl.carousel",
     panzoom: "app/libs/jquery.panzoom/dist/jquery.panzoom",
+    JSXTransformer: "app/libs/jsx-requirejs-plugin/js/JSXTransformer",
+    jsx: "app/libs/jsx-requirejs-plugin/js/jsx",
+    text: "app/libs/text/text",
+    react: "app/libs/react/react-with-addons",
+    'react-dom': "app/libs/react/react-dom"
   },
   packages: [
 
@@ -31,7 +36,12 @@ require.config({
     i18n: false,              // default: false
     templateExtension: 'handlebars', // default: 'hbs'
     partialsUrl: ''           // default: ''
-  }
+  },
+  jsx: {
+    fileExtension: '.jsx'
+  },
+  stubModules: ['jsx', 'text', 'JSXTransformer']
+  
 });
 
 require(['app/main']);

@@ -1,19 +1,25 @@
 define([
   "backbone",
+  "app/views/ReactView",
   "jquery",
   "hbs!app/templates/trails",
+  "jsx!app/components/trails",
   "app/preloadImages",
   "app/mixins/overlay"
 ], function(
   Backbone,
+  ReactView,
   $,
   trailsTemplate,
+  trailsComponent,
   preloadImages,
   overlayMixin
 ) {
 
-  var TrailsView = Backbone.View.extend({
+  // var TrailsView = Backbone.View.extend({
+  var TrailsView = ReactView.extend({
       template: trailsTemplate,
+      component: trailsComponent,
       
       serialize: function() {
         return { trails: this.trails.toJSON() };
@@ -30,7 +36,7 @@ define([
           
           $(window).resize(this.adjustPosition);
           
-          this.overlayInitialize({ displayOnArrival: false });
+        //   this.overlayInitialize({ displayOnArrival: false });
           
           if (window.firstRun) {
             // Permanently clear the firstRun flag.
@@ -85,7 +91,7 @@ define([
       }
   });
   
-  _.extend(TrailsView.prototype, overlayMixin);
+  // _.extend(TrailsView.prototype, overlayMixin);
   
   return TrailsView;
 });

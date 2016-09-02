@@ -1,6 +1,14 @@
-define(['backbone', 'hbs!app/templates/header'], function(Backbone, headerTemplate) {
+define([
+    'backbone',
+    'app/views/BaseView',
+    'hbs!app/templates/header'
+], function(
+    Backbone,
+    BaseView,
+    headerTemplate
+) {
     
-    var HeaderView = Backbone.View.extend({
+    var HeaderView = BaseView.extend({
         template: headerTemplate,
         
         serialize: function() {

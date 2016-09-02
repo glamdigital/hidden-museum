@@ -65,7 +65,7 @@ require([
     //start the location service when the device is ready
     document.addEventListener('deviceready', onReady, false);
     
-    Backbone.Layout.configure({ manage: true });
+    // Backbone.Layout.configure({ manage: true });
     
     //trigger device ready immediately in browser
     if (typeof cordova == 'undefined')
