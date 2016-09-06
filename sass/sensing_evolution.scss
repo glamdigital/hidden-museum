@@ -417,13 +417,6 @@ div.item-title {
       width: 100%;
       position: relative;
       height: $sextantCapturedImageHeight;
-      -webkit-mask-source-type: luminance;
-      mask-image: url(../img/objects/sextant/circle_mask.png);
-      -webkit-mask-image: url(../img/objects/sextant/circle_mask.png);
-      -webkit-mask-position-x: 50%;
-      -webkit-mask-size:$sextantCapturedImageHeight - 10px;
-      -webkit-mask-repeat: no-repeat;
-      clip-path: circle(60px at center);
       
       @media #{$tablet} {
         height: $sextantCapturedImageHeightIpad;
@@ -447,8 +440,12 @@ div.item-title {
         #alignment-indicator {
           position: relative;
           top: 50%;
-          width: 100%;
           border-top: 1px solid red;
+          float: right;
+          width: ($sextantCapturedImageHeight - 10px)/2;
+          @media #{$tablet} {
+            width: ($sextantCapturedImageHeightIpad - 10px)/2;
+          }
         }
       }
       
