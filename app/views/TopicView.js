@@ -1,6 +1,7 @@
 define([
         "backbone",
         "underscore",
+        "app/views/BaseView",
         "app/views/AudioControlsView",
         "app/mixins/overlay",
         "app/preloadImages",
@@ -10,13 +11,14 @@ define([
     function (
             Backbone,
             _,
+            BaseView,
             AudioControlsView,
             overlayMixin,
             preloadImages,
             topicTemplate
         ) {
         
-        var TopicView = Backbone.View.extend({
+        var TopicView = BaseView.extend({
             template: topicTemplate,
             
             serialize: function () {

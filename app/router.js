@@ -179,9 +179,10 @@ define([
                 
                 window.session.currentTopic = topic;
                 var view = new TopicView({
-                    topic: topic
+                    topic: topic,
+                    el: $('#content')
                 });
-                this.contentView.setView(view);
+                // this.contentView.setView(view);
                 view.render();
                 
                 //links

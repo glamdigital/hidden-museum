@@ -1,11 +1,13 @@
 define([
-    'backbone', 
+    'backbone',
+    'app/views/BaseView',
     'app/media',
     'hbs!app/templates/audio_controls'
 ],
 
     function(
-        Backbone, 
+        Backbone,
+        BaseView,
         mediaUtil,
         audioControlsTemplate
     ) {
@@ -20,7 +22,7 @@ define([
 		    return time;
 		}
 
-    var AudioControlsView = Backbone.View.extend({
+    var AudioControlsView = BaseView.extend({
 
         template: audioControlsTemplate,
 
@@ -79,7 +81,9 @@ define([
             if(this.media) {
                 this.media.play();
             }
-            window.ga.trackEvent('Audio', 'Start', this.caption);
+            if(typeof(window.ga) !== 'undefined') {
+                window.ga.trackEvent('Audio', 'Start', this.caption);
+            }
             $('#play-audio', this.$el).hide();
             $('#pause-audio', this.$el).show();
             $('#restart-audio', this.$el).show();
