@@ -24,7 +24,9 @@ define([
         ARM_PIVOT = {x:0.0, y:-0.3};  //rotation centre for the arm as proportion of width, from geometric centre
         
         SKY_BACKGROUND_SCROLL_RATE = 1000/90;
-        SKY_BACKGROUND_OFFSET_TABLET = 1220;
+        SKY_BACKGROUND_OFFSET_TABLET = 700;
+        SKY_BACKGROUND_OFFSET_X_TABLET = 200;
+        
         SKY_BACKGROUND_OFFSET = 555;
         MIN_ANGLE = -33;
         DEFAULT_HORIZON = -10;
@@ -45,6 +47,7 @@ define([
         SKY_OFFSET_0 = 150;
         
         SUN_OFFSET = 0;
+        SUN_OFFSET_TABLET = 100;
         DRAW_SKY = true;
         SUN_X = 0;
         SUN_Y = 0;
@@ -147,8 +150,12 @@ define([
 
                 if (this.$el[0].clientWidth >= 768) {
                   this.sky_background_offset = SKY_BACKGROUND_OFFSET_TABLET;
+                  this.sky_background_offset_x = SKY_BACKGROUND_OFFSET_X_TABLET;
+                  this.sunOffset = SUN_OFFSET_TABLET;
                 } else {
                   this.sky_background_offset = SKY_BACKGROUND_OFFSET;
+                  this.sky_background_offset_x = 0;
+                  this.sunOffset = SUN_OFFSET;
                 }
                 
                 this.setup();
@@ -241,6 +248,7 @@ define([
                         $('#main-button').css('visibility', 'hidden');
                         this.showDiagram();
                         this.hideHorizonIndicator();
+                        $('.ring').css('visibility', 'hidden');
                         $('#captured-image').css("background-image", "none");
                         $target.text("Find Latitude");
                         break;
@@ -333,12 +341,13 @@ define([
                     var img = $('#sky-img')[0];
                     
                     var skyYPos = -img.height + SKY_OFFSET_0 + skyOffsetY*SKY_OFFSET_SCALE;
+                    var skyXPos = this.sky_background_offset_x;
                     
                     if(DRAW_SKY) {
                         if (this.step == 0) {
                             //clear whole screen and draw full sea
                             ctx.clearRect(0,0, c.width, c.height);
-                            ctx.drawImage(img, 0, skyYPos);
+                            ctx.drawImage(img, skyXPos, skyYPos);
                         } else {
                             // clear and draw right half only
                             ctx.clearRect(c.width/2, 0, c.width, c.height);
@@ -360,10 +369,8 @@ define([
                     }
                     
                     var sunimg = $('#sun-img')[0];
-                    
-                    sunYPos = SUN_OFFSET - SKY_OFFSET_SCALE * sunHeight;
-                    console.log('sunrelang', sunRelAng);
-                    console.log('sunYPos', sunYPos);
+                    // SUN_OFFSET
+                    sunYPos = this.sunOffset - SKY_OFFSET_SCALE * sunHeight;
                     
                     if(SUN_X == 0) {
                         SUN_X = c.width * 0.5;
