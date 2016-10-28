@@ -54,7 +54,7 @@
     </platform>
 
     <platform name="ios">
-        
+        <hook type="before_build" src="scripts/appIOSBeforeBuild.js" />
         <splash src="packaging/splash/Default-Portrait~ipad.png" width="768" height="1024"/>
         <splash src="packaging/splash/Default-Portrait@2x~ipad.png" width="1536" height="2048"/>
         <splash src="packaging/splash/Default-736h.png" width="1242" height="2208"/>
